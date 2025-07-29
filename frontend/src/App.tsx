@@ -1,8 +1,13 @@
-import React from 'react';
+import {Route, Routes} from "react-router-dom";
+import Home from "./components/Home.tsx";
 
-function App(props) {
+function App() {
     return (
-        <div></div>
+        <div>
+            <Routes>
+                <Route path="/" element= <Home/> />
+            </Routes>
+        </div>
     );
 }
 
