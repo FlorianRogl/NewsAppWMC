@@ -118,8 +118,8 @@ const Kontakt = () => {
                             <h3>Ing. Andreas Rogl</h3>
                             <p className={styles.executiveTitle}>Geschäftsführer</p>
                             <div className={styles.executiveContact}>
+                                <br/>
                                 <p>📧 andreas.rogl@promax.at</p>
-                                <p>📞 +43 (0) 316 241 393</p>
                             </div>
                         </div>
                     </div>
@@ -135,8 +135,9 @@ const Kontakt = () => {
                             <h3>Ing. Michael Fasching</h3>
                             <p className={styles.executiveTitle}>Geschäftsführer</p>
                             <div className={styles.executiveContact}>
+                                <br/>
                                 <p>📧 michael.fasching@promax.at</p>
-                                <p>📞 +43 (0) 316 241 393</p>
+
                             </div>
                         </div>
                     </div>

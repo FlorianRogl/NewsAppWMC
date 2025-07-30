@@ -1,7 +1,7 @@
 import  { useState, useEffect } from 'react';
 import styles from '../css/Unternehmen.module.css';
 
-const CompanyPage = () => {
+const Unternehmen = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const projects = [
@@ -399,4 +399,4 @@ const CompanyPage = () => {
     );
 };
 
-export default CompanyPage;
+export default Unternehmen;
