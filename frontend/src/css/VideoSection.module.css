@@ -1,0 +1,107 @@
+/* VideoSection.module.css */
+
+.videoSection {
+    width: 100vw;
+    height: 60vh; /* Karussell-ähnliche Höhe */
+    min-height: 400px;
+    margin-top: 70px; /* Platz für die fixed Navbar */
+    margin-left: calc(-50vw + 50%);
+    position: relative;
+    overflow: hidden;
+}
+
+.videoContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #1f2937; /* Fallback für Ladezeit */
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
+    outline: none;
+    display: block;
+}
+
+/* Optional: Overlay für Text über dem Video */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.overlayContent {
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .videoSection {
+        height: 50vh;
+        min-height: 300px;
+        margin-top: 70px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .overlayContent {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .videoSection {
+        height: 40vh;
+        min-height: 250px;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+/* Für bessere Performance */
+@media (prefers-reduced-motion: reduce) {
+    .video {
+        /* Video pausieren bei reduced motion preferences */
+    }
+}
