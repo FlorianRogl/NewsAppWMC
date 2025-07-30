@@ -1,11 +1,15 @@
 import {Route, Routes} from "react-router-dom";
-import Home from "./components/Home.tsx";
+import Homepage from "./components/Homepage/Homepage.tsx";
+import Unternehmen from "./components/Unternehmen.tsx";
+import Kontakt from "./components/Kontakt.tsx";
 
 function App() {
     return (
         <div>
             <Routes>
-                <Route path="/" element= <Home/> />
+                <Route path="/" element= <Homepage/> />
+                <Route path="/Unternehmen" element= <Unternehmen/> />
+                <Route path="/Kontakt" element= <Kontakt/> />
             </Routes>
         </div>
     );
