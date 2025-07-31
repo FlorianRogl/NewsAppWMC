@@ -7,7 +7,7 @@ const VideoSection = () => {
             <div className={styles.videoContainer}>
                 <iframe
                     className={styles.video}
-                    src="https://www.youtube.com/embed/E7pCceDrKmg?autoplay=1&mute=1&loop=1&playlist=E7pCceDrKmg&controls=0&showinfo=0&rel=0&modestbranding=1"
+                    src="https://www.youtube.com/embed/NBvkP_3vVJo?autoplay=1&mute=1&loop=1&playlist=NBvkP_3vVJo&controls=0&showinfo=0&rel=0&modestbranding=1"
                     title="PROMAX Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

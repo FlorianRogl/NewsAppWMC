@@ -1,0 +1,287 @@
+/* CompanySection.module.css */
+
+.companySection {
+    padding: 60px 0; /* Weniger: 120px → 60px */
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: #1E3A5F;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+    opacity: 0;
+    animation: fadeInDown 1s ease-out 0.2s both;
+}
+
+.titleUnderline {
+    width: 120px;
+    height: 5px;
+    background: #E67E22;
+    margin: 0 auto;
+    border-radius: 3px;
+    transform: scaleX(0);
+    animation: scaleInX 0.8s ease-out 0.6s both;
+}
+
+/* Main Content */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    margin-bottom: 4rem;
+    align-items: center;
+}
+
+/* Text Content */
+.textContent {
+    background: white;
+    padding: 4rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    animation: slideInLeft 0.8s ease-out;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.textContent:hover {
+    transform: scale(1.03);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1E3A5F;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+    position: relative;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #E67E22;
+    transition: width 0.4s ease;
+}
+
+.subtitle:hover::after {
+    width: 200px;
+}
+
+.description {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.mission {
+    font-size: 1.05rem;
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.mission strong {
+    color: #E67E22;
+    font-size: 1.1rem;
+}
+
+.expertise {
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.8;
+    margin: 0;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 1.0s both;
+}
+
+/* Image Container */
+.imageContainer {
+    animation: slideInRight 0.8s ease-out 0.2s both;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.imageContainer:hover {
+    transform: scale(1.03);
+}
+
+.companyImage {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s ease;
+}
+
+.imageContainer:hover .companyImage {
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.25);
+    transform: scale(1.02);
+}
+
+/* Scroll Animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleInX {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .content {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+
+    .companyImage {
+        height: 400px;
+    }
+
+    .textContent {
+        padding: 3rem;
+    }
+
+    .title {
+        font-size: 2.8rem;
+    }
+
+    .subtitle {
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .companySection {
+        padding: 80px 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
+    .textContent {
+        padding: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+    }
+
+    .description, .mission, .expertise {
+        font-size: 1.1rem;
+    }
+
+    .companyImage {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        margin-bottom: 3rem;
+    }
+
+    .content {
+        gap: 3rem;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 1.3rem;
+    }
+
+    .description, .mission, .expertise {
+        font-size: 1rem;
+    }
+
+    .textContent {
+        padding: 2rem;
+    }
+
+    .companyImage {
+        height: 300px;
+    }
+}
