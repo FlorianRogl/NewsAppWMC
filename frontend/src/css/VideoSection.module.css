@@ -2,9 +2,9 @@
 
 .videoSection {
     width: 100vw;
-    height: 60vh; /* Karussell-ähnliche Höhe */
-    min-height: 400px;
-    margin-top: 70px; /* Platz für die fixed Navbar */
+    height: 75vh; /* Höher: 60vh → 75vh */
+    min-height: 500px; /* Höher: 400px → 500px */
+    margin-top: 90px; /* Platz für die größere fixed Navbar */
     margin-left: calc(-50vw + 50%);
     position: relative;
     overflow: hidden;
@@ -15,15 +15,20 @@
     width: 100%;
     height: 100%;
     background: #1f2937; /* Fallback für Ladezeit */
+    overflow: hidden;
 }
 
 .video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw; /* 16:9 Aspect Ratio */
+    min-height: 100%;
+    min-width: 177.77vh; /* 16:9 Aspect Ratio */
+    transform: translate(-50%, -50%);
     border: none;
     outline: none;
-    display: block;
 }
 
 /* Optional: Overlay für Text über dem Video */
@@ -38,6 +43,13 @@
     align-items: center;
     justify-content: center;
     z-index: 2;
+    opacity: 1;
+    transition: opacity 1.5s ease-out;
+}
+
+.fadeOut {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .overlayContent {
@@ -66,8 +78,8 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .videoSection {
-        height: 50vh;
-        min-height: 300px;
+        height: 65vh; /* Höher: 50vh → 65vh */
+        min-height: 400px; /* Höher: 300px → 400px */
         margin-top: 70px;
     }
 
@@ -86,8 +98,8 @@
 
 @media (max-width: 480px) {
     .videoSection {
-        height: 40vh;
-        min-height: 250px;
+        height: 55vh; /* Höher: 40vh → 55vh */
+        min-height: 350px; /* Höher: 250px → 350px */
     }
 
     .title {
