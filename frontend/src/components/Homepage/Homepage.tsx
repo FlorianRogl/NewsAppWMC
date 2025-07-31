@@ -1,8 +1,7 @@
-import React from 'react';
 import Navbar from "./Navbar.tsx";
 import VideoSection from "./VideoSection.tsx";
 
-function Homepage(props) {
+function Homepage() {
     return (
         <>
             <Navbar/>
