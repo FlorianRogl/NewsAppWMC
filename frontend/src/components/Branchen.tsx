@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../CSS/brancheCSS.css';
 
-const Branchen: React.FC = () => {
+const Branchen = () => {
     const [showModal, setShowModal] = useState(false);
     const [activeProject, setActiveProject] = useState(0);
 
@@ -30,7 +30,7 @@ const Branchen: React.FC = () => {
                 "3D Anlagen- und Rohrleitungsplanung",
                 "Detail Engineering PDMS",
                 "Projektmanagement / Projektleitung",
-                "Fachbauüberwachung",
+                "Fachbauüberwrachung",
                 "CAD Anlagenlayout"
             ]
         },
@@ -348,7 +348,7 @@ const Branchen: React.FC = () => {
         }
     ];
 
-    const handleShowProjects = (category: string) => {
+    const handleShowProjects = (category) => {
         if (category === "Weitere Referenzen") {
             setShowModal(true);
             setActiveProject(-1);
@@ -369,13 +369,14 @@ const Branchen: React.FC = () => {
         document.body.style.overflow = 'unset';
     };
 
-    const handleTabClick = (index: number) => {
+    const handleTabClick = (index) => {
         setActiveProject(index);
     };
 
     return (
         <div className="branches-container">
-            <section className="hero-section">
+            {/* Hero Section - NAVBAR KOMPATIBEL */}
+            <section className="hero-section" style={{ marginTop: '80px' }}>
                 <div className="hero-content">
                     <h1 className="hero-title">
                         Know-how und Leidenschaft<br />
