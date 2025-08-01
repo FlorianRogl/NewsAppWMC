@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../CSS/brancheCSS.css';
 
 const Branchen = () => {
@@ -348,7 +348,7 @@ const Branchen = () => {
         }
     ];
 
-    const handleShowProjects = (category) => {
+    const handleShowProjects = (category: string) => {
         if (category === "Weitere Referenzen") {
             setShowModal(true);
             setActiveProject(-1);
@@ -369,7 +369,7 @@ const Branchen = () => {
         document.body.style.overflow = 'unset';
     };
 
-    const handleTabClick = (index) => {
+    const handleTabClick = (index: number) => {
         setActiveProject(index);
     };
 

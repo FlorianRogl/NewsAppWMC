@@ -1,14 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { MapPin, Clock, Users, ArrowRight, Briefcase, Star, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { MapPin, Clock, Users, ArrowRight, Briefcase, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from '../../css/JobSection.module.css';
 
+// Interface für Job-Objekte
+interface Job {
+    id: number;
+    title: string;
+    department: string;
+    location: string;
+    type: string;
+    experience: string;
+    teamSize: string;
+    posted: string;
+    urgent: boolean;
+    description: string;
+    responsibilities: string[];
+    requirements: string[];
+    benefits: string[];
+}
+
 const JobsSection = () => {
-    const [isVisible, setIsVisible] = useState(false);
-    const [selectedJob, setSelectedJob] = useState(null);
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
-    const [canScrollRight, setCanScrollRight] = useState(true);
-    const sectionRef = useRef(null);
-    const scrollContainerRef = useRef(null);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+    const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
+    const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
+    const sectionRef = useRef<HTMLElement | null>(null);
+    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -42,7 +59,7 @@ const JobsSection = () => {
         }
     };
 
-    const scroll = (direction) => {
+    const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
             const scrollAmount = 400;
             const newScrollLeft = direction === 'left'
@@ -65,7 +82,7 @@ const JobsSection = () => {
         }
     }, []);
 
-    const jobOpenings = [
+    const jobOpenings: Job[] = [
         {
             id: 1,
             title: "Senior Projektingenieur Anlagenbau",
@@ -248,7 +265,7 @@ const JobsSection = () => {
         }
     ];
 
-    const handleJobClick = (job) => {
+    const handleJobClick = (job: Job) => {
         setSelectedJob(job);
     };
 
@@ -256,13 +273,13 @@ const JobsSection = () => {
         setSelectedJob(null);
     };
 
-    const getDepartmentColor = (department) => {
-        const colors = {
+    const getDepartmentColor = (department: string): string => {
+        const colors: Record<string, string> = {
             'Engineering': '#1E3A5F',
             'Projektmanagement': '#8FA0A5',
             'Design & Engineering': '#1E3A5F',
             'Site Services': '#8FA0A5',
-            'Nachwuchsförderung': '#8FA0A5',
+            'Nachwuchsfoerderung': '#8FA0A5',
             'Automation': '#1E3A5F'
         };
         return colors[department] || colors['Engineering'];

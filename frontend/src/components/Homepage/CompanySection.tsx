@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../../css/CompanySection.module.css';
 import companImage from '../../assets/Fotolia Pharma S.jpg';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from '../../css/Navbar.module.css';
 import thumbnail from '../../assets/thumbnail_image002.png';
@@ -34,7 +34,7 @@ const Navbar = () => {
         setIsMobileMenuOpen(false);
     };
 
-    const handleNavClick = (e, path) => {
+    const handleNavClick = (e: React.MouseEvent<HTMLElement>, ) => {
         // Add click animation to the clicked element
         const target = e.currentTarget;
         target.classList.add(styles.navLinkClick);
@@ -53,7 +53,7 @@ const Navbar = () => {
                 <Link
                     to="/"
                     className={`${styles.brand} ${styles.brandReload}`}
-                    onClick={(e) => handleNavClick(e, '/')}
+                    onClick={(e) => handleNavClick(e)}
                 >
                     <img
                         src={thumbnail}
@@ -74,7 +74,7 @@ const Navbar = () => {
                                 <Link
                                     to={item.path}
                                     className={`${styles.navLink} ${location.pathname === item.path ? styles.active : ''}`}
-                                    onClick={(e) => handleNavClick(e, item.path)}
+                                    onClick={(e) => handleNavClick(e)}
                                 >
                                     {item.name}
                                 </Link>

@@ -1,11 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Calendar, Clock, ArrowRight, User, TrendingUp, Star } from 'lucide-react';
 import styles from '../../css/NewsSection.module.css';
 
+// Interface für Article-Objekte
+interface Article {
+    id: number;
+    title: string;
+    excerpt: string;
+    content: string;
+    category: string;
+    author: string;
+    date: string;
+    image: string;
+    featured: boolean;
+    layout: 'hero' | 'featured' | 'standard';
+    readTime?: string;
+}
+
 const NewsSection = () => {
-    const [isVisible, setIsVisible] = useState(false);
-    const [selectedArticle, setSelectedArticle] = useState(null);
-    const sectionRef = useRef(null);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+    const sectionRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -31,7 +46,7 @@ const NewsSection = () => {
         };
     }, []);
 
-    const newsArticles = [
+    const newsArticles: Article[] = [
         {
             id: 1,
             title: "KI-Revolution im Industrieanlagenbau: Wie maschinelles Lernen die Zukunft der Automatisierung prägt",
@@ -186,7 +201,7 @@ const NewsSection = () => {
         }
     ];
 
-    const handleArticleClick = (article) => {
+    const handleArticleClick = (article: Article) => {
         setSelectedArticle(article);
     };
 
@@ -194,8 +209,8 @@ const NewsSection = () => {
         setSelectedArticle(null);
     };
 
-    const getCategoryGradient = (category) => {
-        const gradients = {
+    const getCategoryGradient = (category: string): string => {
+        const gradients: Record<string, string> = {
             'Technologie': 'linear-gradient(135deg, #1E3A5F, #2d4a73)',
             'Nachhaltigkeit': 'linear-gradient(135deg, #10b981, #059669)',
             'Innovation': 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
@@ -206,8 +221,8 @@ const NewsSection = () => {
         return gradients[category] || gradients['Technologie'];
     };
 
-    const getCardLayoutClass = (layout) => {
-        const layoutClasses = {
+    const getCardLayoutClass = (layout: Article['layout']): string => {
+        const layoutClasses: Record<Article['layout'], string> = {
             'hero': styles.heroCard,
             'featured': styles.featuredCard,
             'standard': styles.standardCard

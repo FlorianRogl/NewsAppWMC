@@ -1,11 +1,61 @@
 import React, { useState } from 'react';
 import '../CSS/ModernLeistungen.css';
 
-const ModernLeistungen = () => {
-    const [activeService, setActiveService] = useState(0);
-    const [activeTab, setActiveTab] = useState('software');
+// Type definitions
+interface HoverInfo {
+    keyPoints: string[];
+    industries: string[];
+    experience: string;
+}
 
-    const services = [
+interface Service {
+    id: number;
+    title: string;
+    image: string;
+    description: string;
+    shortDesc: string;
+    detailedDescription: string;
+    features: string[];
+    hoverInfo: HoverInfo;
+    color: string;
+    projects: string;
+    experience: string;
+}
+
+interface Technology {
+    name: string;
+    description: string;
+    image: string;
+    details: string;
+    projects: string;
+}
+
+interface TechnologiesMap {
+    software: Technology[];
+    branchen: Technology[];
+}
+
+interface ProjectPhase {
+    phase: string;
+    title: string;
+    duration: string;
+    description: string;
+    deliverables: string[];
+    image: string;
+}
+
+interface Certification {
+    title: string;
+    description: string;
+    icon: string;
+    year: string;
+}
+
+const ModernLeistungen: React.FC = () => {
+    const [activeService, setActiveService] = useState<number>(0);
+    const [activeTab, setActiveTab] = useState<'software' | 'branchen'>('software');
+
+    const services: Service[] = [
         {
             id: 1,
             title: "Projektierung",
@@ -138,7 +188,7 @@ const ModernLeistungen = () => {
         }
     ];
 
-    const technologies = {
+    const technologies: TechnologiesMap = {
         software: [
             {
                 name: "PDMS",
@@ -215,7 +265,7 @@ const ModernLeistungen = () => {
         ]
     };
 
-    const projectPhases = [
+    const projectPhases: ProjectPhase[] = [
         {
             phase: "01",
             title: "Projektinitiierung",
@@ -258,7 +308,7 @@ const ModernLeistungen = () => {
         }
     ];
 
-    const certifications = [
+    const certifications: Certification[] = [
         {
             title: "ISO 9001:2015",
             description: "Qualitätsmanagementsystem",
