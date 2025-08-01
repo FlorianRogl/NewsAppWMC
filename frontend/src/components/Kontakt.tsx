@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from '../css/Kontakt.module.css';
 import rogl from '../assets/rogl.png'
+import '../index.css';
 
 const Kontakt = () => {
     const [formData, setFormData] = useState({

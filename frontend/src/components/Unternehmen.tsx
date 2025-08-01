@@ -4,6 +4,7 @@ import fasching from '../assets/fasching.png'
 import pic1 from '../assets/Fotolia_59885870_M.jpg'
 import iso from '../assets/iso.png'
 import iq from '../assets/iqZert.png'
+import '../index.css';
 
 const Unternehmen = () => {
     const [currentSlide, setCurrentSlide] = useState(0);

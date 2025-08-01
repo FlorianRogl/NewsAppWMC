@@ -3,8 +3,9 @@ import Homepage from "./components/Homepage/Homepage.tsx";
 import Unternehmen from "./components/Unternehmen.tsx";
 import Kontakt from "./components/Kontakt.tsx";
 import Navbar from "./components/Homepage/Navbar.tsx";
-import './index.css'
 import Footer from "./components/Homepage/Footer.tsx";
+import Branchen from "./components/Branchen.tsx";
+import Leistungen from "./components/Leistungen.tsx";
 
 function App() {
     return (
@@ -15,6 +16,8 @@ function App() {
                 <Route path="/Unternehmen" element= <Unternehmen/> />
                 <Route path="/Kontakt" element= <Kontakt/> />
                 <Route path="/Home" element= <Homepage/> />
+                <Route path="/Branchen" element= <Branchen/> />
+                <Route path="/Leistungen" element= <Leistungen/> />
             </Routes>
             <Footer/>
         </div>
