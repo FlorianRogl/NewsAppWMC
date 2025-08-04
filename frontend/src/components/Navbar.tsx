@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from '../css/Navbar.module.css';
 import thumbnail from '../assets/thumbnail_image002.png';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [hasInitiallyLoaded, setHasInitiallyLoaded] = useState(false);
     const location = useLocation();
 
     const navItems = [
@@ -15,6 +16,32 @@ const Navbar = () => {
         { name: 'Kontakt', path: '/Kontakt' }
     ];
 
+    // Nur beim ersten Laden der Website die Animation aktivieren
+    useEffect(() => {
+        if (!hasInitiallyLoaded) {
+            setHasInitiallyLoaded(true);
+        }
+    }, []); // Nur beim ersten Mount ausführen
+
+    // Schließe Mobile Menu beim Route-Wechsel
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location]);
+
+    // Verhindere Body-Scroll wenn Mobile Menu offen ist
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        // Cleanup
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMobileMenuOpen]);
+
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
@@ -24,7 +51,7 @@ const Navbar = () => {
     };
 
     const handleNavClick = (e: React.MouseEvent<HTMLElement>) => {
-        // Nur Click-Animation für Feedback
+        // Add click animation to the clicked element
         const target = e.currentTarget;
         target.classList.add(styles.navLinkClick);
 
@@ -36,12 +63,12 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={styles.navbar}>
+        <nav className={`${styles.navbar} ${hasInitiallyLoaded ? styles.navbarReload : ''}`}>
             <div className={styles.container}>
-                {/* Logo/Brand - Ganz links positioniert */}
+                {/* Logo/Brand - Links positioniert */}
                 <Link
                     to="/"
-                    className={styles.brand}
+                    className={`${styles.brand} ${hasInitiallyLoaded ? styles.brandReload : ''}`}
                     onClick={(e) => handleNavClick(e)}
                 >
                     <img
@@ -51,13 +78,14 @@ const Navbar = () => {
                     />
                 </Link>
 
-                {/* Navigation Wrapper - Weiter rechts positioniert */}
-                <div className={styles.navWrapper}>
-                    <ul className={`${styles.navList} ${isMobileMenuOpen ? styles.navListOpen : ''}`}>
-                        {navItems.map((item) => (
+                {/* Navigation Wrapper - Zentral-Rechts positioniert */}
+                <div className={`${styles.navWrapper} ${isMobileMenuOpen ? styles.navWrapperOpen : ''}`}>
+                    <ul className={`${styles.navList} ${hasInitiallyLoaded ? styles.navListReload : ''}`}>
+                        {navItems.map((item, index) => (
                             <li
                                 key={item.name}
-                                className={styles.navItem}
+                                className={`${styles.navItem} ${hasInitiallyLoaded ? styles.navItemReload : ''}`}
+                                style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                             >
                                 <Link
                                     to={item.path}
@@ -73,9 +101,10 @@ const Navbar = () => {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className={`${styles.mobileMenuBtn} ${isMobileMenuOpen ? styles.mobileMenuBtnOpen : ''}`}
+                    className={`${styles.mobileMenuBtn} ${isMobileMenuOpen ? styles.mobileMenuBtnOpen : ''} ${hasInitiallyLoaded ? styles.mobileMenuReload : ''}`}
                     onClick={toggleMobileMenu}
                     aria-label="Toggle mobile menu"
+                    aria-expanded={isMobileMenuOpen}
                 >
                     <span className={styles.hamburger}></span>
                     <span className={styles.hamburger}></span>
@@ -85,7 +114,11 @@ const Navbar = () => {
 
             {/* Mobile Menu Overlay */}
             {isMobileMenuOpen && (
-                <div className={styles.mobileOverlay} onClick={closeMobileMenu}></div>
+                <div
+                    className={styles.mobileOverlay}
+                    onClick={closeMobileMenu}
+                    aria-hidden="true"
+                ></div>
             )}
         </nav>
     );

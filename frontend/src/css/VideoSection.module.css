@@ -2,8 +2,8 @@
 
 .videoSection {
     width: 100vw;
-    height: 75vh; /* Höher: 60vh → 75vh */
-    min-height: 500px; /* Höher: 400px → 500px */
+    height: 50vh; /* Reduziert: 75vh → 50vh (2/3 von 75vh) */
+    min-height: 350px; /* Reduziert: 500px → 350px */
     margin-top: 90px; /* Platz für die größere fixed Navbar */
     margin-left: calc(-50vw + 50%);
     position: relative;
@@ -60,7 +60,7 @@
 }
 
 .title {
-    font-size: 3rem;
+    font-size: 2.5rem; /* Angepasst: 3rem → 2.5rem für kleinere Section */
     font-weight: 700;
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -68,7 +68,7 @@
 }
 
 .subtitle {
-    font-size: 1.25rem;
+    font-size: 1.1rem; /* Angepasst: 1.25rem → 1.1rem */
     font-weight: 400;
     margin: 0;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
@@ -78,17 +78,17 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .videoSection {
-        height: 65vh; /* Höher: 50vh → 65vh */
-        min-height: 400px; /* Höher: 300px → 400px */
+        height: 40vh; /* Reduziert: 65vh → 40vh (2/3 reduziert) */
+        min-height: 280px; /* Reduziert: 400px → 280px */
         margin-top: 70px;
     }
 
     .title {
-        font-size: 2rem;
+        font-size: 1.8rem; /* Angepasst: 2rem → 1.8rem */
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.95rem; /* Angepasst: 1rem → 0.95rem */
     }
 
     .overlayContent {
@@ -98,16 +98,16 @@
 
 @media (max-width: 480px) {
     .videoSection {
-        height: 55vh; /* Höher: 40vh → 55vh */
-        min-height: 350px; /* Höher: 250px → 350px */
+        height: 35vh; /* Reduziert: 55vh → 35vh (2/3 reduziert) */
+        min-height: 250px; /* Reduziert: 350px → 250px */
     }
 
     .title {
-        font-size: 1.5rem;
+        font-size: 1.4rem; /* Angepasst: 1.5rem → 1.4rem */
     }
 
     .subtitle {
-        font-size: 0.9rem;
+        font-size: 0.85rem; /* Angepasst: 0.9rem → 0.85rem */
     }
 }
 

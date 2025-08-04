@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../../css/CompanySection.module.css';
-import companImage from '../../assets/Fotolia Pharma S.jpg';
+import planungImage from '../../assets/Fotolia Planung M.jpg';
 
 const CompanySection = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -14,8 +14,8 @@ const CompanySection = () => {
                 }
             },
             {
-                threshold: 1, // Trigger when 70% of section is visible
-                rootMargin: '0px 0px -100px 0px' // Smaller margin since we need more visibility
+                threshold: 0.1,
+                rootMargin: '0px 0px 0px 0px'
             }
         );
 
@@ -31,42 +31,67 @@ const CompanySection = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} className={styles.companySection}>
+        <section ref={sectionRef} className={styles.heroSection}>
+            {/* Subtle Background Gradient */}
+            <div className={styles.backgroundGradient} />
+
             <div className={styles.container}>
-                {/* Header */}
-
-
-                {/* Main Content */}
                 <div className={styles.content}>
-                    {/* Left Side - Company Description */}
+                    {/* Left Side - Hero Content */}
                     <div className={`${styles.textContent} ${isVisible ? styles.textVisible : ''}`}>
-                        <h3 className={styles.subtitle}>
-                            Ingenieurbüro für Industrieanlagenbau und Maschinenbau
-                        </h3>
-                        <p className={styles.description}>
-                            Ihr Partner für die Planung und statische Berechnung von Rohrleitungen,
-                            Halterungen und Stahlbau im Industrieanlagenbau.
+                        {/* Professional Badge */}
+                        <div className={styles.badge}>
+                            <span>Industrieanlagenbau & Projektmanagement</span>
+                        </div>
+
+                        {/* Hero Title */}
+                        <h1 className={styles.heroTitle}>
+                            <span className={styles.titleMain}>
+                                PROMAX
+                            </span>
+                            <span className={styles.titleSub}>
+                                Industrieanlagenbau mit Expertise
+                            </span>
+                        </h1>
+
+                        {/* Description */}
+                        <div className={styles.heroDescription}>
+                            <p>
+                                Investitionsentscheidungen bedürfen umsetzbarer Basisplanungen,
+                                realistischer Terminpläne und belastbarer Projektbudgets. PROMAX steht für
+                                professionelle Lösungen im Industrieanlagenbau.
+                            </p>
+                        </div>
+
+                        <p className={styles.heroSubtext}>
+                            Unsere Kernkompetenzen umfassen Projektierung, Projektmanagement, Planung,
+                            Site Services und Organisationsberatung. Mit jahrelanger Erfahrung in den
+                            Branchen Chemie, Energie & Umwelt, Pharma und Papier & Zellstoff.
                         </p>
-                        <p className={styles.mission}>
-                            <strong>Wir kümmern uns um Projekte!</strong> PROMAX Project Management GesmbH
-                            steht für Know-how und Leidenschaft in der Projektrealisierung. Mit jahrelanger
-                            Erfahrung in der Branche entwickeln wir maßgeschneiderte Lösungen für komplexe
-                            industrielle Herausforderungen.
-                        </p>
-                        <p className={styles.expertise}>
-                            Unser erfahrenes Team begleitet Sie von der ersten Konzeptidee bis zur
-                            erfolgreichen Umsetzung. Vertrauen Sie auf unsere Expertise für
-                            Ihr nächstes Projekt.
-                        </p>
+
+                        {/* Professional Stats */}
+                        <div className={styles.statsGrid}>
+                            <div className={styles.statItem}>
+                                <div className={styles.statNumber}>15+</div>
+                                <div className={styles.statLabel}>Jahre Erfahrung</div>
+                            </div>
+                            <div className={styles.statItem}>
+                                <div className={styles.statNumber}>ISO</div>
+                                <div className={styles.statLabel}>9001:2015 zertifiziert</div>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Right Side - Company Image */}
+                    {/* Right Side - Professional Image */}
                     <div className={`${styles.imageContainer} ${isVisible ? styles.imageVisible : ''}`}>
-                        <img
-                            src={companImage}
-                            alt="PROMAX Industrieanlagenbau"
-                            className={styles.companyImage}
-                        />
+                        <div className={styles.imageWrapper}>
+                            <img
+                                src={planungImage}
+                                alt="PROMAX Industrieanlagenbau - Professionelle Planung"
+                                className={styles.heroImage}
+                            />
+                            <div className={styles.imageOverlay} />
+                        </div>
                     </div>
                 </div>
             </div>
