@@ -7,7 +7,6 @@
     font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     position: relative;
     overflow: hidden;
-    margin-top: 4rem;
     opacity: 0;
     transform: translateY(50px);
     transition: all 0.8s ease-out;
