@@ -320,10 +320,10 @@ const Unternehmen = () => {
                             </div>
 
                             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                                <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
+                                <button onClick={() => navigate('/FitImJob')} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
                                     Mehr über Fit im Job
                                 </button>
-                                <button className="px-6 py-3 border-2 border-orange-400 text-orange-600 rounded-lg hover:bg-orange-400 hover:text-white transform hover:scale-105 transition-all duration-300 font-medium">
+                                <button onClick={() => navigate('/Karriere')} className="px-6 py-3 border-2 border-orange-400 text-orange-600 rounded-lg hover:bg-orange-400 hover:text-white transform hover:scale-105 transition-all duration-300 font-medium">
                                     Jobs & Karriere
                                 </button>
                             </div>

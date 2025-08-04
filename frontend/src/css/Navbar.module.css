@@ -1,16 +1,27 @@
-/* Navbar.module.css - Vollständig Responsive */
+/* Navbar.module.css - Vollständig Responsive mit Fixed Position Lösung */
 
-/* CSS Custom Properties für bessere Skalierung */
+/* CSS Custom Properties für bessere Skalierung - REDUZIERTE HÖHE */
 :root {
-    --navbar-height: 90px;
-    /* Logo-Größe mit vw für bessere Skalierung */
-    --logo-height: clamp(120px, 12vw, 180px);
-    --font-size-nav: clamp(0.9rem, 1.8vw, 1.15rem);
-    --font-size-logo: clamp(1.2rem, 2.5vw, 1.8rem);
-    --font-size-tagline: clamp(0.6rem, 1.2vw, 0.9rem);
-    --gap-nav: clamp(1.5rem, 4vw, 3.5rem);
-    --padding-horizontal: clamp(1rem, 5vw, 8rem);
-    --brand-margin: clamp(1rem, 5vw, 8rem);
+    --navbar-height: 75px; /* Reduziert von 90px auf 75px */
+    /* Logo-Größe mit vw für bessere Skalierung - ETWAS KLEINER */
+    --logo-height: clamp(100px, 10vw, 150px); /* Reduziert von 120px-180px auf 100px-150px */
+    --font-size-nav: clamp(0.85rem, 1.6vw, 1.05rem); /* Leicht reduziert */
+    --font-size-logo: clamp(1.1rem, 2.2vw, 1.6rem); /* Leicht reduziert */
+    --font-size-tagline: clamp(0.55rem, 1.1vw, 0.8rem); /* Leicht reduziert */
+    --gap-nav: clamp(1.2rem, 3.5vw, 3rem); /* Leicht reduziert */
+    --padding-horizontal: clamp(1rem, 4vw, 6rem); /* Reduziert von 8rem auf 6rem */
+    --brand-margin: clamp(1rem, 4vw, 6rem); /* Reduziert */
+}
+
+/* WICHTIG: Body Padding-Top für Fixed Navbar */
+body {
+    padding-top: var(--navbar-height) !important;
+}
+
+/* Alternative: Falls du das nicht global setzen möchtest,
+   füge diese Klasse zum Haupt-Container deiner Seiten hinzu */
+.pageContainer {
+    padding-top: var(--navbar-height);
 }
 
 /* Navbar Animations */
@@ -240,7 +251,7 @@
     flex: 1;
     justify-content: flex-end;
     margin-left: auto;
-    padding-left: clamp(1rem, 3vw, 2rem);
+    padding-left: clamp(1rem, 2.5vw, 1.5rem); /* Reduziert */
 }
 
 /* Navigation List */
@@ -280,7 +291,7 @@
     text-decoration: none;
     font-weight: 500;
     font-size: var(--font-size-nav);
-    padding: clamp(0.4rem, 1vw, 0.7rem) clamp(0.6rem, 1.5vw, 1rem);
+    padding: clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.5rem, 1.2vw, 0.8rem); /* Reduziertes Padding */
     transition: all 0.3s ease;
     position: relative;
     display: inline-block;
@@ -321,12 +332,12 @@
     display: none;
     flex-direction: column;
     justify-content: space-between;
-    width: 30px;
-    height: 24px;
+    width: 28px; /* Leicht reduziert */
+    height: 22px; /* Leicht reduziert */
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 3px; /* Reduziert */
     animation: fadeInRight 0.8s ease-out 0.6s both;
     position: relative;
     z-index: 1001;
@@ -335,7 +346,7 @@
 
 .hamburger {
     width: 100%;
-    height: 3px;
+    height: 2.5px; /* Leicht reduziert */
     background: #e5e7eb;
     border-radius: 2px;
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -343,7 +354,7 @@
 }
 
 .mobileMenuBtnOpen .hamburger:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
+    transform: rotate(45deg) translate(5px, 5px); /* Angepasst */
     background: #ffffff;
 }
 
@@ -353,7 +364,7 @@
 }
 
 .mobileMenuBtnOpen .hamburger:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: rotate(-45deg) translate(5px, -5px); /* Angepasst */
     background: #ffffff;
 }
 
@@ -407,8 +418,8 @@
 
     .navList {
         flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem;
+        padding: 1.5rem; /* Leicht reduziert */
+        gap: 1.2rem; /* Leicht reduziert */
         animation: none;
         max-height: calc(100vh - var(--navbar-height));
         overflow-y: auto;
@@ -423,12 +434,12 @@
     .navLink {
         display: block;
         width: 100%;
-        padding: 1rem;
-        font-size: 1.2rem;
+        padding: 0.8rem; /* Leicht reduziert */
+        font-size: 1.1rem; /* Leicht reduziert */
         border-bottom: 1px solid rgba(75, 85, 99, 0.3);
         transition: all 0.3s ease;
         border-radius: 8px;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem; /* Leicht reduziert */
     }
 
     .navLink:hover,
@@ -454,81 +465,92 @@
 /* Large Tablets und Small Desktops */
 @media (max-width: 1200px) {
     :root {
-        --gap-nav: clamp(1.5rem, 3vw, 2.5rem);
-        --padding-horizontal: clamp(1rem, 4vw, 6rem);
+        --gap-nav: clamp(1.2rem, 2.8vw, 2.2rem);
+        --padding-horizontal: clamp(1rem, 3.5vw, 5rem);
     }
 }
 
 /* Tablets */
 @media (max-width: 1024px) {
     :root {
-        --gap-nav: clamp(1.2rem, 2.5vw, 2rem);
-        --padding-horizontal: clamp(1rem, 3vw, 4rem);
-        --font-size-nav: clamp(0.85rem, 1.6vw, 1rem);
+        --gap-nav: clamp(1rem, 2.2vw, 1.8rem);
+        --padding-horizontal: clamp(1rem, 2.5vw, 3.5rem);
+        --font-size-nav: clamp(0.8rem, 1.5vw, 0.95rem);
     }
 }
 
 /* Large Mobile */
 @media (max-width: 768px) {
     :root {
-        --navbar-height: 80px;
-        /* Logo bleibt responsiv mit vw */
-        --logo-height: clamp(100px, 20vw, 140px);
-        --padding-horizontal: 1rem;
+        --navbar-height: 65px; /* Reduziert von 80px */
+        --logo-height: clamp(85px, 18vw, 120px); /* Leicht reduziert */
+        --padding-horizontal: 0.8rem; /* Leicht reduziert */
+    }
+
+    /* Body Padding für Mobile anpassen */
+    body {
+        padding-top: 65px !important;
     }
 }
 
 /* Standard Mobile */
 @media (max-width: 480px) {
     :root {
-        --navbar-height: 70px;
-        /* Logo wird auf Mobile größer relativ zum Bildschirm */
-        --logo-height: clamp(90px, 28vw, 120px);
-        --padding-horizontal: 0.75rem;
-        --font-size-logo: 1.2rem;
-        --font-size-tagline: 0.65rem;
+        --navbar-height: 60px; /* Reduziert von 70px */
+        --logo-height: clamp(75px, 25vw, 100px); /* Reduziert */
+        --padding-horizontal: 0.6rem; /* Reduziert */
+        --font-size-logo: 1.1rem;
+        --font-size-tagline: 0.6rem;
+    }
+
+    /* Body Padding für Mobile anpassen */
+    body {
+        padding-top: 60px !important;
     }
 
     .mobileMenuBtn {
-        padding: 4px;
-        width: 28px;
-        height: 22px;
+        padding: 3px;
+        width: 26px;
+        height: 20px;
     }
 
     .navList {
-        padding: 1.5rem;
-        gap: 1rem;
+        padding: 1.2rem;
+        gap: 0.8rem;
     }
 
     .navLink {
-        font-size: 1.1rem;
-        padding: 0.8rem;
+        font-size: 1rem;
+        padding: 0.7rem;
     }
 }
 
 /* Extra Small Mobile */
 @media (max-width: 360px) {
     :root {
-        --navbar-height: 65px;
-        /* Minimum Logo-Größe für sehr kleine Screens */
-        --logo-height: clamp(80px, 30vw, 100px);
-        --padding-horizontal: 0.5rem;
+        --navbar-height: 55px; /* Reduziert von 65px */
+        --logo-height: clamp(70px, 28vw, 85px); /* Reduziert */
+        --padding-horizontal: 0.4rem; /* Reduziert */
+    }
+
+    /* Body Padding für Mobile anpassen */
+    body {
+        padding-top: 55px !important;
     }
 
     .navList {
-        padding: 1rem;
+        padding: 0.8rem;
     }
 }
 
 /* Ultra Wide Screens */
 @media (min-width: 1920px) {
     :root {
-        --navbar-height: 100px;
-        /* Logo maximal bei 160px auf großen Bildschirmen */
-        --logo-height: clamp(140px, 10vw, 200px);
-        --font-size-nav: 1.25rem;
-        --gap-nav: 4rem;
-        --padding-horizontal: 10rem;
+        --navbar-height: 85px; /* Reduziert von 100px */
+        --logo-height: clamp(120px, 8vw, 170px); /* Reduziert */
+        --font-size-nav: 1.15rem; /* Leicht reduziert */
+        --gap-nav: 3.5rem; /* Reduziert */
+        --padding-horizontal: 8rem; /* Reduziert */
     }
 }
 
@@ -544,7 +566,6 @@
 /* High DPI Displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .logoImage {
-        image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
     }
 }
@@ -552,12 +573,17 @@
 /* Landscape Orientation auf Mobile */
 @media (max-width: 900px) and (orientation: landscape) {
     :root {
-        --navbar-height: 60px;
-        --logo-height: clamp(60px, 15vw, 90px);
+        --navbar-height: 50px; /* Reduziert für Landscape */
+        --logo-height: clamp(50px, 12vw, 75px);
+    }
+
+    /* Body Padding für Landscape anpassen */
+    body {
+        padding-top: 50px !important;
     }
 
     .navList {
-        max-height: 85vh;
+        max-height: 80vh;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }

@@ -8,6 +8,7 @@ import Branchen from "./components/Branchen.tsx";
 import Leistungen from "./components/Leistungen.tsx";
 import Projektberichte from "./components/Projektberichte.tsx";
 import Karriere from "./components/Karriere.tsx";
+import FitImJob from "./components/FitImJob.tsx";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/Leistungen" element={<Leistungen/>} />
                 <Route path="/Projektberichte" element={<Projektberichte/>} />
                 <Route path="/Karriere" element={<Karriere/>} />
+                <Route path="/FitImJob" element={<FitImJob/>} />
 
             </Routes>
             <Footer/>
