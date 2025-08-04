@@ -2,8 +2,9 @@
 
 /* CSS Custom Properties für bessere Skalierung */
 :root {
-    --navbar-height: clamp(80px, 10vw, 120px);
-    --logo-height: clamp(80px, 12vw, 200px);
+    --navbar-height: 90px;
+    /* Logo-Größe mit vw für bessere Skalierung */
+    --logo-height: clamp(120px, 12vw, 180px);
     --font-size-nav: clamp(0.9rem, 1.8vw, 1.15rem);
     --font-size-logo: clamp(1.2rem, 2.5vw, 1.8rem);
     --font-size-tagline: clamp(0.6rem, 1.2vw, 0.9rem);
@@ -319,19 +320,17 @@
 .mobileMenuBtn {
     display: none;
     flex-direction: column;
-    justify-content: space-around;
-    width: clamp(28px, 5vw, 32px);
-    height: clamp(22px, 4vw, 26px);
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 8px;
+    padding: 4px;
     animation: fadeInRight 0.8s ease-out 0.6s both;
     position: relative;
     z-index: 1001;
     flex-shrink: 0;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
 }
 
 .hamburger {
@@ -339,7 +338,7 @@
     height: 3px;
     background: #e5e7eb;
     border-radius: 2px;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     transform-origin: center;
 }
 
@@ -379,61 +378,74 @@
     }
 }
 
-/* Mobile Menu */
-.navList.navListOpen {
-    display: flex;
-    position: fixed;
-    top: var(--navbar-height);
-    right: 0;
-    background: #374151;
-    backdrop-filter: blur(20px);
-    flex-direction: column;
-    padding: clamp(2rem, 5vw, 3rem);
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4);
-    animation: slideInRight 0.3s ease;
-    gap: clamp(1.5rem, 4vw, 2rem);
-    min-width: clamp(250px, 50vw, 350px);
-    max-height: calc(100vh - var(--navbar-height));
-    overflow-y: auto;
-    border-left: 2px solid #E67E22;
-    z-index: 1000;
-}
-
-.navList.navListOpen .navItem {
-    width: 100%;
-    text-align: left;
-}
-
-.navList.navListOpen .navLink {
-    display: block;
-    width: 100%;
-    padding: clamp(1rem, 3vw, 1.5rem);
-    font-size: clamp(1.1rem, 3vw, 1.3rem);
-    border-bottom: 1px solid rgba(75, 85, 99, 0.3);
-    transition: all 0.3s ease;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.navList.navListOpen .navLink:hover,
-.navList.navListOpen .navLink:focus {
-    background: rgba(230, 126, 34, 0.1);
-    transform: translateX(10px);
-    color: #E67E22;
-}
-
-.navList.navListOpen .navLink.active {
-    background: rgba(230, 126, 34, 0.2);
-    color: #E67E22;
-    border-left: 4px solid #E67E22;
-}
-
-@keyframes slideInRight {
-    from {
-        transform: translateX(100%);
+/* Mobile Menu - WICHTIG: Keine display:none auf navList bei mobile! */
+@media (max-width: 900px) {
+    .navWrapper {
+        position: fixed;
+        top: var(--navbar-height);
+        right: 0;
+        left: 0;
+        background: #374151;
+        backdrop-filter: blur(20px);
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-out;
+        margin: 0;
+        padding: 0;
+        display: block;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        border-top: 2px solid #E67E22;
+        opacity: 0;
+        pointer-events: none;
     }
-    to {
-        transform: translateX(0);
+
+    .navWrapper.navWrapperOpen {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .navList {
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        animation: none;
+        max-height: calc(100vh - var(--navbar-height));
+        overflow-y: auto;
+    }
+
+    .navItem {
+        width: 100%;
+        text-align: center;
+        animation: none;
+    }
+
+    .navLink {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+    }
+
+    .navLink:hover,
+    .navLink:focus {
+        background: rgba(230, 126, 34, 0.1);
+        color: #E67E22;
+        transform: translateY(-2px);
+    }
+
+    .navLink.active {
+        background: rgba(230, 126, 34, 0.2);
+        color: #E67E22;
+        border: 2px solid #E67E22;
+    }
+
+    .mobileMenuBtn {
+        display: flex !important;
     }
 }
 
@@ -456,66 +468,55 @@
     }
 }
 
-/* Small Tablets */
-@media (max-width: 900px) {
-    .navWrapper {
-        display: none;
-    }
-
-    .navList {
-        display: none;
-    }
-
-    .mobileMenuBtn {
-        display: flex;
-    }
-
-    .container {
-        padding: 0 var(--padding-horizontal);
-    }
-}
-
 /* Large Mobile */
 @media (max-width: 768px) {
     :root {
-        --navbar-height: clamp(70px, 8vw, 90px);
-        --logo-height: clamp(60px, 8vw, 80px);
-        --padding-horizontal: clamp(0.5rem, 3vw, 2rem);
+        --navbar-height: 80px;
+        /* Logo bleibt responsiv mit vw */
+        --logo-height: clamp(100px, 20vw, 140px);
+        --padding-horizontal: 1rem;
     }
 }
 
 /* Standard Mobile */
 @media (max-width: 480px) {
     :root {
-        --navbar-height: clamp(60px, 7vw, 75px);
-        --logo-height: clamp(50px, 7vw, 65px);
-        --padding-horizontal: clamp(0.5rem, 2vw, 1rem);
-        --font-size-logo: clamp(1rem, 2vw, 1.3rem);
-        --font-size-tagline: clamp(0.55rem, 1vw, 0.7rem);
+        --navbar-height: 70px;
+        /* Logo wird auf Mobile größer relativ zum Bildschirm */
+        --logo-height: clamp(90px, 28vw, 120px);
+        --padding-horizontal: 0.75rem;
+        --font-size-logo: 1.2rem;
+        --font-size-tagline: 0.65rem;
     }
 
     .mobileMenuBtn {
-        padding: 6px;
-        width: 32px;
-        height: 26px;
+        padding: 4px;
+        width: 28px;
+        height: 22px;
     }
 
-    .navList.navListOpen {
-        min-width: clamp(200px, 60vw, 280px);
-        padding: clamp(1.5rem, 4vw, 2rem);
+    .navList {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .navLink {
+        font-size: 1.1rem;
+        padding: 0.8rem;
     }
 }
 
 /* Extra Small Mobile */
 @media (max-width: 360px) {
     :root {
-        --navbar-height: clamp(55px, 6vw, 65px);
-        --logo-height: clamp(45px, 6vw, 55px);
-        --padding-horizontal: clamp(0.25rem, 1.5vw, 0.5rem);
+        --navbar-height: 65px;
+        /* Minimum Logo-Größe für sehr kleine Screens */
+        --logo-height: clamp(80px, 30vw, 100px);
+        --padding-horizontal: 0.5rem;
     }
 
-    .navList.navListOpen {
-        min-width: clamp(180px, 70vw, 250px);
+    .navList {
+        padding: 1rem;
     }
 }
 
@@ -523,7 +524,8 @@
 @media (min-width: 1920px) {
     :root {
         --navbar-height: 100px;
-        --logo-height: 70px;
+        /* Logo maximal bei 160px auf großen Bildschirmen */
+        --logo-height: clamp(140px, 10vw, 200px);
         --font-size-nav: 1.25rem;
         --gap-nav: 4rem;
         --padding-horizontal: 10rem;
@@ -550,33 +552,14 @@
 /* Landscape Orientation auf Mobile */
 @media (max-width: 900px) and (orientation: landscape) {
     :root {
-        --navbar-height: clamp(50px, 6vh, 70px);
-        --logo-height: clamp(40px, 5vh, 60px);
+        --navbar-height: 60px;
+        --logo-height: clamp(60px, 15vw, 90px);
     }
 
-    .navList.navListOpen {
+    .navList {
         max-height: 85vh;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-    }
-}
-
-/* Touch-Optimierungen für alle mobilen Geräte */
-@media (max-width: 900px) {
-    .mobileMenuBtn:active {
-        transform: scale(0.95);
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 4px;
-    }
-
-    .navList.navListOpen .navLink:active {
-        background: rgba(230, 126, 34, 0.3);
-        transform: translateX(5px) scale(0.98);
-    }
-
-    /* Prevent zoom on double tap */
-    .navbar * {
-        touch-action: manipulation;
     }
 }
 
@@ -587,10 +570,6 @@
     }
 
     @container (max-width: 900px) {
-        .navWrapper {
-            display: none;
-        }
-
         .mobileMenuBtn {
             display: flex;
         }

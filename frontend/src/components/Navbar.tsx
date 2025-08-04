@@ -23,6 +23,25 @@ const Navbar = () => {
         }
     }, []); // Nur beim ersten Mount ausführen
 
+    // Schließe Mobile Menu beim Route-Wechsel
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location]);
+
+    // Verhindere Body-Scroll wenn Mobile Menu offen ist
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        // Cleanup
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMobileMenuOpen]);
+
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
@@ -60,8 +79,8 @@ const Navbar = () => {
                 </Link>
 
                 {/* Navigation Wrapper - Zentral-Rechts positioniert */}
-                <div className={styles.navWrapper}>
-                    <ul className={`${styles.navList} ${isMobileMenuOpen ? styles.navListOpen : ''} ${hasInitiallyLoaded ? styles.navListReload : ''}`}>
+                <div className={`${styles.navWrapper} ${isMobileMenuOpen ? styles.navWrapperOpen : ''}`}>
+                    <ul className={`${styles.navList} ${hasInitiallyLoaded ? styles.navListReload : ''}`}>
                         {navItems.map((item, index) => (
                             <li
                                 key={item.name}
@@ -85,6 +104,7 @@ const Navbar = () => {
                     className={`${styles.mobileMenuBtn} ${isMobileMenuOpen ? styles.mobileMenuBtnOpen : ''} ${hasInitiallyLoaded ? styles.mobileMenuReload : ''}`}
                     onClick={toggleMobileMenu}
                     aria-label="Toggle mobile menu"
+                    aria-expanded={isMobileMenuOpen}
                 >
                     <span className={styles.hamburger}></span>
                     <span className={styles.hamburger}></span>
@@ -94,7 +114,11 @@ const Navbar = () => {
 
             {/* Mobile Menu Overlay */}
             {isMobileMenuOpen && (
-                <div className={styles.mobileOverlay} onClick={closeMobileMenu}></div>
+                <div
+                    className={styles.mobileOverlay}
+                    onClick={closeMobileMenu}
+                    aria-hidden="true"
+                ></div>
             )}
         </nav>
     );
