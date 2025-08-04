@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../../css/ServiceSection.module.css';
 import planungImage from '../../assets/Fotolia Planung M.jpg';
 import pharmaImage from '../../assets/Fotolia Pharma S.jpg';

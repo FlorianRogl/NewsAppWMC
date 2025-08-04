@@ -1,4 +1,3 @@
-import Navbar from "./Navbar.tsx";
 import VideoSection from "./VideoSection.tsx";
 import CompanySection from "./CompanySection.tsx";
 import ServiceSection from "./ServiceSection.tsx";

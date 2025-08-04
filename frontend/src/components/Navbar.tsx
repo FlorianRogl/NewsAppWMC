@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import styles from '../../css/Navbar.module.css';
-import thumbnail from '../../assets/thumbnail_image002.png';
+import styles from '../css/Navbar.module.css';
+import thumbnail from '../assets/thumbnail_image002.png';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const location = useLocation();
-    const prevLocation = useRef(location.pathname);
 
     const navItems = [
         { name: 'Das Unternehmen', path: '/Unternehmen' },
@@ -16,16 +15,6 @@ const Navbar = () => {
         { name: 'Kontakt', path: '/Kontakt' }
     ];
 
-    // Trigger animation when route actually changes
-    const [animationKey, setAnimationKey] = useState(0);
-
-    useEffect(() => {
-        if (prevLocation.current !== location.pathname) {
-            prevLocation.current = location.pathname;
-            setAnimationKey(prev => prev + 1);
-        }
-    }, [location.pathname]);
-
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
@@ -34,8 +23,8 @@ const Navbar = () => {
         setIsMobileMenuOpen(false);
     };
 
-    const handleNavClick = (e, path) => {
-        // Add click animation to the clicked element
+    const handleNavClick = (e: React.MouseEvent<HTMLElement>) => {
+        // Nur Click-Animation für Feedback
         const target = e.currentTarget;
         target.classList.add(styles.navLinkClick);
 
@@ -47,13 +36,13 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={`${styles.navbar} ${styles.navbarReload}`} key={animationKey}>
+        <nav className={styles.navbar}>
             <div className={styles.container}>
-                {/* Logo/Brand - Links positioniert */}
+                {/* Logo/Brand - Ganz links positioniert */}
                 <Link
                     to="/"
-                    className={`${styles.brand} ${styles.brandReload}`}
-                    onClick={(e) => handleNavClick(e, '/')}
+                    className={styles.brand}
+                    onClick={(e) => handleNavClick(e)}
                 >
                     <img
                         src={thumbnail}
@@ -62,19 +51,18 @@ const Navbar = () => {
                     />
                 </Link>
 
-                {/* Navigation Wrapper - Zentral-Rechts positioniert */}
+                {/* Navigation Wrapper - Weiter rechts positioniert */}
                 <div className={styles.navWrapper}>
-                    <ul className={`${styles.navList} ${isMobileMenuOpen ? styles.navListOpen : ''} ${styles.navListReload}`}>
-                        {navItems.map((item, index) => (
+                    <ul className={`${styles.navList} ${isMobileMenuOpen ? styles.navListOpen : ''}`}>
+                        {navItems.map((item) => (
                             <li
                                 key={item.name}
-                                className={`${styles.navItem} ${styles.navItemReload}`}
-                                style={{ animationDelay: `${0.4 + index * 0.1}s` }}
+                                className={styles.navItem}
                             >
                                 <Link
                                     to={item.path}
                                     className={`${styles.navLink} ${location.pathname === item.path ? styles.active : ''}`}
-                                    onClick={(e) => handleNavClick(e, item.path)}
+                                    onClick={(e) => handleNavClick(e)}
                                 >
                                     {item.name}
                                 </Link>
@@ -85,7 +73,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className={`${styles.mobileMenuBtn} ${isMobileMenuOpen ? styles.mobileMenuBtnOpen : ''} ${styles.mobileMenuReload}`}
+                    className={`${styles.mobileMenuBtn} ${isMobileMenuOpen ? styles.mobileMenuBtnOpen : ''}`}
                     onClick={toggleMobileMenu}
                     aria-label="Toggle mobile menu"
                 >
