@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import rogl from '../assets/rogl.png'
 import fasching from '../assets/fasching.png'
 import pic1 from '../assets/Fotolia_59885870_M.jpg'
@@ -6,40 +7,110 @@ import iso from '../assets/iso.png'
 import iq from '../assets/iqZert.png'
 import '../index.css';
 
+// Import der Project Interface aus Projektberichte
+interface ProjectSection {
+    title: string;
+    content: string;
+}
+
+interface ProjectContent {
+    sections: ProjectSection[];
+}
+
+interface Project {
+    id: number;
+    title: string;
+    category: string;
+    date: string;
+    readTime: string;
+    image: string;
+    excerpt: string;
+    content: ProjectContent;
+    tags: string[];
+}
+
+// Mock-Daten (später aus einem gemeinsamen Service holen)
+const mockProjects: Project[] = [
+    {
+        id: 1,
+        title: "Säurefeste Auskleidungen mit zusätzlichen Abriebfestigkeitseigenschaften",
+        category: "Chemische Industrie",
+        date: "2024-03-15",
+        readTime: "8 min",
+        image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        excerpt: "Entwicklung einer technisch und wirtschaftlich optimalen Lösung für einen 80 m³ Pufferbehälter mit chemisch aggressiven Abwässern bei Temperaturen bis 85°C.",
+        content: {
+            sections: [
+                {
+                    title: "1. Aufgabenstellung",
+                    content: "In einem Pufferbehälter werden chemische Abwässer gesammelt..."
+                }
+            ]
+        },
+        tags: ["Säureschutz", "Betonbau", "Chemische Industrie", "Abriebschutz"]
+    },
+    {
+        id: 2,
+        title: "GMP-konforme Pharmanlage Modernisierung",
+        category: "Pharma",
+        date: "2024-02-20",
+        readTime: "6 min",
+        image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        excerpt: "Komplette Modernisierung einer pharmazeutischen Produktionsanlage unter Einhaltung aller GMP-Richtlinien und ohne Produktionsunterbrechung.",
+        content: {
+            sections: [
+                {
+                    title: "Projektübersicht",
+                    content: "Modernisierung einer bestehenden Pharmanlage..."
+                }
+            ]
+        },
+        tags: ["GMP", "Pharma", "Modernisierung", "Validierung"]
+    },
+    {
+        id: 3,
+        title: "Nachhaltige Energiegewinnung in der Papierindustrie",
+        category: "Energie & Umwelt",
+        date: "2024-01-10",
+        readTime: "7 min",
+        image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        excerpt: "Implementierung eines innovativen Energierückgewinnungssystems in einer Papierfabrik zur Reduzierung des CO2-Ausstoßes um 40%.",
+        content: {
+            sections: [
+                {
+                    title: "Energiekonzept",
+                    content: "Entwicklung eines nachhaltigen Energiekonzepts..."
+                }
+            ]
+        },
+        tags: ["Nachhaltigkeit", "Energieeffizienz", "Papierindustrie", "CO2-Reduktion"]
+    },
+    {
+        id: 4,
+        title: "Hochmoderne Zellstoffaufbereitung",
+        category: "Papier & Zellstoff",
+        date: "2023-12-05",
+        readTime: "9 min",
+        image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        excerpt: "Planung und Umsetzung einer neuen Zellstoffaufbereitungsanlage mit modernster Bleichsequenz-Technologie für höchste Produktqualität.",
+        content: {
+            sections: [
+                {
+                    title: "Technologie",
+                    content: "Implementierung modernster Bleichsequenz-Technologie..."
+                }
+            ]
+        },
+        tags: ["Zellstoff", "Bleichsequenz", "Modernisierung", "Qualitätssteigerung"]
+    }
+];
+
 const Unternehmen = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const navigate = useNavigate();
 
-    const projects = [
-        {
-            id: 1,
-            title: "Chemie Projekte",
-            description: "Innovative und sichere Lösungen für komplexe chemische Prozesse mit höchsten Sicherheitsstandards",
-            image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            category: "Chemie"
-        },
-        {
-            id: 2,
-            title: "Pharma Projekte",
-            description: "GMP-konforme Anlagen für die Pharmaindustrie mit präziser Planung und fachgerechter Umsetzung",
-            image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            category: "Pharma"
-        },
-        {
-            id: 3,
-            title: "Energie & Umwelt",
-            description: "Nachhaltige Lösungen für moderne Energie- und Umwelttechnik mit Fokus auf Effizienz",
-            image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            category: "Energie"
-        },
-        {
-            id: 4,
-            title: "Papier & Zellstoff",
-            description: "Spezialisierte Anlagenlösungen für die Papier- und Zellstoffindustrie mit jahrzehntelanger Erfahrung",
-            image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            category: "Papier"
-        }
-    ];
-
+    // Verwende echte Projekte statt Mock-Daten
+    const projects = mockProjects;
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -55,6 +126,10 @@ const Unternehmen = () => {
 
     const prevSlide = () => {
         setCurrentSlide((prev) => (prev - 1 + projects.length) % projects.length);
+    };
+
+    const handleProjectClick = (projectId: number) => {
+        navigate(`/projektberichte?project=${projectId}`);
     };
 
     return (
@@ -140,7 +215,6 @@ const Unternehmen = () => {
                     </div>
                 </div>
             </section>
-
 
             {/* Mission & Values */}
             <section className="py-20 bg-white">
@@ -258,54 +332,46 @@ const Unternehmen = () => {
                 </div>
             </section>
 
-            {/* Projects Carousel */}
-            <section className="py-20 bg-white">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl lg:text-4xl font-light text-slate-900 mb-4">
+            {/* Projects Carousel - Jetzt mit echten Projekten */}
+            <section className="py-16 bg-white">
+                <div className="max-w-4xl mx-auto px-6">
+                    {/* Header */}
+                    <div className="text-center mb-12">
+                        <h2 className="text-2xl font-semibold text-gray-900 mb-2">
                             Projektberichte
                         </h2>
-                        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                            Entdecken Sie unsere Referenzprojekte aus verschiedenen Industriebereichen
+                        <p className="text-gray-600">
+                            Unsere Referenzprojekte aus verschiedenen Bereichen
                         </p>
-                        <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-orange-400 rounded-full mx-auto mt-6"></div>
                     </div>
 
-                    <div className="relative bg-slate-50 rounded-lg p-8">
-                        <div className="overflow-hidden rounded-lg">
+                    {/* Carousel */}
+                    <div className="relative max-w-2xl mx-auto">
+                        <div className="overflow-hidden rounded-xl">
                             <div
-                                className="flex transition-transform duration-500 ease-in-out"
+                                className="flex transition-transform duration-500"
                                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                             >
                                 {projects.map((project) => (
                                     <div key={project.id} className="w-full flex-shrink-0">
-                                        <div className="bg-white rounded-lg shadow-lg overflow-hidden mx-4 hover:shadow-xl transition-shadow duration-300">
-                                            <div className="relative h-48 lg:h-64">
+                                        <div
+                                            className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                                            onClick={() => handleProjectClick(project.id)}
+                                        >
+                                            {/* Image */}
+                                            <div className="relative h-48">
                                                 <img
                                                     src={project.image}
                                                     alt={project.title}
                                                     className="w-full h-full object-cover"
                                                 />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                                                <div className="absolute top-4 left-4">
-                                                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-slate-700 rounded-full text-sm font-medium">
-                                                        {project.category}
-                                                    </span>
-                                                </div>
                                             </div>
-                                            <div className="p-6">
-                                                <h3 className="text-xl font-semibold text-slate-900 mb-3">
+
+                                            {/* Content */}
+                                            <div className="p-5">
+                                                <h3 className="text-lg font-semibold text-gray-900">
                                                     {project.title}
                                                 </h3>
-                                                <p className="text-slate-600 leading-relaxed mb-4">
-                                                    {project.description}
-                                                </p>
-                                                <button className="inline-flex items-center px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors group">
-                                                    Projekte ansehen
-                                                    <svg className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -313,33 +379,35 @@ const Unternehmen = () => {
                             </div>
                         </div>
 
+                        {/* Navigation */}
                         <button
                             onClick={prevSlide}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-600 hover:text-slate-900 hover:shadow-xl transition-all duration-300 hover:scale-110"
+                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:text-gray-900 hover:shadow-md transition-all"
                         >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
 
                         <button
                             onClick={nextSlide}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-600 hover:text-slate-900 hover:shadow-xl transition-all duration-300 hover:scale-110"
+                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:text-gray-900 hover:shadow-md transition-all"
                         >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
 
+                        {/* Dots */}
                         <div className="flex justify-center space-x-2 mt-6">
                             {projects.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setCurrentSlide(index)}
-                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                    className={`w-2 h-2 rounded-full transition-all ${
                                         index === currentSlide
-                                            ? 'bg-blue-600 w-8'
-                                            : 'bg-slate-300 hover:bg-slate-400'
+                                            ? 'bg-blue-600 w-6'
+                                            : 'bg-gray-300 hover:bg-gray-400'
                                     }`}
                                 />
                             ))}
@@ -350,7 +418,6 @@ const Unternehmen = () => {
 
             {/* Team Section */}
             <section className="py-20 bg-gray-50">
-
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl lg:text-4xl font-light text-slate-900 mb-4">
@@ -546,7 +613,7 @@ const Unternehmen = () => {
                 </div>
             </section>
 
-
+            {/* Downloads Section */}
             <section className="py-20 bg-slate-50">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">

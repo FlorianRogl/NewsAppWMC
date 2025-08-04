@@ -1,184 +1,54 @@
 /* Navbar.module.css */
 
-/* Navbar Animations */
+/* Navbar ohne Animationen */
 .navbar {
-    background: #374151;
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(75, 85, 99, 0.3);
-    position: fixed;
+    background: #2E4A73; /* Deine gewünschte Farbe */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtilerer Border */
+    position: fixed; /* Fixed für Scroll-Verhalten */
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
     width: 100%;
     font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
-    animation: slideDown 0.8s ease-out;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); /* Subtiler Schatten für Tiefe */
+    backdrop-filter: blur(10px); /* Moderner Blur-Effekt */
+    /* Animation entfernt */
 }
 
-@keyframes slideDown {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+/* Body Padding für fixe Navbar - WICHTIG: Diese Regel in deine globale CSS einfügen */
+body {
+    padding-top: 80px; /* Gleiche Höhe wie die Navbar */
 }
 
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
+/* Responsive Body Padding */
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px; /* Angepasst an Mobile Navbar-Höhe */
     }
 }
 
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Reload Animations - triggered on click */
-@keyframes reloadSlideDown {
-    0% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes reloadFadeInLeft {
-    0% {
-        opacity: 0;
-        transform: translateX(-40px) scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-    }
-}
-
-@keyframes reloadFadeInRight {
-    0% {
-        opacity: 0;
-        transform: translateX(40px) scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-    }
-}
-
-@keyframes reloadBounceIn {
-    0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.6);
-    }
-    50% {
-        transform: translateY(-5px) scale(1.1);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes reloadPulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.05);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Click Animation */
-@keyframes clickPulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(0.95);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Reload Animation Classes */
-.navbarReload {
-    animation: reloadSlideDown 0.6s ease-out;
-}
-
-.brandReload {
-    animation: reloadFadeInLeft 0.7s ease-out 0.2s both;
-}
-
-.navListReload {
-    animation: reloadFadeInRight 0.7s ease-out 0.3s both;
-}
-
-.navItemReload {
-    animation: reloadBounceIn 0.6s ease-out both;
-}
-
-.mobileMenuReload {
-    animation: reloadPulse 0.8s ease-out 0.4s both;
-}
-
-.navLinkClick {
-    animation: clickPulse 0.3s ease-out;
-}
+/* Alle Keyframes für Animationen entfernt */
 
 .container {
     max-width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 0 2rem; /* Etwas Padding für cleanen Look */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 90px;
+    height: 80px; /* Etwas niedriger für moderneren Look */
     position: relative;
 }
 
-/* Brand/Logo Section */
+/* Brand/Logo Section - ganz links positioniert */
 .brand {
-    margin-left: 8rem;
+    margin-left: 0; /* Komplett links ohne extra Margin */
     display: flex;
     align-items: center;
-    animation: fadeInLeft 0.8s ease-out 0.3s both;
     text-decoration: none;
     z-index: 10;
+    /* Animation entfernt */
 }
 
 .brand:hover {
@@ -186,10 +56,11 @@
 }
 
 .logoImage {
-    height: 15rem;
+    height: 12rem; /* Etwas kleiner für moderneren Look */
     width: auto;
     object-fit: contain;
     transition: transform 0.3s ease;
+    filter: brightness(1.1); /* Leicht aufgehellt für bessere Sichtbarkeit */
 }
 
 .brand:hover .logoImage {
@@ -219,10 +90,10 @@
     margin-top: 0;
 }
 
-/* Navigation Wrapper - Zentral-Rechts positioniert */
+/* Navigation Wrapper - rechts positioniert für professionellen Look */
 .navWrapper {
     position: absolute;
-    right: 10%;
+    right: 3%; /* Noch weiter rechts für cleanen Look */
     display: flex;
     align-items: center;
 }
@@ -231,41 +102,28 @@
 .navList {
     display: flex;
     align-items: center;
-    gap: 3.5rem;
+    gap: 2.5rem; /* Reduziert für kompakteren Look */
     list-style: none;
     margin: 0;
     padding: 0;
-    animation: fadeInRight 0.8s ease-out 0.5s both;
+    /* Animation entfernt */
 }
 
 .navItem {
     position: relative;
-    animation: fadeInUp 0.6s ease-out both;
+    /* Animation entfernt */
 }
-
-.navItem:nth-child(1) { animation-delay: 0.7s; }
-.navItem:nth-child(2) { animation-delay: 0.8s; }
-.navItem:nth-child(3) { animation-delay: 0.9s; }
-.navItem:nth-child(4) { animation-delay: 1.0s; }
-.navItem:nth-child(5) { animation-delay: 1.1s; }
-.navItem:nth-child(6) { animation-delay: 1.2s; }
-
-/* Reload-spezifische Animationen für navItems */
-.navItemReload:nth-child(1) { animation-delay: 0.4s; }
-.navItemReload:nth-child(2) { animation-delay: 0.5s; }
-.navItemReload:nth-child(3) { animation-delay: 0.6s; }
-.navItemReload:nth-child(4) { animation-delay: 0.7s; }
-.navItemReload:nth-child(5) { animation-delay: 0.8s; }
 
 .navLink {
     color: #e5e7eb;
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.15rem;
-    padding: 0.7rem 1rem;
+    font-size: 0.95rem; /* Kleiner für professionelleren Look */
+    padding: 0.5rem 0.8rem; /* Kompakteres Padding */
     transition: all 0.3s ease;
     position: relative;
     display: inline-block;
+    letter-spacing: 0.5px; /* Subtile Buchstabenabstände für Eleganz */
 }
 
 .navLink::after {
@@ -276,17 +134,19 @@
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: #E67E22;
-    transition: width 0.3s ease;
+    background: linear-gradient(90deg, #E67E22, #F39C12); /* Eleganter Gradient */
+    transition: width 0.3s ease, opacity 0.3s ease;
+    border-radius: 1px;
 }
 
 .navLink:hover {
     color: #ffffff;
-    transform: translateY(-2px);
+    transform: translateY(-1px); /* Subtilere Bewegung */
 }
 
 .navLink:hover::after {
-    width: 80%;
+    width: 100%; /* Vollständige Unterstreichung */
+    opacity: 1;
 }
 
 .navLink.active {
@@ -295,7 +155,8 @@
 }
 
 .navLink.active::after {
-    width: 80%;
+    width: 100%;
+    opacity: 1;
 }
 
 /* Mobile Menu Button */
@@ -309,9 +170,9 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    animation: fadeInRight 0.8s ease-out 0.6s both;
     position: relative;
     z-index: 10;
+    /* Animation entfernt */
 }
 
 .hamburger {
@@ -337,7 +198,7 @@
 /* Mobile Menu Overlay */
 .mobileOverlay {
     position: fixed;
-    top: 90px;
+    top: 80px; /* Angepasst an neue Navbar-Höhe */
     left: 0;
     right: 0;
     bottom: 0;
@@ -359,13 +220,14 @@
 .navList.navListOpen {
     display: flex;
     position: fixed;
-    top: 90px;
+    top: 80px; /* Angepasst an neue Navbar-Höhe */
     right: 0;
-    background: #374151;
+    background: #2E4A73; /* Gleiche Farbe wie Navbar */
     flex-direction: column;
     padding: 2rem;
     box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
     animation: slideInRight 0.3s ease;
+    backdrop-filter: blur(10px); /* Gleicher Blur-Effekt */
 }
 
 @keyframes slideInRight {
@@ -377,30 +239,56 @@
     }
 }
 
+/* Entfernte Reload-Klassen (nicht mehr benötigt) */
+.navbarReload,
+.brandReload,
+.navListReload,
+.navItemReload,
+.mobileMenuReload {
+    /* Alle Reload-Animationen entfernt */
+}
+
+.navLinkClick {
+    /* Click-Animation kann bleiben für Feedback */
+    animation: clickPulse 0.3s ease-out;
+}
+
+@keyframes clickPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .navWrapper {
-        right: 1rem;
+        right: 2rem;
     }
 
     .navList {
-        gap: 2rem;
+        gap: 2rem; /* Angepasst für Tablet */
     }
 
     .navLink {
-        font-size: 1rem;
-        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem; /* Etwas kleiner für Tablet */
+        padding: 0.5rem 0.7rem;
     }
 }
 
 @media (max-width: 768px) {
     .container {
         padding: 0 1rem;
-        height: 70px;
+        height: 60px; /* Kompakter für Mobile */
     }
 
     .brand {
-        margin-left: 1rem; /* Reduziert für mobile Geräte */
+        margin-left: 0;
     }
 
     .navWrapper {
@@ -415,9 +303,8 @@
         display: flex;
     }
 
-    /* KORREKTUR: Logo-Größe für Mobile */
     .logoImage {
-        height: 50px; /* War 1000px - jetzt auf angemessene Größe korrigiert */
+        height: 45px; /* Angepasste Logo-Größe */
     }
 
     .logo {
@@ -426,6 +313,15 @@
 
     .tagline {
         font-size: 0.7rem;
+    }
+
+    /* Mobile Menu Anpassungen */
+    .navList.navListOpen {
+        top: 60px; /* Angepasst an Mobile Navbar-Höhe */
+    }
+
+    .mobileOverlay {
+        top: 60px; /* Angepasst an Mobile Navbar-Höhe */
     }
 }
 
@@ -441,7 +337,7 @@
     }
 
     .logoImage {
-        height: 40px; /* Noch kleiner für sehr kleine Bildschirme */
+        height: 40px;
     }
 
     .logo {
@@ -453,7 +349,7 @@
     }
 }
 
-/* Smooth animations */
+/* Smooth animations nur für notwendige Elemente */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
