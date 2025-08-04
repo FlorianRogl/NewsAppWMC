@@ -1,4 +1,16 @@
-/* Navbar.module.css */
+/* Navbar.module.css - Vollständig Responsive */
+
+/* CSS Custom Properties für bessere Skalierung */
+:root {
+    --navbar-height: clamp(80px, 10vw, 120px);
+    --logo-height: clamp(80px, 12vw, 200px);
+    --font-size-nav: clamp(0.9rem, 1.8vw, 1.15rem);
+    --font-size-logo: clamp(1.2rem, 2.5vw, 1.8rem);
+    --font-size-tagline: clamp(0.6rem, 1.2vw, 0.9rem);
+    --gap-nav: clamp(1.5rem, 4vw, 3.5rem);
+    --padding-horizontal: clamp(1rem, 5vw, 8rem);
+    --brand-margin: clamp(1rem, 5vw, 8rem);
+}
 
 /* Navbar Animations */
 .navbar {
@@ -163,22 +175,22 @@
 .container {
     max-width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 0 var(--padding-horizontal);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 90px;
+    height: var(--navbar-height);
     position: relative;
 }
 
 /* Brand/Logo Section */
 .brand {
-    margin-left: 8rem;
     display: flex;
     align-items: center;
     animation: fadeInLeft 0.8s ease-out 0.3s both;
     text-decoration: none;
     z-index: 10;
+    flex-shrink: 0;
 }
 
 .brand:hover {
@@ -186,10 +198,11 @@
 }
 
 .logoImage {
-    height: 15rem;
+    height: var(--logo-height);
     width: auto;
     object-fit: contain;
     transition: transform 0.3s ease;
+    max-width: none;
 }
 
 .brand:hover .logoImage {
@@ -203,7 +216,7 @@
 }
 
 .logo {
-    font-size: 1.8rem;
+    font-size: var(--font-size-logo);
     font-weight: 600;
     color: #ffffff;
     letter-spacing: -0.3px;
@@ -211,7 +224,7 @@
 }
 
 .tagline {
-    font-size: 0.9rem;
+    font-size: var(--font-size-tagline);
     color: #f3f4f6;
     font-weight: 400;
     letter-spacing: 0.3px;
@@ -219,28 +232,32 @@
     margin-top: 0;
 }
 
-/* Navigation Wrapper - Zentral-Rechts positioniert */
+/* Navigation Wrapper */
 .navWrapper {
-    position: absolute;
-    right: 10%;
     display: flex;
     align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    margin-left: auto;
+    padding-left: clamp(1rem, 3vw, 2rem);
 }
 
 /* Navigation List */
 .navList {
     display: flex;
     align-items: center;
-    gap: 3.5rem;
+    gap: var(--gap-nav);
     list-style: none;
     margin: 0;
     padding: 0;
     animation: fadeInRight 0.8s ease-out 0.5s both;
+    flex-wrap: nowrap;
 }
 
 .navItem {
     position: relative;
     animation: fadeInUp 0.6s ease-out both;
+    white-space: nowrap;
 }
 
 .navItem:nth-child(1) { animation-delay: 0.7s; }
@@ -261,8 +278,8 @@
     color: #e5e7eb;
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.15rem;
-    padding: 0.7rem 1rem;
+    font-size: var(--font-size-nav);
+    padding: clamp(0.4rem, 1vw, 0.7rem) clamp(0.6rem, 1.5vw, 1rem);
     transition: all 0.3s ease;
     position: relative;
     display: inline-block;
@@ -303,41 +320,48 @@
     display: none;
     flex-direction: column;
     justify-content: space-around;
-    width: 28px;
-    height: 22px;
+    width: clamp(28px, 5vw, 32px);
+    height: clamp(22px, 4vw, 26px);
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 8px;
     animation: fadeInRight 0.8s ease-out 0.6s both;
     position: relative;
-    z-index: 10;
+    z-index: 1001;
+    flex-shrink: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .hamburger {
     width: 100%;
-    height: 2px;
+    height: 3px;
     background: #e5e7eb;
-    border-radius: 1px;
+    border-radius: 2px;
     transition: all 0.3s ease;
+    transform-origin: center;
 }
 
 .mobileMenuBtnOpen .hamburger:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(6px, 6px);
+    background: #ffffff;
 }
 
 .mobileMenuBtnOpen .hamburger:nth-child(2) {
     opacity: 0;
+    transform: scale(0);
 }
 
 .mobileMenuBtnOpen .hamburger:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+    transform: rotate(-45deg) translate(6px, -6px);
+    background: #ffffff;
 }
 
 /* Mobile Menu Overlay */
 .mobileOverlay {
     position: fixed;
-    top: 90px;
+    top: var(--navbar-height);
     left: 0;
     right: 0;
     bottom: 0;
@@ -359,13 +383,49 @@
 .navList.navListOpen {
     display: flex;
     position: fixed;
-    top: 90px;
+    top: var(--navbar-height);
     right: 0;
     background: #374151;
+    backdrop-filter: blur(20px);
     flex-direction: column;
-    padding: 2rem;
-    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
+    padding: clamp(2rem, 5vw, 3rem);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4);
     animation: slideInRight 0.3s ease;
+    gap: clamp(1.5rem, 4vw, 2rem);
+    min-width: clamp(250px, 50vw, 350px);
+    max-height: calc(100vh - var(--navbar-height));
+    overflow-y: auto;
+    border-left: 2px solid #E67E22;
+    z-index: 1000;
+}
+
+.navList.navListOpen .navItem {
+    width: 100%;
+    text-align: left;
+}
+
+.navList.navListOpen .navLink {
+    display: block;
+    width: 100%;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.navList.navListOpen .navLink:hover,
+.navList.navListOpen .navLink:focus {
+    background: rgba(230, 126, 34, 0.1);
+    transform: translateX(10px);
+    color: #E67E22;
+}
+
+.navList.navListOpen .navLink.active {
+    background: rgba(230, 126, 34, 0.2);
+    color: #E67E22;
+    border-left: 4px solid #E67E22;
 }
 
 @keyframes slideInRight {
@@ -377,32 +437,27 @@
     }
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .navWrapper {
-        right: 1rem;
-    }
+/* Responsive Breakpoints */
 
-    .navList {
-        gap: 2rem;
-    }
-
-    .navLink {
-        font-size: 1rem;
-        padding: 0.6rem 0.8rem;
+/* Large Tablets und Small Desktops */
+@media (max-width: 1200px) {
+    :root {
+        --gap-nav: clamp(1.5rem, 3vw, 2.5rem);
+        --padding-horizontal: clamp(1rem, 4vw, 6rem);
     }
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 0 1rem;
-        height: 70px;
+/* Tablets */
+@media (max-width: 1024px) {
+    :root {
+        --gap-nav: clamp(1.2rem, 2.5vw, 2rem);
+        --padding-horizontal: clamp(1rem, 3vw, 4rem);
+        --font-size-nav: clamp(0.85rem, 1.6vw, 1rem);
     }
+}
 
-    .brand {
-        margin-left: 1rem; /* Reduziert für mobile Geräte */
-    }
-
+/* Small Tablets */
+@media (max-width: 900px) {
     .navWrapper {
         display: none;
     }
@@ -415,49 +470,129 @@
         display: flex;
     }
 
-    /* KORREKTUR: Logo-Größe für Mobile */
-    .logoImage {
-        height: 50px; /* War 1000px - jetzt auf angemessene Größe korrigiert */
-    }
-
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .tagline {
-        font-size: 0.7rem;
-    }
-}
-
-/* Extra kleine Bildschirme */
-@media (max-width: 480px) {
     .container {
-        height: 60px;
-        padding: 0 0.5rem;
-    }
-
-    .brand {
-        margin-left: 0.5rem;
-    }
-
-    .logoImage {
-        height: 40px; /* Noch kleiner für sehr kleine Bildschirme */
-    }
-
-    .logo {
-        font-size: 1.3rem;
-    }
-
-    .tagline {
-        font-size: 0.65rem;
+        padding: 0 var(--padding-horizontal);
     }
 }
 
-/* Smooth animations */
+/* Large Mobile */
+@media (max-width: 768px) {
+    :root {
+        --navbar-height: clamp(70px, 8vw, 90px);
+        --logo-height: clamp(60px, 8vw, 80px);
+        --padding-horizontal: clamp(0.5rem, 3vw, 2rem);
+    }
+}
+
+/* Standard Mobile */
+@media (max-width: 480px) {
+    :root {
+        --navbar-height: clamp(60px, 7vw, 75px);
+        --logo-height: clamp(50px, 7vw, 65px);
+        --padding-horizontal: clamp(0.5rem, 2vw, 1rem);
+        --font-size-logo: clamp(1rem, 2vw, 1.3rem);
+        --font-size-tagline: clamp(0.55rem, 1vw, 0.7rem);
+    }
+
+    .mobileMenuBtn {
+        padding: 6px;
+        width: 32px;
+        height: 26px;
+    }
+
+    .navList.navListOpen {
+        min-width: clamp(200px, 60vw, 280px);
+        padding: clamp(1.5rem, 4vw, 2rem);
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+    :root {
+        --navbar-height: clamp(55px, 6vw, 65px);
+        --logo-height: clamp(45px, 6vw, 55px);
+        --padding-horizontal: clamp(0.25rem, 1.5vw, 0.5rem);
+    }
+
+    .navList.navListOpen {
+        min-width: clamp(180px, 70vw, 250px);
+    }
+}
+
+/* Ultra Wide Screens */
+@media (min-width: 1920px) {
+    :root {
+        --navbar-height: 100px;
+        --logo-height: 70px;
+        --font-size-nav: 1.25rem;
+        --gap-nav: 4rem;
+        --padding-horizontal: 10rem;
+    }
+}
+
+/* Smooth animations - Respektiert Benutzereinstellungen */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logoImage {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Landscape Orientation auf Mobile */
+@media (max-width: 900px) and (orientation: landscape) {
+    :root {
+        --navbar-height: clamp(50px, 6vh, 70px);
+        --logo-height: clamp(40px, 5vh, 60px);
+    }
+
+    .navList.navListOpen {
+        max-height: 85vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Touch-Optimierungen für alle mobilen Geräte */
+@media (max-width: 900px) {
+    .mobileMenuBtn:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    .navList.navListOpen .navLink:active {
+        background: rgba(230, 126, 34, 0.3);
+        transform: translateX(5px) scale(0.98);
+    }
+
+    /* Prevent zoom on double tap */
+    .navbar * {
+        touch-action: manipulation;
+    }
+}
+
+/* Container Query Support (für modernere Browser) */
+@supports (container-type: inline-size) {
+    .navbar {
+        container-type: inline-size;
+    }
+
+    @container (max-width: 900px) {
+        .navWrapper {
+            display: none;
+        }
+
+        .mobileMenuBtn {
+            display: flex;
+        }
     }
 }
