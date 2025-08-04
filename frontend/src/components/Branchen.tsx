@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import '../CSS/brancheCSS.css';
 
 const Branchen = () => {
@@ -369,7 +369,7 @@ const Branchen = () => {
         document.body.style.overflow = 'unset';
     };
 
-    const handleTabClick = (index: number) => {
+    const handleTabClick = (index: React.SetStateAction<number>) => {
         setActiveProject(index);
     };
 

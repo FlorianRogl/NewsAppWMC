@@ -600,12 +600,12 @@ const ModernLeistungen: React.FC = () => {
     };
 
     return (
-        <div className="font-inter leading-relaxed text-gray-800 bg-white pt-20">
+        <div className="font-inter leading-relaxed text-gray-800 bg-white pt-24">
             {/* Hero Section - Einfacher und kompakter */}
             <section
                 id="hero-section"
                 data-animate
-                className="relative py-16 lg:py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden"
+                className="relative py-28 lg:py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden"
             >
                 {/* Einfacher Hintergrund */}
                 <div className="absolute inset-0 opacity-20">
@@ -617,18 +617,18 @@ const ModernLeistungen: React.FC = () => {
                 <div className="relative z-10 text-center px-8 max-w-4xl mx-auto">
                     {/* Main Heading */}
                     <h1
-                        className={`text-4xl lg:text-6xl font-bold leading-tight mb-6 tracking-tight transform transition-all duration-1000 ease-out ${
+                        className={`text-4xl lg:text-6xl font-bold leading-relaxed mb-10 tracking-tight transform transition-all duration-1000 ease-out ${
                             visibleElements.has('hero-section')
                                 ? 'translate-y-0 opacity-100'
                                 : 'translate-y-12 opacity-0'
                         }`}
                         style={{ transitionDelay: '0.2s' }}
                     >
-                        <span className="block bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                        <span className="block bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent mb-4">
                             Unsere Leistungen
                         </span>
-                        <span className="block bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent mt-2">
-                            für Ihren Erfolg
+                        <span className="block bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent">
+                            im Überblick
                         </span>
                     </h1>
 
@@ -659,7 +659,7 @@ const ModernLeistungen: React.FC = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12">
                         <div className="lg:col-span-5">
-                            <div className="flex flex-col gap-4 sticky top-24">
+                            <div className="flex flex-col gap-4 sticky top-28">
                                 {services.map((service, index) => (
                                     <div
                                         key={service.id}
@@ -825,7 +825,7 @@ const ModernLeistungen: React.FC = () => {
 
             {/* Modal */}
             {showModal && selectedTech && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center pt-20 pb-4">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center pt-28 pb-8">
                     {/* Backdrop */}
                     <div
                         className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300"
@@ -833,7 +833,7 @@ const ModernLeistungen: React.FC = () => {
                     ></div>
 
                     {/* Modal Content */}
-                    <div className="relative bg-white rounded-2xl max-w-5xl max-h-[calc(100vh-6rem)] overflow-y-auto shadow-2xl border border-slate-200 m-4 w-full transform scale-95 animate-[modalSlideIn_0.3s_ease-out_forwards]">
+                    <div className="relative bg-white rounded-2xl max-w-5xl max-h-[calc(100vh-9rem)] overflow-y-auto shadow-2xl border border-slate-200 m-4 w-full transform scale-95 animate-[modalSlideIn_0.3s_ease-out_forwards]">
                         {/* Header Image */}
                         <div className="h-56 overflow-hidden relative">
                             <img
