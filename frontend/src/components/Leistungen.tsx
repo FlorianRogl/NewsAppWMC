@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
-import '../CSS/ModernLeistungen.css';
+import React, { useState, useEffect } from 'react';
 
-// Type definitions
-interface HoverInfo {
-    keyPoints: string[];
-    industries: string[];
-    experience: string;
-}
-
+// TypeScript Interfaces
 interface Service {
     id: number;
     title: string;
@@ -16,7 +9,11 @@ interface Service {
     shortDesc: string;
     detailedDescription: string;
     features: string[];
-    hoverInfo: HoverInfo;
+    hoverInfo: {
+        keyPoints: string[];
+        industries: string[];
+        experience: string;
+    };
     color: string;
     projects: string;
     experience: string;
@@ -28,9 +25,13 @@ interface Technology {
     image: string;
     details: string;
     projects: string;
+    fullDescription: string;
+    features: string[];
+    specifications: string[];
+    advantages: string[];
 }
 
-interface TechnologiesMap {
+interface Technologies {
     software: Technology[];
     branchen: Technology[];
 }
@@ -53,214 +54,467 @@ interface Certification {
 
 const ModernLeistungen: React.FC = () => {
     const [activeService, setActiveService] = useState<number>(0);
-    const [activeTab, setActiveTab] = useState<'software' | 'branchen'>('software');
+    const [activeTab, setActiveTab] = useState<keyof Technologies>('software');
+    const [showModal, setShowModal] = useState(false);
+    const [selectedTech, setSelectedTech] = useState<Technology | null>(null);
+    const [visibleElements, setVisibleElements] = useState<Set<string>>(new Set());
+
+    // Intersection Observer für Scroll-Animationen
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setVisibleElements(prev => new Set(prev).add(entry.target.id));
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        // Alle Elemente mit data-animate Attribut beobachten
+        const elements = document.querySelectorAll('[data-animate]');
+        elements.forEach(el => {
+            if (el.id) observer.observe(el);
+        });
+
+        // Hero-Animation beim Laden starten
+        const heroTimer = setTimeout(() => {
+            setVisibleElements(prev => new Set(prev).add('hero-section'));
+        }, 100);
+
+        return () => {
+            observer.disconnect();
+            clearTimeout(heroTimer);
+        };
+    }, []);
+
+    const getAnimationClass = (elementId: string, animationType: string = 'fadeInUp', delay: number = 0) => {
+        const isVisible = visibleElements.has(elementId);
+        const baseClass = isVisible ? 'animate-[' + animationType + '_1.0s_ease-out_forwards]' : 'translate-y-8 opacity-0';
+        const delayClass = delay > 0 ? ` [animation-delay:${delay}s]` : '';
+        return baseClass + delayClass;
+    };
 
     const services: Service[] = [
         {
             id: 1,
             title: "Projektierung",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+            image: "https://picsum.photos/400/300?random=1",
             description: "Investitionsentscheidungen bedürfen umsetzbarer Basisplanungen, realistischer Terminpläne und belastbarer Projektbudgets",
-            shortDesc: "Von der ersten Idee bis zur detaillierten Projektplanung",
-            detailedDescription: "Investitionsentscheidungen bedürfen umsetzbarer Basisplanungen, realistischer Terminpläne und belastbarer Projektbudgets. PROMAX bietet Ihnen fundierte Projektierungsleistungen für den Industrieanlagenbau in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik.",
+            shortDesc: "Fundierte Basisplanungen für Investitionsentscheidungen",
+            detailedDescription: "Investitionsentscheidungen bedürfen umsetzbarer Basisplanungen, realistischer Terminpläne und belastbarer Projektbudgets. PROMAX bietet Ihnen fundierte Projektierungsleistungen für den Industrieanlagenbau.",
             features: [
-                "Machbarkeitsstudien & Konzeptentwicklung",
-                "Technische Bewertung & Risikoanalyse",
-                "Kostenermittlung & Wirtschaftlichkeitsanalyse",
-                "Genehmigungsplanung & Behördenabstimmung",
-                "Anlagenkonzepte & Verfahrensentwicklung",
+                "Machbarkeitsstudien und Konzeptentwicklung",
+                "Anlagenkonzepte und Verfahrensentwicklung",
+                "Kostenermittlung und Wirtschaftlichkeitsanalyse",
+                "Terminplanung und Projektbudgets",
+                "Genehmigungsplanung und Behördenabstimmung",
+                "Risikoanalyse und Bewertung",
                 "Material- und Energiebilanzen",
-                "Standortanalyse & Infrastrukturplanung",
-                "Umweltverträglichkeitsprüfung"
+                "Standortanalyse und Infrastruktur"
             ],
             hoverInfo: {
-                keyPoints: ["Machbarkeitsstudien", "Kostenplanung", "Genehmigungen"],
+                keyPoints: ["Machbarkeitsstudien", "Kostenplanung", "Anlagenkonzepte"],
                 industries: ["Papier & Zellstoff", "Pharma", "Chemie", "Energie & Umwelt"],
                 experience: "seit 1999"
             },
             color: "#3B82F6",
-            projects: "120+ Projekte",
-            experience: "25 Jahre"
+            projects: "Seit 1999",
+            experience: "25+ Jahre"
         },
         {
             id: 2,
             title: "Projektmanagement",
-            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            description: "Professionelle Koordination und Steuerung aller Projektphasen von der Planung bis zur Inbetriebnahme",
-            shortDesc: "Professionelle Projektleitung von A bis Z",
-            detailedDescription: "Unser erfahrenes Projektmanagement-Team koordiniert alle Projektphasen und sorgt für die termingerechte, budgetkonforme Umsetzung Ihrer Anlagenprojekte. Wir verstehen uns als Ihr verlässlicher Partner im gesamten Projektlebenszyklus.",
+            image: "https://picsum.photos/400/300?random=2",
+            description: "Professionelle Koordination und Steuerung aller Projektphasen",
+            shortDesc: "Koordination und Steuerung aller Projektphasen",
+            detailedDescription: "Professionelle Koordination und Steuerung aller Projektphasen von der Planung bis zur Inbetriebnahme. Unser erfahrenes Team sorgt für termingerechte und budgetkonforme Projektumsetzung.",
             features: [
-                "Terminplanung & -überwachung",
-                "Kostencontrolling & Budgetmanagement",
-                "Qualitätsmanagement & Dokumentation",
+                "Terminplanung und -überwachung",
+                "Kostencontrolling und Budgetmanagement",
+                "Qualitätsmanagement und Dokumentation",
                 "Koordination aller Projektbeteiligten",
-                "Risikomanagement & Claim Management",
-                "Lieferantenmanagement & Beschaffung",
+                "Risikomanagement und Claims Management",
+                "Lieferantenmanagement und Beschaffung",
                 "Schnittstellenmanagement",
-                "Reporting & Projektcontrolling"
+                "Berichtswesen und Projektcontrolling"
             ],
             hoverInfo: {
                 keyPoints: ["Terminüberwachung", "Kostencontrolling", "Qualitätsmanagement"],
-                industries: ["Alle Industriebranchen"],
-                experience: "500+ Projekte realisiert"
+                industries: ["Papier", "Zellstoff", "Pharma", "Chemie", "Energie & Umwelt"],
+                experience: "ca. 35 Mitarbeiter"
             },
             color: "#10B981",
-            projects: "500+ Projekte",
+            projects: "International",
             experience: "seit 1999"
         },
         {
             id: 3,
             title: "Planung",
-            image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            description: "3D-Anlagenplanung und Detail-Engineering mit modernster CAD-Technologie für präzise technische Lösungen",
-            shortDesc: "3D-Planung und Detail-Engineering mit modernster Technologie",
-            detailedDescription: "Mit modernster 3D-Planungssoftware und jahrelanger Erfahrung erstellen wir präzise technische Planungen für komplexe Industrieanlagen. Unser Engineering-Team arbeitet mit den neuesten Tools und Standards der Branche.",
+            image: "https://picsum.photos/400/300?random=3",
+            description: "3D-Anlagenplanung und Detail-Engineering mit modernster Technologie",
+            shortDesc: "3D-Anlagenplanung und Detail-Engineering",
+            detailedDescription: "3D-Anlagenplanung und Detail-Engineering mit modernster CAD-Technologie. Präzise technische Planungen für komplexe Industrieanlagen mit höchsten Qualitätsstandards.",
             features: [
-                "3D-Modellierung mit PDMS & AutoCAD Plant 3D",
-                "Rohrleitungsplanung & Isometrien",
-                "3D-Laserscanning & Bestandserfassung",
-                "Stahlbauplanung & Konstruktion",
-                "P&ID-Erstellung & Verfahrensfließbilder",
+                "3D-Modellierung und CAD-Planung",
+                "Rohrleitungsplanung und Isometrien",
                 "Apparate- und Maschinenaufstellung",
-                "Elektro- und MSR-Planung Integration",
-                "Kollisionsprüfung & Optimierung"
+                "Stahlbau- und Konstruktionsplanung",
+                "P&ID-Erstellung und Verfahrensfließbilder",
+                "Elektro- und MSR-Integration",
+                "3D-Laserscanning und Bestandserfassung",
+                "Kollisionsprüfung und Optimierung"
             ],
             hoverInfo: {
-                keyPoints: ["PDMS", "AutoCAD Plant 3D", "3D-Laserscanning"],
+                keyPoints: ["3D-Modellierung", "Rohrleitungsplanung", "CAD-Technologie"],
                 industries: ["Chemie", "Pharma", "Papier", "Energie"],
-                experience: "PDMS seit 2005"
+                experience: "Modernste Technologie"
             },
             color: "#F59E0B",
-            projects: "300+ Anlagen",
-            experience: "PDMS seit 2005"
+            projects: "CAD-Experten",
+            experience: "seit 1999"
         },
         {
             id: 4,
             title: "Site Services",
-            image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            description: "Professionelle Vor-Ort-Betreuung während der gesamten Bauphase bis zur erfolgreichen Inbetriebnahme",
-            shortDesc: "Vor-Ort-Betreuung während der gesamten Bauphase",
-            detailedDescription: "Unsere Site Services stellen sicher, dass Ihr Projekt vor Ort professionell umgesetzt wird. Von der Montageüberwachung bis zur Inbetriebnahme begleiten unsere Experten jeden Schritt der Realisierung.",
+            image: "https://picsum.photos/400/300?random=4",
+            description: "Professionelle Vor-Ort-Betreuung während der Bauphase",
+            shortDesc: "Vor-Ort-Betreuung und Montageüberwachung",
+            detailedDescription: "Professionelle Vor-Ort-Betreuung während der gesamten Bauphase bis zur erfolgreichen Inbetriebnahme. Unsere Experten begleiten jeden Schritt der Projektrealisierung.",
             features: [
-                "Montageüberwachung & Qualitätskontrolle",
-                "Inbetriebnahmebegleitung & Commissioning",
-                "Schulung & Know-how-Transfer",
-                "Abnahme & Gewährleistungsbetreuung",
+                "Montageüberwachung und Qualitätskontrolle",
+                "Inbetriebnahmebegleitung und Commissioning",
+                "Schulung und Know-how-Transfer",
+                "Abnahme und Gewährleistungsbetreuung",
                 "Sicherheitskoordination (SiGe)",
-                "Fortschrittskontrolle & Berichtswesen",
-                "Mängelmanagement & Nacharbeiten",
-                "Performance-Tests & Optimierung"
+                "Fortschrittskontrolle und Berichtswesen",
+                "Mängelmanagement und Nacharbeiten",
+                "Performance-Tests und Optimierung"
             ],
             hoverInfo: {
                 keyPoints: ["Montageüberwachung", "Inbetriebnahme", "Qualitätskontrolle"],
-                industries: ["International tätig"],
-                experience: "Österreich & International"
+                industries: ["International tätig", "Österreich"],
+                experience: "Vor-Ort-Expertise"
             },
             color: "#EF4444",
-            projects: "150+ Baustellen",
-            experience: "International"
+            projects: "International",
+            experience: "seit 1999"
         },
         {
             id: 5,
             title: "Organisationsberatung",
-            image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-            description: "Optimierung von Unternehmensprozessen und -strukturen für mehr Effizienz im Industrieanlagenbau",
-            shortDesc: "Optimierung von Prozessen und Strukturen",
-            detailedDescription: "Wir unterstützen Sie bei der Optimierung Ihrer Unternehmensprozesse und -strukturen. Unser Beratungsteam analysiert bestehende Abläufe und entwickelt maßgeschneiderte Lösungen für mehr Effizienz.",
+            image: "https://picsum.photos/400/300?random=5",
+            description: "Spezielle Beratung für komplexe Themenbereiche im Projektgeschäft",
+            shortDesc: "Beratung für komplexe Projektorganisationen",
+            detailedDescription: "Unterschiedliche Projekte in verschiedenen Branchen werfen spezielle Fragestellungen auf, denen wir uns im Rahmen der Organisationsberatung widmen. Komplexe Themenbereiche, die das Tagesgeschäft übersteigen.",
             features: [
-                "Prozessoptimierung & Workflow-Analyse",
-                "Change Management & Organisationsentwicklung",
-                "Qualitätsmanagementsysteme (ISO 9001)",
-                "Digitalisierungsstrategien & Industrie 4.0",
-                "Lean Management & Six Sigma",
-                "Compliance & Risikomanagement",
-                "Personalentwicklung & Schulungskonzepte",
-                "IT-Integration & Systemoptimierung"
+                "Entwicklung von Präventionsmaßnahmen",
+                "Implementierung von Claims Management Systemen",
+                "Begleitung von Schiedsgerichtsverfahren",
+                "Durchführung von Lessons Learned-Workshops",
+                "Rechtzeitige Erkennung von Risiken",
+                "Methodische Behandlung von Forderungen",
+                "Entwicklung von Argumentationslinien",
+                "Ableitung von Projekterkenntnissen"
             ],
             hoverInfo: {
-                keyPoints: ["Prozessoptimierung", "Change Management", "ISO 9001"],
+                keyPoints: ["Claims Management", "Risikomanagement", "Lessons Learned"],
                 industries: ["Alle Industriebranchen"],
-                experience: "25 Jahre Branchenerfahrung"
+                experience: "Spezialisierte Beratung"
             },
             color: "#8B5CF6",
-            projects: "80+ Beratungen",
-            experience: "Alle Branchen"
+            projects: "Branchenübergreifend",
+            experience: "seit 1999"
         }
     ];
 
-    const technologies: TechnologiesMap = {
+    const technologies: Technologies = {
         software: [
             {
-                name: "PDMS",
-                description: "3D-Anlagenplanung",
-                image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                details: "Seit 2005 im Einsatz",
-                projects: "300+ Anlagen modelliert"
+                name: "AVEVA PDMS",
+                description: "3D-Anlagenplanung und intelligente Modellierung",
+                image: "https://picsum.photos/500/300?random=10",
+                details: "seit 2003 im Einsatz",
+                projects: "300+ Anlagen modelliert",
+                fullDescription: "AVEVA Plant Design Management System (PDMS) ist eine hochmoderne 3D-CAD-Software für die Planung von Industrieanlagen. PROMAX nutzt seit 2003 diese leistungsstarke Software für komplexe Anlagenprojekte.",
+                features: [
+                    "Parametrische 3D-Modellierung von Rohrleitungen, Ausrüstung und Stahlbau",
+                    "Intelligente Kollisionsprüfung und Interference-Management",
+                    "Automatische Generierung von Isometrien und Materiallisten",
+                    "Integrierte Datenbank für Komponenten und Standards",
+                    "Multi-User-Umgebung für Teams",
+                    "Automatische Erstellung von Werkstattzeichnungen"
+                ],
+                specifications: [
+                    "Datenbankbasierte Objektstruktur",
+                    "Hierarchisches Modellaufbau",
+                    "Echtzeit-Kollisionsprüfung",
+                    "Integration mit anderen AVEVA-Produkten"
+                ],
+                advantages: [
+                    "Reduzierung von Planungsfehlern um bis zu 70%",
+                    "Beschleunigte Projektabwicklung durch 3D-Visualisierung",
+                    "Präzise Materiallisten und Kostenkalkulationen",
+                    "Weltweite Standardisierung und Kompatibilität"
+                ]
             },
             {
                 name: "AutoCAD Plant 3D",
-                description: "Rohrleitungsplanung",
-                image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                details: "Zertifizierte Anwender",
-                projects: "500+ Isometrien erstellt"
+                description: "Rohrleitungsplanung und 3D-Modellierung",
+                image: "https://picsum.photos/500/300?random=11",
+                details: "seit 2013 zertifiziert",
+                projects: "500+ Isometrien erstellt",
+                fullDescription: "AutoCAD Plant 3D ist Autodesks spezialisierte Lösung für die Rohrleitungsplanung in Industrieanlagen. PROMAX verwendet diese Software seit 2013 für effiziente 3D-Planungen.",
+                features: [
+                    "3D-Rohrleitungsmodellierung mit intelligenten Objekten",
+                    "P&ID-Integration und Datensynchronisation",
+                    "Orthogonale und isometrische Zeichnungserstellung",
+                    "Umfangreiche Kataloge mit Standardkomponenten",
+                    "Spannungsanalyse-Integration",
+                    "Automatische Aktualisierung von Zeichnungen"
+                ],
+                specifications: [
+                    "Native DWG-Dateiformate",
+                    "Branchenspezifische Werkzeuge",
+                    "Cloud-basierte Zusammenarbeit möglich",
+                    "Integration mit Autodesk-Vault"
+                ],
+                advantages: [
+                    "Bekannte AutoCAD-Benutzeroberfläche",
+                    "Nahtlose Integration in bestehende Workflows",
+                    "Kosteneffiziente Alternative zu anderen 3D-Systemen",
+                    "Umfassende Schulungsangebote verfügbar"
+                ]
             },
             {
                 name: "ROHR 2",
-                description: "Rohrleitungsberechnung",
-                image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Rohrleitungsberechnung und Spannungsanalyse",
+                image: "https://picsum.photos/500/300?random=12",
                 details: "Thermodynamische Berechnung",
-                projects: "Alle Druckstufen"
+                projects: "Alle Druckstufen abgedeckt",
+                fullDescription: "ROHR 2 ist eine spezialisierte Software für die statische und dynamische Analyse von Rohrleitungssystemen. Die Software ermöglicht präzise Berechnungen für alle Druckstufen und Temperaturbereiche.",
+                features: [
+                    "Statische und dynamische Spannungsanalyse",
+                    "Thermische Expansion und Kontraktionsberechnungen",
+                    "Wind- und Erdbebenlastanalyse",
+                    "Ermüdungsanalyse nach internationalen Standards",
+                    "Integration mit CAD-Systemen",
+                    "Detaillierte Berichte und Dokumentation"
+                ],
+                specifications: [
+                    "Compliance mit ASME, DIN, EN Standards",
+                    "Unterstützung verschiedener Materialien",
+                    "Nichtlineare Analysemöglichkeiten",
+                    "Solver für große Gleichungssysteme"
+                ],
+                advantages: [
+                    "Sicherheitsnachweis nach internationalen Normen",
+                    "Optimierung der Rohrleitungsführung",
+                    "Reduzierung von Materialkosten",
+                    "Vermeidung von Planungsfehlern"
+                ]
             },
             {
                 name: "PointSense Plant",
-                description: "3D-Laserscanning",
-                image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "3D-Laserscanning und Punktwolkenverarbeitung",
+                image: "https://picsum.photos/500/300?random=13",
                 details: "Millimetergenau",
-                projects: "Bestandserfassung"
+                projects: "Präzise Bestandserfassung",
+                fullDescription: "PointSense Plant ist eine hochpräzise Software für die Verarbeitung von 3D-Laserscanning-Daten. Sie ermöglicht die millimetergenaue Erfassung bestehender Anlagen für Revamps und Erweiterungen.",
+                features: [
+                    "Automatische Erkennung von Rohrleitungen und Strukturen",
+                    "Punktwolken-zu-CAD-Konvertierung",
+                    "Präzise Vermessung komplexer Geometrien",
+                    "Integration in PDMS und AutoCAD Plant 3D",
+                    "Kollisionsprüfung mit neuen Planungen",
+                    "Qualitätskontrolle und Abweichungsanalyse"
+                ],
+                specifications: [
+                    "Verarbeitung von Milliarden Punkten",
+                    "Genauigkeit im Millimeterbereich",
+                    "Unterstützung aller gängigen Scanner",
+                    "Cloudbasierte Verarbeitung möglich"
+                ],
+                advantages: [
+                    "Drastische Zeitersparnis bei Bestandsaufnahmen",
+                    "Eliminierung von Messfehlern",
+                    "Sichere Planung in bestehenden Anlagen",
+                    "Dokumentation des Ist-Zustands"
+                ]
             },
             {
                 name: "Microsoft Project",
-                description: "Projektmanagement",
-                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Professionelles Projektmanagement",
+                image: "https://picsum.photos/500/300?random=14",
                 details: "Enterprise Standard",
-                projects: "500+ Projekte geplant"
+                projects: "500+ Projekte erfolgreich geplant",
+                fullDescription: "Microsoft Project ist das von PROMAX eingesetzte Standard-Tool für das Projektmanagement. Es ermöglicht die professionelle Planung, Steuerung und Überwachung aller Projektaktivitäten.",
+                features: [
+                    "Detaillierte Projektplanung und Terminierung",
+                    "Ressourcenmanagement und -optimierung",
+                    "Kostenplanung und -controlling",
+                    "Kritischer Pfad-Analyse",
+                    "Portfolio-Management für mehrere Projekte",
+                    "Integration mit Office 365 und Teams"
+                ],
+                specifications: [
+                    "Gantt-Diagramme und Netzpläne",
+                    "Multi-Projekt-Management",
+                    "Cloud-basierte Zusammenarbeit",
+                    "Erweiterte Reporting-Funktionen"
+                ],
+                advantages: [
+                    "Transparenz über alle Projektphasen",
+                    "Frühzeitige Erkennung von Verzögerungen",
+                    "Optimale Ressourcenauslastung",
+                    "Standardisierte Projektdokumentation"
+                ]
             }
         ],
         branchen: [
             {
-                name: "Chemie",
-                description: "Verfahrenstechnik",
-                image: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                name: "Chemie & Petrochemie",
+                description: "Verfahrenstechnische Anlagen und Prozessoptimierung",
+                image: "https://picsum.photos/500/300?random=15",
                 details: "25 Jahre Erfahrung",
-                projects: "150+ Chemieanlagen"
+                projects: "150+ Chemieanlagen realisiert",
+                fullDescription: "PROMAX verfügt über umfassende Expertise in der Planung und Realisierung chemischer und petrochemischer Anlagen. Von der Grundstoffchemie bis zu Spezialchemikalien begleiten wir komplexe Verfahrensprozesse.",
+                features: [
+                    "Reaktor- und Destillationsanlagen",
+                    "Wärmetauscher und Verdampfersysteme",
+                    "Katalysator-Handhabungssysteme",
+                    "Ex-Schutz und Sicherheitstechnik",
+                    "Umweltschutzanlagen",
+                    "Automatisierung und Prozessleittechnik"
+                ],
+                specifications: [
+                    "Compliance mit ATEX-Richtlinien",
+                    "Druckgeräterichtlinie PED",
+                    "HAZOP und SIL-Analysen",
+                    "Umweltauflagen und Emissionsschutz"
+                ],
+                advantages: [
+                    "Tiefes Verständnis chemischer Prozesse",
+                    "Erfahrung mit gefährlichen Medien",
+                    "Kostenoptimierte Anlagenlösungen",
+                    "Kurze Stillstandszeiten bei Revamps"
+                ]
             },
             {
-                name: "Pharma",
-                description: "GMP-konforme Anlagen",
-                image: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                details: "FDA/EMA Standards",
-                projects: "80+ Pharmaprojekte"
+                name: "Pharma & Biotechnologie",
+                description: "GMP-konforme Produktionsanlagen",
+                image: "https://picsum.photos/500/300?random=16",
+                details: "FDA/EMA-Standards",
+                projects: "80+ Pharmaprojekte erfolgreich",
+                fullDescription: "In der Pharmaindustrie sind höchste Qualitäts- und Reinheitsanforderungen zu erfüllen. PROMAX plant und realisiert GMP-konforme Anlagen nach internationalen Standards.",
+                features: [
+                    "Aseptische Produktionsräume",
+                    "CIP/SIP-Reinigungssysteme",
+                    "Reinstmedien-Versorgung",
+                    "Containment-Systeme",
+                    "Validierungsunterstützung",
+                    "Change Control und Dokumentation"
+                ],
+                specifications: [
+                    "GMP-Guidelines Compliance",
+                    "FDA 21 CFR Part 11",
+                    "EU-GMP Annex 1",
+                    "ISPE-Standards"
+                ],
+                advantages: [
+                    "Validierungsgerechte Planung",
+                    "Minimale Kontaminationsrisiken",
+                    "Flexibilität für Produktwechsel",
+                    "Vollständige Dokumentation"
+                ]
             },
             {
                 name: "Energie & Umwelt",
-                description: "Nachhaltige Technologien",
-                image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Nachhaltige Technologien und Umweltschutz",
+                image: "https://picsum.photos/500/300?random=17",
                 details: "Erneuerbare Energien",
-                projects: "100+ Umweltanlagen"
+                projects: "100+ Umweltanlagen",
+                fullDescription: "PROMAX unterstützt die Energiewende durch Planung innovativer Anlagen für erneuerbare Energien und Umweltschutztechnologien. Nachhaltigkeit steht im Fokus aller Projekte.",
+                features: [
+                    "Biomasse- und Biogasanlagen",
+                    "Abwasserbehandlungsanlagen",
+                    "Rauchgasreinigung",
+                    "Recycling- und Kreislaufanlagen",
+                    "Power-to-X Technologien",
+                    "Energieeffizienz-Optimierung"
+                ],
+                specifications: [
+                    "Emissionsschutz-Verordnungen",
+                    "Erneuerbare-Energien-Gesetz",
+                    "Abfallrahmenrichtlinie",
+                    "Wasserhaushaltsgesetz"
+                ],
+                advantages: [
+                    "Beitrag zur CO2-Reduktion",
+                    "Wirtschaftliche Nachhaltigkeit",
+                    "Innovative Verfahrenstechniken",
+                    "Fördermittel-Optimierung"
+                ]
             },
             {
                 name: "Papier & Zellstoff",
-                description: "Prozessanlagen",
-                image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                description: "Prozessanlagen für die Papierindustrie",
+                image: "https://picsum.photos/500/300?random=18",
                 details: "Internationale Projekte",
-                projects: "120+ Papiermaschinen"
+                projects: "120+ Papiermaschinen",
+                fullDescription: "PROMAX ist ein erfahrener Partner der Papierindustrie mit internationaler Projekterfahrung. Von der Zellstoffaufbereitung bis zur Papierproduktion realisieren wir komplette Produktionslinien.",
+                features: [
+                    "Zellstoffkochung und -bleiche",
+                    "Papiermaschinen und Coating-Anlagen",
+                    "Deinking und Altpapieraufbereitung",
+                    "Dampf- und Energieversorgung",
+                    "Wasserkreisläufe",
+                    "Qualitätskontrollsysteme"
+                ],
+                specifications: [
+                    "Internationale Papierstandards",
+                    "Umweltauflagen für Faserstoffindustrie",
+                    "Energieeffizienz-Anforderungen",
+                    "Produktqualitäts-Spezifikationen"
+                ],
+                advantages: [
+                    "Optimierte Faserausbeute",
+                    "Minimaler Chemikalieneinsatz",
+                    "Energieeffiziente Prozesse",
+                    "Hohe Produktqualität"
+                ]
             },
             {
-                name: "Lebensmittel",
-                description: "Hygienische Anlagen",
-                image: "https://images.unsplash.com/photo-1556909114-5a7aca529e4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                name: "Lebensmittel & Getränke",
+                description: "Hygienische Produktionsanlagen",
+                image: "https://picsum.photos/500/300?random=19",
                 details: "HACCP-konforme Planung",
-                projects: "60+ Produktionsanlagen"
+                projects: "60+ Produktionsanlagen",
+                fullDescription: "In der Lebensmittelindustrie stehen Hygiene und Produktsicherheit im Vordergrund. PROMAX plant HACCP-konforme Anlagen mit höchsten Qualitätsstandards für sichere Lebensmittelproduktion.",
+                features: [
+                    "Hygienegerechte Anlagengestaltung",
+                    "CIP-Reinigungssysteme",
+                    "Pasteurisierung und Sterilisation",
+                    "Kälteanlagen und Gefriertrocknung",
+                    "Verpackungsanlagen",
+                    "Qualitätssicherungssysteme"
+                ],
+                specifications: [
+                    "HACCP-Grundsätze",
+                    "Lebensmittelhygiene-Verordnung",
+                    "IFS und BRC Standards",
+                    "EU-Verordnung 852/2004"
+                ],
+                advantages: [
+                    "Maximale Lebensmittelsicherheit",
+                    "Verlängerte Haltbarkeit",
+                    "Effiziente Reinigungszyklen",
+                    "Rückverfolgbarkeit gewährleistet"
+                ]
             }
         ]
     };
@@ -272,7 +526,7 @@ const ModernLeistungen: React.FC = () => {
             duration: "2-4 Wochen",
             description: "Anforderungsanalyse, Machbarkeitsstudie und Projektdefinition",
             deliverables: ["Lastenheft", "Machbarkeitsstudie", "Kostenrahmen", "Terminplan"],
-            image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
+            image: "https://picsum.photos/300/250?random=20"
         },
         {
             phase: "02",
@@ -280,7 +534,7 @@ const ModernLeistungen: React.FC = () => {
             duration: "4-8 Wochen",
             description: "Konzeptentwicklung, Grundfließbilder und erste Kostenschätzung",
             deliverables: ["Anlagenkonzept", "Grundfließbilder", "Layout-Studien", "Genehmigungsantrag"],
-            image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
+            image: "https://picsum.photos/300/250?random=21"
         },
         {
             phase: "03",
@@ -288,7 +542,7 @@ const ModernLeistungen: React.FC = () => {
             duration: "8-12 Wochen",
             description: "Detaillierte Planung, 3D-Modellierung und Spezifikationen",
             deliverables: ["3D-Modell", "P&ID", "Ausschreibungsunterlagen", "Kostenberechnung"],
-            image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
+            image: "https://picsum.photos/300/250?random=22"
         },
         {
             phase: "04",
@@ -296,7 +550,7 @@ const ModernLeistungen: React.FC = () => {
             duration: "6-10 Wochen",
             description: "Werkstattzeichnungen, Materiallisten und Montageplanung",
             deliverables: ["Werkstattzeichnungen", "Isometrien", "Materiallisten", "Montageplan"],
-            image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
+            image: "https://picsum.photos/300/250?random=23"
         },
         {
             phase: "05",
@@ -304,7 +558,7 @@ const ModernLeistungen: React.FC = () => {
             duration: "12-52 Wochen",
             description: "Montageüberwachung, Qualitätskontrolle und Inbetriebnahme",
             deliverables: ["Montageüberwachung", "Qualitätsprüfungen", "Inbetriebnahme", "Dokumentation"],
-            image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
+            image: "https://picsum.photos/300/250?random=24"
         }
     ];
 
@@ -335,207 +589,232 @@ const ModernLeistungen: React.FC = () => {
         }
     ];
 
+    const openModal = (tech: Technology) => {
+        setSelectedTech(tech);
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedTech(null);
+    };
+
     return (
-        <div className="modern-leistungen">
-            {/* Hero Section */}
-            <section className="hero">
-                <div className="hero-content">
-                    <div className="hero-text">
-                        <span className="hero-badge">Unsere Leistungen</span>
-                        <h1 className="hero-title">
-                            Know-How und Leidenschaft
-                            <span className="highlight"> für Ihr Projekt</span>
-                        </h1>
-                        <p className="hero-description">
-                            Von der ersten Projektidee bis zur erfolgreichen Inbetriebnahme -
-                            PROMAX begleitet Sie durch alle Phasen Ihres Industrieprojekts mit
-                            höchster Kompetenz und bewährter Erfahrung in über 500 realisierten Projekten.
-                        </p>
-                        <div className="hero-highlights">
-                            <div className="hero-highlight">
-                                <span className="highlight-text">25+ Jahre Erfahrung</span>
-                                <span className="highlight-subtext">seit 1999</span>
-                            </div>
-                            <div className="hero-highlight">
-                                <span className="highlight-text">500+ Projekte realisiert</span>
-                                <span className="highlight-subtext">erfolgreich abgeschlossen</span>
-                            </div>
-                            <div className="hero-highlight">
-                                <span className="highlight-text">ISO 9001:2015 zertifiziert</span>
-                                <span className="highlight-subtext">Qualitätsstandard</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="hero-visual">
-                        <div className="hero-image">
-                            <img
-                                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                                alt="Industrieanlage"
-                            />
-                        </div>
-                    </div>
+        <div className="font-inter leading-relaxed text-gray-800 bg-white pt-20">
+            {/* Hero Section - Einfacher und kompakter */}
+            <section
+                id="hero-section"
+                data-animate
+                className="relative py-16 lg:py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden"
+            >
+                {/* Einfacher Hintergrund */}
+                <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-10 left-10 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                    <div className="absolute bottom-10 right-10 w-2 h-2 bg-blue-300 rounded-full animate-pulse"></div>
+                </div>
+
+                {/* Main Content */}
+                <div className="relative z-10 text-center px-8 max-w-4xl mx-auto">
+                    {/* Main Heading */}
+                    <h1
+                        className={`text-4xl lg:text-6xl font-bold leading-tight mb-6 tracking-tight transform transition-all duration-1000 ease-out ${
+                            visibleElements.has('hero-section')
+                                ? 'translate-y-0 opacity-100'
+                                : 'translate-y-12 opacity-0'
+                        }`}
+                        style={{ transitionDelay: '0.2s' }}
+                    >
+                        <span className="block bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                            Unsere Leistungen
+                        </span>
+                        <span className="block bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent mt-2">
+                            für Ihren Erfolg
+                        </span>
+                    </h1>
+
+                    {/* Subtitle */}
+                    <p
+                        className={`text-lg lg:text-xl text-white/80 leading-relaxed max-w-2xl mx-auto transform transition-all duration-1000 ease-out ${
+                            visibleElements.has('hero-section')
+                                ? 'translate-y-0 opacity-100'
+                                : 'translate-y-8 opacity-0'
+                        }`}
+                        style={{ transitionDelay: '0.5s' }}
+                    >
+                        Von der Projektierung bis zur Realisierung –
+                        umfassende Expertise für komplexe Industrieanlagen
+                    </p>
                 </div>
             </section>
 
             {/* Services Section */}
-            <section className="services">
-                <div className="services-container">
-                    <div className="section-header">
-                        <h2 className="section-title">Unsere Kernkompetenzen</h2>
-                        <p className="section-subtitle">
-                            Fünf Leistungsbereiche, die nahtlos ineinandergreifen und Ihr Projekt zum Erfolg führen
+            <section className="py-24 bg-slate-50">
+                <div className="max-w-7xl mx-auto px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Unsere Kernkompetenzen</h2>
+                        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+                            Spezielles Know-How in fünf Leistungsbereichen des Industrieanlagenbaus
                         </p>
                     </div>
 
-                    <div className="services-grid">
-                        {services.slice(0, 3).map((service, index) => (
-                            <div
-                                key={service.id}
-                                className={`service-card ${activeService === index ? 'active' : ''}`}
-                                onClick={() => setActiveService(index)}
-                                style={{ '--service-color': service.color } as React.CSSProperties}
-                            >
-                                <div className="service-image">
-                                    <img src={service.image} alt={service.title} />
-                                </div>
-                                <div className="service-content">
-                                    <h3 className="service-title">{service.title}</h3>
-                                    <p className="service-description">{service.shortDesc}</p>
-                                    <div className="service-stats">
-                                        <span className="service-stat">{service.projects}</span>
-                                        <span className="service-stat">{service.experience}</span>
-                                    </div>
-                                </div>
-                                <div className="service-hover-info">
-                                    <div className="hover-content">
-                                        <h4>Kernleistungen:</h4>
-                                        <ul className="hover-points">
-                                            {service.hoverInfo.keyPoints.map((point, idx) => (
-                                                <li key={idx}>• {point}</li>
-                                            ))}
-                                        </ul>
-                                        <div className="hover-industries">
-                                            <strong>Branchen:</strong>
-                                            <span>{service.hoverInfo.industries.join(', ')}</span>
-                                        </div>
-                                        <div className="hover-experience">
-                                            <strong>Erfahrung:</strong>
-                                            <span>{service.hoverInfo.experience}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12">
+                        <div className="lg:col-span-5">
+                            <div className="flex flex-col gap-4 sticky top-24">
+                                {services.map((service, index) => (
+                                    <div
+                                        key={service.id}
+                                        className={`group relative bg-white rounded-xl p-5 cursor-pointer transition-all duration-300 border-2 ${
+                                            activeService === index
+                                                ? 'border-blue-500 shadow-lg shadow-blue-500/20 scale-[1.01]'
+                                                : 'border-slate-200/60 shadow-sm hover:shadow-md hover:border-blue-300 hover:-translate-y-1'
+                                        }`}
+                                        onClick={() => setActiveService(index)}
+                                    >
+                                        {/* Content */}
+                                        <div className="relative flex items-center gap-4">
+                                            {/* Smaller Number Badge */}
+                                            <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold transition-all duration-300 ${
+                                                activeService === index
+                                                    ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-md'
+                                                    : 'bg-slate-100 text-slate-600 group-hover:bg-blue-100 group-hover:text-blue-600'
+                                            }`}>
+                                                {String(index + 1).padStart(2, '0')}
+                                            </div>
 
-                    <div className="services-grid-bottom">
-                        {services.slice(3, 5).map((service, index) => (
-                            <div
-                                key={service.id}
-                                className={`service-card ${activeService === (index + 3) ? 'active' : ''}`}
-                                onClick={() => setActiveService(index + 3)}
-                                style={{ '--service-color': service.color } as React.CSSProperties}
-                            >
-                                <div className="service-image">
-                                    <img src={service.image} alt={service.title} />
-                                </div>
-                                <div className="service-content">
-                                    <h3 className="service-title">{service.title}</h3>
-                                    <p className="service-description">{service.shortDesc}</p>
-                                    <div className="service-stats">
-                                        <span className="service-stat">{service.projects}</span>
-                                        <span className="service-stat">{service.experience}</span>
-                                    </div>
-                                </div>
-                                <div className="service-hover-info">
-                                    <div className="hover-content">
-                                        <h4>Kernleistungen:</h4>
-                                        <ul className="hover-points">
-                                            {service.hoverInfo.keyPoints.map((point, idx) => (
-                                                <li key={idx}>• {point}</li>
-                                            ))}
-                                        </ul>
-                                        <div className="hover-industries">
-                                            <strong>Branchen:</strong>
-                                            <span>{service.hoverInfo.industries.join(', ')}</span>
-                                        </div>
-                                        <div className="hover-experience">
-                                            <strong>Erfahrung:</strong>
-                                            <span>{service.hoverInfo.experience}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                                            {/* Text Content */}
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className={`text-lg font-bold mb-1 transition-colors duration-300 ${
+                                                    activeService === index ? 'text-blue-700' : 'text-slate-900 group-hover:text-blue-700'
+                                                }`}>
+                                                    {service.title}
+                                                </h3>
+                                                <p className="text-slate-600 text-sm leading-relaxed">
+                                                    {service.shortDesc}
+                                                </p>
+                                            </div>
 
-                    <div className="service-details">
-                        <div className="detail-header">
-                            <div className="detail-image">
-                                <img src={services[activeService].image} alt={services[activeService].title} />
-                            </div>
-                            <div className="detail-info">
-                                <h3 className="detail-title">{services[activeService].title}</h3>
-                                <p className="detail-description">{services[activeService].detailedDescription}</p>
-                                <div className="detail-stats">
-                                    <span className="detail-stat">
-                                        <strong>{services[activeService].projects}</strong>
-                                    </span>
-                                    <span className="detail-stat">
-                                        <strong>{services[activeService].experience}</strong>
-                                    </span>
-                                </div>
+                                            {/* Arrow Icon */}
+                                            <div className={`flex-shrink-0 transition-all duration-300 ${
+                                                activeService === index
+                                                    ? 'text-blue-600 translate-x-1'
+                                                    : 'text-slate-400 group-hover:text-blue-500 group-hover:translate-x-1'
+                                            }`}>
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        {/* Active Indicator */}
+                                        {activeService === index && (
+                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-600 rounded-r-full"></div>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                        <div className="detail-features">
-                            {services[activeService].features.map((feature, index) => (
-                                <div key={index} className="feature-item">
-                                    <span className="feature-check">✓</span>
-                                    <span className="feature-text">{feature}</span>
+
+                        <div className="lg:col-span-7">
+                            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-32">
+                                <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-8 flex items-center gap-6 border-b border-slate-200">
+                                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                                        {String(activeService + 1).padStart(2, '0')}
+                                    </div>
+                                    <div className="flex-1">
+                                        <h2 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">{services[activeService].title}</h2>
+                                        <p className="text-base text-slate-600 leading-relaxed">{services[activeService].detailedDescription}</p>
+                                    </div>
                                 </div>
-                            ))}
+
+                                <div className="h-48 overflow-hidden">
+                                    <img
+                                        src={services[activeService].image}
+                                        alt={services[activeService].title}
+                                        className="w-full h-full object-cover transition-transform hover:scale-105"
+                                    />
+                                </div>
+
+                                <div className="p-8">
+                                    <div className="mt-4">
+                                        <h3 className="text-xl font-semibold text-slate-900 mb-5 pb-3 border-b-2 border-slate-200">Unsere Leistungen im Detail</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            {services[activeService].features.map((feature, index) => (
+                                                <div key={index} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border-l-3 border-blue-500 transition-all hover:bg-blue-50 hover:translate-x-1 hover:shadow-sm shadow-blue-500/15">
+                                                    <div className="w-5 h-5 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 mt-0.5">
+                                                        <span>✓</span>
+                                                    </div>
+                                                    <span className="text-sm text-slate-700 font-medium leading-snug">{feature}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* Technologies & Expertise */}
-            <section className="technologies">
-                <div className="technologies-container">
-                    <div className="section-header">
-                        <h2 className="section-title">Technologie & Expertise</h2>
-                        <p className="section-subtitle">
-                            Modernste Software-Tools und branchenspezifisches Know-how
+            <section className="py-24 bg-white">
+                <div className="max-w-7xl mx-auto px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Technologie & Expertise</h2>
+                        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+                            Modernste Software-Tools und branchenspezifisches Know-how für optimale Projektergebnisse
                         </p>
                     </div>
 
-                    <div className="tech-tabs">
+                    <div className="flex justify-center gap-4 mb-12">
                         <button
-                            className={`tech-tab ${activeTab === 'software' ? 'active' : ''}`}
+                            className={`px-8 py-4 rounded-xl font-semibold cursor-pointer transition-all ${
+                                activeTab === 'software'
+                                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/30'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:scale-105'
+                            }`}
                             onClick={() => setActiveTab('software')}
                         >
                             Software & Tools
                         </button>
                         <button
-                            className={`tech-tab ${activeTab === 'branchen' ? 'active' : ''}`}
+                            className={`px-8 py-4 rounded-xl font-semibold cursor-pointer transition-all ${
+                                activeTab === 'branchen'
+                                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/30'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:scale-105'
+                            }`}
                             onClick={() => setActiveTab('branchen')}
                         >
                             Branchen-Expertise
                         </button>
                     </div>
 
-                    <div className="tech-grid">
-                        {technologies[activeTab].slice(0, 5).map((tech, index) => (
-                            <div key={index} className="tech-item">
-                                <div className="tech-image">
-                                    <img src={tech.image} alt={tech.name} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {technologies[activeTab].map((tech, index) => (
+                            <div
+                                key={index}
+                                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200 transition-all hover:-translate-y-2 hover:shadow-2xl cursor-pointer group"
+                                onClick={() => openModal(tech)}
+                            >
+                                <div className="h-48 overflow-hidden relative">
+                                    <img src={tech.image} alt={tech.name} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                 </div>
-                                <div className="tech-content">
-                                    <h4 className="tech-name">{tech.name}</h4>
-                                    <p className="tech-description">{tech.description}</p>
-                                    <div className="tech-details">
-                                        <span className="tech-detail">{tech.details}</span>
-                                        <span className="tech-projects">{tech.projects}</span>
+                                <div className="p-6">
+                                    <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">{tech.name}</h4>
+                                    <p className="text-slate-600 text-sm mb-4 leading-relaxed">{tech.description}</p>
+                                    <div className="flex flex-col gap-3 mb-4">
+                                        <span className="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-xs font-semibold text-center border border-blue-100">
+                                            {tech.details}
+                                        </span>
+                                        <span className="bg-green-50 text-green-600 px-4 py-2 rounded-xl text-xs font-semibold text-center border border-green-100">
+                                            {tech.projects}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center justify-between text-sm text-slate-500">
+                                        <span>Mehr Details</span>
+                                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
                                     </div>
                                 </div>
                             </div>
@@ -544,36 +823,151 @@ const ModernLeistungen: React.FC = () => {
                 </div>
             </section>
 
+            {/* Modal */}
+            {showModal && selectedTech && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center pt-20 pb-4">
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300"
+                        onClick={closeModal}
+                    ></div>
+
+                    {/* Modal Content */}
+                    <div className="relative bg-white rounded-2xl max-w-5xl max-h-[calc(100vh-6rem)] overflow-y-auto shadow-2xl border border-slate-200 m-4 w-full transform scale-95 animate-[modalSlideIn_0.3s_ease-out_forwards]">
+                        {/* Header Image */}
+                        <div className="h-56 overflow-hidden relative">
+                            <img
+                                src={selectedTech.image}
+                                alt={selectedTech.name}
+                                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
+                            <div className="absolute bottom-6 left-6 text-white transform translate-y-2 animate-[fadeInUp_0.5s_ease-out_0.2s_forwards] opacity-0">
+                                <h3 className="text-3xl font-bold mb-2">{selectedTech.name}</h3>
+                                <p className="text-white/90 text-base">{selectedTech.description}</p>
+                            </div>
+                            <button
+                                onClick={closeModal}
+                                className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200 hover:scale-110 hover:rotate-90"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-8">
+                            {/* Description */}
+                            <div className="mb-8 transform translate-y-4 animate-[fadeInUp_0.5s_ease-out_0.3s_forwards] opacity-0">
+                                <h4 className="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                                    <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
+                                    Überblick
+                                </h4>
+                                <p className="text-slate-600 leading-relaxed">{selectedTech.fullDescription}</p>
+                            </div>
+
+                            {/* Features */}
+                            <div className="mb-8 transform translate-y-4 animate-[fadeInUp_0.5s_ease-out_0.4s_forwards] opacity-0">
+                                <h4 className="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                                    <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
+                                    Hauptfunktionen
+                                </h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                    {selectedTech.features.map((feature, idx) => (
+                                        <div key={idx} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg hover:bg-blue-50 transition-all duration-300 hover:shadow-md hover:-translate-y-1 group">
+                                            <div className="w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform">
+                                                ✓
+                                            </div>
+                                            <span className="text-sm text-slate-700 leading-relaxed">{feature}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Specifications */}
+                            <div className="mb-8 transform translate-y-4 animate-[fadeInUp_0.5s_ease-out_0.5s_forwards] opacity-0">
+                                <h4 className="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                                    <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
+                                    Technische Spezifikationen
+                                </h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {selectedTech.specifications.map((spec, idx) => (
+                                        <div key={idx} className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border-l-3 border-blue-500 hover:bg-blue-100 transition-all duration-300 hover:shadow-md hover:scale-[1.02] group">
+                                            <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2 group-hover:scale-150 transition-transform"></div>
+                                            <span className="text-sm text-slate-700 leading-relaxed">{spec}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Advantages */}
+                            <div className="transform translate-y-4 animate-[fadeInUp_0.5s_ease-out_0.6s_forwards] opacity-0">
+                                <h4 className="text-xl font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                                    <div className="w-1 h-6 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full"></div>
+                                    Vorteile
+                                </h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {selectedTech.advantages.map((advantage, idx) => (
+                                        <div key={idx} className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border-l-3 border-green-500 hover:bg-green-100 transition-all duration-300 hover:shadow-md hover:-translate-y-1 group">
+                                            <div className="w-5 h-5 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 mt-0.5 group-hover:scale-110 group-hover:rotate-12 transition-all">
+                                                ★
+                                            </div>
+                                            <span className="text-sm text-slate-700 leading-relaxed">{advantage}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Project Phases */}
-            <section className="phases">
-                <div className="phases-container">
-                    <div className="section-header">
-                        <h2 className="section-title">Unser Projektablauf</h2>
-                        <p className="section-subtitle">
+            <section className="py-24 bg-gradient-to-br from-slate-100 to-slate-200">
+                <div className="max-w-7xl mx-auto px-8">
+                    <div
+                        id="phases-header"
+                        data-animate
+                        className={`text-center mb-16 ${getAnimationClass('phases-header', 'fadeInUp', 0)}`}
+                    >
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Unser Projektablauf</h2>
+                        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
                             Strukturierter 5-Phasen-Prozess von der Idee zur Realisierung
                         </p>
                     </div>
 
-                    <div className="phases-timeline">
+                    <div className="flex flex-col gap-12">
                         {projectPhases.map((phase, index) => (
-                            <div key={index} className="phase-item">
-                                <div className="phase-image">
-                                    <img src={phase.image} alt={phase.title} />
-                                    <div className="phase-number">{phase.phase}</div>
-                                </div>
-                                <div className="phase-content">
-                                    <div className="phase-header">
-                                        <h3 className="phase-title">{phase.title}</h3>
-                                        <span className="phase-duration">{phase.duration}</span>
+                            <div
+                                key={index}
+                                id={`phase-${index}`}
+                                data-animate
+                                className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-start bg-white rounded-2xl overflow-hidden shadow-lg ${
+                                    index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
+                                } ${getAnimationClass(`phase-${index}`, index % 2 === 0 ? 'slideInLeft' : 'slideInRight', index * 0.2)}`}
+                            >
+                                <div className={`lg:col-span-4 relative h-64 overflow-hidden ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                                    <img src={phase.image} alt={phase.title} className="w-full h-full object-cover" />
+                                    <div className="absolute top-4 left-4 w-12 h-12 bg-blue-500/90 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                                        {phase.phase}
                                     </div>
-                                    <p className="phase-description">{phase.description}</p>
-                                    <div className="phase-deliverables">
-                                        <h4>Leistungen:</h4>
-                                        <ul>
+                                </div>
+                                <div className={`lg:col-span-8 p-8 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="text-2xl font-semibold text-slate-900">{phase.title}</h3>
+                                    </div>
+                                    <p className="text-slate-600 mb-6 leading-relaxed">{phase.description}</p>
+                                    <div>
+                                        <h4 className="text-base font-semibold text-slate-900 mb-2">Leistungen:</h4>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                             {phase.deliverables.map((deliverable, idx) => (
-                                                <li key={idx}>{deliverable}</li>
+                                                <div key={idx} className="flex items-center gap-2 text-slate-700 text-sm">
+                                                    <span className="text-blue-500 text-xs">▶</span>
+                                                    {deliverable}
+                                                </div>
                                             ))}
-                                        </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -583,22 +977,42 @@ const ModernLeistungen: React.FC = () => {
             </section>
 
             {/* Certifications */}
-            <section className="certifications">
-                <div className="certifications-container">
-                    <div className="section-header">
-                        <h2 className="section-title">Zertifizierungen & Standards</h2>
-                        <p className="section-subtitle">
+            <section className="py-24 bg-white">
+                <div className="max-w-6xl mx-auto px-8">
+                    <div
+                        id="cert-header"
+                        data-animate
+                        className={`text-center mb-16 ${getAnimationClass('cert-header', 'fadeInUp', 0)}`}
+                    >
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">Zertifizierungen & Standards</h2>
+                        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
                             Höchste Qualitätsstandards durch anerkannte Zertifizierungen
                         </p>
                     </div>
 
-                    <div className="cert-grid">
+                    <div
+                        id="cert-grid"
+                        data-animate
+                        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ${getAnimationClass('cert-grid', 'fadeInUp', 0.2)}`}
+                    >
                         {certifications.map((cert, index) => (
-                            <div key={index} className="cert-card">
-                                <div className="cert-icon">{cert.icon}</div>
-                                <h3 className="cert-title">{cert.title}</h3>
-                                <p className="cert-description">{cert.description}</p>
-                                <span className="cert-year">{cert.year}</span>
+                            <div
+                                key={index}
+                                className="bg-white p-8 rounded-2xl text-center shadow-sm border border-slate-200 transition-all hover:-translate-y-1 hover:shadow-lg relative overflow-hidden"
+                                style={{
+                                    animationDelay: `${0.3 + index * 0.1}s`,
+                                    opacity: visibleElements.has('cert-grid') ? 1 : 0,
+                                    transform: visibleElements.has('cert-grid') ? 'translateY(0)' : 'translateY(30px)',
+                                    transition: 'all 1.0s ease-out'
+                                }}
+                            >
+                                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                                <div className="text-4xl mb-4">{cert.icon}</div>
+                                <h3 className="text-lg font-semibold text-slate-900 mb-2">{cert.title}</h3>
+                                <p className="text-slate-600 text-sm mb-4 leading-relaxed">{cert.description}</p>
+                                <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-xl text-sm font-semibold">
+                                    {cert.year}
+                                </span>
                             </div>
                         ))}
                     </div>
@@ -606,90 +1020,124 @@ const ModernLeistungen: React.FC = () => {
             </section>
 
             {/* Why Choose Us */}
-            <section className="why-choose">
-                <div className="why-choose-container">
-                    <div className="why-choose-content">
-                        <div className="why-choose-text">
-                            <span className="why-choose-badge">Warum PROMAX?</span>
-                            <h2 className="why-choose-title">
+            <section className="py-24 bg-gradient-to-br from-slate-100 to-slate-200">
+                <div className="max-w-7xl mx-auto px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div
+                            id="why-text"
+                            data-animate
+                            className={getAnimationClass('why-text', 'slideInLeft', 0)}
+                        >
+                            <span className="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide mb-6 border border-green-200">
+                                Warum PROMAX?
+                            </span>
+                            <h2 className="text-4xl font-bold text-slate-900 mb-6 leading-tight tracking-tight">
                                 25 Jahre Erfahrung in
-                                <span className="highlight"> komplexen Industrieprojekten</span>
+                                <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"> komplexen Industrieprojekten</span>
                             </h2>
-                            <p className="why-choose-description">
+                            <p className="text-xl text-slate-600 leading-relaxed mb-8">
                                 PROMAX Project Management GesmbH vereint langjährige Erfahrung mit
                                 modernster Technologie. Unser Team aus 35 Spezialisten betreut Projekte
                                 in der Chemie-, Pharma-, Energie- und Papierindustrie mit höchsten Qualitätsstandards.
                             </p>
-                            <div className="why-choose-highlights">
-                                <div className="highlight-item">
-                                    <span className="highlight-icon">🏆</span>
-                                    <div>
-                                        <strong>ISO 9001:2015 zertifiziert</strong>
-                                        <p>Qualitätsmanagementsystem seit 2010</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {[
+                                    { icon: "🏆", title: "ISO 9001:2015 zertifiziert", desc: "Qualitätsmanagementsystem seit 2010" },
+                                    { icon: "🌍", title: "International tätig", desc: "Projekte in Europa, Asien und Amerika" },
+                                    { icon: "⚡", title: "Modernste 3D-Technologie", desc: "PDMS, AutoCAD Plant 3D, 3D-Laserscanning" },
+                                    { icon: "👥", title: "Starkes Team", desc: "35 Ingenieure und Techniker mit Branchenerfahrung" }
+                                ].map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className="flex gap-4 p-6 bg-white rounded-xl shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
+                                        style={{
+                                            animationDelay: `${0.2 + index * 0.1}s`,
+                                            opacity: visibleElements.has('why-text') ? 1 : 0,
+                                            transform: visibleElements.has('why-text') ? 'translateY(0)' : 'translateY(20px)',
+                                            transition: 'all 1.0s ease-out'
+                                        }}
+                                    >
+                                        <span className="text-2xl flex-shrink-0">{item.icon}</span>
+                                        <div>
+                                            <strong className="block text-slate-900 font-semibold mb-1">{item.title}</strong>
+                                            <p className="text-slate-600 text-sm">{item.desc}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="highlight-item">
-                                    <span className="highlight-icon">🌍</span>
-                                    <div>
-                                        <strong>International tätig</strong>
-                                        <p>Projekte in Europa, Asien und Amerika</p>
-                                    </div>
-                                </div>
-                                <div className="highlight-item">
-                                    <span className="highlight-icon">⚡</span>
-                                    <div>
-                                        <strong>Modernste 3D-Technologie</strong>
-                                        <p>PDMS, AutoCAD Plant 3D, 3D-Laserscanning</p>
-                                    </div>
-                                </div>
-                                <div className="highlight-item">
-                                    <span className="highlight-icon">👥</span>
-                                    <div>
-                                        <strong>Starkes Team</strong>
-                                        <p>35 Ingenieure und Techniker mit Branchenerfahrung</p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
-                        <div className="why-choose-visual">
-                            <div className="why-choose-image">
-                                <img
-                                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                    alt="PROMAX Team"
-                                />
+                        <div
+                            id="why-image"
+                            data-animate
+                            className={getAnimationClass('why-image', 'slideInRight', 0.3)}
+                        >
+                            <div className="relative">
+                                <div className="rounded-3xl overflow-hidden shadow-2xl transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
+                                    <img
+                                        src="https://picsum.photos/800/400?random=7"
+                                        alt="PROMAX Team"
+                                        className="w-full h-96 object-cover"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="cta">
-                <div className="cta-container">
-                    <div className="cta-content">
-                        <h2 className="cta-title">Bereit für Ihr nächstes Projekt?</h2>
-                        <p className="cta-description">
-                            Lassen Sie uns gemeinsam Ihre Projektidee in die Realität umsetzen.
-                            Kontaktieren Sie uns für eine unverbindliche Beratung und profitieren Sie
-                            von unserer 25-jährigen Erfahrung in über 500 erfolgreichen Projekten.
-                        </p>
-                        <div className="cta-buttons">
-                            <button className="cta-primary">Projekt besprechen</button>
-                            <button className="cta-secondary">Referenzen ansehen</button>
-                        </div>
-                        <div className="cta-contact">
-                            <div className="contact-item">
-                                <span>📞</span>
-                                <span>+43 (0) 316 / 241 393</span>
-                            </div>
-                            <div className="contact-item">
-                                <span>📧</span>
-                                <span>office@promax.at</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <style>{`
+                @keyframes spin-slow {
+                    from {
+                        transform: rotate(0deg);
+                    }
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(40px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                @keyframes slideInLeft {
+                    from {
+                        opacity: 0;
+                        transform: translateX(-60px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                @keyframes slideInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(60px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                @keyframes modalSlideIn {
+                    from {
+                        opacity: 0;
+                        transform: scale(0.9) translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: scale(1) translateY(0);
+                    }
+                }
+                .animate-spin-slow {
+                    animation: spin-slow 8s linear infinite;
+                }
+            `}</style>
         </div>
     );
 };
