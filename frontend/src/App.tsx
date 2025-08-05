@@ -3,7 +3,7 @@ import Homepage from "./components/Homepage/Homepage.tsx";
 import Unternehmen from "./components/Unternehmen.tsx";
 import Kontakt from "./components/Kontakt.tsx";
 import Navbar from "./components/Navbar.tsx";
-import Footer from "./components/Homepage/Footer.tsx";
+import Footer from "./components/Footer.tsx";
 import Branchen from "./components/Branchen.tsx";
 import Leistungen from "./components/Leistungen.tsx";
 import Projektberichte from "./components/Projektberichte.tsx";
