@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import rogl from '../assets/rogl.png'
 import fasching from '../assets/fasching.png'
 import {useNavigate} from "react-router-dom";
@@ -29,17 +29,16 @@ const Kontakt = () => {
 
     return (
         <div className="font-sans leading-relaxed text-gray-900 bg-white overflow-x-hidden m-0 p-0 w-full">
-            {/* Blue Contact Header */}
-            <section className="bg-blue-700 text-white py-16">
-                <div className="max-w-7xl mx-auto px-16">
-                    <h1 className="text-6xl font-black leading-tight mb-8 tracking-tight uppercase">
-                        Kontakt
-                    </h1>
-                    <p className="text-xl leading-relaxed opacity-90 max-w-2xl">
-                        Nehmen Sie Kontakt mit uns auf - wir freuen uns auf Ihre Anfrage und beraten Sie gerne zu Ihren Projekten.
-                    </p>
+                {/* Header Section */}
+                <div className="bg-gray-900 text-white py-16">
+                    <div className="max-w-6xl mx-auto px-6">
+                        <h1 className="text-4xl font-light mb-4 tracking-wide">Kontakt</h1>
+                        <div className="w-24 h-0.5 bg-white mb-8"></div>
+                        <p className="text-xl font-light text-gray-300 max-w-3xl leading-relaxed">
+                            Nehmen Sie Kontakt mit uns auf - wir freuen uns auf Ihre Anfrage und beraten Sie gerne zu Ihren Projekten.
+                        </p>
+                    </div>
                 </div>
-            </section>
 
             {/* Contact Information Grid */}
             <section className="py-32 bg-gray-50">

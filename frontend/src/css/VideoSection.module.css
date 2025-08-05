@@ -1,41 +1,40 @@
-/* Alternative Lösung: VideoSection direkt unter Navbar */
+/* VideoSection ohne weißen Balken */
 
 .videoSection {
     width: 100%;
     height: 50vh;
     min-height: 350px;
-    /* KEINE margin-top! */
     position: relative;
     overflow: hidden;
     background: #1f2937;
 }
 
-/* Füge padding-top zum Container hinzu, der die Navbar-Höhe ausgleicht */
+/* Video-Container ohne top-offset - Navbar-Padding wird durch Body-Padding berücksichtigt */
 .videoContainer {
     position: absolute;
-    top: 90px; /* Navbar-Höhe */
+    top: 0; /* Geändert von 90px auf 0 */
     left: 0;
     right: 0;
     bottom: 0;
     overflow: hidden;
 }
 
-/* Responsive padding-top */
+/* Entferne alle responsive top-Offsets */
 @media (max-width: 768px) {
     .videoContainer {
-        top: 80px;
+        top: 0; /* Geändert von 80px auf 0 */
     }
 }
 
 @media (max-width: 480px) {
     .videoContainer {
-        top: 70px;
+        top: 0; /* Geändert von 70px auf 0 */
     }
 }
 
 @media (max-width: 360px) {
     .videoContainer {
-        top: 65px;
+        top: 0; /* Geändert von 65px auf 0 */
     }
 }
 

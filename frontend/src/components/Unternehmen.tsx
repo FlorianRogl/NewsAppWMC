@@ -134,9 +134,9 @@ const Unternehmen = () => {
 
     return (
         <div className="min-h-screen bg-white overflow-hidden">
-            {/* Hero Section */}
+            {/* Hero Section - Reduzierter Abstand */}
             <section className="relative bg-gradient-to-br from-slate-50 to-blue-50/30">
-                <div className="max-w-7xl mx-auto px-6 py-20 lg:py-32">
+                <div className="max-w-7xl mx-auto px-6 py-12 lg:py-16">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div className="space-y-8">
                             <div className="space-y-4">

@@ -10,8 +10,7 @@ import {
     Twitter,
     Linkedin,
     Instagram,
-    ArrowUp,
-    ExternalLink
+    ArrowUp
 } from 'lucide-react';
 
 const Footer = () => {
@@ -50,31 +49,15 @@ const Footer = () => {
     };
 
     const footerLinks = {
-        unternehmen: {
-            title: 'Unternehmen',
+        navigation: {
+            title: 'Navigation',
             links: [
-                { name: 'Über uns', path: '/Unternehmen' },
-                { name: 'Geschichte', path: '/geschichte' },
-                { name: 'Vision & Mission', path: '/vision' },
-                { name: 'Team', path: '/team' }
-            ]
-        },
-        services: {
-            title: 'Leistungen',
-            links: [
-                { name: 'Consulting', path: '/Leistungen/consulting' },
-                { name: 'Projektmanagement', path: '/Leistungen/pm' },
-                { name: 'Digitalisierung', path: '/Leistungen/digital' },
-                { name: 'Support', path: '/Leistungen/support' }
-            ]
-        },
-        branchen: {
-            title: 'Branchen',
-            links: [
-                { name: 'Automotive', path: '/Branchen/automotive' },
-                { name: 'Technologie', path: '/Branchen/tech' },
-                { name: 'Gesundheitswesen', path: '/Branchen/health' },
-                { name: 'Finanzwesen', path: '/Branchen/finance' }
+                { name: 'Startseite', path: '/' },
+                { name: 'Das Unternehmen', path: '/unternehmen' },
+                { name: 'Branchen', path: '/branchen' },
+                { name: 'Leistungen', path: '/leistungen' },
+                { name: 'Karriere', path: '/karriere' },
+                { name: 'Kontakt', path: '/kontakt' }
             ]
         },
         legal: {
@@ -82,8 +65,7 @@ const Footer = () => {
             links: [
                 { name: 'Impressum', path: '/impressum' },
                 { name: 'Datenschutz', path: '/datenschutz' },
-                { name: 'AGB', path: '/agb' },
-                { name: 'Cookie-Richtlinie', path: '/cookies' }
+                { name: 'AGB', path: '/agb' }
             ]
         }
     };
@@ -127,6 +109,7 @@ const Footer = () => {
 
                         {/* Contact Info */}
                         <div className={styles.contactInfo}>
+                            <h4 className={styles.contactTitle}>Kontaktieren Sie uns</h4>
                             {contactInfo.map((item, index) => (
                                 <div
                                     key={index}
@@ -140,30 +123,47 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Links Sections */}
-                    {Object.entries(footerLinks).map(([key, section], sectionIndex) => (
-                        <div
-                            key={key}
-                            className={`${styles.footerSection} ${styles.linksSection} ${isVisible ? styles.animateUp : ''}`}
-                            style={{ animationDelay: `${0.3 + sectionIndex * 0.1}s` }}
-                        >
-                            <h4 className={styles.sectionTitle}>{section.title}</h4>
-                            <ul className={styles.linksList}>
-                                {section.links.map((link, linkIndex) => (
-                                    <li
-                                        key={linkIndex}
-                                        className={`${styles.linkItem} ${isVisible ? styles.animateFadeIn : ''}`}
-                                        style={{ animationDelay: `${0.5 + sectionIndex * 0.1 + linkIndex * 0.05}s` }}
-                                    >
-                                        <Link to={link.path} className={styles.footerLink}>
-                                            {link.name}
-                                            <ExternalLink size={12} className={styles.linkIcon} />
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                    {/* Navigation Links */}
+                    <div
+                        className={`${styles.footerSection} ${styles.linksSection} ${isVisible ? styles.animateUp : ''}`}
+                        style={{ animationDelay: '0.3s' }}
+                    >
+                        <h4 className={styles.sectionTitle}>{footerLinks.navigation.title}</h4>
+                        <ul className={styles.linksList}>
+                            {footerLinks.navigation.links.map((link, linkIndex) => (
+                                <li
+                                    key={linkIndex}
+                                    className={`${styles.linkItem} ${isVisible ? styles.animateFadeIn : ''}`}
+                                    style={{ animationDelay: `${0.5 + linkIndex * 0.05}s` }}
+                                >
+                                    <Link to={link.path} className={styles.footerLink}>
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Legal Links */}
+                    <div
+                        className={`${styles.footerSection} ${styles.linksSection} ${isVisible ? styles.animateUp : ''}`}
+                        style={{ animationDelay: '0.4s' }}
+                    >
+                        <h4 className={styles.sectionTitle}>{footerLinks.legal.title}</h4>
+                        <ul className={styles.linksList}>
+                            {footerLinks.legal.links.map((link, linkIndex) => (
+                                <li
+                                    key={linkIndex}
+                                    className={`${styles.linkItem} ${isVisible ? styles.animateFadeIn : ''}`}
+                                    style={{ animationDelay: `${0.6 + linkIndex * 0.05}s` }}
+                                >
+                                    <Link to={link.path} className={styles.footerLink}>
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
 
                 {/* Social Media & Bottom Bar */}
@@ -191,8 +191,6 @@ const Footer = () => {
                         </div>
 
                         <div className={styles.qualityBadges}>
-                            <span className={styles.badge}>ISO 9001</span>
-                            <span className={styles.badge}>DSGVO konform</span>
                         </div>
                     </div>
                 </div>

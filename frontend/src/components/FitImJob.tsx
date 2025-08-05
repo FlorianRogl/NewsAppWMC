@@ -13,17 +13,6 @@ const FitImJob = () => {
 
     return (
         <div className="min-h-screen bg-white">
-            <div className="bg-white border-b border-gray-100 shadow-sm">
-                <div className="max-w-6xl mx-auto px-6 py-4">
-                    <button
-                        onClick={handleBackClick}
-                        className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors group bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg"
-                    >
-                        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                        <span className="font-medium">Zurück</span>
-                    </button>
-                </div>
-            </div>
             {/* Header with back button */}
             <div className="bg-blue-50 border-b border-blue-100">
                 <div className="max-w-6xl mx-auto px-6 py-4">

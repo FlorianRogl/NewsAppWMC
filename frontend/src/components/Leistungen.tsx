@@ -600,12 +600,12 @@ const ModernLeistungen: React.FC = () => {
     };
 
     return (
-        <div className="font-inter leading-relaxed text-gray-800 bg-white pt-24">
+        <div className="font-inter leading-relaxed text-gray-800 bg-white">
             {/* Hero Section - Einfacher und kompakter */}
             <section
                 id="hero-section"
                 data-animate
-                className="relative py-28 lg:py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden"
+                className="relative pt-8 pb-28 lg:pt-12 lg:pb-32 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden"
             >
                 {/* Einfacher Hintergrund */}
                 <div className="absolute inset-0 opacity-20">
