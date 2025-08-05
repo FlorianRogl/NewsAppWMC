@@ -26,12 +26,15 @@ const NewsSection = () => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    setIsVisible(true);
+                    // Kleine Verzögerung für sanfteren Übergang
+                    setTimeout(() => {
+                        setIsVisible(true);
+                    }, 100);
                 }
             },
             {
                 threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
+                rootMargin: '0px 0px -50px 0px' // Triggert früher
             }
         );
 
@@ -51,27 +54,7 @@ const NewsSection = () => {
             id: 1,
             title: "KI-Revolution im Industrieanlagenbau: Wie maschinelles Lernen die Zukunft der Automatisierung prägt",
             excerpt: "Künstliche Intelligenz transformiert die Art, wie wir Industrieanlagen planen, bauen und betreiben. Ein tiefer Einblick in die Technologien von morgen.",
-            content: `Die Digitalisierung hat eine neue Ära im Industrieanlagenbau eingeläutet, und künstliche Intelligenz steht dabei im Zentrum dieser Revolution. Bei PROMAX setzen wir seit Jahren auf innovative KI-Technologien, die nicht nur die Effizienz unserer Projekte steigern, sondern auch völlig neue Möglichkeiten in der Anlagenplanung und -optimierung eröffnen.
-
-            **Maschinelles Lernen in der Projektplanung**
-            
-            Unsere KI-gestützten Planungstools analysieren historische Projektdaten, um präzise Vorhersagen über Projektlaufzeiten, Ressourcenbedarf und potenzielle Risiken zu treffen. Durch den Einsatz von Machine Learning-Algorithmen können wir Projektlaufzeiten um durchschnittlich 35% verkürzen und gleichzeitig die Planungsgenauigkeit erheblich verbessern.
-            
-            Die Integration von neuronalen Netzwerken in unsere CAD-Systeme ermöglicht es, automatisch optimierte Anlagenlayouts zu generieren, die sowohl betriebliche Effizienz als auch Sicherheitsstandards berücksichtigen. Diese Systeme lernen kontinuierlich aus jedem abgeschlossenen Projekt und werden dadurch immer präziser.
-            
-            **Predictive Analytics für vorausschauende Wartung**
-            
-            Ein Schwerpunkt unserer KI-Entwicklung liegt auf der vorausschauenden Wartung. Durch die Integration von IoT-Sensoren und fortschrittlichen Analysealgorithmen können wir den Zustand kritischer Anlagenkomponenten in Echtzeit überwachen und Wartungsbedarfe bis zu 6 Monate im Voraus prognostizieren.
-            
-            Diese Technologie hat bereits bei mehreren Großprojekten zu einer Reduktion ungeplanter Stillstände um über 90% geführt. Die KI erkennt dabei Muster in den Sensordaten, die für menschliche Analysten nicht erkennbar wären, und kann so präventive Maßnahmen rechtzeitig einleiten.
-            
-            **Automatisierte Qualitätskontrolle**
-            
-            Computer Vision-Systeme revolutionieren unsere Qualitätssicherung. Hochauflösende Kameras in Kombination mit Deep Learning-Algorithmen erkennen kleinste Abweichungen in der Fertigung bereits während des Produktionsprozesses. Diese Systeme arbeiten 24/7 mit einer Genauigkeit von 99.7% und haben die Ausschussrate in unseren Projekten um durchschnittlich 85% reduziert.
-            
-            **Die Zukunft ist digital**
-            
-            Die nächste Generation unserer KI-Systeme wird noch einen Schritt weitergehen: Durch den Einsatz von Generative AI können wir bereits heute erste Prototypen für selbstoptimierende Anlagen entwickeln, die ihre Betriebsparameter autonom an veränderte Produktionsanforderungen anpassen.`,
+            content: `Die Digitalisierung hat eine neue Ära im Industrieanlagenbau eingeläutet...`,
             category: "Technologie",
             author: "Dr. Sarah Chen",
             date: "15. Januar 2025",
@@ -83,19 +66,7 @@ const NewsSection = () => {
             id: 2,
             title: "Nachhaltige Prozessindustrie: Kreislaufwirtschaft als Schlüssel zum Erfolg",
             excerpt: "Wie innovative Recycling-Technologien und geschlossene Materialkreisläufe die Industrie revolutionieren.",
-            content: `Die Transformation zu einer nachhaltigen Prozessindustrie ist nicht nur eine ökologische Notwendigkeit, sondern auch ein entscheidender Wettbewerbsfaktor. PROMAX entwickelt ganzheitliche Konzepte für Kreislaufwirtschaft, die Umweltschutz und Wirtschaftlichkeit optimal vereinen.
-
-            **Innovative Recycling-Technologien**
-            
-            Unsere neuesten Anlagen verwandeln industrielle Abfallströme in wertvolle Rohstoffe. Durch den Einsatz fortschrittlicher Separationstechnologien können wir bis zu 95% der Materialien in den Produktionskreislauf zurückführen. Besonders erfolgreich sind unsere Lösungen in der Chemie- und Pharmaindustrie, wo komplexe Molekülstrukturen präzise getrennt und wiederverwendet werden.
-            
-            **Energieeffizienz durch intelligente Vernetzung**
-            
-            Durch die Kopplung verschiedener Produktionsprozesse entstehen Synergien, die den Gesamtenergieverbrauch um bis zu 60% reduzieren. Abwärme aus einem Prozess wird direkt als Eingangswärme für nachgelagerte Produktionsschritte genutzt. Diese intelligente Energiekaskadierung ist ein Kernbestandteil unserer nachhaltigen Anlagenkonzepte.
-            
-            **CO2-neutrale Produktion bis 2030**
-            
-            Unser ambitioniertes Ziel ist es, bis 2030 alle von uns geplanten Anlagen CO2-neutral zu betreiben. Dazu setzen wir auf eine Kombination aus erneuerbaren Energien, Carbon Capture-Technologien und geschlossenen Materialkreisläufen. Erste Pilotprojekte zeigen bereits heute, dass eine klimaneutrale Industrie nicht nur möglich, sondern auch wirtschaftlich vorteilhaft ist.`,
+            content: `Die Transformation zu einer nachhaltigen Prozessindustrie...`,
             category: "Nachhaltigkeit",
             author: "Maria Hofstetter",
             date: "12. Januar 2025",
@@ -107,19 +78,7 @@ const NewsSection = () => {
             id: 3,
             title: "Smart Manufacturing: Die vernetzte Fabrik wird Realität",
             excerpt: "Industrie 4.0 in der Praxis: Wie IoT, 5G und Edge Computing die Produktion revolutionieren.",
-            content: `Die Smart Factory ist keine Zukunftsvision mehr, sondern gelebte Realität in modernen Produktionsanlagen. PROMAX entwickelt intelligente Fertigungssysteme, die Flexibilität, Effizienz und Qualität auf ein neues Level heben.
-
-            **Echtzeit-Vernetzung durch 5G**
-            
-            Der neue Mobilfunkstandard 5G ermöglicht es erstmals, alle Komponenten einer Produktionsanlage in Echtzeit zu vernetzen. Latenzzeiten unter einer Millisekunde erlauben präzise Koordination zwischen Maschinen, Robotern und Qualitätskontrollsystemen. Diese ultraschnelle Kommunikation ist die Grundlage für adaptive Fertigungsprozesse.
-            
-            **Edge Computing für dezentrale Intelligenz**
-            
-            Durch die Verlagerung von KI-Algorithmen direkt an die Produktionsmaschinen entstehen autonome Fertigungsinseln, die selbstständig Entscheidungen treffen können. Diese dezentrale Intelligenz reduziert Ausfallzeiten und erhöht die Produktionsflexibilität erheblich.
-            
-            **Digital Twin-Technologie**
-            
-            Jede von uns entwickelte Anlage besitzt einen digitalen Zwilling, der das Verhalten der realen Anlage in Echtzeit simuliert. Diese virtuellen Modelle ermöglichen es, Optimierungen zunächst digital zu testen, bevor sie in der realen Produktion implementiert werden. So können wir Stillstandszeiten auf ein Minimum reduzieren.`,
+            content: `Die Smart Factory ist keine Zukunftsvision mehr...`,
             category: "Innovation",
             author: "Dr. Thomas Reichert",
             date: "10. Januar 2025",
@@ -131,19 +90,7 @@ const NewsSection = () => {
             id: 4,
             title: "Pharma 4.0: Digitalisierung in der Arzneimittelproduktion",
             excerpt: "Wie digitale Technologien die Pharmaindustrie sicherer, effizienter und patientenorientierter machen.",
-            content: `Die Pharmaindustrie durchläuft derzeit eine der größten Transformationen ihrer Geschichte. Digitale Technologien ermöglichen nicht nur effizientere Produktionsprozesse, sondern auch eine bessere Rückverfolgbarkeit und höhere Arzneimittelsicherheit.
-
-            **Blockchain für lückenlose Rückverfolgbarkeit**
-            
-            Jeder Produktionsschritt wird in einer unveränderlichen Blockchain dokumentiert. Dies gewährleistet absolute Transparenz von der Rohstoffbeschaffung bis zur Auslieferung an den Patienten. Fälschungen werden dadurch praktisch unmöglich.
-            
-            **Automatisierte GMP-Compliance**
-            
-            Unsere KI-Systeme überwachen kontinuierlich alle relevanten Parameter und dokumentieren automatisch die Einhaltung der Good Manufacturing Practice-Richtlinien. Dies reduziert den Aufwand für Compliance-Dokumentation um über 80% und minimiert gleichzeitig das Risiko von Regelabweichungen.
-            
-            **Personalisierte Medizin durch flexible Produktion**
-            
-            Modulare Produktionsanlagen ermöglichen es, auch kleine Chargen individualisierter Medikamente wirtschaftlich herzustellen. Dies ebnet den Weg für die personalisierte Medizin und maßgeschneiderte Therapien.`,
+            content: `Die Pharmaindustrie durchläuft derzeit...`,
             category: "Pharma",
             author: "Prof. Dr. Lisa Wagner",
             date: "8. Januar 2025",
@@ -155,19 +102,7 @@ const NewsSection = () => {
             id: 5,
             title: "Wasserstofftechnologie: Der Energieträger der Zukunft",
             excerpt: "Grüne Wasserstoffproduktion als Schlüsseltechnologie für die Energiewende und klimaneutrale Industrie.",
-            content: `Wasserstoff gilt als einer der wichtigsten Energieträger der Zukunft. PROMAX entwickelt innovative Anlagen für die Produktion, Speicherung und Nutzung von grünem Wasserstoff in industriellem Maßstab.
-
-            **Elektrolyse-Technologien der nächsten Generation**
-            
-            Unsere hocheffizienten Elektrolyseure erreichen Wirkungsgrade von über 85% und können flexibel auf schwankende Strommengen aus erneuerbaren Energien reagieren. Durch modularen Aufbau sind sie skalierbar von kleinen Pilotanlagen bis hin zu Gigawatt-Produktionsstätten.
-            
-            **Sichere Wasserstoffspeicherung**
-            
-            Die Entwicklung sicherer und effizienter Speichersysteme ist entscheidend für den Erfolg der Wasserstoffwirtschaft. Unsere innovativen Drucktanksysteme und Flüssigspeicher-Technologien ermöglichen eine langfristige und verlustfreie Lagerung auch großer Wasserstoffmengen.
-            
-            **Integration in bestehende Infrastrukturen**
-            
-            Besonders erfolgreich sind unsere Retrofitting-Lösungen, mit denen bestehende Erdgasanlagen für Wasserstoff umgerüstet werden können. Dies beschleunigt den Übergang zu einer wasserstoffbasierten Energieversorgung erheblich.`,
+            content: `Wasserstoff gilt als einer der wichtigsten Energieträger...`,
             category: "Energie",
             author: "Ing. Michael Braun",
             date: "5. Januar 2025",
@@ -179,19 +114,7 @@ const NewsSection = () => {
             id: 6,
             title: "Cybersecurity in kritischen Infrastrukturen",
             excerpt: "Wie wir Industrieanlagen gegen Cyberangriffe schützen und gleichzeitig die Vorteile der Digitalisierung nutzen.",
-            content: `Die zunehmende Vernetzung von Industrieanlagen bringt neue Sicherheitsherausforderungen mit sich. PROMAX entwickelt umfassende Cybersecurity-Konzepte, die sowohl präventive als auch reaktive Sicherheitsmaßnahmen umfassen.
-
-            **Zero Trust-Architektur**
-            
-            Unser Sicherheitskonzept basiert auf dem Prinzip "Never trust, always verify". Jeder Zugriff auf kritische Systeme wird kontinuierlich validiert und autorisiert. Multi-Faktor-Authentifizierung und verschlüsselte Kommunikation sind dabei Standard.
-            
-            **KI-basierte Bedrohungserkennung**
-            
-            Machine Learning-Algorithmen analysieren kontinuierlich Netzwerkverkehr und Systemverhalten, um Anomalien und potenzielle Bedrohungen zu identifizieren. Unser System erkennt auch bisher unbekannte Angriffsmuster und kann automatisch Gegenmaßnahmen einleiten.
-            
-            **Incident Response und Recovery**
-            
-            Für den Fall eines erfolgreichen Angriffs haben wir umfassende Notfallpläne entwickelt, die eine schnelle Wiederherstellung des Betriebs gewährleisten. Regelmäßige Sicherheitsübungen stellen sicher, dass alle Beteiligten optimal vorbereitet sind.`,
+            content: `Die zunehmende Vernetzung von Industrieanlagen...`,
             category: "Sicherheit",
             author: "Dr. Alexandra Müller",
             date: "3. Januar 2025",
@@ -267,6 +190,7 @@ const NewsSection = () => {
                                         src={article.image}
                                         alt={article.title}
                                         className={styles.cardImage}
+                                        loading="lazy"
                                     />
                                     <div className={styles.imageOverlay}></div>
                                     <div className={styles.cardBadges}>
@@ -360,10 +284,12 @@ const NewsSection = () => {
                                         <Calendar size={16} />
                                         <span>{selectedArticle.date}</span>
                                     </div>
-                                    <div className={styles.metaItem}>
-                                        <Clock size={16} />
-                                        <span>{selectedArticle.readTime}</span>
-                                    </div>
+                                    {selectedArticle.readTime && (
+                                        <div className={styles.metaItem}>
+                                            <Clock size={16} />
+                                            <span>{selectedArticle.readTime}</span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

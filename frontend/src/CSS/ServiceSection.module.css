@@ -1,15 +1,20 @@
-/* ServicesSection.module.css */
+/* ServicesSection.module.css - Overflow Fix */
 
 .servicesSection {
+    width: 100%;
     padding: 120px 0;
     background: #ffffff;
     font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden; /* WICHTIG: Overflow verhindern */
+    position: relative;
 }
 
 .container {
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+    box-sizing: border-box; /* WICHTIG */
 }
 
 /* Header */
@@ -19,7 +24,7 @@
 }
 
 .title {
-    font-size: 3.5rem;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 600;
     color: #1E3A5F;
     margin-bottom: 1.5rem;
@@ -30,7 +35,7 @@
 }
 
 .titleUnderline {
-    width: 120px;
+    width: min(120px, 30vw);
     height: 5px;
     background: #E67E22;
     margin: 0 auto 2rem;
@@ -40,9 +45,9 @@
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
     color: #64748b;
-    max-width: 600px;
+    max-width: min(600px, 90%);
     margin: 0 auto;
     opacity: 0;
     transform: translateY(30px);
@@ -72,12 +77,14 @@
     display: flex;
     flex-direction: column;
     gap: 3rem;
+    width: 100%;
 }
 
 .firstRow {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+    width: 100%;
 }
 
 .secondRow {
@@ -86,9 +93,10 @@
     gap: 2rem;
     max-width: 800px;
     margin: 0 auto;
+    width: 100%;
 }
 
-/* Service Cards */
+/* Service Cards - KRITISCH: Transform nur bei visible */
 .serviceCard {
     background: white;
     border-radius: 16px;
@@ -97,45 +105,25 @@
     transition: all 0.4s ease;
     opacity: 0;
     cursor: pointer;
+    width: 100%;
 }
 
-/* Scroll Animation Classes */
-.slideFromLeft {
-    transform: translateX(-100px);
-    transition: all 0.8s ease-out;
+/* WICHTIG: Transform nur bei NICHT-visible */
+.slideFromLeft:not(.cardVisible) {
+    transform: translateX(-50px); /* Reduziert von -100px */
 }
 
-.slideFromRight {
-    transform: translateX(100px);
-    transition: all 0.8s ease-out;
+.slideFromRight:not(.cardVisible) {
+    transform: translateX(50px); /* Reduziert von 100px */
 }
 
-.slideFromCenter {
-    transform: translateY(50px);
-    transition: all 0.8s ease-out;
+.slideFromCenter:not(.cardVisible) {
+    transform: translateY(30px); /* Reduziert von 50px */
 }
 
 .cardVisible {
     opacity: 1 !important;
     transform: translateX(0) translateY(0) !important;
-}
-
-/* Remove old animation classes */
-.headerVisible .title {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-}
-
-.headerVisible .titleUnderline {
-    transform: scaleX(1);
-    transition-delay: 0.6s;
-}
-
-.headerVisible .subtitle {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.8s;
 }
 
 .serviceCard:hover {
@@ -147,6 +135,7 @@
     height: 200px;
     overflow: hidden;
     position: relative;
+    width: 100%;
 }
 
 .cardImage img {
@@ -154,6 +143,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
+    display: block; /* Wichtig für Overflow */
 }
 
 .serviceCard:hover .cardImage img {
@@ -162,10 +152,11 @@
 
 .cardContent {
     padding: 2rem;
+    box-sizing: border-box;
 }
 
 .cardNumber {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 3vw, 2.5rem);
     font-weight: 700;
     color: #8FA0A5;
     margin-bottom: 1rem;
@@ -173,7 +164,7 @@
 }
 
 .cardTitle {
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
     font-weight: 600;
     color: #1E3A5F;
     margin-bottom: 1rem;
@@ -196,49 +187,10 @@
 }
 
 .cardDescription {
-    font-size: 0.95rem;
+    font-size: clamp(0.875rem, 1.5vw, 0.95rem);
     color: #64748b;
     line-height: 1.6;
     margin: 0;
-}
-
-/* Animations */
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideIntoView {
-    to {
-        opacity: 1;
-        transform: translateX(0) translateY(0);
-    }
-}
-
-@keyframes scaleInX {
-    from {
-        transform: scaleX(0);
-    }
-    to {
-        transform: scaleX(1);
-    }
 }
 
 /* Responsive Design */
@@ -262,10 +214,6 @@
         padding: 0 1rem;
     }
 
-    .title {
-        font-size: 2.5rem;
-    }
-
     .firstRow {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -287,26 +235,31 @@
     .cardImage {
         height: 180px;
     }
+
+    /* Reduziere Animationen auf Mobile */
+    .slideFromLeft:not(.cardVisible),
+    .slideFromRight:not(.cardVisible) {
+        transform: translateY(30px);
+    }
 }
 
 @media (max-width: 480px) {
-    .title {
-        font-size: 2rem;
-    }
-
-    .subtitle {
-        font-size: 1rem;
-    }
-
     .cardContent {
         padding: 1.2rem;
     }
+}
 
-    .cardTitle {
-        font-size: 1.3rem;
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 
-    .cardDescription {
-        font-size: 0.9rem;
+    .serviceCard:hover {
+        transform: translateY(-4px);
     }
 }

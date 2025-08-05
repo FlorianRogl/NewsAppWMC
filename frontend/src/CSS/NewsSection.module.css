@@ -1,11 +1,19 @@
-/* NewsSection.module.css - Ultra Modern Design */
+/* NewsSection.module.css - Overflow Fix First */
 
+/* KRITISCH: Overflow-Prevention von Anfang an */
 .newsSection {
-    padding: 4rem;
+    width: 100%;
+    max-width: 100vw;
+    padding: 4rem 0;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden !important; /* WICHTIG */
+    overflow-y: visible;
+}
+
+.newsSection * {
+    max-width: 100%;
 }
 
 .newsSection::before {
@@ -22,12 +30,14 @@
 }
 
 .container {
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
-    padding-bottom: 2rem;
     position: relative;
     z-index: 1;
+    box-sizing: border-box;
+    overflow: visible; /* Container darf nicht clippen */
 }
 
 /* Header */
@@ -35,7 +45,8 @@
     text-align: center;
     margin-bottom: 4rem;
     opacity: 0;
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+    /* KEINE transform Animationen im Initial State! */
 }
 
 .headerVisible {
@@ -55,9 +66,8 @@
     font-size: 0.875rem;
     font-weight: 600;
     color: #1E3A5F;
-    box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.06),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    /* Animation nur bei Sichtbarkeit */
     transform: translateY(30px);
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
 }
@@ -76,7 +86,7 @@
 }
 
 .title {
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 700;
     background: linear-gradient(135deg, #1E3A5F 0%, #2d4a73 50%, #1E3A5F 100%);
     background-clip: text;
@@ -85,8 +95,13 @@
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
     line-height: 1.1;
+    /* Animation nur bei Sichtbarkeit */
     transform: translateY(40px);
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+}
+
+.headerVisible .title {
+    transform: translateY(0);
 }
 
 .titleAccent {
@@ -94,10 +109,6 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-
-.headerVisible .title {
-    transform: translateY(0);
 }
 
 .titleUnderline {
@@ -130,71 +141,52 @@
     transform: translateY(0);
 }
 
-/* News Grid */
+/* News Grid - KRITISCH: Kein initial transform! */
 .newsGrid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 1.5rem;
     margin-bottom: 0;
-}
-
-@media (min-width: 768px) {
-    .newsGrid {
-        grid-template-rows: repeat(3, 320px);
-    }
+    width: 100%;
+    position: relative;
 }
 
 /* Card Layouts */
 .heroCard {
-    grid-column: span 12;
-    grid-row: span 1;
-}
-
-@media (min-width: 768px) {
-    .heroCard {
-        grid-column: span 8;
-        grid-row: span 2;
-    }
+    grid-column: span 8;
+    grid-row: span 2;
 }
 
 .featuredCard {
-    grid-column: span 12;
+    grid-column: span 4;
     grid-row: span 1;
-}
-
-@media (min-width: 768px) {
-    .featuredCard {
-        grid-column: span 4;
-        grid-row: span 1;
-    }
 }
 
 .standardCard {
-    grid-column: span 12;
+    grid-column: span 4;
     grid-row: span 1;
 }
 
-@media (min-width: 768px) {
-    .standardCard {
-        grid-column: span 4;
-        grid-row: span 1;
-    }
-}
-
-/* News Cards */
+/* News Cards - KRITISCH: Transform nur NACH visible */
 .newsCard {
     cursor: pointer;
     opacity: 0;
-    transform: translateY(60px) scale(0.98);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    /* KEIN transform im initial state! */
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 0;
     overflow: hidden;
-    group: true;
+    position: relative;
+}
+
+/* Transform wird nur bei visible angewendet */
+.newsCard:not(.newsCardVisible) {
+    transform: translateY(40px) scale(0.98);
 }
 
 .newsCardVisible {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) !important;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cardWrapper {
@@ -207,19 +199,13 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.08),
-            0 8px 25px rgba(0, 0, 0, 0.06),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .newsCard:hover .cardWrapper {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow:
-            0 40px 80px rgba(0, 0, 0, 0.12),
-            0 20px 40px rgba(0, 0, 0, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
     border-color: rgba(230, 126, 34, 0.3);
 }
 
@@ -228,6 +214,7 @@
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    flex-shrink: 0;
 }
 
 .heroCard .cardImageWrapper {
@@ -248,7 +235,7 @@
 }
 
 .newsCard:hover .cardImage {
-    transform: scale(1.08) rotate(0.5deg);
+    transform: scale(1.05);
     filter: brightness(1.1) saturate(1.2);
 }
 
@@ -288,17 +275,13 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     backdrop-filter: blur(20px);
-    box-shadow:
-            0 8px 25px rgba(0, 0, 0, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
 }
 
 .newsCard:hover .categoryBadge {
     transform: translateY(-2px);
-    box-shadow:
-            0 12px 35px rgba(0, 0, 0, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
 }
 
 .featuredBadge {
@@ -314,10 +297,7 @@
     align-items: center;
     gap: 0.5rem;
     backdrop-filter: blur(20px);
-    box-shadow:
-            0 8px 25px rgba(230, 126, 34, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    animation: glow 3s ease-in-out infinite alternate;
+    box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
 }
 
 /* Content Area */
@@ -428,10 +408,6 @@
     font-weight: 500;
 }
 
-.readTime {
-    display: none;
-}
-
 .cardAction {
     width: 44px;
     height: 44px;
@@ -442,14 +418,15 @@
     justify-content: center;
     color: white;
     opacity: 0;
-    transform: scale(0.8) rotate(-45deg);
+    transform: scale(0.8);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 8px 25px rgba(30, 58, 95, 0.3);
+    flex-shrink: 0;
 }
 
 .newsCard:hover .cardAction {
     opacity: 1;
-    transform: scale(1) rotate(0deg);
+    transform: scale(1);
     background: linear-gradient(135deg, #E67E22, #f59e0b);
     box-shadow: 0 12px 35px rgba(230, 126, 34, 0.4);
 }
@@ -477,10 +454,7 @@
     max-height: 90vh;
     overflow: hidden;
     position: relative;
-    box-shadow:
-            0 40px 120px rgba(0, 0, 0, 0.2),
-            0 20px 60px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.2);
     animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -555,9 +529,7 @@
     letter-spacing: 0.5px;
     backdrop-filter: blur(20px);
     margin-bottom: 1.5rem;
-    box-shadow:
-            0 8px 25px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .modalTitle {
@@ -621,19 +593,6 @@
     }
 }
 
-@keyframes glow {
-    0% {
-        box-shadow:
-                0 8px 25px rgba(230, 126, 34, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-    100% {
-        box-shadow:
-                0 12px 35px rgba(230, 126, 34, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-}
-
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -659,9 +618,24 @@
 .delay-6 { transition-delay: 0.6s; }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .newsGrid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .heroCard {
+        grid-column: span 6;
+    }
+
+    .featuredCard,
+    .standardCard {
+        grid-column: span 3;
+    }
+}
+
 @media (max-width: 768px) {
     .newsSection {
-        padding: 4rem 0 0 0;
+        padding: 3rem 0;
     }
 
     .container {
@@ -679,7 +653,6 @@
     .newsGrid {
         grid-template-columns: 1fr;
         gap: 1.25rem;
-        grid-template-rows: none;
     }
 
     .heroCard,
@@ -691,6 +664,11 @@
 
     .cardImageWrapper {
         height: 180px !important;
+    }
+
+    .featuredCard .cardImageWrapper,
+    .standardCard .cardImageWrapper {
+        display: block !important;
     }
 
     .cardContent {

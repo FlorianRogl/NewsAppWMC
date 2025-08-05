@@ -1,37 +1,58 @@
-/* VideoSection.module.css */
+/* Alternative Lösung: VideoSection direkt unter Navbar */
 
 .videoSection {
-    width: 100vw;
-    height: 50vh; /* Reduziert: 75vh → 50vh (2/3 von 75vh) */
-    min-height: 350px; /* Reduziert: 500px → 350px */
-    margin-top: 90px; /* Platz für die größere fixed Navbar */
-    margin-left: calc(-50vw + 50%);
-    position: relative;
-    overflow: hidden;
-}
-
-.videoContainer {
-    position: relative;
     width: 100%;
-    height: 100%;
-    background: #1f2937; /* Fallback für Ladezeit */
+    height: 50vh;
+    min-height: 350px;
+    /* KEINE margin-top! */
+    position: relative;
+    overflow: hidden;
+    background: #1f2937;
+}
+
+/* Füge padding-top zum Container hinzu, der die Navbar-Höhe ausgleicht */
+.videoContainer {
+    position: absolute;
+    top: 90px; /* Navbar-Höhe */
+    left: 0;
+    right: 0;
+    bottom: 0;
     overflow: hidden;
 }
 
+/* Responsive padding-top */
+@media (max-width: 768px) {
+    .videoContainer {
+        top: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .videoContainer {
+        top: 70px;
+    }
+}
+
+@media (max-width: 360px) {
+    .videoContainer {
+        top: 65px;
+    }
+}
+
+/* Rest bleibt gleich... */
 .video {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100vw;
-    height: 56.25vw; /* 16:9 Aspect Ratio */
+    width: 177.77vh;
+    height: 100vh;
+    min-width: 100%;
     min-height: 100%;
-    min-width: 177.77vh; /* 16:9 Aspect Ratio */
     transform: translate(-50%, -50%);
-    border: none;
-    outline: none;
+    object-fit: cover;
+    pointer-events: none;
 }
 
-/* Optional: Overlay für Text über dem Video */
 .overlay {
     position: absolute;
     top: 0;
@@ -43,77 +64,60 @@
     align-items: center;
     justify-content: center;
     z-index: 2;
-    opacity: 1;
-    transition: opacity 1.5s ease-out;
-}
-
-.fadeOut {
-    opacity: 0;
-    pointer-events: none;
 }
 
 .overlayContent {
     text-align: center;
     color: white;
-    max-width: 800px;
     padding: 0 2rem;
+    max-width: 800px;
+    width: 100%;
 }
 
 .title {
-    font-size: 2.5rem; /* Angepasst: 3rem → 2.5rem für kleinere Section */
+    font-size: clamp(1.5rem, 4vw, 3rem);
     font-weight: 700;
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
 }
 
 .subtitle {
-    font-size: 1.1rem; /* Angepasst: 1.25rem → 1.1rem */
+    font-size: clamp(0.9rem, 2vw, 1.3rem);
     font-weight: 400;
     margin: 0;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-    font-family: 'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Responsive Design */
+/* Tablet */
 @media (max-width: 768px) {
     .videoSection {
-        height: 40vh; /* Reduziert: 65vh → 40vh (2/3 reduziert) */
-        min-height: 280px; /* Reduziert: 400px → 280px */
-        margin-top: 70px;
+        height: 40vh;
+        min-height: 280px;
     }
 
-    .title {
-        font-size: 1.8rem; /* Angepasst: 2rem → 1.8rem */
+    .overlayContent {
+        padding: 0 1.5rem;
     }
+}
 
-    .subtitle {
-        font-size: 0.95rem; /* Angepasst: 1rem → 0.95rem */
+/* Mobile */
+@media (max-width: 480px) {
+    .videoSection {
+        height: 35vh;
+        min-height: 250px;
     }
 
     .overlayContent {
         padding: 0 1rem;
     }
-}
-
-@media (max-width: 480px) {
-    .videoSection {
-        height: 35vh; /* Reduziert: 55vh → 35vh (2/3 reduziert) */
-        min-height: 250px; /* Reduziert: 350px → 250px */
-    }
 
     .title {
-        font-size: 1.4rem; /* Angepasst: 1.5rem → 1.4rem */
+        font-size: clamp(1.2rem, 6vw, 2rem);
     }
 
     .subtitle {
-        font-size: 0.85rem; /* Angepasst: 0.9rem → 0.85rem */
-    }
-}
-
-/* Für bessere Performance */
-@media (prefers-reduced-motion: reduce) {
-    .video {
-        /* Video pausieren bei reduced motion preferences */
+        font-size: clamp(0.8rem, 3vw, 1rem);
     }
 }

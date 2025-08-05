@@ -16,10 +16,13 @@ const JobSection: React.FC = () => {
                     // Trigger header animations first
                     setTimeout(() => setIsHeaderVisible(true), 100);
                     // Then content animations
-                    setTimeout(() => setIsContentVisible(true), 800);
+                    setTimeout(() => setIsContentVisible(true), 500); // Reduziert von 800ms
                 }
             },
-            { threshold: 0.1 }
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px' // Triggert früher
+            }
         );
 
         if (sectionRef.current) {
@@ -61,15 +64,24 @@ const JobSection: React.FC = () => {
                             einzusetzen.
                         </p>
                         <div className={styles.highlights}>
-                            <div className={`${styles.highlight} ${isContentVisible ? styles.fadeInUp : ''} ${isContentVisible ? styles.highlightVisible : ''}`} style={{ transitionDelay: '0.2s' }}>
+                            <div
+                                className={`${styles.highlight} ${isContentVisible ? styles.fadeInUp : ''} ${isContentVisible ? styles.highlightVisible : ''}`}
+                                style={{ transitionDelay: '0.2s' }}
+                            >
                                 <span className={styles.highlightIcon}>✓</span>
                                 <span>Innovative Projekte im Industrieanlagenbau</span>
                             </div>
-                            <div className={`${styles.highlight} ${isContentVisible ? styles.fadeInUp : ''} ${isContentVisible ? styles.highlightVisible : ''}`} style={{ transitionDelay: '0.4s' }}>
+                            <div
+                                className={`${styles.highlight} ${isContentVisible ? styles.fadeInUp : ''} ${isContentVisible ? styles.highlightVisible : ''}`}
+                                style={{ transitionDelay: '0.4s' }}
+                            >
                                 <span className={styles.highlightIcon}>✓</span>
                                 <span>Erfahrenes und dynamisches Team</span>
                             </div>
-                            <div className={`${styles.highlight} ${isContentVisible ? styles.fadeInUp : ''} ${isContentVisible ? styles.highlightVisible : ''}`} style={{ transitionDelay: '0.6s' }}>
+                            <div
+                                className={`${styles.highlight} ${isContentVisible ? styles.fadeInUp : ''} ${isContentVisible ? styles.highlightVisible : ''}`}
+                                style={{ transitionDelay: '0.6s' }}
+                            >
                                 <span className={styles.highlightIcon}>✓</span>
                                 <span>Vielfältige Entwicklungsmöglichkeiten</span>
                             </div>
@@ -78,6 +90,7 @@ const JobSection: React.FC = () => {
                             className={`${styles.ctaButton} ${isContentVisible ? styles.bounceIn : ''} ${isContentVisible ? styles.buttonVisible : ''}`}
                             onClick={handleKarriereClick}
                             style={{ transitionDelay: '0.8s' }}
+                            aria-label="Zu den Karrieremöglichkeiten"
                         >
                             Entdecken Sie Ihre Karrieremöglichkeiten
                         </button>
@@ -87,6 +100,7 @@ const JobSection: React.FC = () => {
                             src={planungImage}
                             alt="Projektplanung bei PROMAX"
                             className={styles.image}
+                            loading="lazy"
                         />
                     </div>
                 </div>
