@@ -8,13 +8,12 @@ import Branchen from "./components/Branchen.tsx";
 import Leistungen from "./components/Leistungen.tsx";
 import Projektberichte from "./components/Projektberichte.tsx";
 import Karriere from "./components/Karriere.tsx";
-import styles from './css/App.module.css';
 import FitImJob from "./components/FitImJob.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx"; // Neuer Import für App-spezifische Styles
 
 function App() {
     return (
-        <div className={styles.appContainer}>
+        <div>
             <Navbar/>
             <ScrollToTop/>
                 <Routes>

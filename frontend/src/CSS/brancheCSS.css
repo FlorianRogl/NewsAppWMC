@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .branches-container {
     min-height: 100vh;
     background: #f8fafc;
