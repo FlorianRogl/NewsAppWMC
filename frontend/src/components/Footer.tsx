@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../CSS/Footer.module.css'
+import styles from '../css/Footer.module.css'
 import {
     MapPin,
     Phone,
