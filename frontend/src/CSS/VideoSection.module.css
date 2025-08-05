@@ -1,0 +1,122 @@
+/* VideoSection ohne weißen Balken */
+
+.videoSection {
+    width: 100%;
+    height: 50vh;
+    min-height: 350px;
+    position: relative;
+    overflow: hidden;
+    background: #1f2937;
+}
+
+/* Video-Container ohne top-offset - Navbar-Padding wird durch Body-Padding berücksichtigt */
+.videoContainer {
+    position: absolute;
+    top: 0; /* Geändert von 90px auf 0 */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+/* Entferne alle responsive top-Offsets */
+@media (max-width: 768px) {
+    .videoContainer {
+        top: 0; /* Geändert von 80px auf 0 */
+    }
+}
+
+@media (max-width: 480px) {
+    .videoContainer {
+        top: 0; /* Geändert von 70px auf 0 */
+    }
+}
+
+@media (max-width: 360px) {
+    .videoContainer {
+        top: 0; /* Geändert von 65px auf 0 */
+    }
+}
+
+/* Rest bleibt gleich... */
+.video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 177.77vh;
+    height: 100vh;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.overlayContent {
+    text-align: center;
+    color: white;
+    padding: 0 2rem;
+    max-width: 800px;
+    width: 100%;
+}
+
+.title {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.subtitle {
+    font-size: clamp(0.9rem, 2vw, 1.3rem);
+    font-weight: 400;
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .videoSection {
+        height: 40vh;
+        min-height: 280px;
+    }
+
+    .overlayContent {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .videoSection {
+        height: 35vh;
+        min-height: 250px;
+    }
+
+    .overlayContent {
+        padding: 0 1rem;
+    }
+
+    .title {
+        font-size: clamp(1.2rem, 6vw, 2rem);
+    }
+
+    .subtitle {
+        font-size: clamp(0.8rem, 3vw, 1rem);
+    }
+}
