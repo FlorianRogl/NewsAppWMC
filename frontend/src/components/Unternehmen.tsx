@@ -186,7 +186,7 @@ const Unternehmen = () => {
                                 <h2 className="text-3xl lg:text-4xl font-light text-slate-900">
                                     Das Unternehmen
                                 </h2>
-                                <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-orange-400 rounded-full"></div>
+                                <div className="w-16 h-1 bg-blue-600 rounded-full"></div>
                             </div>
 
                             <div className="space-y-6 text-slate-600 leading-relaxed">
@@ -233,7 +233,7 @@ const Unternehmen = () => {
                                 <h2 className="text-3xl lg:text-4xl font-light text-slate-900">
                                     Unser Leitbild
                                 </h2>
-                                <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-orange-400 rounded-full"></div>
+                                <div className="w-16 h-1 bg-blue-600 rounded-full"></div>
                             </div>
 
                             <div className="space-y-6">
@@ -295,7 +295,7 @@ const Unternehmen = () => {
                                 <h3 className="text-xl text-slate-600">
                                     Gesundheit und Wohlbefinden unserer Mitarbeiter
                                 </h3>
-                                <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-orange-400 rounded-full"></div>
+                                <div className="w-16 h-1 bg-blue-600 rounded-full"></div>
                             </div>
 
                             <p className="text-slate-600 leading-relaxed">
@@ -515,7 +515,7 @@ const Unternehmen = () => {
                                 <h2 className="text-3xl lg:text-4xl font-light text-slate-900">
                                     Zertifizierung
                                 </h2>
-                                <div className="w-16 h-0.5 bg-gradient-to-r from-blue-600 to-orange-400"></div>
+                                <div className="w-16 h-0.5 bg-blue-600"></div>
                             </div>
 
                             <p className="text-lg text-slate-600 leading-relaxed">
@@ -623,7 +623,7 @@ const Unternehmen = () => {
                         <p className="text-xl text-slate-600 max-w-2xl mx-auto">
                             Laden Sie unsere wichtigsten Unternehmensunterlagen und Zertifikate herunter
                         </p>
-                        <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-orange-400 rounded-full mx-auto mt-6"></div>
+                        <div className="w-16 h-1 bg-blue-600 rounded-full mx-auto mt-6"></div>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
