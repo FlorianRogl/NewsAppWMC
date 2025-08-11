@@ -8,10 +8,8 @@ function Homepage() {
     return (
         <>
             <VideoSection/>
-            <CompanySection/>
             <ServiceSection/>
             <JobSection/>
-            <NewsSection/>
         </>
     );
 }

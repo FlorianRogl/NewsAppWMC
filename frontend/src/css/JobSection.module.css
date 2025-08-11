@@ -172,9 +172,9 @@
     flex-shrink: 0;
 }
 
-/* CTA Button */
+/* CTA Button - Geändert zu dem dunklen Blau */
 .ctaButton {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    background: #0f1f3f;
     color: white;
     border: none;
     padding: clamp(0.875rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
@@ -193,11 +193,13 @@
 }
 
 .ctaButton:hover {
+    background: #081426;
     transform: translateY(-2px) scale(1.02);
     box-shadow: 0 10px 25px rgba(30, 58, 95, 0.3);
 }
 
 .ctaButton:active {
+    background: #0f1f3f;
     transform: translateY(0) scale(1);
 }
 
