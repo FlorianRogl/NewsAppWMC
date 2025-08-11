@@ -1,6 +1,5 @@
-import {useState} from 'react';
-import rogl from '../assets/rogl.png'
-import fasching from '../assets/fasching.png'
+import { useState } from 'react';
+import { Phone, Mail, MapPin, Clock, Send, Users, MessageCircle } from 'lucide-react';
 
 const Kontakt = () => {
     const [formData, setFormData] = useState({
@@ -12,7 +11,7 @@ const Kontakt = () => {
         message: ''
     });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
@@ -20,353 +19,357 @@ const Kontakt = () => {
         }));
     };
 
+    const handleSubmit = () => {
+        console.log('Form submitted:', formData);
+        // Here you would typically send the data to your backend
+        alert('Nachricht gesendet! Wir melden uns bald bei Ihnen.');
+    };
+
     return (
-        <div  className="font-sans leading-relaxed text-gray-900 bg-white overflow-x-hidden m-0 p-0 w-full">
-            {/* Header Section */}
-            <div className="bg-white py-16" style={{backgroundColor: '#d1d5db'}}>
-                <div className="max-w-6xl mx-auto px-6 text-center">
-                    <h1 className="text-4xl font-light mb-4 tracking-wide" style={{color: '#1e3a8a'}}>Kontakt</h1>
-                    <div className="w-24 h-0.5 bg-blue-800 mb-8 mx-auto"></div>
-                    <p className="text-xl font-light text-gray-600 max-w-3xl leading-relaxed mx-auto">
-                        Nehmen Sie Kontakt mit uns auf - wir freuen uns auf Ihre Anfrage und beraten Sie gerne zu Ihren Projekten.
-                    </p>
+        <div className="min-h-screen bg-gray-50">
+            {/* Hero Section with Modern Gradient */}
+            <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-slate-800 overflow-hidden">
+                <div className="absolute inset-0"></div>
+
+    <div className="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
+        <div className="text-center">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-8">
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Wir sind für Sie da
+            </div>
+            <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+                Kontakt
+            </h1>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8">
+                Lassen Sie uns über Ihr nächstes Projekt sprechen. Unsere Experten stehen Ihnen
+                mit individueller Beratung zur Seite.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-blue-100">
+                <div className="flex items-center">
+                    <Clock className="w-5 h-5 mr-2" />
+                    <span>Antwort innerhalb von 24h</span>
+                </div>
+                <div className="flex items-center">
+                    <Users className="w-5 h-5 mr-2" />
+                    <span>Persönliche Beratung</span>
                 </div>
             </div>
-            {/* Contact Information Grid */}
-            <section className="py-32" >
-                <div className="max-w-7xl mx-auto px-16 grid grid-cols-1 lg:grid-cols-2 gap-16">
+        </div>
+    </div>
+</section>
 
-                    {/* Main Office */}
-                    <div className="bg-white overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative group">
-                        <div className="px-8 py-8 text-white flex justify-between items-center relative" style={{backgroundColor: '#1e3a8a'}}>
-                            <h2 className="text-2xl font-bold uppercase tracking-wider">Hauptsitz</h2>
-                            <span className="text-white px-4 py-2 text-sm font-semibold uppercase tracking-wider" style={{backgroundColor: '#d97706'}}>
-                                Steiermark
-                            </span>
-                        </div>
-                        <div className="h-48 overflow-hidden">
-                            <img
-                                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                alt="PROMAX Hauptsitz Raaba-Grambach"
-                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                            />
-                        </div>
-                        <div className="p-8">
-                            <h3 className="text-xl font-semibold mb-6" style={{color: '#1e3a8a'}}>PROMAX Project Management GesmbH</h3>
-                            <div className="mb-8 pl-4 border-l-4" style={{borderColor: '#1e3a8a'}}>
-                                <p className="font-medium mb-1" style={{color: '#6b7280'}}>Parkring 18/F</p>
-                                <p className="font-medium mb-1" style={{color: '#6b7280'}}>8074 Raaba-Grambach</p>
-                                <p className="font-medium" style={{color: '#6b7280'}}>Österreich</p>
-                            </div>
-                            <div className="flex flex-col gap-4">
-                                <div className="flex items-center gap-4 text-gray-900 font-medium">
-                                    <span className="text-xl w-8 text-center">📞</span>
-                                    <span>+43 (0) 316 241 393</span>
-                                </div>
-                                <div className="flex items-center gap-4 text-gray-900 font-medium">
-                                    <span className="text-xl w-8 text-center">📧</span>
-                                    <span>office@promax.at</span>
-                                </div>
-                            </div>
-                        </div>
+    {/* Quick Contact Cards */}
+    <section className="relative -mt-16 pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Phone Card */}
+                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                        <Phone className="w-8 h-8 text-blue-600" />
                     </div>
-
-                    {/* Vienna Office */}
-                    <div className="bg-white overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative group">
-                        <div className="px-8 py-8 text-white flex justify-between items-center relative" style={{backgroundColor: '#1e3a8a'}}>
-                            <h2 className="text-2xl font-bold uppercase tracking-wider">Zweigstelle</h2>
-                            <span className="text-white px-4 py-2 text-sm font-semibold uppercase tracking-wider" style={{backgroundColor: '#d97706'}}>
-                                Wien
-                            </span>
-                        </div>
-                        <div className="h-48 overflow-hidden">
-                            <img
-                                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                alt="PROMAX Zweigstelle Wien"
-                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                            />
-                        </div>
-                        <div className="p-8">
-                            <h3 className="text-xl font-semibold mb-6" style={{color: '#1e3a8a'}}>PROMAX Project Management GesmbH</h3>
-                            <div className="mb-8 pl-4 border-l-4" style={{borderColor: '#1e3a8a'}}>
-                                <p className="font-medium mb-1" style={{color: '#6b7280'}}>Löwengasse 3/5</p>
-                                <p className="font-medium mb-1" style={{color: '#6b7280'}}>1030 Wien</p>
-                                <p className="font-medium" style={{color: '#6b7280'}}>Österreich</p>
-                            </div>
-                            <div className="flex flex-col gap-4">
-                                <div className="flex items-center gap-4 text-gray-900 font-medium">
-                                    <span className="text-xl w-8 text-center">📞</span>
-                                    <span>+43 (0) 1 710 7748</span>
-                                </div>
-                                <div className="flex items-center gap-4 text-gray-900 font-medium">
-                                    <span className="text-xl w-8 text-center">📧</span>
-                                    <span>office@promax.at</span>
-                                </div>
-                            </div>
-                        </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Sofort erreichbar</h3>
+                    <p className="text-gray-600 mb-4">Rufen Sie uns an für eine direkte Beratung</p>
+                    <div className="space-y-2">
+                        <a href="tel:+433162414393" className="block text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                            +43 (0) 316 241 393
+                        </a>
+                        <a href="tel:+43117107748" className="block text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                            +43 (0) 1 710 7748
+                        </a>
                     </div>
-
                 </div>
-            </section>
 
-            {/* Key Contacts */}
-            <section className="py-32 bg-white">
-                <div className="max-w-7xl mx-auto px-16 grid grid-cols-1 lg:grid-cols-10 gap-16 items-start">
-                    <div className="lg:col-span-4 text-white p-12 h-fit" style={{backgroundColor: '#1e3a8a'}}>
-                        <h2 className="text-3xl font-bold uppercase tracking-tight mb-4 text-white">Ansprechpartner</h2>
-                        <p className="opacity-80 leading-relaxed text-white">Ihre direkten Ansprechpartner für strategische Projekte</p>
+                {/* Email Card */}
+                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
+                        <Mail className="w-8 h-8 text-orange-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">E-Mail Kontakt</h3>
+                    <p className="text-gray-600 mb-4">Schreiben Sie uns Ihre Anfrage</p>
+                    <a href="mailto:office@promax.at" className="text-orange-600 hover:text-orange-800 font-medium transition-colors">
+                        office@promax.at
+                    </a>
+                </div>
+
+                {/* Location Card */}
+                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                        <MapPin className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Unsere Standorte</h3>
+                    <p className="text-gray-600 mb-4">Besuchen Sie uns vor Ort</p>
+                    <div className="space-y-1 text-sm text-gray-600">
+                        <p>Raaba-Grambach (Hauptsitz)</p>
+                        <p>Wien (Zweigstelle)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {/* Main Content Section */}
+    <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+                {/* Contact Form */}
+                <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 border border-gray-100">
+                    <div className="mb-8">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Nachricht senden</h2>
+                        <p className="text-gray-600">Erzählen Sie uns von Ihrem Projekt. Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
                     </div>
 
-                    <div className="lg:col-span-3 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative" style={{backgroundColor: '#d1d5db'}}>
-                        <div className="h-64 overflow-hidden">
-                            <img
-                                src={rogl}
-                                alt="Ing. Andreas Rogl"
-                                className="w-full h-full object-contain bg-gray-100 transition-all duration-300 hover:scale-105"
-                            />
-                        </div>
-                        <div className="p-8">
-                            <h3 className="text-xl font-bold mb-2" style={{color: '#1e3a8a'}}>Ing. Andreas Rogl</h3>
-                            <p className="font-semibold uppercase tracking-wider text-sm mb-6" style={{color: '#d97706'}}>Geschäftsführer</p>
+                    <div className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <p className="mb-2 font-medium" style={{color: '#6b7280'}}>andreas.rogl@promax.at</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="lg:col-span-3 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative" style={{backgroundColor: '#d1d5db'}}>
-                        <div className="h-64 overflow-hidden">
-                            <img
-                                src={fasching}
-                                alt="Ing. Michael Fasching"
-                                className="w-full h-full object-contain bg-gray-100 transition-all duration-300 hover:scale-105"
-                            />
-                        </div>
-                        <div className="p-8">
-                            <h3 className="text-xl font-bold mb-2" style={{color: '#1e3a8a'}}>Ing. Michael Fasching</h3>
-                            <p className="font-semibold uppercase tracking-wider text-sm mb-6" style={{color: '#d97706'}}></p>
-                            <br/>
-                            <div>
-                                <p className="mb-2 font-medium" style={{color: '#6b7280'}}>michael.fasching@promax.at</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Jobs Section */}
-            <section style={{backgroundColor: '#1e3a8a'}}>
-                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
-                    <div className="order-2 lg:order-1">
-                        <img
-                            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                            alt="Team bei PROMAX"
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    <div className="order-1 lg:order-2 p-16 text-white flex flex-col justify-center" style={{backgroundColor: '#1e3a8a'}}>
-                        <h2 className="text-4xl font-bold mb-8 uppercase tracking-tight">Jobs & Karriere</h2>
-                        <p className="text-lg leading-relaxed mb-6 opacity-90">
-                            Werden Sie Teil unseres Teams! Als Dienstleister ist das Ergebnis unserer Arbeit
-                            immer auch eine Teamleistung, deren Schlüsselfaktoren Qualifikation, Engagement,
-                            Kreativität, Verantwortungsbewusstsein, Flexibilität und Zielorientierung sind.
-                        </p>
-                        <p className="leading-relaxed mb-8 opacity-80">
-                            Wir bieten gute Dotierung, faire Vereinbarungen, interessante Aufgaben und
-                            vielfältige Entwicklungsmöglichkeiten in einem tollen Team.
-                        </p>
-                        <button
-                            onClick={() => console.log('Navigate to Karriere')}
-                            className="text-white border-none px-8 py-4 text-sm font-semibold uppercase tracking-wider cursor-pointer transition-all duration-300 self-start hover:-translate-y-1 hover:shadow-lg"
-                            style={{backgroundColor: '#d97706'}}
-                        >
-                            Zu Jobs & Karriere
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            {/* Google Maps Section */}
-            <section className="py-24" style={{backgroundColor: '#d1d5db'}}>
-                <div className="max-w-7xl mx-auto px-16">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold mb-4 uppercase tracking-tight" style={{color: '#1e3a8a'}}>Unser Standort</h2>
-                        <p className="text-lg" style={{color: '#6b7280'}}>Besuchen Sie uns in Raaba-Grambach, südöstlich von Graz</p>
-                    </div>
-                    <div className="bg-white border-8 overflow-hidden" style={{borderColor: '#1e3a8a'}}>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.7289447742!2d15.4461!3d47.0379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476e3597f3b5c5c5%3A0x5f6c5a5a5a5a5a5a!2sParkring%2018%2C%208074%20Raaba-Grambach%2C%20Austria!5e0!3m2!1sde!2sat!4v1"
-                            width="100%"
-                            height="400"
-                            style={{ border: 0 }}
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            title="PROMAX Standort Parkring 18/F, Raaba-Grambach"
-                            className="block transition-all duration-300 hover:grayscale-0 grayscale-[20%]"
-                        ></iframe>
-                    </div>
-                </div>
-            </section>
-
-            {/* Contact Form */}
-            <section className="py-32 bg-white">
-                <div className="max-w-4xl mx-auto px-16">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold mb-4 uppercase tracking-tight" style={{color: '#1e3a8a'}}>Nachricht senden</h2>
-                        <p className="text-lg" style={{color: '#6b7280'}}>Kontaktieren Sie uns für eine unverbindliche Beratung zu Ihrem Projekt</p>
-                    </div>
-
-                    <div className="p-12 border-2" style={{backgroundColor: '#d1d5db', borderColor: '#1e3a8a'}}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                            <div className="flex flex-col gap-2">
-                                <label className="font-semibold uppercase tracking-wider text-sm" style={{color: '#1e3a8a'}}>Name *</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    Name *
+                                </label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
                                     placeholder="Ihr vollständiger Name"
-                                    className="p-4 border-2 bg-white text-base font-sans text-gray-900 transition-all duration-300 rounded-none focus:outline-none focus:-translate-y-1 focus:shadow-md placeholder:italic"
-                                    style={{borderColor: '#9ca3af'}}
-                                    onFocus={(e) => {
-                                        e.target.style.borderColor = '#1e3a8a';
-                                        e.target.style.backgroundColor = '#f9fafb';
-                                    }}
-                                    onBlur={(e) => {
-                                        e.target.style.borderColor = '#9ca3af';
-                                        e.target.style.backgroundColor = 'white';
-                                    }}
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 outline-none"
+                                    required
                                 />
                             </div>
-
-                            <div className="flex flex-col gap-2">
-                                <label className="font-semibold uppercase tracking-wider text-sm" style={{color: '#1e3a8a'}}>E-Mail *</label>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    E-Mail *
+                                </label>
                                 <input
                                     type="email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     placeholder="ihre.email@unternehmen.com"
-                                    className="p-4 border-2 bg-white text-base font-sans text-gray-900 transition-all duration-300 rounded-none focus:outline-none focus:-translate-y-1 focus:shadow-md placeholder:italic"
-                                    style={{borderColor: '#9ca3af'}}
-                                    onFocus={(e) => {
-                                        e.target.style.borderColor = '#1e3a8a';
-                                        e.target.style.backgroundColor = '#f9fafb';
-                                    }}
-                                    onBlur={(e) => {
-                                        e.target.style.borderColor = '#9ca3af';
-                                        e.target.style.backgroundColor = 'white';
-                                    }}
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 outline-none"
+                                    required
                                 />
                             </div>
+                        </div>
 
-                            <div className="flex flex-col gap-2">
-                                <label className="font-semibold uppercase tracking-wider text-sm" style={{color: '#1e3a8a'}}>Unternehmen</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    Unternehmen
+                                </label>
                                 <input
                                     type="text"
                                     name="company"
                                     value={formData.company}
                                     onChange={handleInputChange}
                                     placeholder="Ihr Unternehmen"
-                                    className="p-4 border-2 bg-white text-base font-sans text-gray-900 transition-all duration-300 rounded-none focus:outline-none focus:-translate-y-1 focus:shadow-md placeholder:italic"
-                                    style={{borderColor: '#9ca3af'}}
-                                    onFocus={(e) => {
-                                        e.target.style.borderColor = '#1e3a8a';
-                                        e.target.style.backgroundColor = '#f9fafb';
-                                    }}
-                                    onBlur={(e) => {
-                                        e.target.style.borderColor = '#9ca3af';
-                                        e.target.style.backgroundColor = 'white';
-                                    }}
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 outline-none"
                                 />
                             </div>
-
-                            <div className="flex flex-col gap-2">
-                                <label className="font-semibold uppercase tracking-wider text-sm" style={{color: '#1e3a8a'}}>Telefon</label>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    Telefon
+                                </label>
                                 <input
                                     type="tel"
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleInputChange}
                                     placeholder="+43 123 456 789"
-                                    className="p-4 border-2 bg-white text-base font-sans text-gray-900 transition-all duration-300 rounded-none focus:outline-none focus:-translate-y-1 focus:shadow-md placeholder:italic"
-                                    style={{borderColor: '#9ca3af'}}
-                                    onFocus={(e) => {
-                                        e.target.style.borderColor = '#1e3a8a';
-                                        e.target.style.backgroundColor = '#f9fafb';
-                                    }}
-                                    onBlur={(e) => {
-                                        e.target.style.borderColor = '#9ca3af';
-                                        e.target.style.backgroundColor = 'white';
-                                    }}
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 outline-none"
                                 />
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2 mb-8">
-                            <label className="font-semibold uppercase tracking-wider text-sm" style={{color: '#1e3a8a'}}>Betreff *</label>
-                            <input
-                                type="text"
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Betreff *
+                            </label>
+                            <select
                                 name="subject"
                                 value={formData.subject}
                                 onChange={handleInputChange}
-                                placeholder="Worum geht es in Ihrer Anfrage?"
-                                className="p-4 border-2 bg-white text-base font-sans text-gray-900 transition-all duration-300 rounded-none focus:outline-none focus:-translate-y-1 focus:shadow-md placeholder:italic"
-                                style={{borderColor: '#9ca3af'}}
-                                onFocus={(e) => {
-                                    e.target.style.borderColor = '#1e3a8a';
-                                    e.target.style.backgroundColor = '#f9fafb';
-                                }}
-                                onBlur={(e) => {
-                                    e.target.style.borderColor = '#9ca3af';
-                                    e.target.style.backgroundColor = 'white';
-                                }}
-                            />
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 outline-none"
+                                required
+                            >
+                                <option value="">Wählen Sie ein Thema</option>
+                                <option value="projektmanagement">Projektmanagement</option>
+                                <option value="beratung">Beratung</option>
+                                <option value="karriere">Karriere</option>
+                                <option value="allgemein">Allgemeine Anfrage</option>
+                                <option value="sonstiges">Sonstiges</option>
+                            </select>
                         </div>
 
-                        <div className="flex flex-col gap-2 mb-8">
-                            <label className="font-semibold uppercase tracking-wider text-sm" style={{color: '#1e3a8a'}}>Nachricht *</label>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Ihre Nachricht *
+                            </label>
                             <textarea
                                 name="message"
                                 rows={6}
                                 value={formData.message}
                                 onChange={handleInputChange}
-                                placeholder="Beschreiben Sie Ihr Projekt oder Ihre Anfrage..."
-                                className="p-4 border-2 bg-white text-base font-sans text-gray-900 transition-all duration-300 rounded-none resize-y min-h-[120px] focus:outline-none focus:-translate-y-1 focus:shadow-md placeholder:italic"
-                                style={{borderColor: '#9ca3af'}}
-                                onFocus={(e) => {
-                                    e.target.style.borderColor = '#1e3a8a';
-                                    e.target.style.backgroundColor = '#f9fafb';
-                                }}
-                                onBlur={(e) => {
-                                    e.target.style.borderColor = '#9ca3af';
-                                    e.target.style.backgroundColor = 'white';
-                                }}
-                            ></textarea>
+                                placeholder="Beschreiben Sie Ihr Projekt oder Ihre Anfrage detailliert..."
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-200 outline-none resize-none"
+                                required
+                            />
                         </div>
 
-                        <div className="mt-8 flex flex-col items-start gap-4">
-                            <button
-                                onClick={() => {
-                                    const form = document.querySelector('form');
-                                    if (form) {
-                                        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-                                    }
-                                }}
-                                className="text-white border-none px-12 py-5 text-sm font-bold uppercase tracking-wider cursor-pointer transition-all duration-300 relative overflow-hidden hover:-translate-y-1 hover:shadow-lg focus:outline-2 focus:outline-offset-2"
-                                style={{backgroundColor: '#1e3a8a'}}
-                            >
-                                Nachricht senden
-                            </button>
-                            <p className="text-sm leading-relaxed max-w-lg" style={{color: '#6b7280'}}>
-                                * Pflichtfelder. Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.
-                            </p>
+                        <button
+                            onClick={handleSubmit}
+                            className="w-full bg-blue-900 hover:bg-blue-800 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-lg hover:-translate-y-0.5"
+                        >
+                            <Send className="w-5 h-5" />
+                            Nachricht senden
+                        </button>
+
+                        <p className="text-xs text-gray-500 text-center">
+                            * Pflichtfelder. Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Office Information */}
+                <div className="space-y-8">
+                    {/* Main Office */}
+                    <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div className="flex items-start justify-between mb-6">
+                            <div>
+                                        <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">
+                                            HAUPTSITZ
+                                        </span>
+                                <h3 className="text-2xl font-bold text-gray-900">Steiermark</h3>
+                            </div>
+                            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <MapPin className="w-6 h-6 text-blue-600" />
+                            </div>
+                        </div>
+
+                        <div className="mb-6">
+                            <img
+                                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="PROMAX Hauptsitz"
+                                className="w-full h-40 object-cover rounded-xl"
+                            />
+                        </div>
+
+                        <div className="space-y-4">
+                            <div>
+                                <p className="font-semibold text-gray-900">PROMAX Project Management GesmbH</p>
+                                <p className="text-gray-600">Parkring 18/F</p>
+                                <p className="text-gray-600">8074 Raaba-Grambach</p>
+                                <p className="text-gray-600">Österreich</p>
+                            </div>
+
+                            <div className="flex items-center text-gray-600">
+                                <Phone className="w-4 h-4 mr-2" />
+                                <span>+43 (0) 316 241 393</span>
+                            </div>
+                            <div className="flex items-center text-gray-600">
+                                <Mail className="w-4 h-4 mr-2" />
+                                <span>office@promax.at</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Vienna Office */}
+                    <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                        <div className="flex items-start justify-between mb-6">
+                            <div>
+                                        <span className="inline-block px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full mb-2">
+                                            ZWEIGSTELLE
+                                        </span>
+                                <h3 className="text-2xl font-bold text-gray-900">Wien</h3>
+                            </div>
+                            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                                <MapPin className="w-6 h-6 text-orange-600" />
+                            </div>
+                        </div>
+
+                        <div className="mb-6">
+                            <img
+                                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="PROMAX Wien"
+                                className="w-full h-40 object-cover rounded-xl"
+                            />
+                        </div>
+
+                        <div className="space-y-4">
+                            <div>
+                                <p className="font-semibold text-gray-900">PROMAX Project Management GesmbH</p>
+                                <p className="text-gray-600">Löwengasse 3/5</p>
+                                <p className="text-gray-600">1030 Wien</p>
+                                <p className="text-gray-600">Österreich</p>
+                            </div>
+
+                            <div className="flex items-center text-gray-600">
+                                <Phone className="w-4 h-4 mr-2" />
+                                <span>+43 (0) 1 710 7748</span>
+                            </div>
+                            <div className="flex items-center text-gray-600">
+                                <Mail className="w-4 h-4 mr-2" />
+                                <span>office@promax.at</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
-    );
+    </section>
+
+    {/* Map Section */}
+    <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-gray-900 mb-4">So finden Sie uns</h2>
+                <p className="text-xl text-gray-600">Unser Hauptsitz in Raaba-Grambach, südöstlich von Graz</p>
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.7289447742!2d15.4461!3d47.0379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476e3597f3b5c5c5%3A0x5f6c5a5a5a5a5a5a!2sParkring%2018%2C%208074%20Raaba-Grambach%2C%20Austria!5e0!3m2!1sde!2sat!4v1"
+                    width="100%"
+                    height="500"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="PROMAX Standort"
+                    className="w-full"
+                />
+            </div>
+        </div>
+    </section>
+
+    {/* CTA Section */}
+    <section className="py-20 bg-gradient-to-r from-blue-900 to-blue-800">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-white mb-6">
+                Bereit für Ihr nächstes Projekt?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                Lassen Sie uns gemeinsam Ihre Vision verwirklichen. Kontaktieren Sie uns noch heute
+                für ein unverbindliches Beratungsgespräch.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                    href="tel:+433162414393"
+                    className="bg-white text-blue-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-2"
+                >
+                    <Phone className="w-5 h-5" />
+                    Jetzt anrufen
+                </a>
+                <a
+                    href="mailto:office@promax.at"
+                    className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-blue-900 transition-all inline-flex items-center justify-center gap-2"
+                >
+                    <Mail className="w-5 h-5" />
+                    E-Mail schreiben
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+);
 };
 
 export default Kontakt;
