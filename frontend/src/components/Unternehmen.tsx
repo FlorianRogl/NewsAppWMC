@@ -1,12 +1,10 @@
 import {useState, useEffect, JSX} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../index.css'
-
-// Import images (these would be your actual imports)
-const rogl = '/src/assets/rogl.png';
-const fasching = '/src/assets/fasching.png';
-const iso = '/src/assets/iso.png';
-const iq = '/src/assets/iqZert.png';
+import rogl from '../assets/rogl.png';
+import fasching from '../assets/fasching.png';
+import iso from '../assets/iso.png';
+import iq from '../assets/iqZert.png';
 
 // Types
 interface Project {
