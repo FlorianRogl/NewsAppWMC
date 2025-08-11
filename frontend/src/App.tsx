@@ -10,8 +10,8 @@ import Karriere from "./components/Karriere.tsx";
 import FitImJob from "./components/FitImJob.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import Kontakt2 from "./components/Kontakt2.tsx";
-import Navbar from "./components/Navbar.tsx"; // Neuer Import für App-spezifische Styles
-
+import Navbar from "./components/Navbar.tsx";
+import Kontakt3 from "./components/Kontakt3.tsx";
 
 function App() {
     return (
@@ -23,6 +23,7 @@ function App() {
                     <Route path="/Unternehmen" element={<Unternehmen/>} />
                     <Route path="/Kontakt" element={<Kontakt/>} />
                     <Route path="/Kontakt2" element={<Kontakt2/>} />
+                    <Route path="/Kontakt3" element={<Kontakt3/>} />
                     <Route path="/Home" element={<Homepage/>} />
                     <Route path="/Branchen" element={<Branchen/>} />
                     <Route path="/Leistungen" element={<Leistungen/>} />

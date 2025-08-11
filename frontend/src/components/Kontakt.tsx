@@ -29,7 +29,6 @@ const Kontakt = () => {
         <div className="min-h-screen bg-white">
             {/* Header mit mehr Farbe */}
             <section className="bg-[#1e3767] relative overflow-hidden">
-                <div className="absolute inset-0 bg-[#d97539] opacity-10"></div>
                 <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20">
                     <h1 className="text-5xl lg:text-6xl font-light text-white mb-4">Kontakt</h1>
                     <p className="text-lg text-[#d1d8dc] max-w-2xl">
@@ -69,10 +68,6 @@ const Kontakt = () => {
                                     <a href="tel:+433162414393"
                                        className="text-lg text-[#1e3767] hover:text-[#d97539] transition-colors block font-medium">
                                         +43 316 241 393
-                                    </a>
-                                    <a href="tel:+43117107748"
-                                       className="text-lg text-[#1e3767] hover:text-[#d97539] transition-colors block font-medium">
-                                        +43 1 710 7748
                                     </a>
                                 </div>
 
