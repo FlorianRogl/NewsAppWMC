@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Menu, X} from 'lucide-react';
+import {Link, useLocation} from 'react-router-dom';
 import logo from '../assets/thumbnail_image002.png';
 
-const Navbar2 = () => {
+const Navbar2: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
 
     // Bestimme aktiven Item basierend auf aktueller Route
-    const getActiveItem = () => {
+    const getActiveItem = (): string => {
         const path = location.pathname;
         if (path === '/Unternehmen') return 'unternehmen';
         if (path === '/Leistungen') return 'leistungen';
@@ -20,18 +20,18 @@ const Navbar2 = () => {
 
     const activeItem = getActiveItem();
 
-    const toggleMenu = () => {
+    const toggleMenu = (): void => {
         setIsOpen(!isOpen);
     };
 
-    const handleNavClick = () => {
+    const handleNavClick = (): void => {
         setIsOpen(false);
     };
 
     return (
         <>
             {/* CSS Animations */}
-            <style jsx>{`
+            <style>{`
                 @keyframes slideIn {
                     0% {
                         transform: translateX(-50%) scaleX(0);
@@ -90,28 +90,155 @@ const Navbar2 = () => {
                 }
 
                 /* Responsive Anpassungen */
+                @media (max-width: 1200px) {
+                    .desktop-menu {
+                        gap: 2rem !important;
+                    }
+                    .nav-link {
+                        font-size: 1.1rem !important;
+                        padding: 12px 16px !important;
+                    }
+                    .logo-image {
+                        height: 200px !important;
+                    }
+                }
+
+                @media (max-width: 1024px) {
+                    .desktop-menu {
+                        gap: 1.5rem !important;
+                    }
+                    .nav-link {
+                        font-size: 1rem !important;
+                        padding: 10px 14px !important;
+                    }
+                    .logo-image {
+                        height: 180px !important;
+                    }
+                    .logo-section {
+                        margin-left: -2rem !important;
+                        left: -1rem !important;
+                    }
+                }
+
+                @media (max-width: 992px) {
+                    .desktop-menu {
+                        gap: 1rem !important;
+                    }
+                    .nav-link {
+                        font-size: 0.95rem !important;
+                        padding: 8px 12px !important;
+                    }
+                    .logo-image {
+                        height: 160px !important;
+                    }
+                }
+
                 @media (max-width: 768px) {
                     body {
-                        padding-top: 80px;
+                        padding-top: 80px !important;
+                    }
+                    .navbar {
+                        height: 80px !important;
+                    }
+                    .logo-image {
+                        height: 140px !important;
+                    }
+                    .desktop-menu {
+                        display: none !important;
+                    }
+                    .mobile-menu-button {
+                        display: block !important;
+                        margin-right: 1rem !important;
+                    }
+                    .logo-section {
+                        margin-left: -1rem !important;
+                        left: -0.5rem !important;
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .navbar {
+                        height: 70px !important;
+                    }
+                    body {
+                        padding-top: 70px !important;
+                    }
+                    .logo-image {
+                        height: 120px !important;
+                    }
+                    .mobile-nav-link {
+                        font-size: 1.3rem !important;
+                        padding: 14px 0 !important;
+                    }
+                    .mobile-menu {
+                        padding: 1.5rem !important;
+                        gap: 1.2rem !important;
+                    }
+                    .logo-section {
+                        margin-left: -0.5rem !important;
+                        left: 0 !important;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .navbar {
+                        height: 65px !important;
+                    }
+                    body {
+                        padding-top: 65px !important;
+                    }
+                    .logo-image {
+                        height: 100px !important;
+                    }
+                    .mobile-nav-link {
+                        font-size: 1.2rem !important;
+                        padding: 12px 0 !important;
+                    }
+                    .mobile-menu {
+                        padding: 1rem !important;
+                        gap: 1rem !important;
+                    }
+                    .container {
+                        padding: 0 0.5rem !important;
+                    }
+                }
+
+                @media (max-width: 360px) {
+                    .navbar {
+                        height: 60px !important;
+                    }
+                    body {
+                        padding-top: 60px !important;
+                    }
+                    .logo-image {
+                        height: 85px !important;
+                    }
+                    .mobile-nav-link {
+                        font-size: 1.1rem !important;
+                        padding: 10px 0 !important;
+                    }
+                    .container {
+                        padding: 0 0.25rem !important;
                     }
                 }
             `}</style>
 
-            <nav style={styles.navbar}>
-                <div style={styles.container}>
+            <nav className="navbar" style={styles.navbar}>
+                <div className="container" style={styles.container}>
                     {/* Logo Section - weiter links positioniert */}
-                    <div style={styles.logoSection}>
+                    <div className="logo-section" style={styles.logoSection}>
                         <Link to="/" style={styles.logo}>
                             <img
                                 src={logo}
                                 alt="PROMAX Logo"
+                                className="logo-image"
                                 style={styles.logoImage}
                             />
                         </Link>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div style={styles.desktopMenu}>
+                    <div className="desktop-menu" style={styles.desktopMenu}>
                         <div style={styles.navItem}>
                             <Link
                                 to="/Unternehmen"
@@ -121,14 +248,14 @@ const Navbar2 = () => {
                                     ...(activeItem === 'unternehmen' ? styles.activeLink : {})
                                 }}
                                 onClick={handleNavClick}
-                                onMouseEnter={(e) => {
+                                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'unternehmen') {
-                                        e.target.style.transform = 'translateY(-1px)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(-1px)';
                                     }
                                 }}
-                                onMouseLeave={(e) => {
+                                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'unternehmen') {
-                                        e.target.style.transform = 'translateY(0)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(0)';
                                     }
                                 }}
                             >
@@ -145,14 +272,14 @@ const Navbar2 = () => {
                                     ...(activeItem === 'leistungen' ? styles.activeLink : {})
                                 }}
                                 onClick={handleNavClick}
-                                onMouseEnter={(e) => {
+                                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'leistungen') {
-                                        e.target.style.transform = 'translateY(-1px)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(-1px)';
                                     }
                                 }}
-                                onMouseLeave={(e) => {
+                                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'leistungen') {
-                                        e.target.style.transform = 'translateY(0)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(0)';
                                     }
                                 }}
                             >
@@ -169,14 +296,14 @@ const Navbar2 = () => {
                                     ...(activeItem === 'branchen' ? styles.activeLink : {})
                                 }}
                                 onClick={handleNavClick}
-                                onMouseEnter={(e) => {
+                                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'branchen') {
-                                        e.target.style.transform = 'translateY(-1px)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(-1px)';
                                     }
                                 }}
-                                onMouseLeave={(e) => {
+                                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'branchen') {
-                                        e.target.style.transform = 'translateY(0)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(0)';
                                     }
                                 }}
                             >
@@ -193,14 +320,14 @@ const Navbar2 = () => {
                                     ...(activeItem === 'karriere' ? styles.activeLink : {})
                                 }}
                                 onClick={handleNavClick}
-                                onMouseEnter={(e) => {
+                                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'karriere') {
-                                        e.target.style.transform = 'translateY(-1px)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(-1px)';
                                     }
                                 }}
-                                onMouseLeave={(e) => {
+                                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'karriere') {
-                                        e.target.style.transform = 'translateY(0)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(0)';
                                     }
                                 }}
                             >
@@ -217,14 +344,14 @@ const Navbar2 = () => {
                                     ...(activeItem === 'kontakt' ? styles.activeLink : {})
                                 }}
                                 onClick={handleNavClick}
-                                onMouseEnter={(e) => {
+                                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'kontakt') {
-                                        e.target.style.transform = 'translateY(-1px)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(-1px)';
                                     }
                                 }}
-                                onMouseLeave={(e) => {
+                                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
                                     if (activeItem !== 'kontakt') {
-                                        e.target.style.transform = 'translateY(0)';
+                                        (e.target as HTMLElement).style.transform = 'translateY(0)';
                                     }
                                 }}
                             >
@@ -235,110 +362,116 @@ const Navbar2 = () => {
 
                     {/* Mobile Menu Button */}
                     <button
+                        className="mobile-menu-button"
                         style={styles.mobileMenuButton}
                         onClick={toggleMenu}
-                        onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = 'rgba(30, 58, 95, 0.1)';
-                            e.target.style.transform = 'scale(1.05)';
+                        onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                            (e.target as HTMLElement).style.backgroundColor = 'rgba(30, 58, 95, 0.1)';
+                            (e.target as HTMLElement).style.transform = 'scale(1.05)';
                         }}
-                        onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = 'transparent';
-                            e.target.style.transform = 'scale(1)';
+                        onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                            (e.target as HTMLElement).style.backgroundColor = 'transparent';
+                            (e.target as HTMLElement).style.transform = 'scale(1)';
                         }}
                     >
-                        {isOpen ? <X size={32} /> : <Menu size={32} />}
+                        {isOpen ? <X size={32}/> : <Menu size={32}/>}
                     </button>
                 </div>
 
                 {/* Mobile Menu */}
                 {isOpen && (
-                    <div className="mobile-menu-enter" style={styles.mobileMenu}>
+                    <div className="mobile-menu-enter mobile-menu" style={styles.mobileMenu}>
                         <Link
                             to="/Unternehmen"
+                            className="mobile-nav-link"
                             style={{
                                 ...styles.mobileNavLink,
                                 ...(activeItem === 'unternehmen' ? styles.activeMobileLink : {})
                             }}
                             onClick={handleNavClick}
-                            onMouseEnter={(e) => {
-                                e.target.style.color = '#E67E22';
-                                e.target.style.paddingLeft = '20px';
+                            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#E67E22';
+                                (e.target as HTMLElement).style.paddingLeft = '20px';
                             }}
-                            onMouseLeave={(e) => {
-                                e.target.style.color = '#1E3A5F';
-                                e.target.style.paddingLeft = '0';
+                            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#1E3A5F';
+                                (e.target as HTMLElement).style.paddingLeft = '0';
                             }}
                         >
                             Das Unternehmen
                         </Link>
                         <Link
                             to="/Leistungen"
+                            className="mobile-nav-link"
                             style={{
                                 ...styles.mobileNavLink,
                                 ...(activeItem === 'leistungen' ? styles.activeMobileLink : {})
                             }}
                             onClick={handleNavClick}
-                            onMouseEnter={(e) => {
-                                e.target.style.color = '#E67E22';
-                                e.target.style.paddingLeft = '20px';
+                            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#E67E22';
+                                (e.target as HTMLElement).style.paddingLeft = '20px';
                             }}
-                            onMouseLeave={(e) => {
-                                e.target.style.color = '#1E3A5F';
-                                e.target.style.paddingLeft = '0';
+                            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#1E3A5F';
+                                (e.target as HTMLElement).style.paddingLeft = '0';
                             }}
                         >
                             Leistungen
                         </Link>
                         <Link
                             to="/Branchen"
+                            className="mobile-nav-link"
                             style={{
                                 ...styles.mobileNavLink,
                                 ...(activeItem === 'branchen' ? styles.activeMobileLink : {})
                             }}
                             onClick={handleNavClick}
-                            onMouseEnter={(e) => {
-                                e.target.style.color = '#E67E22';
-                                e.target.style.paddingLeft = '20px';
+                            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#E67E22';
+                                (e.target as HTMLElement).style.paddingLeft = '20px';
                             }}
-                            onMouseLeave={(e) => {
-                                e.target.style.color = '#1E3A5F';
-                                e.target.style.paddingLeft = '0';
+                            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#1E3A5F';
+                                (e.target as HTMLElement).style.paddingLeft = '0';
                             }}
                         >
                             Branchen
                         </Link>
                         <Link
                             to="/Karriere"
+                            className="mobile-nav-link"
                             style={{
                                 ...styles.mobileNavLink,
                                 ...(activeItem === 'karriere' ? styles.activeMobileLink : {})
                             }}
                             onClick={handleNavClick}
-                            onMouseEnter={(e) => {
-                                e.target.style.color = '#E67E22';
-                                e.target.style.paddingLeft = '20px';
+                            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#E67E22';
+                                (e.target as HTMLElement).style.paddingLeft = '20px';
                             }}
-                            onMouseLeave={(e) => {
-                                e.target.style.color = '#1E3A5F';
-                                e.target.style.paddingLeft = '0';
+                            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#1E3A5F';
+                                (e.target as HTMLElement).style.paddingLeft = '0';
                             }}
                         >
                             Karriere
                         </Link>
                         <Link
                             to="/Kontakt"
+                            className="mobile-nav-link"
                             style={{
                                 ...styles.mobileNavLink,
                                 ...(activeItem === 'kontakt' ? styles.activeMobileLink : {})
                             }}
                             onClick={handleNavClick}
-                            onMouseEnter={(e) => {
-                                e.target.style.color = '#E67E22';
-                                e.target.style.paddingLeft = '20px';
+                            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#E67E22';
+                                (e.target as HTMLElement).style.paddingLeft = '20px';
                             }}
-                            onMouseLeave={(e) => {
-                                e.target.style.color = '#1E3A5F';
-                                e.target.style.paddingLeft = '0';
+                            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                                (e.target as HTMLElement).style.color = '#1E3A5F';
+                                (e.target as HTMLElement).style.paddingLeft = '0';
                             }}
                         >
                             Kontakt
@@ -350,7 +483,7 @@ const Navbar2 = () => {
     );
 };
 
-const styles = {
+const styles: { [key: string]: React.CSSProperties } = {
     navbar: {
         position: 'fixed',
         top: 0,
@@ -359,20 +492,20 @@ const styles = {
         background: '#C5C9D4',
         borderBottom: '1px solid rgba(139, 155, 180, 0.2)',
         zIndex: 1000,
-        height: '100px',
+        height: 100,
         display: 'flex',
         alignItems: 'center',
         fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
         backdropFilter: 'blur(10px)',
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-        paddingLeft: '0', // Entfernt jeglichen linken Padding
+        paddingLeft: 0,
     },
 
     container: {
         width: '100%',
-        maxWidth: '1400px',
+        maxWidth: 1400,
         margin: '0 auto',
-        padding: '0 0', // Kein padding mehr
+        padding: '0 0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -383,19 +516,20 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         flex: '0 0 auto',
-        marginLeft: '-4rem', // Noch viel weiter nach links
-        marginRight: 'auto', // Schiebt das Logo ganz nach links
+        marginLeft: '-4rem',
+        marginRight: 'auto',
         position: 'relative',
-        left: '-2rem', // Zusätzliche Verschiebung nach links
+        left: '-2rem',
     },
 
     logo: {
         display: 'flex',
         alignItems: 'center',
+        textDecoration: 'none',
     },
 
     logoImage: {
-        height: '220px',
+        height: 220,
         width: 'auto',
         objectFit: 'contain',
         transition: 'transform 0.3s ease',
@@ -406,8 +540,8 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         gap: '3rem',
-        flex: '0 0 auto', // Geändert von flex: '1 1 auto'
-        marginRight: '1rem', // Etwas Abstand vom rechten Rand
+        flex: '0 0 auto',
+        marginRight: '1rem',
     },
 
     navItem: {
@@ -419,18 +553,18 @@ const styles = {
 
     navLink: {
         fontSize: '1.2rem',
-        fontWeight: '500',
+        fontWeight: 500,
         color: '#1E3A5F',
         textDecoration: 'none',
         padding: '14px 18px',
-        borderRadius: '8px',
+        borderRadius: 8,
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         cursor: 'pointer',
         position: 'relative',
     },
 
     activeLink: {
-        fontWeight: '600',
+        fontWeight: 600,
     },
 
     mobileMenuButton: {
@@ -439,8 +573,8 @@ const styles = {
         border: 'none',
         color: '#1E3A5F',
         cursor: 'pointer',
-        padding: '8px',
-        borderRadius: '8px',
+        padding: 8,
+        borderRadius: 8,
         transition: 'all 0.3s ease',
     },
 
@@ -460,7 +594,7 @@ const styles = {
 
     mobileNavLink: {
         fontSize: '1.5rem',
-        fontWeight: '600',
+        fontWeight: 600,
         color: '#1E3A5F',
         textDecoration: 'none',
         padding: '16px 0',
@@ -471,24 +605,8 @@ const styles = {
 
     activeMobileLink: {
         color: '#E67E22',
-        fontWeight: '700',
+        fontWeight: 700,
     },
-
-    // Media Queries für responsive Design
-    '@media (max-width: 768px)': {
-        navbar: {
-            height: '80px',
-        },
-        logoImage: {
-            height: '160px',
-        },
-        desktopMenu: {
-            display: 'none',
-        },
-        mobileMenuButton: {
-            display: 'block',
-        },
-    }
 };
 
 export default Navbar2;
