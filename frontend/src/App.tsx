@@ -9,13 +9,12 @@ import Projektberichte from "./components/Projektberichte.tsx";
 import Karriere from "./components/Karriere.tsx";
 import FitImJob from "./components/FitImJob.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
-import Navbar2 from "./components/Navbar2.tsx";
 import Navbar from "./components/Navbar.tsx"; // Neuer Import für App-spezifische Styles
 
 function App() {
     return (
         <div>
-            <Navbar2/>
+            <Navbar/>
             <ScrollToTop/>
                 <Routes>
                     <Route path="/" element={<Homepage/>} />

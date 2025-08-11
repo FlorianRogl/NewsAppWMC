@@ -1,329 +1,628 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, JSX} from 'react';
 import { useNavigate } from 'react-router-dom';
-import rogl from '../assets/rogl.png'
-import fasching from '../assets/fasching.png'
-import pic1 from '../assets/Fotolia_59885870_M.jpg'
-import iso from '../assets/iso.png'
-import iq from '../assets/iqZert.png'
-import '../index.css';
+import '../index.css'
 
-// Import der Project Interface aus Projektberichte
-interface ProjectSection {
-    title: string;
-    content: string;
-}
+// Import images (these would be your actual imports)
+const rogl = '/src/assets/rogl.png';
+const fasching = '/src/assets/fasching.png';
+const iso = '/src/assets/iso.png';
+const iq = '/src/assets/iqZert.png';
 
-interface ProjectContent {
-    sections: ProjectSection[];
-}
-
+// Types
 interface Project {
     id: number;
     title: string;
     category: string;
-    date: string;
-    readTime: string;
     image: string;
     excerpt: string;
-    content: ProjectContent;
     tags: string[];
 }
 
-// Mock-Daten (später aus einem gemeinsamen Service holen)
-const mockProjects: Project[] = [
-    {
-        id: 1,
-        title: "Säurefeste Auskleidungen mit zusätzlichen Abriebfestigkeitseigenschaften",
-        category: "Chemische Industrie",
-        date: "2024-03-15",
-        readTime: "8 min",
-        image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        excerpt: "Entwicklung einer technisch und wirtschaftlich optimalen Lösung für einen 80 m³ Pufferbehälter mit chemisch aggressiven Abwässern bei Temperaturen bis 85°C.",
-        content: {
-            sections: [
-                {
-                    title: "1. Aufgabenstellung",
-                    content: "In einem Pufferbehälter werden chemische Abwässer gesammelt..."
-                }
-            ]
-        },
-        tags: ["Säureschutz", "Betonbau", "Chemische Industrie", "Abriebschutz"]
-    },
-    {
-        id: 2,
-        title: "GMP-konforme Pharmanlage Modernisierung",
-        category: "Pharma",
-        date: "2024-02-20",
-        readTime: "6 min",
-        image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        excerpt: "Komplette Modernisierung einer pharmazeutischen Produktionsanlage unter Einhaltung aller GMP-Richtlinien und ohne Produktionsunterbrechung.",
-        content: {
-            sections: [
-                {
-                    title: "Projektübersicht",
-                    content: "Modernisierung einer bestehenden Pharmanlage..."
-                }
-            ]
-        },
-        tags: ["GMP", "Pharma", "Modernisierung", "Validierung"]
-    },
-    {
-        id: 3,
-        title: "Nachhaltige Energiegewinnung in der Papierindustrie",
-        category: "Energie & Umwelt",
-        date: "2024-01-10",
-        readTime: "7 min",
-        image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        excerpt: "Implementierung eines innovativen Energierückgewinnungssystems in einer Papierfabrik zur Reduzierung des CO2-Ausstoßes um 40%.",
-        content: {
-            sections: [
-                {
-                    title: "Energiekonzept",
-                    content: "Entwicklung eines nachhaltigen Energiekonzepts..."
-                }
-            ]
-        },
-        tags: ["Nachhaltigkeit", "Energieeffizienz", "Papierindustrie", "CO2-Reduktion"]
-    },
-    {
-        id: 4,
-        title: "Hochmoderne Zellstoffaufbereitung",
-        category: "Papier & Zellstoff",
-        date: "2023-12-05",
-        readTime: "9 min",
-        image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        excerpt: "Planung und Umsetzung einer neuen Zellstoffaufbereitungsanlage mit modernster Bleichsequenz-Technologie für höchste Produktqualität.",
-        content: {
-            sections: [
-                {
-                    title: "Technologie",
-                    content: "Implementierung modernster Bleichsequenz-Technologie..."
-                }
-            ]
-        },
-        tags: ["Zellstoff", "Bleichsequenz", "Modernisierung", "Qualitätssteigerung"]
-    }
-];
+interface TeamMember {
+    name: string;
+    role: string;
+    description: string;
+    email: string;
+    image: string;
+    linkedin?: string;
+}
+
+interface Service {
+    title: string;
+    description: string;
+    icon: JSX.Element;
+    color: 'blue' | 'orange';
+}
+
+interface Resource {
+    title: string;
+    type: string;
+    size: string;
+    icon: JSX.Element;
+    color: 'blue' | 'orange';
+}
 
 const Unternehmen = () => {
-    const [currentSlide, setCurrentSlide] = useState(0);
     const navigate = useNavigate();
+    const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+    const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
-    // Verwende echte Projekte statt Mock-Daten
-    const projects = mockProjects;
+    // Projects data
+    const projects: Project[] = [
+        {
+            id: 1,
+            title: "Säurefeste Auskleidungen",
+            category: "Chemie",
+            image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            excerpt: "Entwicklung einer technisch optimalen Lösung für einen 80 m³ Pufferbehälter",
+            tags: ["Säureschutz", "Betonbau", "Abriebschutz"]
+        },
+        {
+            id: 2,
+            title: "GMP-konforme Modernisierung",
+            category: "Pharma",
+            image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            excerpt: "Komplette Modernisierung einer pharmazeutischen Produktionsanlage",
+            tags: ["GMP", "Validierung", "Modernisierung"]
+        },
+        {
+            id: 3,
+            title: "Nachhaltige Energiegewinnung",
+            category: "Energie",
+            image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            excerpt: "Innovatives Energierückgewinnungssystem zur CO2-Reduktion",
+            tags: ["Nachhaltigkeit", "CO2-Reduktion", "Energieeffizienz"]
+        },
+        {
+            id: 4,
+            title: "Zellstoffaufbereitung",
+            category: "Papier",
+            image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            excerpt: "Modernste Bleichsequenz-Technologie für höchste Produktqualität",
+            tags: ["Zellstoff", "Bleichsequenz", "Qualität"]
+        },
+        {
+            id: 5,
+            title: "Chemiepark-Infrastruktur",
+            category: "Chemie",
+            image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            excerpt: "Komplette Neugestaltung der Versorgungsinfrastruktur",
+            tags: ["Infrastruktur", "Versorgung", "Chemiepark"]
+        },
+        {
+            id: 6,
+            title: "Biotechnologie-Anlage",
+            category: "Pharma",
+            image: "https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            excerpt: "State-of-the-art Biotechnologie-Produktionsanlage",
+            tags: ["Biotech", "Innovation", "GMP"]
+        }
+    ];
 
+    // Team members
+    const teamMembers: TeamMember[] = [
+        {
+            name: "Ing. Andreas Rogl",
+            role: "Geschäftsführer",
+            description: "Projektierung, Planung, Site Services",
+            email: "andreas.rogl@promax.at",
+            image: rogl,
+            linkedin: "#"
+        },
+        {
+            name: "Ing. Michael Fasching",
+            role: "Projektleitung",
+            description: "Projektmanagement",
+            email: "michael.fasching@promax.at",
+            image: fasching,
+            linkedin: "#"
+        }
+    ];
+
+    // Services
+    const services: Service[] = [
+        {
+            title: "Projektierung",
+            description: "Konzeption und technische Ausarbeitung",
+            icon: (
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+            ),
+            color: 'blue'
+        },
+        {
+            title: "Planung",
+            description: "Detailplanung und Engineering",
+            icon: (
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                </svg>
+            ),
+            color: 'orange'
+        },
+        {
+            title: "Site Services",
+            description: "Baustellenbetreuung vor Ort",
+            icon: (
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+            ),
+            color: 'blue'
+        },
+        {
+            title: "Beratung",
+            description: "Organisationsberatung & Optimierung",
+            icon: (
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+            ),
+            color: 'orange'
+        }
+    ];
+
+    // Resources
+    const resources: Resource[] = [
+        {
+            title: "Unternehmenspräsentation",
+            type: "PDF",
+            size: "2.4 MB",
+            icon: (
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+            ),
+            color: 'blue'
+        },
+        {
+            title: "ISO 9001:2015 Zertifikat",
+            type: "PDF",
+            size: "1.1 MB",
+            icon: (
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+            ),
+            color: 'orange'
+        },
+        {
+            title: "AGB Ingenieurbüros",
+            type: "PDF",
+            size: "485 KB",
+            icon: (
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            ),
+            color: 'blue'
+        }
+    ];
+
+    // Handle scroll for parallax and navbar
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % projects.length);
-        }, 5000);
+        const handleScroll = () => {
+            // Check which sections are in view
+            const sections = [
+                { id: 'stats', element: document.getElementById('stats-section') },  // HINZUFÜGEN
+                { id: 'about', element: document.getElementById('about-section') },
+                { id: 'projects', element: document.getElementById('projects-section') },
+                { id: 'team', element: document.getElementById('team-section') },
+                { id: 'services', element: document.getElementById('services-section') },
+                { id: 'fitimjob', element: document.getElementById('fitimjob-section') },
+                { id: 'certification', element: document.getElementById('certification-section') },
+                { id: 'resources', element: document.getElementById('resources-section') }
+            ];
 
-        return () => clearInterval(timer);
-    }, [projects.length]);
+            const newVisibleSections = new Set(visibleSections);
 
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % projects.length);
+            sections.forEach(({ id, element }) => {
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    const isVisible = rect.top <= window.innerHeight * 0.7 && rect.bottom >= 0;
+
+                    if (isVisible && !visibleSections.has(id)) {
+                        newVisibleSections.add(id);
+                    }
+                }
+            });
+
+            if (newVisibleSections.size !== visibleSections.size) {
+                setVisibleSections(newVisibleSections);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Check initial state
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [visibleSections]);
+
+    const nextProject = () => {
+        setCurrentProjectIndex((prev) => (prev + 3) % projects.length);
     };
 
-    const prevSlide = () => {
-        setCurrentSlide((prev) => (prev - 1 + projects.length) % projects.length);
-    };
-
-    const handleProjectClick = (projectId: number) => {
-        navigate(`/projektberichte?project=${projectId}`);
+    const prevProject = () => {
+        setCurrentProjectIndex((prev) => (prev - 3 + projects.length) % projects.length);
     };
 
     return (
-        <div className="min-h-screen bg-white overflow-hidden">
-            {/* Hero Section - Reduzierter Abstand */}
-            <section className="relative bg-gradient-to-br from-slate-50 to-blue-50/30">
-                <div className="max-w-7xl mx-auto px-6 py-12 lg:py-16">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div className="space-y-8">
-                            <div className="space-y-4">
-                                <h1 className="text-4xl lg:text-6xl font-light text-slate-900 leading-tight">
-                                    Know-How und
-                                    <span className="block font-normal text-blue-600">Leidenschaft</span>
-                                    für Ihr Projekt
-                                </h1>
-                                <p className="text-xl text-slate-600 max-w-lg leading-relaxed">
-                                    PROMAX Project Management GesmbH - Ihr verlässlicher Partner im Industrieanlagenbau seit 1999
-                                </p>
-                            </div>
+        <div className="min-h-screen bg-white overflow-x-hidden">
+            {/* Hero Section with Parallax */}
+            <section
+                className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
+                style={{
+                    backgroundImage: `linear-gradient(rgba(30, 55, 103, 0.7), rgba(30, 55, 103, 0.7)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`,
+                    backgroundAttachment: 'fixed'
+                }}
+            >
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/10"></div>
 
-                            <div className="grid grid-cols-3 gap-8 pt-8">
-                                <div className="text-center group">
-                                    <div className="text-3xl font-light text-slate-900 mb-1 group-hover:text-blue-600 transition-colors duration-300">25+</div>
-                                    <div className="text-sm text-slate-500 uppercase tracking-wider">Jahre Erfahrung</div>
-                                </div>
-                                <div className="text-center group">
-                                    <div className="text-3xl font-light text-slate-900 mb-1 group-hover:text-blue-600 transition-colors duration-300">35</div>
-                                    <div className="text-sm text-slate-500 uppercase tracking-wider">Mitarbeiter</div>
-                                </div>
-                                <div className="text-center group">
+                <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+                    <h1 className="text-5xl md:text-7xl font-light text-white mb-6 animate-fade-in-up">
+                        Engineering Excellence.
+                        <span className="block font-semibold text-[#d97539] mt-2">Since 1999.</span>
+                    </h1>
+                    <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto animate-fade-in-up animation-delay-200">
+                        Ihr Partner für komplexe Industrieprojekte in Papier, Zellstoff, Pharma und Chemie
+                    </p>
 
-                                </div>
-                            </div>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
+                        <button
+                            onClick={() => navigate('/leistungen')}
+                            className="px-8 py-4 bg-[#d97539] text-white rounded-full hover:bg-[#c56830] transform hover:scale-105 transition-all duration-300 font-medium text-lg shadow-lg hover:shadow-xl"
+                        >
+                            Unsere Expertise
+                        </button>
+                        <button
+                            onClick={() => navigate('/projektberichte')}
+                            className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-[#1e3767] transition-all duration-300 font-medium text-lg"
+                        >
+                            Projekte ansehen
+                        </button>
+                    </div>
+                </div>
+
+                {/* Scroll indicator */}
+                <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                </div>
+            </section>
+
+            {/* Stats Section */}
+            <section id="stats-section" className="py-20 bg-gradient-to-r from-[#1e3767] to-[#2a4a7f] relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-pattern"></div>
+                </div>
+
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div className={`text-center ${visibleSections.has('stats') ? 'animate-zoom-in opacity-100' : 'opacity-0'}`}>
+                            <div className="text-5xl md:text-6xl font-light text-white mb-2">25+</div>
+                            <div className="text-sm uppercase tracking-wider text-gray-300">Jahre Erfahrung</div>
                         </div>
-
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-orange-400/10 rounded-lg transform rotate-2"></div>
-                            <img
-                                src={pic1}
-                                alt="Industrieanlage"
-                                className="relative rounded-lg shadow-2xl w-full h-80 lg:h-96 object-cover"
-                            />
+                        <div className={`text-center ${visibleSections.has('stats') ? 'animate-zoom-in opacity-100' : 'opacity-0'}`} style={{ animationDelay: '200ms' }}>
+                            <div className="text-5xl md:text-6xl font-light text-white mb-2">35</div>
+                            <div className="text-sm uppercase tracking-wider text-gray-300">Experten</div>
+                        </div>
+                        <div className={`text-center ${visibleSections.has('stats') ? 'animate-zoom-in opacity-100' : 'opacity-0'}`} style={{ animationDelay: '400ms' }}>
+                            <div className="text-5xl md:text-6xl font-light text-white mb-2">500+</div>
+                            <div className="text-sm uppercase tracking-wider text-gray-300">Projekte</div>
+                        </div>
+                        <div className={`text-center ${visibleSections.has('stats') ? 'animate-zoom-in opacity-100' : 'opacity-0'}`} style={{ animationDelay: '600ms' }}>
+                            <div className="text-5xl md:text-6xl font-light text-white mb-2">ISO</div>
+                            <div className="text-sm uppercase tracking-wider text-gray-300">Zertifiziert</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Company Overview */}
-            <section className="py-20 bg-white">
+            {/* About Section */}
+            <section id="about-section" className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
-                        <div className="space-y-6">
-                            <div className="space-y-4">
-                                <h2 className="text-3xl lg:text-4xl font-light text-slate-900">
-                                    Das Unternehmen
-                                </h2>
-                                <div className="w-16 h-1 bg-blue-600 rounded-full"></div>
-                            </div>
+                        <div className={`animate-fade-in-right ${visibleSections.has('about') ? 'opacity-100' : 'opacity-0'}`}>
+                            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
+                                Kompetenz trifft{' '}
+                                <span className="text-[#1e3767] font-semibold">
+                                    Innovation
+                                </span>
+                            </h2>
+                            <div className="w-20 h-1 bg-[#d97539] mb-8"></div>
+                            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                                Seit 1999 steht PROMAX für exzellentes Projektmanagement im Industrieanlagenbau.
+                                Mit unserem 35-köpfigen Expertenteam realisieren wir komplexe Projekte in den
+                                Bereichen Papier, Zellstoff, Pharma und Chemie.
+                            </p>
+                            <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                                Unser ganzheitlicher Ansatz umfasst Projektierung, Planung, Site Services und
+                                Organisationsberatung – alles aus einer Hand, mit höchster Qualität und Zuverlässigkeit.
+                            </p>
 
-                            <div className="space-y-6 text-slate-600 leading-relaxed">
-                                <p className="text-lg">
-                                    PROMAX Project Management GesmbH wurde 1999 gegründet und beschäftigt derzeit ca. 35 Mitarbeiter.
-                                    Wir sind ein Dienstleistungsunternehmen im Industrieanlagenbau und bieten Anlagenbauern und
-                                    Anlagenbetreibern spezielles Know-How in den Bereichen Projektierung, Planung, Projekt Management,
-                                    Site Services und Organisationsberatung.
-                                </p>
-                                <p>
-                                    Schwerpunkte dabei bilden die Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und
-                                    Umwelttechnik. Dem Projektgeschehen entsprechend sind wir für unsere Kunden sowohl in Österreich
-                                    als auch international aktiv.
-                                </p>
+                            <div className="grid grid-cols-2 gap-6">
+                                <div className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-[#d97539] rounded-full mt-2"></div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-900">International tätig</h4>
+                                        <p className="text-sm text-gray-600">Projekte weltweit</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start space-x-3">
+                                    <div className="w-2 h-2 bg-[#d97539] rounded-full mt-2"></div>
+                                    <div>
+                                        <h4 className="font-semibold text-gray-900">ISO 9001:2015</h4>
+                                        <p className="text-sm text-gray-600">Zertifizierte Qualität</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/5 to-orange-400/5 rounded-lg transform -rotate-1"></div>
+                        <div className={`relative animate-fade-in-left ${visibleSections.has('about') ? 'opacity-100' : 'opacity-0'}`}>
+                            <div className="absolute -inset-4 bg-gradient-to-r from-[#1e3767] to-[#d97539] rounded-lg opacity-10 blur-lg"></div>
                             <img
                                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                alt="PROMAX Bürogebäude"
-                                className="relative rounded-lg shadow-xl w-full h-80 object-cover hover:shadow-2xl transition-shadow duration-300"
+                                alt="PROMAX Office"
+                                className="relative rounded-lg shadow-2xl w-full h-[500px] object-cover"
                             />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Mission & Values */}
-            <section className="py-20 bg-white">
+            {/* Projects Carousel Section */}
+            <section id="projects-section" className="py-24 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid lg:grid-cols-2 gap-16 items-start">
-                        <div className="order-2 lg:order-1">
-                            <img
-                                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                alt="Team bei der Arbeit"
-                                className="rounded-lg shadow-xl w-full h-80 lg:h-96 object-cover hover:shadow-2xl transition-shadow duration-300"
-                            />
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+                            Unsere <span className="text-[#1e3767] font-semibold">Referenzprojekte</span>
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Einblicke in erfolgreich realisierte Industrieprojekte
+                        </p>
+                    </div>
+
+                    <div className="relative">
+                        {/* Navigation Buttons */}
+                        <button
+                            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-[#1e3767] hover:bg-[#1e3767] hover:text-white"
+                            onClick={prevProject}
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+
+                        <button
+                            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-[#1e3767] hover:bg-[#1e3767] hover:text-white"
+                            onClick={nextProject}
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        {/* Projects Grid - Only 3 visible */}
+                        <div className="grid lg:grid-cols-3 gap-8 px-16">
+                            {projects.slice(currentProjectIndex, currentProjectIndex + 3).map((project, index) => (
+                                <div
+                                    key={project.id}
+                                    className={`group cursor-pointer transform hover:-translate-y-2 transition-all duration-300 ${
+                                        visibleSections.has('projects') ? 'animate-fade-in-up opacity-100' : 'opacity-0'
+                                    }`}
+                                    style={{ animationDelay: `${index * 100}ms` }}
+                                    onClick={() => navigate(`/projektberichte?project=${project.id}`)}
+                                >
+                                    {/* Rest bleibt gleich */}
+                                    <div className="relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                                        <div className="relative h-64 overflow-hidden">
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                            />
+                                            <div className="absolute top-4 left-4">
+                        <span className="px-3 py-1 bg-[#d97539] text-white text-xs rounded-full">
+                            {project.category}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <div className="p-6">
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-[#1e3767] transition-colors">
+                                                {project.title}
+                                            </h3>
+                                            <p className="text-gray-600 mb-4 line-clamp-2">
+                                                {project.excerpt}
+                                            </p>
+                                            <div className="flex items-center text-[#1e3767] font-medium">
+                                                <span>Mehr erfahren</span>
+                                                <svg className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
+                    </div>
 
-                        <div className="order-1 lg:order-2 space-y-8">
-                            <div className="space-y-4">
-                                <h2 className="text-3xl lg:text-4xl font-light text-slate-900">
-                                    Unser Leitbild
-                                </h2>
-                                <div className="w-16 h-1 bg-blue-600 rounded-full"></div>
+                    <div className="text-center mt-12">
+                        <button
+                            onClick={() => navigate('/projektberichte')}
+                            className="px-8 py-3 bg-[#1e3767] text-white rounded-full hover:bg-[#2a4a7f] transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
+                        >
+                            Alle Projekte ansehen
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+            {/* Team Section */}
+            <section id="team-section" className="py-24 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+                            Ihre{' '}
+                            <span className="text-[#1e3767] font-semibold">
+                                Ansprechpartner
+                            </span>
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Erfahrene Experten für Ihre Projekte
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                        {teamMembers.map((member, index) => (
+                            <div
+                                key={member.name}
+                                className={`bg-white rounded-lg p-8 border border-transparent hover:border-[#1e3767] hover:shadow-2xl transition-all duration-300 ${
+                                    visibleSections.has('team') ? 'animate-fade-in-up opacity-100' : 'opacity-0'
+                                }`}
+                                style={{ animationDelay: `${index * 200}ms` }}
+                            >
+                                <div className="text-center">
+                                    <div className="w-48 h-60 mx-auto mb-6 rounded-lg overflow-hidden bg-gray-100">
+                                        <img
+                                            src={member.image}
+                                            alt={member.name}
+                                            className="w-full h-full object-cover object-top"
+                                        />
+                                    </div>
+                                    <h3 className="text-2xl font-semibold text-gray-900 mb-2">{member.name}</h3>
+                                    <p className="text-[#d97539] font-medium mb-4">{member.role}</p>
+                                    <p className="text-gray-600 mb-2">{member.description}</p>
+                                    <p className="text-sm text-gray-500 mb-6">{member.email}</p>
+
+                                    <div className="flex justify-center space-x-4">
+                                        <a
+                                            href={`mailto:${member.email}`}
+                                            className="text-gray-400 hover:text-[#1e3767] transition-colors"
+                                        >
+                                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                            </svg>
+                                        </a>
+                                        {member.linkedin && (
+                                            <a
+                                                href={member.linkedin}
+                                                className="text-gray-400 hover:text-[#1e3767] transition-colors"
+                                            >
+                                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                                </svg>
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-                            <div className="space-y-6">
-                                <div className="bg-slate-50 p-6 rounded-lg border-l-4 border-blue-500 hover:bg-white hover:shadow-md transition-all duration-300 group">
-                                    <h3 className="text-lg font-semibold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
-                                        Teamleistung & Qualifikation
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        Als Dienstleister ist das Ergebnis unserer Arbeit immer auch eine Teamleistung, deren
-                                        Schlüsselfaktoren Qualifikation, Engagement, Kreativität, Verantwortungsbewusstsein,
-                                        Flexibilität und Zielorientierung sind.
-                                    </p>
-                                </div>
+            {/* Services Section */}
+            <section id="services" className="py-24 bg-gradient-to-br from-gray-50 to-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+                            Unsere{' '}
+                            <span className="text-[#1e3767] font-semibold">
+                                Leistungen
+                            </span>
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Ganzheitliche Lösungen für Ihre Industrieprojekte
+                        </p>
+                    </div>
 
-                                <div className="bg-slate-50 p-6 rounded-lg border-l-4 border-orange-500 hover:bg-white hover:shadow-md transition-all duration-300 group">
-                                    <h3 className="text-lg font-semibold text-slate-900 mb-3 group-hover:text-orange-600 transition-colors duration-300">
-                                        Arbeitsumfeld & Entwicklung
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        Es freut uns ein Arbeitsumfeld geschaffen zu haben, das einen konstruktiven Teamgeist
-                                        ermöglicht, in dem sich Mitarbeiter weiterentwickeln und so zur Entwicklung des
-                                        Unternehmens beitragen.
-                                    </p>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {services.map((service, index) => (
+                            <div
+                                key={service.title}
+                                className="text-center group"
+                                style={{ animationDelay: `${index * 100}ms` }}
+                            >
+                                <div className={`w-20 h-20 mx-auto mb-4 ${
+                                    service.color === 'blue'
+                                        ? 'bg-gradient-to-br from-[#1e3767] to-[#2a4a7f]'
+                                        : 'bg-gradient-to-br from-[#d97539] to-[#e89050]'
+                                } rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                                    {service.icon}
                                 </div>
-
-                                <div className="bg-slate-50 p-6 rounded-lg border-l-4 border-blue-500 hover:bg-white hover:shadow-md transition-all duration-300 group">
-                                    <h3 className="text-lg font-semibold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
-                                        Faire Bedingungen
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        Wir bieten gute Dotierung, faire Vereinbarungen, interessante Aufgaben und vielfältige
-                                        Entwicklungsmöglichkeiten in einem tollen Team.
-                                    </p>
-                                </div>
+                                <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
+                                <p className="text-gray-600">{service.description}</p>
                             </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* Fit im Job Section */}
-            <section className="py-20 bg-gradient-to-br from-blue-50/50 to-slate-50">
+            <section id="fitimjob" className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-orange-400/10 to-blue-500/10 rounded-lg transform rotate-1"></div>
-                            <img
-                                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                alt="Gesundheit am Arbeitsplatz"
-                                className="relative rounded-lg shadow-xl w-full h-80 object-cover hover:shadow-2xl transition-shadow duration-300"
-                            />
+                        <div className="order-2 lg:order-1">
+                            <div className="relative">
+                                <div className="absolute -inset-4 bg-gradient-to-r from-[#d97539] to-[#1e3767] rounded-lg opacity-10 blur-lg"></div>
+                                <img
+                                    src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                    alt="Fit im Job"
+                                    className="relative rounded-lg shadow-2xl w-full h-[400px] object-cover"
+                                />
+                            </div>
                         </div>
 
-                        <div className="space-y-8">
-                            <div className="space-y-4">
-                                <h2 className="text-3xl lg:text-4xl font-light text-slate-900">
-                                    Fit im Job
-                                </h2>
-                                <h3 className="text-xl text-slate-600">
-                                    Gesundheit und Wohlbefinden unserer Mitarbeiter
-                                </h3>
-                                <div className="w-16 h-1 bg-blue-600 rounded-full"></div>
-                            </div>
-
-                            <p className="text-slate-600 leading-relaxed">
+                        <div className="order-1 lg:order-2">
+                            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
+                                Fit im{' '}
+                                <span className="text-[#1e3767] font-semibold">
+                                    Job
+                                </span>
+                            </h2>
+                            <div className="w-20 h-1 bg-[#d97539] mb-8"></div>
+                            <p className="text-lg text-gray-600 leading-relaxed mb-8">
                                 Die Gesundheit und das Wohlbefinden unserer Mitarbeiter stehen bei PROMAX im Mittelpunkt.
-                                Durch gezielte Maßnahmen zur Gesundheitsförderung schaffen wir ein Arbeitsumfeld, das nicht
-                                nur produktiv, sondern auch gesund und motivierend ist.
+                                Durch gezielte Maßnahmen zur Gesundheitsförderung schaffen wir ein Arbeitsumfeld, das
+                                produktiv, gesund und motivierend ist.
                             </p>
 
-                            <div className="space-y-4">
-                                <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 group">
-                                    <div className="text-2xl group-hover:scale-110 transition-transform duration-300">🍎</div>
-                                    <span className="text-slate-700">Täglich frischer Obstteller für alle Mitarbeiter</span>
+                            <div className="space-y-4 mb-8">
+                                <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                    <div className="w-12 h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center">
+                                        <span className="text-2xl">🍎</span>
+                                    </div>
+                                    <span className="text-gray-700 font-medium">Täglich frischer Obstteller</span>
                                 </div>
-                                <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 group">
-                                    <div className="text-2xl group-hover:scale-110 transition-transform duration-300">🍽️</div>
-                                    <span className="text-slate-700">Tägliche Essensbons für warme Mittagessen</span>
+                                <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                    <div className="w-12 h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center">
+                                        <span className="text-2xl">🍽️</span>
+                                    </div>
+                                    <span className="text-gray-700 font-medium">Essensbons für warme Mittagessen</span>
                                 </div>
-                                <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 group">
-                                    <div className="text-2xl group-hover:scale-110 transition-transform duration-300">💪</div>
-                                    <span className="text-slate-700">Kostenloser Fitnessraum am Standort Raaba-Grambach</span>
+                                <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                    <div className="w-12 h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center">
+                                        <span className="text-2xl">💪</span>
+                                    </div>
+                                    <span className="text-gray-700 font-medium">Kostenloser Fitnessraum</span>
                                 </div>
                             </div>
 
-                            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                                <button onClick={() => navigate('/FitImJob')} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
-                                    Mehr über Fit im Job
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <button
+                                    onClick={() => navigate('/FitImJob')}
+                                    className="px-8 py-3 bg-[#d97539] text-white rounded-full hover:bg-[#c56830] transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
+                                >
+                                    Mehr über unsere Benefits
                                 </button>
-                                <button onClick={() => navigate('/Karriere')} className="px-6 py-3 border-2 border-orange-400 text-orange-600 rounded-lg hover:bg-orange-400 hover:text-white transform hover:scale-105 transition-all duration-300 font-medium">
+                                <button
+                                    onClick={() => navigate('/Karriere')}
+                                    className="px-8 py-3 bg-transparent border-2 border-[#1e3767] text-[#1e3767] rounded-full hover:bg-[#1e3767] hover:text-white transition-all duration-300 font-medium"
+                                >
                                     Jobs & Karriere
                                 </button>
                             </div>
@@ -332,252 +631,56 @@ const Unternehmen = () => {
                 </div>
             </section>
 
-            {/* Projects Carousel - Jetzt mit echten Projekten */}
-            <section className="py-16 bg-white">
-                <div className="max-w-4xl mx-auto px-6">
-                    {/* Header */}
-                    <div className="text-center mb-12">
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-2">
-                            Projektberichte
-                        </h2>
-                        <p className="text-gray-600">
-                            Unsere Referenzprojekte aus verschiedenen Bereichen
-                        </p>
-                    </div>
+            {/* Certification Section */}
+            <section id="certification" className="py-24 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
+                                Zertifizierte{' '}
+                                <span className="text-[#1e3767] font-semibold">
+                                    Qualität
+                                </span>
+                            </h2>
+                            <div className="w-20 h-1 bg-[#d97539] mb-8"></div>
+                            <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                                PROMAX Project Management GesmbH ist nach ISO 9001:2015 zertifiziert und gewährleistet
+                                damit höchste Qualitätsstandards in allen Bereichen unserer Dienstleistungen.
+                            </p>
 
-                    {/* Carousel */}
-                    <div className="relative max-w-2xl mx-auto">
-                        <div className="overflow-hidden rounded-xl">
-                            <div
-                                className="flex transition-transform duration-500"
-                                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                            >
-                                {projects.map((project) => (
-                                    <div key={project.id} className="w-full flex-shrink-0">
-                                        <div
-                                            className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-                                            onClick={() => handleProjectClick(project.id)}
-                                        >
-                                            {/* Image */}
-                                            <div className="relative h-48">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </div>
-
-                                            {/* Content */}
-                                            <div className="p-5">
-                                                <h3 className="text-lg font-semibold text-gray-900">
-                                                    {project.title}
-                                                </h3>
-                                            </div>
+                            <div className="space-y-6">
+                                {[
+                                    {
+                                        title: "Qualitätsmanagementsystem",
+                                        description: "Systematische Prozesse für konstante Qualität und kontinuierliche Verbesserung"
+                                    },
+                                    {
+                                        title: "Kundenorientierung",
+                                        description: "Fokus auf Kundenzufriedenheit und Erfüllung von Kundenanforderungen"
+                                    },
+                                    {
+                                        title: "Prozessverbesserung",
+                                        description: "Regelmäßige Bewertung und Optimierung aller Geschäftsprozesse"
+                                    }
+                                ].map((item, index) => (
+                                    <div key={index} className="flex space-x-4">
+                                        <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                            <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-lg font-medium text-gray-900 mb-2">{item.title}</h4>
+                                            <p className="text-gray-600">{item.description}</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        {/* Navigation */}
-                        <button
-                            onClick={prevSlide}
-                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:text-gray-900 hover:shadow-md transition-all"
-                        >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-
-                        <button
-                            onClick={nextSlide}
-                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:text-gray-900 hover:shadow-md transition-all"
-                        >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-
-                        {/* Dots */}
-                        <div className="flex justify-center space-x-2 mt-6">
-                            {projects.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setCurrentSlide(index)}
-                                    className={`w-2 h-2 rounded-full transition-all ${
-                                        index === currentSlide
-                                            ? 'bg-blue-600 w-6'
-                                            : 'bg-gray-300 hover:bg-gray-400'
-                                    }`}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Team Section */}
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl lg:text-4xl font-light text-slate-900 mb-4">
-                            Ansprechpartner
-                        </h2>
-                        <div className="w-16 h-0.5 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto"></div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-12">
-                        {/* Andreas Rogl */}
-                        <div className="group">
-                            <div className="bg-white border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-300">
-                                <div className="flex flex-col items-center text-center space-y-6">
-                                    <div className="w-32 h-40 bg-gray-100">
-                                        <img
-                                            src={rogl}
-                                            alt="Ing. Andreas Rogl - Geschäftsführer"
-                                            className="w-full h-full object-cover object-center"
-                                        />
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <h3 className="text-2xl font-light text-slate-900">
-                                            Ing. Andreas Rogl
-                                        </h3>
-                                        <div className="text-sm text-blue-600 uppercase tracking-wider font-medium">
-                                            Geschäftsführer
-                                        </div>
-                                    </div>
-
-                                    <p className="text-slate-600 leading-relaxed">
-                                        Projektierung, Planung, Site Services
-                                    </p>
-
-                                    <div className="pt-4">
-                                        <div className="flex items-center justify-center space-x-3 text-slate-600">
-                                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                                            </svg>
-                                            <span>andreas.rogl@promax.at</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Michael Fasching */}
-                        <div className="group">
-                            <div className="bg-white border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-300">
-                                <div className="flex flex-col items-center text-center space-y-6">
-                                    <div className="w-32 h-40 bg-gray-100">
-                                        <img
-                                            src={fasching}
-                                            alt="Ing. Michael Fasching - Projektmanagement"
-                                            className="w-full h-full object-cover object-center"
-                                        />
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <h3 className="text-2xl font-light text-slate-900">
-                                            Ing. Michael Fasching
-                                        </h3>
-                                        <div className="text-sm text-blue-600 uppercase tracking-wider font-medium">
-                                            Projektleitung
-                                        </div>
-                                    </div>
-
-                                    <p className="text-slate-600 leading-relaxed">
-                                        Projektmanagement
-                                    </p>
-
-                                    <div className="pt-4">
-                                        <div className="flex items-center justify-center space-x-3 text-slate-600">
-                                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                                            </svg>
-                                            <span>michael.fasching@promax.at</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Certification Section */}
-            <section className="py-20 bg-slate-50">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
-                        <div className="space-y-8">
-                            <div className="space-y-4">
-                                <h2 className="text-3xl lg:text-4xl font-light text-slate-900">
-                                    Zertifizierung
-                                </h2>
-                                <div className="w-16 h-0.5 bg-blue-600"></div>
-                            </div>
-
-                            <p className="text-lg text-slate-600 leading-relaxed">
-                                PROMAX Project Management GesmbH ist nach ISO 9001:2015 zertifiziert und gewährleistet
-                                damit höchste Qualitätsstandards in allen Bereichen unserer Dienstleistungen.
-                            </p>
-
-                            <div className="space-y-6">
-                                <div className="flex space-x-4">
-                                    <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                        <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-lg font-medium text-slate-900 mb-2">
-                                            Qualitätsmanagementsystem
-                                        </h4>
-                                        <p className="text-slate-600">
-                                            Systematische Prozesse für konstante Qualität und kontinuierliche Verbesserung
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex space-x-4">
-                                    <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                        <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-lg font-medium text-slate-900 mb-2">
-                                            Kundenorientierung
-                                        </h4>
-                                        <p className="text-slate-600">
-                                            Fokus auf Kundenzufriedenheit und Erfüllung von Kundenanforderungen
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex space-x-4">
-                                    <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                        <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-lg font-medium text-slate-900 mb-2">
-                                            Prozessverbesserung
-                                        </h4>
-                                        <p className="text-slate-600">
-                                            Regelmäßige Bewertung und Optimierung aller Geschäftsprozesse
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div className="relative">
                             <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/5 to-orange-400/5 rounded-2xl transform rotate-2"></div>
                             <div className="relative bg-white rounded-2xl shadow-xl p-8 space-y-6">
-                                {/* Quality Austria Logo - Main certification */}
                                 <div className="flex justify-center">
                                     <img
                                         src={iso}
@@ -586,10 +689,8 @@ const Unternehmen = () => {
                                     />
                                 </div>
 
-                                {/* Divider */}
                                 <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
 
-                                {/* IQNet Logo - Partner certification */}
                                 <div className="flex justify-center">
                                     <img
                                         src={iq}
@@ -598,14 +699,9 @@ const Unternehmen = () => {
                                     />
                                 </div>
 
-                                {/* Certification details */}
                                 <div className="text-center space-y-2 pt-4">
-                                    <p className="text-sm font-medium text-slate-700">
-                                        ISO 9001:2015
-                                    </p>
-                                    <p className="text-xs text-slate-500">
-                                        Qualitätsmanagementsystem
-                                    </p>
+                                    <p className="text-sm font-medium text-slate-700">ISO 9001:2015</p>
+                                    <p className="text-xs text-slate-500">Qualitätsmanagementsystem</p>
                                 </div>
                             </div>
                         </div>
@@ -613,70 +709,169 @@ const Unternehmen = () => {
                 </div>
             </section>
 
-            {/* Downloads Section */}
-            <section className="py-20 bg-slate-50">
+            {/* Resources/Downloads Section */}
+            <section id="resources" className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl lg:text-4xl font-light text-slate-900 mb-4">
-                            Downloads
+                        <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+                            Resource{' '}
+                            <span className="text-[#1e3767] font-semibold">
+                                Center
+                            </span>
                         </h2>
-                        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                            Laden Sie unsere wichtigsten Unternehmensunterlagen und Zertifikate herunter
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Wichtige Dokumente und Informationen zum Download
                         </p>
-                        <div className="w-16 h-1 bg-blue-600 rounded-full mx-auto mt-6"></div>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
-                        <div className="group bg-white rounded-lg p-8 hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-blue-200">
-                            <div className="text-center space-y-6">
-                                <div className="w-16 h-16 mx-auto bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:scale-110 transition-all duration-300">
-                                    <svg className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
+                        {resources.map((resource, index) => (
+                            <div
+                                key={resource.title}
+                                className="bg-gradient-to-br from-white to-gray-50 rounded-lg p-8 cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+                                style={{ animationDelay: `${index * 100}ms` }}
+                            >
+                                <div className="flex flex-col items-center text-center space-y-4">
+                                    <div className={`w-16 h-16 ${
+                                        resource.color === 'blue'
+                                            ? 'bg-gradient-to-br from-[#1e3767] to-[#2a4a7f]'
+                                            : 'bg-gradient-to-br from-[#d97539] to-[#e89050]'
+                                    } rounded-lg flex items-center justify-center`}>
+                                        {resource.icon}
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-gray-900">{resource.title}</h3>
+                                    <p className="text-gray-600 text-sm">{resource.type} • {resource.size}</p>
+                                    <div className={`flex items-center ${
+                                        resource.color === 'blue' ? 'text-[#1e3767]' : 'text-[#d97539]'
+                                    } font-medium pt-2`}>
+                                        <span>Download</span>
+                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8l-8 8-8-8" />
+                                        </svg>
+                                    </div>
                                 </div>
-                                <h3 className="text-xl font-semibold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">
-                                    Unternehmens-Präsentation
-                                </h3>
-                                <button className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
-                                    PDF herunterladen
-                                </button>
                             </div>
-                        </div>
-
-                        <div className="group bg-white rounded-lg p-8 hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-orange-200">
-                            <div className="text-center space-y-6">
-                                <div className="w-16 h-16 mx-auto bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-500 group-hover:scale-110 transition-all duration-300">
-                                    <svg className="w-8 h-8 text-orange-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-slate-900 group-hover:text-orange-600 transition-colors duration-300">
-                                    AGB Ingenieurbüros
-                                </h3>
-                                <button className="w-full px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
-                                    PDF herunterladen
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="group bg-white rounded-lg p-8 hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-blue-200">
-                            <div className="text-center space-y-6">
-                                <div className="w-16 h-16 mx-auto bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-600 group-hover:scale-110 transition-all duration-300">
-                                    <svg className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">
-                                    Leistungsübersicht
-                                </h3>
-                                <button className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
-                                    PDF herunterladen
-                                </button>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
+
+            {/* CTA Section */}
+            <section className="py-24 bg-gradient-to-r from-[#1e3767] to-[#2a4a7f] relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-pattern"></div>
+                </div>
+
+                <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+                    <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
+                        Bereit für Ihr nächstes <span className="font-semibold">Projekt?</span>
+                    </h2>
+                    <p className="text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+                        Lassen Sie uns gemeinsam Ihre Vision in die Realität umsetzen.
+                        Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button
+                            onClick={() => navigate('/Kontakt')}
+                            className="px-8 py-4 bg-[#d97539] text-white rounded-full hover:bg-[#c56830] transform hover:scale-105 transition-all duration-300 font-medium text-lg shadow-lg hover:shadow-xl"
+                        >
+                            Projekt besprechen
+                        </button>
+                        <a
+                            href="tel:+43316123456"
+                            className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-[#1e3767] transition-all duration-300 font-medium text-lg inline-flex items-center justify-center"
+                        >
+                            +43 (0) 316 241 393
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            {/* Add required styles */}
+            <style>{`
+                @keyframes fade-in-up {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                @keyframes fade-in-right {
+                    from {
+                        opacity: 0;
+                        transform: translateX(-30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                
+                @keyframes fade-in-left {
+                    from {
+                        opacity: 0;
+                        transform: translateX(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                
+                @keyframes zoom-in {
+                    from {
+                        opacity: 0;
+                        transform: scale(0.8);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+                
+                .animate-fade-in-up {
+                    animation: fade-in-up 0.8s ease-out forwards;
+                }
+                
+                .animate-fade-in-right {
+                    animation: fade-in-right 0.8s ease-out forwards;
+                }
+                
+                .animate-fade-in-left {
+                    animation: fade-in-left 0.8s ease-out forwards;
+                }
+                
+                .animate-zoom-in {
+                    animation: zoom-in 0.6s ease-out forwards;
+                }
+                
+                .animation-delay-200 {
+                    animation-delay: 200ms;
+                }
+                
+                .animation-delay-400 {
+                    animation-delay: 400ms;
+                }
+                
+                .animation-delay-600 {
+                    animation-delay: 600ms;
+                }
+                
+                .bg-pattern {
+                    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                }
+                
+                .line-clamp-2 {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            `}</style>
         </div>
     );
 };
