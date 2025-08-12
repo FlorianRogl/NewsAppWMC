@@ -30,7 +30,7 @@ const Navbar2: React.FC = () => {
 
     // Navigation Items Array
     const navItems: NavItem[] = [
-        { path: '/Unternehmen', key: 'unternehmen', label: 'Das Unternehmen' },
+        { path: '/Unternehmen', key: 'unternehmen', label: 'Unternehmen' },
         { path: '/Leistungen', key: 'leistungen', label: 'Leistungen' },
         { path: '/Branchen', key: 'branchen', label: 'Branchen' },
         { path: '/Karriere', key: 'karriere', label: 'Karriere' },
@@ -151,7 +151,7 @@ const Navbar2: React.FC = () => {
                 }
 
                 .navbar {
-                    height: clamp(80px, 10vw, 120px);
+                    height: clamp(80px, 10vw, 100px);
                     position: fixed;
                     top: 0;
                     left: 0;
@@ -188,7 +188,7 @@ const Navbar2: React.FC = () => {
                 }
 
                 .logo-image {
-                    height: clamp(100px, 18vw, 185px);
+                    height: clamp(110px, 30vw, 195px);
                     width: auto;
                     object-fit: contain;
                     transition: transform 0.3s ease;
@@ -213,7 +213,7 @@ const Navbar2: React.FC = () => {
                 }
 
                 .nav-link {
-                    font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+                    font-size: clamp(1rem, 1.5vw, 1.25rem);
                     font-weight: 500;
                     color: #1E3A5F;
                     text-decoration: none;
@@ -329,7 +329,7 @@ const Navbar2: React.FC = () => {
                     width: 100%;
                 }
 
-                @media (max-width: 768px) {
+                @media (max-width: 1000px) {
                     .desktop-menu {
                         display: none !important;
                     }
@@ -370,7 +370,8 @@ const Navbar2: React.FC = () => {
                     <button
                         className={`mobile-menu-button ${isOpen ? 'open' : ''}`}
                         onClick={toggleMenu}
-                        type="button"
+                        type="but
+                        ton"
                         aria-label="Menu toggle"
                     >
                         {isOpen ? <X size={32} /> : <Menu size={32} />}
