@@ -44,25 +44,58 @@ const JobSection: React.FC = () => {
         <>
             <style>{`
                 .orange-cta-button {
-                    background-color: #d97539 !important;
+                    background: linear-gradient(135deg, #d97539 0%, #e8834a 100%) !important;
                     color: white !important;
                     border: none !important;
                     padding: 16px 32px !important;
                     font-size: 1.1rem !important;
                     font-weight: 600 !important;
-                    border-radius: 8px !important;
+                    border-radius: 12px !important;
                     cursor: pointer !important;
-                    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-                    transform: scale(1) !important;
+                    position: relative !important;
+                    overflow: hidden !important;
+                    box-shadow: 0 4px 15px rgba(217, 117, 57, 0.3) !important;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                    transform: translateY(0) !important;
+                    opacity: 0 !important;
+                }
+
+                .orange-cta-button::before {
+                    content: '' !important;
+                    position: absolute !important;
+                    top: 0 !important;
+                    left: -100% !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+                    transition: left 0.5s !important;
                 }
 
                 .orange-cta-button:hover {
-                    transform: scale(1.03) !important;
+                    transform: translateY(-2px) !important;
+                    box-shadow: 0 8px 25px rgba(217, 117, 57, 0.4) !important;
+                    background: linear-gradient(135deg, #e8834a 0%, #f0925a 100%) !important;
+                }
+
+                .orange-cta-button:hover::before {
+                    left: 100% !important;
                 }
 
                 .orange-cta-button:active {
-                    transform: scale(0.98) !important;
-                    transition: transform 0.15s ease !important;
+                    transform: translateY(0) !important;
+                    box-shadow: 0 4px 15px rgba(217, 117, 57, 0.3) !important;
+                    transition: all 0.1s ease !important;
+                }
+
+                .button-visible {
+                    opacity: 1 !important;
+                    transform: translateY(0) !important;
+                    transition: opacity 0.6s ease 0.8s, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.8s !important;
+                }
+
+                .button-entrance {
+                    opacity: 0 !important;
+                    transform: translateY(20px) !important;
                 }
             `}</style>
 
@@ -112,9 +145,8 @@ const JobSection: React.FC = () => {
                                 </div>
                             </div>
                             <button
-                                className={`orange-cta-button ${isContentVisible ? styles.bounceIn : ''} ${isContentVisible ? styles.buttonVisible : ''}`}
+                                className={`orange-cta-button ${isContentVisible ? 'button-visible' : 'button-entrance'}`}
                                 onClick={handleKarriereClick}
-                                style={{ transitionDelay: '0.8s' }}
                                 aria-label="Zu den Karrieremöglichkeiten"
                             >
                                 Entdecken Sie Ihre Karrieremöglichkeiten

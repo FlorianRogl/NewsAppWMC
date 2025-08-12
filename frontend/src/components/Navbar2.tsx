@@ -147,7 +147,7 @@ const Navbar2: React.FC = () => {
                 }
 
                 body {
-                    padding-top: clamp(80px, 10vw, 120px);
+                    padding-top: clamp(80px, 10vw, 100px);
                 }
 
                 .navbar {
@@ -157,7 +157,7 @@ const Navbar2: React.FC = () => {
                     left: 0;
                     right: 0;
                     background: #C5C9D4;
-                    border-bottom: 1px solid rgba(139, 155, 180, 0.2);
+                    border-bottom: none;
                     z-index: 1000;
                     display: flex;
                     align-items: center;
@@ -274,7 +274,7 @@ const Navbar2: React.FC = () => {
                     left: 0;
                     right: 0;
                     background: #C5C9D4;
-                    border-top: 1px solid rgba(139, 155, 180, 0.3);
+                    border-top: none;
                     padding: 2rem;
                     display: flex;
                     flex-direction: column;
