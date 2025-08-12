@@ -10,13 +10,13 @@ import Karriere from "./components/Karriere.tsx";
 import FitImJob from "./components/FitImJob.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import Kontakt2 from "./components/Kontakt2.tsx";
-import Navbar from "./components/Navbar.tsx";
 import Kontakt3 from "./components/Kontakt3.tsx";
+import Navbar2 from "./components/Navbar2.tsx";
 
 function App() {
     return (
         <div>
-            <Navbar/>
+            <Navbar2/>
             <ScrollToTop/>
                 <Routes>
                     <Route path="/" element={<Homepage/>} />
