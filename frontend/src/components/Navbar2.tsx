@@ -370,8 +370,7 @@ const Navbar2: React.FC = () => {
                     <button
                         className={`mobile-menu-button ${isOpen ? 'open' : ''}`}
                         onClick={toggleMenu}
-                        type="but
-                        ton"
+                        type="button"
                         aria-label="Menu toggle"
                     >
                         {isOpen ? <X size={32} /> : <Menu size={32} />}
