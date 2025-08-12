@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from '../css/Navbar.module.css';
-import thumbnail from '../assets/thumbnail_image002.png';
+import thumbnail from '../assets/promax2.png';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

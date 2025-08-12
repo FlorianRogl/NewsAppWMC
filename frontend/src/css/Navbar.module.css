@@ -2,9 +2,8 @@
 
 /* CSS Custom Properties für bessere Skalierung - ANGEPASSTE WERTE */
 :root {
-    --navbar-height: 75px;
-    /* Logo-Größe VERGRÖSSERT */
-    --logo-height: clamp(130px, 12vw, 200px); /* Vergrößert von 100px-150px auf 130px-200px */
+    --navbar-height: 80px; /* Leicht vergrößert von 75px */
+    --logo-height: clamp(75px, 4vw, 45px);
     --font-size-nav: clamp(0.85rem, 1.6vw, 1.05rem);
     --font-size-logo: clamp(1.1rem, 2.2vw, 1.6rem);
     --font-size-tagline: clamp(0.55rem, 1.1vw, 0.8rem);
@@ -16,7 +15,7 @@
 
 /* WICHTIG: Body Padding-Top für Fixed Navbar */
 body {
-    padding-top: var(--navbar-height) !important;
+    padding-top: 80px !important;
 }
 
 /* Alternative: Falls du das nicht global setzen möchtest,
