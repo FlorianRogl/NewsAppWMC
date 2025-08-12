@@ -9,19 +9,21 @@ import Projektberichte from "./components/Projektberichte.tsx";
 import Karriere from "./components/Karriere.tsx";
 import FitImJob from "./components/FitImJob.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
-import Kontakt2 from "./components/Kontakt2.tsx"; // Neuer Import für App-spezifische Styles
-import Navbar2 from "./components/Navbar2.tsx";
+import Kontakt2 from "./components/Kontakt2.tsx";
+import Navbar from "./components/Navbar.tsx";
+import Kontakt3 from "./components/Kontakt3.tsx";
 
 function App() {
     return (
         <div>
-            <Navbar2/>
+            <Navbar/>
             <ScrollToTop/>
                 <Routes>
                     <Route path="/" element={<Homepage/>} />
                     <Route path="/Unternehmen" element={<Unternehmen/>} />
                     <Route path="/Kontakt" element={<Kontakt/>} />
                     <Route path="/Kontakt2" element={<Kontakt2/>} />
+                    <Route path="/Kontakt3" element={<Kontakt3/>} />
                     <Route path="/Home" element={<Homepage/>} />
                     <Route path="/Branchen" element={<Branchen/>} />
                     <Route path="/Leistungen" element={<Leistungen/>} />

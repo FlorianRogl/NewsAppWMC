@@ -3,7 +3,7 @@
 /* CSS Custom Properties für bessere Skalierung - ANGEPASSTE WERTE */
 :root {
     --navbar-height: 80px; /* Leicht vergrößert von 75px */
-    --logo-height: clamp(80px, 4vw, 45px);
+    --logo-height: clamp(75px, 4vw, 45px);
     --font-size-nav: clamp(0.85rem, 1.6vw, 1.05rem);
     --font-size-logo: clamp(1.1rem, 2.2vw, 1.6rem);
     --font-size-tagline: clamp(0.55rem, 1.1vw, 0.8rem);

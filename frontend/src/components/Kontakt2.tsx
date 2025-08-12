@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { Phone, Mail, MapPin, Send} from 'lucide-react';
-import {useNavigate} from "react-router-dom";
+import { Phone, Mail, MapPin, Clock, Send, Users, MessageCircle } from 'lucide-react';
 
-const Kontakt2 = () => {
-    const navigate = useNavigate();
+const Kontakt = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -23,226 +21,285 @@ const Kontakt2 = () => {
 
     const handleSubmit = () => {
         console.log('Form submitted:', formData);
+        // Here you would typically send the data to your backend
         alert('Nachricht gesendet! Wir melden uns bald bei Ihnen.');
     };
 
     return (
-        <div className="min-h-screen bg-white">
-            {/* Clean Hero Section */}
-            <section className="bg-white py-20">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="text-center max-w-4xl mx-auto">
-                        <h1 className="text-6xl font-light mb-6 tracking-tight text-blue-900">
+        <div className="min-h-screen bg-gray-50">
+            {/* Hero Section with Single Blue Color */}
+            <section className="relative bg-[#1e3767] overflow-hidden">
+                <div className="absolute inset-0"></div>
+
+                <div className="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
+                    <div className="text-center">
+                        <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-8">
+                            <MessageCircle className="w-4 h-4 mr-2" />
+                            Wir sind für Sie da
+                        </div>
+                        <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
                             Kontakt
                         </h1>
-                        <div className="w-24 h-0.5 bg-orange-600 mx-auto mb-8"></div>
-                        <p className="text-xl text-gray-600 leading-relaxed">
-                            Lassen Sie uns über Ihr nächstes Projekt sprechen. Wir freuen uns auf Ihre Anfrage
-                            und beraten Sie gerne zu Ihren individuellen Anforderungen.
+                        <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8">
+                            Lassen Sie uns über Ihr nächstes Projekt sprechen. Unsere Experten stehen Ihnen
+                            mit individueller Beratung zur Seite.
                         </p>
+                        <div className="flex flex-wrap justify-center gap-4 text-blue-100">
+                            <div className="flex items-center">
+                                <Clock className="w-5 h-5 mr-2" />
+                                <span>Antwort innerhalb von 24h</span>
+                            </div>
+                            <div className="flex items-center">
+                                <Users className="w-5 h-5 mr-2" />
+                                <span>Persönliche Beratung</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Main Content - Form and Contact Info */}
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
-
-                        {/* Contact Form - Takes 3 columns */}
-                        <div className="lg:col-span-3">
-                            <div className="bg-white p-12 shadow-sm border border-gray-100">
-                                <div className="mb-10">
-                                    <h2 className="text-3xl font-light mb-4 text-blue-900">Ihre Anfrage</h2>
-                                    <p className="text-gray-600">Senden Sie uns eine Nachricht. Wir antworten innerhalb von 24 Stunden.</p>
-                                </div>
-
-                                <div className="space-y-8">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                Name *
-                                            </label>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                value={formData.name}
-                                                onChange={handleInputChange}
-                                                className="w-full px-0 py-3 border-0 border-b-2 border-gray-200 focus:border-blue-900 bg-transparent outline-none transition-colors text-gray-900"
-                                                placeholder="Ihr vollständiger Name"
-                                                required
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                E-Mail *
-                                            </label>
-                                            <input
-                                                type="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleInputChange}
-                                                className="w-full px-0 py-3 border-0 border-b-2 border-gray-200 focus:border-blue-900 bg-transparent outline-none transition-colors text-gray-900"
-                                                placeholder="ihre.email@unternehmen.com"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                Unternehmen
-                                            </label>
-                                            <input
-                                                type="text"
-                                                name="company"
-                                                value={formData.company}
-                                                onChange={handleInputChange}
-                                                className="w-full px-0 py-3 border-0 border-b-2 border-gray-200 focus:border-blue-900 bg-transparent outline-none transition-colors text-gray-900"
-                                                placeholder="Ihr Unternehmen"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                Telefon
-                                            </label>
-                                            <input
-                                                type="tel"
-                                                name="phone"
-                                                value={formData.phone}
-                                                onChange={handleInputChange}
-                                                className="w-full px-0 py-3 border-0 border-b-2 border-gray-200 focus:border-blue-900 bg-transparent outline-none transition-colors text-gray-900"
-                                                placeholder="+43 123 456 789"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Betreff *
-                                        </label>
-                                        <select
-                                            name="subject"
-                                            value={formData.subject}
-                                            onChange={handleInputChange}
-                                            className="w-full px-0 py-3 border-0 border-b-2 border-gray-200 focus:border-blue-900 bg-transparent outline-none transition-colors text-gray-900"
-                                            required
-                                        >
-                                            <option value="">Wählen Sie ein Thema</option>
-                                            <option value="projektmanagement">Projektmanagement</option>
-                                            <option value="beratung">Beratung</option>
-                                            <option value="karriere">Karriere</option>
-                                            <option value="allgemein">Allgemeine Anfrage</option>
-                                            <option value="sonstiges">Sonstiges</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Ihre Nachricht *
-                                        </label>
-                                        <textarea
-                                            name="message"
-                                            rows={5}
-                                            value={formData.message}
-                                            onChange={handleInputChange}
-                                            className="w-full px-0 py-3 border-0 border-b-2 border-gray-200 focus:border-blue-900 bg-transparent outline-none transition-colors text-gray-900 resize-none"
-                                            placeholder="Beschreiben Sie Ihr Projekt oder Ihre Anfrage..."
-                                            required
-                                        />
-                                    </div>
-
-                                    <div className="pt-8">
-                                        <button
-                                            onClick={handleSubmit}
-                                            className="bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 font-medium transition-all duration-200 flex items-center gap-2 mb-4"
-                                        >
-                                            <Send className="w-4 h-4" />
-                                            Nachricht senden
-                                        </button>
-                                        <p className="text-xs text-gray-500">
-                                            * Pflichtfelder. Ihre Daten werden vertraulich behandelt.
-                                        </p>
-                                    </div>
-                                </div>
+            {/* Quick Contact Cards */}
+            <section className="relative -mt-16 pb-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Phone Card */}
+                        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                            <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                                <Phone className="w-8 h-8 text-blue-600" />
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Sofort erreichbar</h3>
+                            <p className="text-gray-600 mb-4">Rufen Sie uns an für eine direkte Beratung</p>
+                            <div className="space-y-2">
+                                <a href="tel:+433162414393" className="block text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                                    +43 (0) 316 241 393
+                                </a>
+                                <a href="tel:+43117107748" className="block text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                                    +43 (0) 1 710 7748
+                                </a>
                             </div>
                         </div>
 
-                        {/* Contact Information - Takes 2 columns */}
-                        <div className="lg:col-span-2 space-y-8">
+                        {/* Email Card */}
+                        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                            <div className="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
+                                <Mail className="w-8 h-8 text-orange-600" />
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">E-Mail Kontakt</h3>
+                            <p className="text-gray-600 mb-4">Schreiben Sie uns Ihre Anfrage</p>
+                            <a href="mailto:office@promax.at" className="text-orange-600 hover:text-orange-800 font-medium transition-colors">
+                                office@promax.at
+                            </a>
+                        </div>
 
-                            {/* Quick Contact */}
-                            <div className="bg-white p-8 shadow-sm border border-gray-100">
-                                <h3 className="text-xl font-light mb-6 text-blue-900">Direkter Kontakt</h3>
-                                <div className="space-y-6">
-                                    <div className="flex items-start gap-4">
-                                        <Phone className="w-5 h-5 text-orange-600 mt-1 flex-shrink-0" />
-                                        <div>
-                                            <p className="font-medium text-gray-900 mb-1">Telefon</p>
-                                            <div className="space-y-1 text-sm text-gray-600">
-                                                <div>
-                                                    <a href="tel:+433162414393" className="hover:text-blue-900 transition-colors">
-                                                        +43 (0) 316 241 393
-                                                    </a>
-                                                    <span className="text-xs text-gray-400 ml-2">Steiermark</span>
-                                                </div>
-                                                <div>
-                                                    <a href="tel:+43117107748" className="hover:text-blue-900 transition-colors">
-                                                        +43 (0) 1 710 7748
-                                                    </a>
-                                                    <span className="text-xs text-gray-400 ml-2">Wien</span>
-                                                </div>
-                                            </div>
+                        {/* Location Card */}
+                        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                            <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                                <MapPin className="w-8 h-8 text-green-600" />
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Unsere Standorte</h3>
+                            <p className="text-gray-600 mb-4">Besuchen Sie uns vor Ort</p>
+                            <div className="space-y-1 text-sm text-gray-600">
+                                <p>Raaba-Grambach (Hauptsitz)</p>
+                                <p>Wien (Zweigstelle)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Main Content Section - Professional Layout */}
+            <section className="py-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                        {/* Contact Form - Modern Professional Design */}
+                        <div className="bg-white rounded-lg shadow-sm p-8 lg:p-10 border border-gray-200 hover:shadow-md transition-shadow">
+                            <div className="mb-8">
+                                <h2 className="text-2xl font-bold text-gray-900 mb-3">Kontakt aufnehmen</h2>
+                                <p className="text-gray-600 leading-relaxed">Beschreiben Sie uns Ihr Anliegen. Wir melden uns innerhalb von 24 Stunden bei Ihnen zurück.</p>
+                            </div>
+
+                            <div className="space-y-5">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Name *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleInputChange}
+                                            placeholder="Ihr vollständiger Name"
+                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1e3767] focus:ring-2 focus:ring-[#1e3767]/10 transition-all duration-200 outline-none text-gray-900"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            E-Mail *
+                                        </label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                            placeholder="ihre.email@unternehmen.com"
+                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1e3767] focus:ring-2 focus:ring-[#1e3767]/10 transition-all duration-200 outline-none text-gray-900"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Unternehmen
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="company"
+                                            value={formData.company}
+                                            onChange={handleInputChange}
+                                            placeholder="Ihr Unternehmen"
+                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1e3767] focus:ring-2 focus:ring-[#1e3767]/10 transition-all duration-200 outline-none text-gray-900"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Telefon
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleInputChange}
+                                            placeholder="+43 123 456 789"
+                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1e3767] focus:ring-2 focus:ring-[#1e3767]/10 transition-all duration-200 outline-none text-gray-900"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Betreff *
+                                    </label>
+                                    <select
+                                        name="subject"
+                                        value={formData.subject}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1e3767] focus:ring-2 focus:ring-[#1e3767]/10 transition-all duration-200 outline-none text-gray-900"
+                                        required
+                                    >
+                                        <option value="">Wählen Sie ein Thema</option>
+                                        <option value="projektmanagement">Projektmanagement</option>
+                                        <option value="beratung">Beratung</option>
+                                        <option value="karriere">Karriere</option>
+                                        <option value="allgemein">Allgemeine Anfrage</option>
+                                        <option value="sonstiges">Sonstiges</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Ihre Nachricht *
+                                    </label>
+                                    <textarea
+                                        name="message"
+                                        rows={5}
+                                        value={formData.message}
+                                        onChange={handleInputChange}
+                                        placeholder="Beschreiben Sie Ihr Projekt oder Ihre Anfrage detailliert..."
+                                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1e3767] focus:ring-2 focus:ring-[#1e3767]/10 transition-all duration-200 outline-none resize-none text-gray-900"
+                                        required
+                                    />
+                                </div>
+
+                                <button
+                                    onClick={handleSubmit}
+                                    className="w-full bg-[#1e3767] hover:bg-[#1e3767]/90 text-white font-medium py-3.5 px-6 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-lg"
+                                >
+                                    <Send className="w-5 h-5" />
+                                    Nachricht senden
+                                </button>
+
+                                <p className="text-xs text-gray-500 text-center leading-relaxed">
+                                    * Pflichtfelder. Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Office Information - Professional Design */}
+                        <div className="space-y-6">
+                            {/* Main Office */}
+                            <div className="bg-white rounded-lg shadow-sm p-8 border border-gray-200 hover:shadow-md transition-shadow">
+                                <div className="flex items-start justify-between mb-6">
+                                    <div>
+                                        <span className="inline-block px-3 py-1 bg-[#1e3767]/10 text-[#1e3767] text-xs font-medium rounded-full mb-3">
+                                            HAUPTSITZ
+                                        </span>
+                                        <h3 className="text-xl font-bold text-gray-900">Raaba-Grambach</h3>
+                                    </div>
+                                    <div className="w-10 h-10 bg-[#1e3767]/10 rounded-lg flex items-center justify-center">
+                                        <MapPin className="w-5 h-5 text-[#1e3767]" />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="pb-4 border-b border-gray-100">
+                                        <p className="font-medium text-gray-900 mb-1">PROMAX Project Management GesmbH</p>
+                                        <div className="text-gray-600 text-sm space-y-0.5">
+                                            <p>Parkring 18/F</p>
+                                            <p>8074 Raaba-Grambach</p>
+                                            <p>Österreich</p>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-start gap-4">
-                                        <Mail className="w-5 h-5 text-orange-600 mt-1 flex-shrink-0" />
-                                        <div>
-                                            <p className="font-medium text-gray-900 mb-1">E-Mail</p>
-                                            <a href="mailto:office@promax.at" className="text-sm text-gray-600 hover:text-blue-900 transition-colors">
-                                                office@promax.at
-                                            </a>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center text-gray-700">
+                                            <Phone className="w-4 h-4 mr-3 text-[#1e3767]" />
+                                            <span className="text-sm">+43 (0) 316 241 393</span>
+                                        </div>
+                                        <div className="flex items-center text-gray-700">
+                                            <Mail className="w-4 h-4 mr-3 text-[#1e3767]" />
+                                            <span className="text-sm">office@promax.at</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Office Locations */}
-                            <div className="bg-white p-8 shadow-sm border border-gray-100">
-                                <h3 className="text-xl font-light mb-6 text-blue-900">Standorte</h3>
-                                <div className="space-y-8">
-
-                                    {/* Main Office */}
+                            {/* Vienna Office */}
+                            <div className="bg-white rounded-lg shadow-sm p-8 border border-gray-200 hover:shadow-md transition-shadow">
+                                <div className="flex items-start justify-between mb-6">
                                     <div>
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <MapPin className="w-4 h-4 text-orange-600" />
-                                            <span className="text-xs font-medium text-orange-600 uppercase tracking-wider">Hauptsitz</span>
-                                        </div>
-                                        <div className="ml-6">
-                                            <p className="font-medium text-gray-900 mb-2">Steiermark</p>
-                                            <div className="text-sm text-gray-600 space-y-1">
-                                                <p>Parkring 18/F</p>
-                                                <p>8074 Raaba-Grambach</p>
-                                                <p>Österreich</p>
-                                            </div>
+                                        <span className="inline-block px-3 py-1 bg-[#1e3767]/10 text-[#1e3767] text-xs font-medium rounded-full mb-3">
+                                            ZWEIGSTELLE
+                                        </span>
+                                        <h3 className="text-xl font-bold text-gray-900">Wien</h3>
+                                    </div>
+                                    <div className="w-10 h-10 bg-[#1e3767]/10 rounded-lg flex items-center justify-center">
+                                        <MapPin className="w-5 h-5 text-[#1e3767]" />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="pb-4 border-b border-gray-100">
+                                        <p className="font-medium text-gray-900 mb-1">PROMAX Project Management GesmbH</p>
+                                        <div className="text-gray-600 text-sm space-y-0.5">
+                                            <p>Löwengasse 3/5</p>
+                                            <p>1030 Wien</p>
+                                            <p>Österreich</p>
                                         </div>
                                     </div>
 
-                                    {/* Vienna Office */}
-                                    <div>
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <MapPin className="w-4 h-4 text-orange-600" />
-                                            <span className="text-xs font-medium text-orange-600 uppercase tracking-wider">Zweigstelle</span>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center text-gray-700">
+                                            <Phone className="w-4 h-4 mr-3 text-[#1e3767]" />
+                                            <span className="text-sm">+43 (0) 1 710 7748</span>
                                         </div>
-                                        <div className="ml-6">
-                                            <p className="font-medium text-gray-900 mb-2">Wien</p>
-                                            <div className="text-sm text-gray-600 space-y-1">
-                                                <p>Löwengasse 3/5</p>
-                                                <p>1030 Wien</p>
-                                                <p>Österreich</p>
-                                            </div>
+                                        <div className="flex items-center text-gray-700">
+                                            <Mail className="w-4 h-4 mr-3 text-[#1e3767]" />
+                                            <span className="text-sm">office@promax.at</span>
                                         </div>
                                     </div>
                                 </div>
@@ -253,21 +310,18 @@ const Kontakt2 = () => {
             </section>
 
             {/* Map Section */}
-            <section className="py-20 bg-white">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-12">
-                        <h2 className="text-4xl font-light mb-4 text-blue-900">Unser Standort</h2>
-                        <div className="w-24 h-0.5 bg-orange-600 mx-auto mb-6"></div>
-                        <p className="text-gray-600 max-w-2xl mx-auto">
-                            Besuchen Sie uns in unserem Hauptsitz in Raaba-Grambach, südöstlich von Graz
-                        </p>
+            <section className="py-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4">So finden Sie uns</h2>
+                        <p className="text-xl text-gray-600">Unser Hauptsitz in Raaba-Grambach, südöstlich von Graz</p>
                     </div>
 
-                    <div className="bg-white shadow-sm border border-gray-100 overflow-hidden">
+                    <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.7289447742!2d15.4461!3d47.0379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476e3597f3b5c5c5%3A0x5f6c5a5a5a5a5a5a!2sParkring%2018%2C%208074%20Raaba-Grambach%2C%20Austria!5e0!3m2!1sde!2sat!4v1"
                             width="100%"
-                            height="400"
+                            height="500"
                             style={{ border: 0 }}
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
@@ -277,39 +331,8 @@ const Kontakt2 = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Jobs Section */}
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div>
-                            <h2 className="text-4xl font-light mb-6 text-blue-900">Jobs & Karriere</h2>
-                            <div className="w-16 h-0.5 bg-orange-600 mb-8"></div>
-                            <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                                Werden Sie Teil unseres Teams! Als Dienstleister ist das Ergebnis unserer Arbeit
-                                immer auch eine Teamleistung, deren Schlüsselfaktoren Qualifikation, Engagement,
-                                Kreativität, Verantwortungsbewusstsein, Flexibilität und Zielorientierung sind.
-                            </p>
-                            <p className="text-gray-600 leading-relaxed mb-8">
-                                Wir bieten gute Dotierung, faire Vereinbarungen, interessante Aufgaben und
-                                vielfältige Entwicklungsmöglichkeiten in einem professionellen Team.
-                            </p>
-                            <button onClick={() => {navigate('/Karriere')}} className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 font-medium transition-colors">
-                                Zu Jobs & Karriere
-                            </button>
-                        </div>
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                alt="Team bei PROMAX"
-                                className="w-full h-96 object-cover shadow-sm"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };
 
-export default Kontakt2;
+export default Kontakt;
