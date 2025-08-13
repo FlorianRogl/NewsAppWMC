@@ -1,8 +1,21 @@
+// vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import createSitemapPlugin from 'vite-plugin-sitemap'
 
-
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    createSitemapPlugin({
+      hostname: 'https://www.promax.at',
+      dynamicRoutes: [
+        '/',
+        '/Unternehmen',
+        '/Leistungen',
+        '/Branchen',
+        '/Karriere',
+        '/Kontakt'
+      ]
+    })
+  ],
 })
