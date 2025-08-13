@@ -226,15 +226,18 @@ const BranchesOverview: React.FC = () => {
                         className={`transition-all duration-1000 delay-300 ${isVisible.about ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
                     >
                         <h2 className="text-5xl font-bold mb-8" style={{ color: '#1e3767' }}>
-                            Wir sind Spezialisten.
+                            Branchenexpertise ist unser Erfolgsrezept.
                             <br />
-                            Und das ist gut so.
+                            Und das macht den Unterschied.
                         </h2>
                         <p className="text-lg mb-6 leading-relaxed" style={{ color: '#1e3767' }}>
-                            Wir konzentrieren uns auf das, was wir am besten können: Engineering auf höchstem Niveau. Dabei setzen wir ausschließlich auf qualifizierte Fachkräfte, sei es aus unserem eigenen Team oder unserem breiten Netzwerk an Expertinnen und Experten.
+                            Wir verstehen die spezifischen Anforderungen jeder Branche und entwickeln darauf aufbauend
+                            maßgeschneiderte Engineering-Lösungen. Von der chemischen Industrie bis zur Pharmabranche –
+                            unser tiefgreifendes Fachwissen in den jeweiligen Industriezweigen ist die Basis für erfolgreiche Projekte.
                         </p>
                         <p className="text-lg leading-relaxed" style={{ color: '#1e3767' }}>
-                            Diese Flexibilität erlaubt es uns, schnell und präzise auf jede Herausforderung zu reagieren.
+                            Diese branchenspezifische Spezialisierung ermöglicht es uns, auch bei komplexesten
+                            Anforderungen die optimale Lösung zu finden und termingerecht umzusetzen.
                         </p>
                     </div>
                     <div

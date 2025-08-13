@@ -12,25 +12,28 @@ import ScrollToTop from "./components/ScrollToTop.tsx";
 import Kontakt2 from "./components/Kontakt2.tsx";
 import Kontakt3 from "./components/Kontakt3.tsx";
 import Navbar2 from "./components/Navbar2.tsx";
+import Error404 from "./components/Error404.tsx";
 
 function App() {
     return (
         <div>
             <Navbar2/>
             <ScrollToTop/>
-                <Routes>
-                    <Route path="/" element={<Homepage/>} />
-                    <Route path="/Unternehmen" element={<Unternehmen/>} />
-                    <Route path="/Kontakt" element={<Kontakt/>} />
-                    <Route path="/Kontakt2" element={<Kontakt2/>} />
-                    <Route path="/Kontakt3" element={<Kontakt3/>} />
-                    <Route path="/Home" element={<Homepage/>} />
-                    <Route path="/Branchen" element={<Branchen/>} />
-                    <Route path="/Leistungen" element={<Leistungen/>} />
-                    <Route path="/Projektberichte" element={<Projektberichte/>} />
-                    <Route path="/Karriere" element={<Karriere/>} />
-                    <Route path="/FitImJob" element={<FitImJob/>}/>
-                </Routes>
+            <Routes>
+                <Route path="/" element={<Homepage/>} />
+                <Route path="/Unternehmen" element={<Unternehmen/>} />
+                <Route path="/Kontakt" element={<Kontakt/>} />
+                <Route path="/Kontakt2" element={<Kontakt2/>} />
+                <Route path="/Kontakt3" element={<Kontakt3/>} />
+                <Route path="/Home" element={<Homepage/>} />
+                <Route path="/Branchen" element={<Branchen/>} />
+                <Route path="/Leistungen" element={<Leistungen/>} />
+                <Route path="/Projektberichte" element={<Projektberichte/>} />
+                <Route path="/Karriere" element={<Karriere/>} />
+                <Route path="/FitImJob" element={<FitImJob/>}/>
+                {/* 404 Route - muss als letztes stehen */}
+                <Route path="*" element={<Error404/>} />
+            </Routes>
             <Footer/>
         </div>
     );
