@@ -30,10 +30,7 @@ const NewLeistungen: React.FC = () => {
         setIsVisible({
             services: true,
             'service-1': true,
-            'service-2': true,
-            'service-3': true,
-            'service-4': true,
-            'service-5': true
+            'service-2': true
         });
     }, []);
 
@@ -41,233 +38,133 @@ const NewLeistungen: React.FC = () => {
         {
             id: 1,
             number: "01",
-            title: "Projektierung",
-            subtitle: "Fundierte Basisplanungen für Investitionsentscheidungen",
-            description: "Investitionsentscheidungen bedürfen umsetzbarer Basisplanungen, realistischer Terminpläne und belastbarer Projektbudgets.",
-            detailedDescription: "Die dem Realisierungsprojekt vorgelagerte PROJEKTIERUNG ist ein wichtiger Faktor für die richtigen Weichenstellungen am Weg zum Projekterfolg. PROMAX entwickelt fundierte Basisplanungen als solide Grundlage für Ihre Investitionsentscheidungen. Unsere Projektingenieure erstellen realistische Terminpläne und belastbare Projektbudgets für komplexe Industrieanlagenprojekte.",
-            image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&h=600&fit=crop&auto=format",
+            title: "Technische Planung & Engineering",
+            subtitle: "Von der Projektierung bis zur detaillierten 3D-Anlagenplanung",
+            description: "Umfassende technische Planung und Engineering-Dienstleistungen für Industrieanlagen von der ersten Konzeptentwicklung bis zur ausführungsreifen Detail-Planung.",
+            detailedDescription: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Unsere Planungsphilosophie basiert auf der effizienten Überführung der Verfahrenstechnik in die Anlagenplanung mit angemessener Berücksichtigung besonderer Kundenanforderungen für Betrieb, Wartung und Instandhaltung. Wir entwickeln fundierte Basisplanungen als solide Grundlage für Ihre Investitionsentscheidungen und erstellen realistische Terminpläne sowie belastbare Projektbudgets. Unsere 3D-Planungstechnologie ermöglicht automatische Kollisionsprüfung und gewerkeübergreifende Koordination bereits in der Planungsphase.",
+            image: "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?w=800&h=600&fit=crop&auto=format",
             features: [
-                "Erstellung von Basic Engineering Dokumentationen",
-                "Verfahrenstechnische Konzeptentwicklung und Optimierung",
-                "Machbarkeitsstudien und Wirtschaftlichkeitsanalysen",
-                "Detaillierte Kostenermittlung und Budgetplanung",
-                "Genehmigungsplanung nach EU-Standards",
-                "Risikoanalyse und Terminplanung",
-                "Technische Due Diligence und Investitionsberatung"
+                "Basic Engineering und konzeptionelle Anlagenentwicklung",
+                "3D-Anlagenplanung mit PDMS, E3D und AutoCAD Plant 3D",
+                "Detaillierte Rohrleitungsplanung mit Isometrien",
+                "Machbarkeitsstudien und Wirtschaftlichkeitsanalysen"
             ],
             highlights: [
-                "Umsetzbare Basisplanungen aus einer Hand",
-                "Realistische Terminpläne und belastbare Budgets",
-                "Fundierte Entscheidungsgrundlagen für Investitionen",
-                "Über 25 Jahre Erfahrung in der Projektierung",
-                "Internationale Projektexpertise",
-                "Branchenübergreifendes Engineering Know-how",
-                "Konsequente Berücksichtigung von Kundenanforderungen"
+                "Über 25 Jahre Expertise im Industrieanlagenbau",
+                "Datenbank-basierte 3D-Planungen mit Kollisionsprüfung",
+                "Basic Engineering der Anlagenplanung aus einer Hand",
+                "Einsatz modernster 3D-Planungstools"
             ],
             icon: "planning",
-            technologies: ["AutoCAD Plant 3D", "PDMS", "E3D", "SmartPlant"],
-            standards: ["DIN", "EN", "ASME", "API"]
+            technologies: ["PDMS", "E3D", "AutoCAD Plant 3D", "PointSense Plant", "3D-Laserscanning", "Rohr 2", "SmartPlant", "BIM-Software"],
+            standards: ["DIN", "EN", "ASME", "API", "DGUV", "ISO 9001:2015", "Industriestandards Papier/Pharma/Chemie"]
         },
         {
             id: 2,
             number: "02",
-            title: "Projektmanagement",
-            subtitle: "Professionelle Koordination aller Projektphasen",
-            description: "Professionelle Koordination und Steuerung aller Projektphasen von der Planung bis zur Inbetriebnahme.",
-            detailedDescription: "In der Realisierungsphase von Projekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich Qualität-Termine-Kosten zu erfüllen oder im positiven Sinne zu übertreffen. PROMAX begegnet dieser Herausforderung mit professionellen Projekt Managern, die Aufbau- und Ablauforganisation planen, Projektteams koordinieren und wirksame Korrekturmaßnahmen einleiten.",
+            title: "Projektmanagement & Koordination",
+            subtitle: "Professionelle Projektführung für erfolgreiche Anlagenrealisierung",
+            description: "Umfassendes Projektmanagement von der Planungsphase bis zur Inbetriebnahme mit Fokus auf Qualität, Termine und Kosten im Industrieanlagenbau.",
+            detailedDescription: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich Qualität, Termine und Kosten zu erfüllen oder im positiven Sinne zu übertreffen. PROMAX begegnet dieser Herausforderung mit einem Team erfahrener Projektmanager, die seit 1999 komplexe Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik erfolgreich abwickeln. Dabei bieten wir sowohl komplettes Projektmanagement als auch modulare Teilleistungen, je nach Projektgröße und Kundenanforderungen. Mit ISO 9001:2015 Zertifizierung sorgen wir für höchste Qualitätsstandards und termingerechte Projektumsetzung.",
             image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Komplettes Projektmanagement oder modulare Teilleistungen",
                 "Aufbau- und Ablauforganisation nach PMI-Standards",
                 "Projektteam-Koordination und Stakeholder-Management",
-                "Kontinuierliche Kontrolle von Zwischenergebnissen",
-                "Wirksame Korrekturmaßnahmen bei Abweichungen",
-                "Integration in die Auftraggeber-Organisation",
-                "Qualitäts-, Termin- und Kostenmanagement",
                 "Risikomanagement und Change Management"
             ],
             highlights: [
-                "PMI-zertifizierte Projektmanager",
-                "Nahtlose Integration in Ihre Organisation",
-                "Konsequente Verfolgung der Auftraggeber-Interessen",
-                "Flexible Leistungsmodule je nach Projektgröße",
-                "Bewährte Methoden aus 1000+ Projekten",
-                "Internationale Projektabwicklung",
-                "Digitale Projektmanagement-Tools",
+                "Über 25 Jahre Projekterfahrung seit 1999",
+                "ISO 9001:2015 zertifizierte Projektmanagement-Expertise",
+                "Bewährte Methoden aus über 1000 Projekten",
                 "24/7 Projektüberwachung und Reporting"
             ],
             icon: "project",
-            technologies: ["MS Project", "Primavera P6", "SAP PS", "Projektmanagement-Software"],
-            standards: ["PMI", "IPMA", "PRINCE2", "ISO 21500"]
-        },
-        {
-            id: 3,
-            number: "03",
-            title: "Planung",
-            subtitle: "3D-Anlagenplanung und Detail-Engineering",
-            description: "3D-Anlagenplanung und Detail-Engineering mit modernster CAD-Technologie für komplexe Industrieanlagen.",
-            detailedDescription: "PROMAX bietet effiziente Überführung der Verfahrenstechnik in die Anlagenplanung mit angemessener Berücksichtigung besonderer Kundenanforderungen für Betrieb, Wartung und Instandhaltung. Umfassende Abklärung der Schnittstellen mit Fachplanern und konsequent durchgängige Behandlung von Änderungen kennzeichnen unsere Planungsphilosophie.",
-            image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=800&h=600&fit=crop&auto=format",
-            features: [
-                "Erstellung und Pflege von Block-, Fließ-, R&I Schemata",
-                "3D-Modellierung und CAD-Planung mit PDMS/E3D",
-                "Rohrleitungsplanung: Rohrstudien, 2D/3D-Pläne, Isometrien",
-                "Fundamentleitpläne und Stahlbau-Leitpläne",
-                "Detailkonstruktion von Maschinen und Apparaten",
-                "Sekundärhalterungen und Materialerfassung",
-                "Laserscanning für Bestandsaufnahmen",
-                "Rohrstressberechnung und statische Berechnungen"
-            ],
-            highlights: [
-                "Basic Engineering der Anlagenplanung aus einer Hand",
-                "Detail Engineering der Rohrleitungsplanung",
-                "Datenbank-basierte Planungen",
-                "Verwertbare Leitpläne inkl. Belastungsangaben",
-                "Einsatz leistungsfähiger 3D-Planungstools",
-                "3D Design Reviews mit dem Auftraggeber",
-                "BIM-konforme Planungsmethoden",
-                "Compliance mit internationalen Standards"
-            ],
-            icon: "planning",
-            technologies: ["PDMS", "E3D", "AutoCAD Plant 3D", "PointSense Plant", "3D-Laserscanning"],
-            standards: ["DIN", "EN", "ASME", "API", "DGUV"]
-        },
-        {
-            id: 4,
-            number: "04",
-            title: "Site Services",
-            subtitle: "Professionelle Vor-Ort-Betreuung während der Bauphase",
-            description: "Professionelle Vor-Ort-Betreuung während der gesamten Bauphase bis zur erfolgreichen Inbetriebnahme.",
-            detailedDescription: "PROMAX Site Services Experten begleiten jeden Schritt der Projektrealisierung vor Ort. Von der Montageüberwachung über die Qualitätskontrolle bis zur finalen Inbetriebnahme gewährleisten wir höchste Qualität und termingerechte Fertigstellung. Unser erfahrenes Team koordiniert alle Gewerke und stellt sicher, dass Ihre Anlage funktionsfähig übergeben wird.",
-            image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&auto=format",
-            features: [
-                "Montageüberwachung und kontinuierliche Qualitätskontrolle",
-                "Inbetriebnahmebegleitung und systematisches Commissioning",
-                "Baustellenkoordination und Sicherheitsmanagement",
-                "Performance-Tests und Anlagenoptimierung",
-                "Schulung und umfassender Know-how-Transfer",
-                "Erstellung von As-Built-Dokumentationen",
-                "Garantie- und Gewährleistungsmanagement",
-                "Digitale Baustellendokumentation"
-            ],
-            highlights: [
-                "Vor-Ort-Expertise mit erfahrener Bauleitung",
-                "Qualitätskontrolle nach internationalen Standards",
-                "Termingerechte und budgetkonforme Fertigstellung",
-                "Sicherheitsmanagement nach SCC-Standards",
-                "Nahtlose Übergabe an den Betreiber",
-                "Digitale Baustellendokumentation",
-                "Interdisziplinäre Projektteams",
-                "24/7 Vor-Ort-Betreuung bei kritischen Phasen"
-            ],
-            icon: "project",
-            technologies: ["Digitale Dokumentationssysteme", "Mobile Erfassungsgeräte", "3D-Scanning"],
-            standards: ["SCC", "ISO 45001", "OHSAS 18001", "CE-Kennzeichnung"]
-        },
-        {
-            id: 5,
-            number: "05",
-            title: "Organisationsberatung",
-            subtitle: "Spezialisierte Beratung für komplexe Themenbereiche",
-            description: "Unterschiedliche Projekte in verschiedenen Branchen werfen spezielle Fragestellungen auf, die das Tagesgeschäft übersteigen.",
-            detailedDescription: "Komplexe Themenbereiche, die das Tagesgeschäft übersteigen, bedürfen spezieller Expertise. PROMAX Organisationsberatung entwickelt Präventionsmaßnahmen und Claims Management Systeme. Wir unterstützen bei strategischen Entscheidungen, der Optimierung von Projektabläufen und der Implementierung bewährter Verfahren aus unserer Praxis.",
-            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format",
-            features: [
-                "Entwicklung maßgeschneiderter Präventionsmaßnahmen",
-                "Aufbau und Implementierung von Claims Management Systemen",
-                "Strukturierte Lessons Learned-Workshops",
-                "Strategische Prozessoptimierung und Organisationsentwicklung",
-                "Change Management bei Transformationsprojekten",
-                "Compliance Management und Regulatory Affairs",
-                "Digitalisierungsstrategien für Industrieanlagen",
-                "Risikomanagement und Krisenprävention"
-            ],
-            highlights: [
-                "Spezialisierte Beratung über das Tagesgeschäft hinaus",
-                "Bewährte Lösungsansätze aus 1000+ Projekten",
-                "Branchenübergreifende Expertise und Know-how",
-                "Nachhaltige und wirtschaftliche Lösungsansätze",
-                "Individuelle Anpassung an Ihre Organisation",
-                "Erfahrung aus über 25 Jahren Projektpraxis",
-                "Interdisziplinäre Beratungsteams",
-                "Langfristige Partnerschaft und Betreuung"
-            ],
-            icon: "consulting",
-            technologies: ["Digitale Analyse-Tools", "Workflow-Management-Systeme", "KI-basierte Lösungen"],
-            standards: ["ISO 9001", "ISO 14001", "ISO 45001", "EFQM"]
-        },
-        {
-            id: 6,
-            number: "06",
-            title: "Contract & Claims Management",
-            subtitle: "Proaktive Vertragsgestaltung und -umsetzung",
-            description: "Kraft gewachsener technisch-kaufmännisch-vertraglicher Kompetenz bietet PROMAX Contract & Claims Management als integrierten Bestandteil zeitgemäßer Projektabwicklung.",
-            detailedDescription: "Unternehmensergebnisse basieren auf Projektergebnissen. Die wesentlichen Erfolgskriterien sind Qualität, Kosten und Termine. Die Erfüllung dieser Kriterien wird maßgeblich durch die Gestaltung und Implementierung von Verträgen beeinflusst. Nur wer pro-aktiv Verträge gestaltet, angemessen umsetzt und vertragliche Änderungen im Griff behält, hat eine realistische Chance, die gewünschten Ergebnisse zu erzielen. PROMAX Contract & Claims Management erstreckt sich über sämtliche Projektphasen: von der Vetriebsphase über die Planung, die Beschaffung, die Herstellung, den Bau, die Montage, die Inbetriebnahme, über Tests und Abnahmen bis zum Ende des Garantie- bzw. Gewährleistungszeitraumes.",
-            image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=600&fit=crop&auto=format",
-            features: [
-                "Analyse der Ausschreibung und Angebotserstellung",
-                "Vertragsverhandlungen und Fertigstellung der Vertragsunterlagen",
-                "Extraktion zu überbindender Anforderungen aus dem Hauptvertrag",
-                "Architektur der Projektaufbau- und Projektablauforganisation",
-                "Aufbau und Schulung des Claim Management Systems",
-                "Aufbereitung und Verhandlung von Vertragsnachträgen",
-                "Dokumentation von Contract Changes und Claim-relevante Korrespondenz",
-                "Sicherstellung der Erfüllung vertraglicher Verpflichtungen während der Garantiezeit"
-            ],
-            highlights: [
-                "Rechtzeitige Anpassung der Projektorganisation an Vertragsanforderungen",
-                "Rechtzeitige Erkennung von wesentlichen Claimpotentialen",
-                "Verhinderung des Hineinreklamierens von zusätzlichen Forderungen",
-                "Angemessene Überbindung von Bedingungen des Hauptvertrages",
-                "Reduzierung von Änderungsaufwand in Planung und Fertigung",
-                "Vermeidung von Konventionalstrafen",
-                "Steigerung der Reputation durch Qualitätslieferung",
-                "Formalkorrekter Abschluss der Vertragserfüllung"
-            ],
-            icon: "consulting",
-            technologies: ["Contract Management Systeme", "Claims Tracking Tools", "Dokumentationssysteme"],
-            standards: ["FIDIC", "VOB", "ÖNORM", "Vertragsrecht"]
-        },
-        {
-            id: 7,
-            number: "07",
-            title: "Projektverfolgung",
-            subtitle: "Time Scheduling - Progress Control - Reporting",
-            description: "Terminplanung und Fortschrittsüberwachung bieten dem Projekt Management die Orientierung und Navigation für methodische Planung und termingerechte Umsetzung.",
-            detailedDescription: "PROMAX hat ein System entwickelt, das sich vor allem in großen Anlagenbau-Projekten mit hoher Komplexität bewährt hat. Entsprechend den Arbeitspaketen im Projekt-Strukturplan wird eine Untergliederung in mehreren Ebenen vorgenommen: Meilensteine, Planung, Beschaffung, Herstellung, Verpackung/Transport, Bau, Montage und Inbetriebnahme. In der detaillierten Terminplanung wird jede Aktivität im Kontext ihrer Vorgänger und Nachfolger dargestellt und es werden Verknüpfungen von logischen Sequenzen gebildet, die es ermöglichen den Kritischen Pfad des Projektes zu generieren.",
-            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&auto=format",
-            features: [
-                "Vertragsanalyse und Erstellung von Projekt-Strukturplänen",
-                "Projektorientierte Spezifikationen für Terminplanung und Fortschrittsüberwachung",
-                "Scheduling-Schulungen von internen und externen Projektpartnern",
-                "Erstellung von Master-Terminplan und Master-WBS",
-                "Prüfung und Integration von Detailterminplänen",
-                "Generierung des Kritischen Pfades",
-                "Kontinuierliche Projektbegleitung in sämtlichen Phasen",
-                "Spezielle Überprüfung der Ist-Termine auf dem Kritischen Pfad"
-            ],
-            highlights: [
-                "Zentrale Koordination sämtlicher Aktivitäten zur Terminplanung",
-                "Einheitliche Terminplanung von externen Projektpartnern",
-                "Zeitnahe Status-Informationen über das laufende Projektgeschehen",
-                "Belastbare Entscheidungsgrundlagen für die Projektleitung",
-                "Übersichtliche und aussagekräftige Fortschrittsberichte",
-                "Wertorientierte Fortschrittsdarstellung durch WBS-Integration",
-                "Kritischer Pfad-Analyse zur Terminrisiko-Minimierung",
-                "Proaktive Korrekturmaßnahmen bei Abweichungen"
-            ],
-            icon: "project",
-            technologies: ["Primavera P6", "MS Project", "WBS-Systeme", "Progress Tracking Tools"],
-            standards: ["PMI", "IPMA", "Critical Path Method", "Earned Value Management"]
+            technologies: ["MS Project", "Primavera P6", "SAP PS", "Contract Management Systeme", "Progress Tracking Tools", "WBS-Systeme", "Claims Tracking Tools", "Digitale Dokumentationssysteme"],
+            standards: ["PMI", "IPMA", "PRINCE2", "ISO 21500", "ISO 9001:2015", "FIDIC", "VOB", "ÖNORM", "Critical Path Method", "Earned Value Management"]
         }
     ];
 
     // Handler-Funktion für Service-Auswahl
-    const handleServiceSelect = (serviceId: number) => {
-        const service = services.find(s => s.id === serviceId);
-        if (service) {
-            setSelectedService(service);
-        }
+
+    // Separate Pop-up Services für Cards
+    const handleCardSelect = (cardType: 'siteServices' | 'consulting') => {
+        const cardServices = {
+            siteServices: {
+                id: 3,
+                number: "03",
+                title: "Site Services & Vor-Ort-Betreuung",
+                subtitle: "Professionelle Montageüberwachung und Inbetriebnahmebegleitung",
+                description: "Umfassende Vor-Ort-Betreuung während der gesamten Bauphase bis zur erfolgreichen Inbetriebnahme von Industrieanlagen.",
+                detailedDescription: "PROMAX Site Services Experten begleiten jeden Schritt der Projektrealisierung vor Ort in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Von der professionellen Montageüberwachung über kontinuierliche Qualitätskontrolle bis zur finalen Inbetriebnahme gewährleisten wir höchste Qualität und termingerechte Fertigstellung. Unser erfahrenes Team koordiniert alle Gewerke und stellt sicher, dass Ihre Anlage funktionsfähig und optimal eingestellt übergeben wird. Mit über 25 Jahren Erfahrung seit 1999 und internationaler Projektexpertise sorgen wir für reibungslose Abläufe auf der Baustelle. Durch systematische Qualitätskontrolle nach internationalen Standards und professionelles Sicherheitsmanagement nach SCC-Standards minimieren wir Risiken und gewährleisten termingerechte, budgetkonforme Fertigstellung.",
+                image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&auto=format",
+                features: [
+                    "Professionelle Montageüberwachung und kontinuierliche Qualitätskontrolle nach internationalen Standards",
+                    "Systematische Inbetriebnahmebegleitung und umfassendes Commissioning von Industrieanlagen",
+                    "Koordination aller Gewerke und professionelles Sicherheitsmanagement nach SCC-Standards",
+                    "Performance-Tests, Anlagenoptimierung und systematische Leistungsvalidierung",
+                    "Umfassende Mitarbeiterschulung und strukturierter Know-how-Transfer an Betreiber",
+                    "Erstellung detaillierter As-Built-Dokumentationen und technischer Betriebshandbücher",
+                    "Garantie- und Gewährleistungsmanagement mit langfristiger Betreuung",
+                    "Digitale Baustellendokumentation mit modernsten mobilen Erfassungsgeräten",
+                    "Interdisziplinäre Koordination aller Projektbeteiligten und Fachplaner vor Ort",
+                    "24/7 Vor-Ort-Betreuung bei kritischen Projektphasen und Inbetriebnahmeprozessen"
+                ],
+                highlights: [
+                    "Vor-Ort-Expertise mit erfahrener Bauleitung und über 25 Jahren Branchenerfahrung",
+                    "Qualitätskontrolle nach internationalen Standards mit systematischer Dokumentation",
+                    "Termingerechte und budgetkonforme Fertigstellung durch professionelle Projektkoordination",
+                    "Sicherheitsmanagement nach SCC-Standards für maximalen Arbeitsschutz",
+                    "Nahtlose funktionsfähige Übergabe an den Betreiber mit umfassender Einweisung",
+                    "Digitale Baustellendokumentation für transparente und nachvollziehbare Abläufe",
+                    "Interdisziplinäre Projektteams mit spezialisierter Branchenerfahrung",
+                    "Systematische Optimierung der Anlagenperformance durch Verfahrenstechnik-Expertise",
+                    "Umfassende As-Built-Dokumentation für optimalen Betrieb und Wartung",
+                    "Langfristige Betreuung über die Inbetriebnahme hinaus mit Garantiemanagement"
+                ],
+                icon: "project",
+                technologies: ["Digitale Dokumentationssysteme", "Mobile Erfassungsgeräte", "3D-Scanning", "Qualitätsmanagementsysteme", "Baustellenmanagement-Software"],
+                standards: ["SCC", "ISO 45001", "OHSAS 18001", "CE-Kennzeichnung", "ISO 9001:2015", "VDI-Richtlinien"]
+            },
+            consulting: {
+                id: 4,
+                number: "04",
+                title: "Organisationsberatung",
+                subtitle: "Spezialisierte Beratung für komplexe Themenbereiche",
+                description: "Unterschiedliche Projekte in verschiedenen Branchen werfen spezielle Fragestellungen auf, die das Tagesgeschäft übersteigen.",
+                detailedDescription: "Komplexe Themenbereiche, die das Tagesgeschäft übersteigen, bedürfen spezieller Expertise. PROMAX Organisationsberatung entwickelt maßgeschneiderte Präventionsmaßnahmen und Claims Management Systeme für Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Wir unterstützen bei strategischen Entscheidungen, der Optimierung von Projektabläufen und der Implementierung bewährter Verfahren aus unserer über 25-jährigen Praxis im Industrieanlagenbau. Mit Fokus auf nachhaltige und wirtschaftliche Lösungsansätze bieten unsere interdisziplinären Beratungsteams technisch-kaufmännische Kompetenz für komplexe Herausforderungen. Unser Leistungsspektrum umfasst Contract & Claims Management für rechtssichere Vertragsabwicklung sowie systematische Projektverfolgung mit Time Scheduling und Progress Control.",
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format",
+                features: [
+                    "Entwicklung maßgeschneiderter Präventionsmaßnahmen für komplexe Industrieanlagenprojekte",
+                    "Aufbau und Implementierung professioneller Claims Management Systeme",
+                    "Strukturierte Lessons Learned-Workshops und systematische Projektanalysen",
+                    "Strategische Prozessoptimierung und umfassende Organisationsentwicklung",
+                    "Change Management bei komplexen Transformationsprojekten und Restrukturierungen",
+                    "Compliance Management und Regulatory Affairs für internationale Projektabwicklung",
+                    "Umfassendes Risikomanagement und proaktive Krisenprävention",
+                    "Contract & Claims Management für rechtssichere Vertragsgestaltung und -abwicklung",
+                    "Projektverfolgung mit systematischem Time Scheduling und Progress Control",
+                    "Vertragsanalyse und Erstellung von detaillierten Projekt-Strukturplänen"
+                ],
+                highlights: [
+                    "Spezialisierte Beratung über das Tagesgeschäft hinaus mit technisch-kaufmännischer Kompetenz",
+                    "Bewährte Lösungsansätze aus über 1000 erfolgreich abgewickelten Industrieanlagenprojekten",
+                    "Branchenübergreifende Expertise in Papier, Zellstoff, Pharma, Chemie und Energietechnik",
+                    "Nachhaltige und wirtschaftliche Lösungsansätze für komplexe Herausforderungen",
+                    "Individuelle Anpassung der Beratungsleistungen an Ihre spezifische Organisation",
+                    "Umfassende Erfahrung aus über 25 Jahren intensiver Projektpraxis seit 1999",
+                    "Interdisziplinäre Beratungsteams mit fundierter technisch-kaufmännischer Kompetenz",
+                    "Langfristige Partnerschaft und kontinuierliche Betreuung über Projektgrenzen hinaus",
+                    "Proaktive Vertragsgestaltung und -umsetzung über sämtliche Projektphasen",
+                    "Rechtzeitige Erkennung von Claimpotentialen und Vermeidung von Konventionalstrafen"
+                ],
+                icon: "consulting",
+                technologies: ["Digitale Analyse-Tools", "Workflow-Management-Systeme", "Contract Management Systeme", "Claims Tracking Tools", "Primavera P6"],
+                standards: ["ISO 9001:2015", "ISO 14001", "ISO 45001", "FIDIC", "VOB", "ÖNORM", "PMI", "IPMA"]
+            }
+        };
+
+        setSelectedService(cardServices[cardType]);
     };
 
     return (
@@ -408,8 +305,8 @@ const NewLeistungen: React.FC = () => {
             {/* Hero Image Section - Noch größer gemacht */}
             <div className="relative h-[500px] bg-gray-100 overflow-hidden">
                 <img
-                    src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=1200&h=500&fit=crop"
-                    alt="Industrial engineering and project management"
+                    src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&h=500&fit=crop&auto=format"
+                    alt="Professional project management and engineering consulting"
                     className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
@@ -448,13 +345,13 @@ const NewLeistungen: React.FC = () => {
                 <div className="max-w-7xl mx-auto px-8">
                     <div className="text-center mb-16">
                         <h2 className="text-5xl font-black text-[#1e3767] mb-4 tracking-tight">
-                            Leistungen <span className="text-[#d97539]">im Detail</span>
+                            Unsere <span className="text-[#d97539]">Kernkompetenzen</span>
                         </h2>
                         <div className="w-24 h-1 bg-[#d97539] mx-auto"></div>
                     </div>
 
                     <div className="space-y-20">
-                        {services.filter(service => service.id <= 5).map((service, index) => (
+                        {services.map((service, index) => (
                             <div
                                 key={service.id}
                                 className="border-b border-[#9ba8b3] pb-16 last:border-b-0 cursor-pointer group"
@@ -560,13 +457,13 @@ const NewLeistungen: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                        {/* Contract & Claims Management - Large Card */}
+                        {/* Site Services - Large Card */}
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 hover:-translate-y-1 cursor-pointer group h-[400px]"
-                             onClick={() => handleServiceSelect(6)}>
+                             onClick={() => handleCardSelect('siteServices')}>
                             {/* Background Image */}
                             <img
-                                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=400&fit=crop&auto=format"
-                                alt="Contract & Claims Management"
+                                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=400&fit=crop&auto=format"
+                                alt="Site Services - Vor-Ort-Betreuung"
                                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
 
@@ -578,24 +475,29 @@ const NewLeistungen: React.FC = () => {
                                 {/* Icon */}
                                 <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                                     <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                                     </svg>
                                 </div>
 
                                 {/* Title */}
                                 <h3 className="text-3xl lg:text-4xl font-black leading-tight group-hover:text-[#d97539] transition-colors duration-300">
-                                    Contract & Claims<br />Management
+                                    Site Services &<br />Vor-Ort-Betreuung
                                 </h3>
+
+                                {/* Description */}
+                                <p className="text-lg text-white/90 mt-4 leading-relaxed">
+                                    Professionelle Montageüberwachung, Qualitätskontrolle und Inbetriebnahmebegleitung direkt vor Ort
+                                </p>
                             </div>
                         </div>
 
-                        {/* Projektverfolgung - Large Card */}
+                        {/* Organisationsberatung - Large Card */}
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 hover:-translate-y-1 cursor-pointer group h-[400px]"
-                             onClick={() => handleServiceSelect(7)}>
+                             onClick={() => handleCardSelect('consulting')}>
                             {/* Background Image */}
                             <img
-                                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&auto=format"
-                                alt="Projektverfolgung & Scheduling"
+                                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop&auto=format"
+                                alt="Organisationsberatung"
                                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
 
@@ -607,14 +509,19 @@ const NewLeistungen: React.FC = () => {
                                 {/* Icon */}
                                 <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                                     <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
                                 </div>
 
                                 {/* Title */}
                                 <h3 className="text-3xl lg:text-4xl font-black leading-tight group-hover:text-[#1e3767] transition-colors duration-300">
-                                    Projektverfolgung &<br />Scheduling
+                                    Organisations-<br />beratung
                                 </h3>
+
+                                {/* Description */}
+                                <p className="text-lg text-white/90 mt-4 leading-relaxed">
+                                    Spezialisierte Beratung für komplexe Themenbereiche, die das Tagesgeschäft übersteigen
+                                </p>
                             </div>
                         </div>
                     </div>
