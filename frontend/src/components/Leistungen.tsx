@@ -393,9 +393,10 @@ const NewLeistungen: React.FC = () => {
                                                         Kernleistungen
                                                     </h4>
                                                     <ul className="space-y-2">
-                                                        {service.features.slice(0, 4).map((_feature, featureIndex) => (
+                                                        {service.features.slice(0, 4).map((feature, featureIndex) => (
                                                             <li key={featureIndex} className="text-base text-[#1e3767] flex items-start">
                                                                 <span className="w-2 h-2 bg-[#d97539] rounded-full mr-3 flex-shrink-0 mt-2"></span>
+                                                                <span>{feature}</span>
                                                             </li>
                                                         ))}
                                                     </ul>
