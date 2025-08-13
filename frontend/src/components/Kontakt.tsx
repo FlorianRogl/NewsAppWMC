@@ -29,7 +29,6 @@ const Kontakt = () => {
     return (
         <>
             <Helmet>
-                <Helmet>
                     <script type="application/ld+json">
                         {JSON.stringify({
                             "@context": "https://schema.org",
@@ -56,7 +55,6 @@ const Kontakt = () => {
                             }
                         })}
                     </script>
-                </Helmet>
                 <title>Kontakt | PROMAX Project Management</title>
                 <meta name="description" content="Kontaktieren Sie uns für Projektanfragen, Beratung oder allgemeine Anfragen. Wir freuen uns auf Ihre Nachricht."/>
                 <link rel="canonical" href="https://www.promax.at/Kontakt"/>
