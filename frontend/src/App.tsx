@@ -11,15 +11,15 @@ import FitImJob from "./components/FitImJob.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import Kontakt2 from "./components/Kontakt2.tsx";
 import Kontakt3 from "./components/Kontakt3.tsx";
-import Navbar2 from "./components/Navbar2.tsx";
 import {HelmetProvider} from "@vuer-ai/react-helmet-async";
 import Error404 from "./components/Error404.tsx";
+import Navbar from "./components/Navbar.tsx";
 
 function App() {
     return (
         <HelmetProvider>
         <div>
-            <Navbar2/>
+            <Navbar/>
             <ScrollToTop/>
             <Routes>
                 <Route path="/" element={<Homepage/>} />
