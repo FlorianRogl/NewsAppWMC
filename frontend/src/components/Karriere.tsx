@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { MapPin, Clock, Users, ArrowRight, Calendar, Send, Upload, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { MapPin, Clock, Users, ArrowRight, Calendar, ChevronLeft, ChevronRight, Sparkles, Mail } from 'lucide-react';
 import planungImage from '../assets/Fotolia Planung M.jpg';
 
-// Interface für Job und Formular
+// Interface für Job
 interface Job {
     id: number;
     title: string;
@@ -16,16 +16,6 @@ interface Job {
     responsibilities: string[];
     requirements: string[];
     benefits: string[];
-}
-
-interface ApplicationForm {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    position: string;
-    message: string;
-    cv: File | null;
 }
 
 // Mock Job Data
@@ -206,16 +196,6 @@ const getDepartmentColor = (department: string): string => {
 const Karriere = () => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-    const [formData, setFormData] = useState<ApplicationForm>({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        position: '',
-        message: '',
-        cv: null
-    });
-    const [showForm, setShowForm] = useState<boolean>(false);
     const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
     // Refs
@@ -229,7 +209,6 @@ const Karriere = () => {
     };
 
     // SEO Meta Tags setzen
-    // Intersection Observer für Scroll-Animationen
     useEffect(() => {
         // Title setzen
         document.title = 'Karriere bei PROMAX - Jobs im Industrieanlagenbau in Graz';
@@ -275,6 +254,8 @@ const Karriere = () => {
         canonical.href = 'https://www.promax.at/karriere';
 
     }, []);
+
+    // Intersection Observer für Scroll-Animationen
     useEffect(() => {
         const observerOptions = {
             threshold: 0.1,
@@ -400,52 +381,6 @@ const Karriere = () => {
         document.body.style.overflow = 'unset';
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setFormData(prev => ({
-                ...prev,
-                cv: e.target.files![0]
-            }));
-        }
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log('Form submitted:', formData);
-        alert('Vielen Dank für Ihre Bewerbung! Wir melden uns bald bei Ihnen.');
-        setShowForm(false);
-        document.body.style.overflow = 'unset';
-        setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            position: '',
-            message: '',
-            cv: null
-        });
-    };
-
-    const openApplicationForm = (position?: string) => {
-        setSelectedJob(null);
-        setShowForm(true);
-        document.body.style.overflow = 'hidden';
-        if (position) {
-            setFormData(prev => ({
-                ...prev,
-                position
-            }));
-        }
-    };
-
     return (
         <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767' }}>
             {/* Hero Section */}
@@ -510,8 +445,8 @@ const Karriere = () => {
                             </div>
                         </div>
 
-                        {/* Image */}
-                        <div className="relative">
+                        {/* Image - Hidden on mobile */}
+                        <div className="relative hidden lg:block">
                             <div className="w-full h-96 lg:h-[500px] rounded-2xl shadow-2xl overflow-hidden">
                                 <img
                                     src={planungImage}
@@ -807,32 +742,42 @@ const Karriere = () => {
             >
                 <div className={`text-center transition-all duration-1000 ${visibleSections.has('cta') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h3 className="text-3xl font-bold mb-4" style={{ color: '#1e3767' }}>
-                        Keine passende Stelle gefunden?
+                        Bewerbungen und Kontakt
                     </h3>
                     <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: '#1e3767' }}>
-                        Wir sind immer auf der Suche nach talentierten Menschen.
-                        Senden Sie uns Ihre Initiativbewerbung!
+                        Interessiert? Senden Sie Ihre vollständigen Bewerbungsunterlagen
+                        per E-Mail an unser HR-Team.
                     </p>
-                    <button
-                        className="inline-flex items-center gap-2 px-8 py-4 rounded-lg text-white font-medium transition-colors hover:opacity-90"
-                        style={{ backgroundColor: '#1e3767' }}
-                        onClick={() => openApplicationForm('Initiativbewerbung')}
-                    >
-                        <span>Initiativbewerbung senden</span>
-                        <ArrowRight size={16} />
-                    </button>
+                    <div className="bg-white border rounded-xl p-8 max-w-md mx-auto" style={{ borderColor: '#d1d8dc' }}>
+                        <div className="flex items-center justify-center mb-4">
+                            <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#1e3767' }}>
+                                <Mail size={24} color="white" />
+                            </div>
+                        </div>
+                        <h4 className="text-xl font-bold mb-2" style={{ color: '#1e3767' }}>E-Mail Bewerbung</h4>
+                        <a
+                            href="mailto:karriere@promax.at"
+                            className="text-lg font-medium hover:underline"
+                            style={{ color: '#d97539' }}
+                        >
+                            karriere@promax.at
+                        </a>
+                        <p className="text-sm mt-4" style={{ color: '#1e3767' }}>
+                            Bitte fügen Sie Lebenslauf, Anschreiben und relevante Zeugnisse bei.
+                        </p>
+                    </div>
                 </div>
             </section>
 
             {/* Job Details Modal */}
             {selectedJob && (
-                <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ paddingTop: '80px' }}>
                     <div
                         className="absolute inset-0 bg-black bg-opacity-75 backdrop-blur-sm"
                         onClick={closeModal}
                     ></div>
 
-                    <div className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[calc(100vh-40px)] overflow-y-auto">
+                    <div className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[calc(100vh-160px)] overflow-y-auto">
                         <button
                             className="absolute top-4 right-4 z-10 w-10 h-10 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center transition-colors shadow-md border"
                             style={{ borderColor: '#d1d8dc' }}
@@ -926,208 +871,21 @@ const Karriere = () => {
                             </div>
 
                             <div className="text-center pt-8 border-t" style={{ borderColor: '#d1d8dc' }}>
-                                <button
-                                    className="inline-flex items-center gap-2 px-8 py-4 rounded-lg text-white font-medium transition-colors hover:opacity-90"
-                                    style={{ backgroundColor: '#1e3767' }}
-                                    onClick={() => openApplicationForm(selectedJob.title)}
-                                >
-                                    <span>Jetzt bewerben</span>
-                                    <ArrowRight size={16} />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Application Form Modal */}
-            {showForm && (
-                <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4">
-                    <div
-                        className="absolute inset-0 bg-black bg-opacity-75 backdrop-blur-sm"
-                        onClick={() => {
-                            setShowForm(false);
-                            document.body.style.overflow = 'unset';
-                        }}
-                    ></div>
-
-                    <div className="relative bg-white rounded-2xl max-w-2xl w-full max-h-[calc(100vh-40px)] overflow-y-auto">
-                        <button
-                            className="absolute top-4 right-4 z-10 w-10 h-10 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center transition-colors shadow-md border"
-                            style={{ borderColor: '#d1d8dc' }}
-                            onClick={() => {
-                                setShowForm(false);
-                                document.body.style.overflow = 'unset';
-                            }}
-                        >
-                            <span className="text-xl" style={{ color: '#1e3767' }}>×</span>
-                        </button>
-
-                        <div className="p-8">
-                            <h2 className="text-3xl font-bold mb-2" style={{ color: '#1e3767' }}>Bewerbungsformular</h2>
-                            <p className="text-lg mb-8" style={{ color: '#1e3767' }}>
-                                Wir freuen uns auf Ihre Bewerbung! Bitte füllen Sie das folgende Formular aus.
-                            </p>
-
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label htmlFor="firstName" className="block text-sm font-medium mb-2" style={{ color: '#1e3767' }}>
-                                            Vorname *
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="firstName"
-                                            name="firstName"
-                                            value={formData.firstName}
-                                            onChange={handleInputChange}
-                                            required
-                                            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                                            style={{
-                                                borderColor: '#d1d8dc'
-                                            }}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="lastName" className="block text-sm font-medium mb-2" style={{ color: '#1e3767' }}>
-                                            Nachname *
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="lastName"
-                                            name="lastName"
-                                            value={formData.lastName}
-                                            onChange={handleInputChange}
-                                            required
-                                            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                                            style={{
-                                                borderColor: '#d1d8dc'
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: '#1e3767' }}>
-                                            E-Mail *
-                                        </label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleInputChange}
-                                            required
-                                            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                                            style={{
-                                                borderColor: '#d1d8dc'
-                                            }}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="phone" className="block text-sm font-medium mb-2" style={{ color: '#1e3767' }}>
-                                            Telefon
-                                        </label>
-                                        <input
-                                            type="tel"
-                                            id="phone"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                                            style={{
-                                                borderColor: '#d1d8dc'
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label htmlFor="position" className="block text-sm font-medium mb-2" style={{ color: '#1e3767' }}>
-                                        Position
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="position"
-                                        name="position"
-                                        value={formData.position}
-                                        onChange={handleInputChange}
-                                        placeholder="z.B. Initiativbewerbung oder gewünschte Position"
-                                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                                        style={{
-                                            borderColor: '#d1d8dc'
-                                        }}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: '#1e3767' }}>
-                                        Nachricht
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        value={formData.message}
-                                        onChange={handleInputChange}
-                                        rows={5}
-                                        placeholder="Erzählen Sie uns mehr über sich..."
-                                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                                        style={{
-                                            borderColor: '#d1d8dc'
-                                        }}
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor="cv" className="block text-sm font-medium mb-2" style={{ color: '#1e3767' }}>
-                                        Lebenslauf (PDF, max. 5MB)
-                                    </label>
-                                    <div className="relative">
-                                        <input
-                                            type="file"
-                                            id="cv"
-                                            name="cv"
-                                            onChange={handleFileChange}
-                                            accept=".pdf"
-                                            className="hidden"
-                                        />
-                                        <label
-                                            htmlFor="cv"
-                                            className="flex items-center gap-2 w-full px-4 py-3 border rounded-lg cursor-pointer transition-colors hover:bg-gray-50"
-                                            style={{ borderColor: '#d1d8dc', color: '#1e3767' }}
-                                        >
-                                            <Upload size={20} />
-                                            <span>{formData.cv ? formData.cv.name : 'Datei auswählen'}</span>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-4 pt-6">
-                                    <button
-                                        type="button"
-                                        className="flex-1 py-3 px-6 border rounded-lg font-medium transition-colors"
-                                        style={{
-                                            borderColor: '#d1d8dc',
-                                            color: '#1e3767'
-                                        }}
-                                        onClick={() => {
-                                            setShowForm(false);
-                                            document.body.style.overflow = 'unset';
-                                        }}
-                                    >
-                                        Abbrechen
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg text-white font-medium transition-colors hover:opacity-90"
+                                <div className="bg-gray-50 rounded-xl p-6">
+                                    <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Jetzt bewerben</h4>
+                                    <p className="text-sm mb-4" style={{ color: '#1e3767' }}>
+                                        Senden Sie Ihre Bewerbungsunterlagen an:
+                                    </p>
+                                    <a
+                                        href={`mailto:karriere@promax.at?subject=Bewerbung: ${selectedJob.title}`}
+                                        className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-medium transition-colors hover:opacity-90"
                                         style={{ backgroundColor: '#1e3767' }}
                                     >
-                                        <Send size={16} />
-                                        <span>Bewerbung senden</span>
-                                    </button>
+                                        <Mail size={16} />
+                                        <span>karriere@promax.at</span>
+                                    </a>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
