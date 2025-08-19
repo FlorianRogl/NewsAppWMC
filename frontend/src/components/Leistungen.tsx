@@ -132,6 +132,10 @@ const NewLeistungen: React.FC = () => {
         }
     ];
 
+    // Split services into main services (1-2) and popup services (3-4)
+    const mainServices = services.slice(0, 2);
+    const popupServices = services.slice(2, 4);
+
     return (
         <>
             <div className="min-h-screen bg-white">
@@ -313,7 +317,7 @@ const NewLeistungen: React.FC = () => {
                                 <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
                                     Mit über 20 Jahren Erfahrung in der Industrieplanung entwickeln wir
                                     maßgeschneiderte Lösungen für komplexe technische Herausforderungen.
-                                    Von der ersten Idee bis zur erfolgreichen Umsetzung — wir begleiten
+                                    Von der ersten Idee bis zur erfolgreichen Umsetzung – wir begleiten
                                     Sie durch alle Projektphasen mit bewährten Methoden und innovativen Ansätzen.
                                 </p>
                             </div>
@@ -321,7 +325,7 @@ const NewLeistungen: React.FC = () => {
                     </div>
                 </section>
 
-                {/* Detailed Services */}
+                {/* Main Services - Only showing services 1 and 2 */}
                 <section className="py-16 bg-[#d1d8dc]/30">
                     <div className="max-w-7xl mx-auto px-8">
                         <div className="text-center mb-16">
@@ -333,10 +337,10 @@ const NewLeistungen: React.FC = () => {
                         </div>
 
                         <div className="space-y-16">
-                            {services.map((service, index) => (
+                            {mainServices.map((service, index) => (
                                 <div
                                     key={service.id}
-                                    className={`${index < services.length - 1 ? 'border-b border-[#9ba8b3] pb-12' : ''} cursor-pointer group`}
+                                    className={`${index < mainServices.length - 1 ? 'border-b border-[#9ba8b3] pb-12' : ''} cursor-pointer group`}
                                     data-section={`service-${service.id}`}
                                     onClick={(e) => { e.stopPropagation(); setSelectedService(service); }}
                                 >
@@ -412,9 +416,108 @@ const NewLeistungen: React.FC = () => {
                         </div>
                     </div>
                 </section>
+
+                {/* Additional Services as Popup Buttons */}
+                <section className="py-20 bg-gray-50">
+                    <div className="max-w-7xl mx-auto px-8">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl sm:text-4xl font-light text-gray-900 mb-4">
+                                Weitere{' '}
+                                <span className="text-[#1e3767] font-semibold">Leistungen</span>
+                            </h2>
+                            <div className="w-20 h-1 bg-[#d97539] mx-auto mb-6"></div>
+                            <p className="text-lg text-gray-600">
+                                Entdecken Sie unsere zusätzlichen Spezialdienste
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                            {popupServices.map((service, index) => (
+                                <div
+                                    key={service.id}
+                                    className={`relative overflow-hidden rounded-2xl cursor-pointer group transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
+                                        index === 0
+                                            ? 'bg-[#1e3767]/10 border-2 border-[#1e3767]/20 hover:bg-[#1e3767]/15 hover:border-[#1e3767]/30'
+                                            : 'bg-[#d97539]/10 border-2 border-[#d97539]/20 hover:bg-[#d97539]/15 hover:border-[#d97539]/30'
+                                    }`}
+                                    onClick={() => setSelectedService(service)}
+                                >
+                                    {/* Background Pattern */}
+                                    <div className="absolute inset-0 opacity-5">
+                                        <div className={`w-full h-full ${
+                                            index === 0 ? 'bg-[#1e3767]' : 'bg-[#d97539]'
+                                        }`}></div>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="relative p-10">
+                                        <div className="flex items-start gap-6 mb-6">
+                                            <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold transition-all duration-300 ${
+                                                index === 0
+                                                    ? 'bg-[#1e3767]/20 text-[#1e3767] group-hover:bg-[#1e3767] group-hover:text-white group-hover:scale-110'
+                                                    : 'bg-[#d97539]/20 text-[#d97539] group-hover:bg-[#d97539] group-hover:text-white group-hover:scale-110'
+                                            }`}>
+                                                {service.number}
+                                            </div>
+                                            <div className="flex-1">
+                                                <h3 className={`text-2xl font-bold mb-3 transition-colors duration-300 ${
+                                                    index === 0
+                                                        ? 'text-[#1e3767] group-hover:text-[#1e3767]'
+                                                        : 'text-[#d97539] group-hover:text-[#d97539]'
+                                                }`}>
+                                                    {service.title}
+                                                </h3>
+                                                <p className="text-xl text-gray-700 font-medium leading-relaxed">
+                                                    {service.subtitle}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <p className="text-gray-600 leading-relaxed text-lg mb-8 line-clamp-4">
+                                            {service.description}
+                                        </p>
+
+                                        {/* Features Preview */}
+                                        <div className="mb-8">
+                                            <ul className="space-y-3">
+                                                {service.features.slice(0, 2).map((feature, featureIndex) => (
+                                                    <li key={featureIndex} className="flex items-start">
+                                                        <span className={`w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-3 ${
+                                                            index === 0 ? 'bg-[#1e3767]' : 'bg-[#d97539]'
+                                                        }`}></span>
+                                                        <span className="text-gray-700 leading-relaxed">{feature.split(' ').slice(0, 8).join(' ')}...</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        {/* Call to Action */}
+                                        <div className="flex items-center justify-between">
+                                            <span className={`inline-flex items-center font-semibold text-lg transition-all duration-300 ${
+                                                index === 0
+                                                    ? 'text-[#1e3767] group-hover:text-[#1e3767]'
+                                                    : 'text-[#d97539] group-hover:text-[#d97539]'
+                                            }`}>
+                                                Alle Details anzeigen
+                                                <svg className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                                </svg>
+                                            </span>
+                                        </div>
+
+                                        {/* Hover Indicator */}
+                                        <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 ${
+                                            index === 0 ? 'bg-[#1e3767]' : 'bg-[#d97539]'
+                                        }`}></div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
             </div>
         </>
     );
-}; 
+};
 
 export default NewLeistungen;
