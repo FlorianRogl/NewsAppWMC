@@ -81,88 +81,56 @@ const NewLeistungen: React.FC = () => {
             icon: "project",
             technologies: ["MS Project", "Primavera P6", "SAP PS", "Contract Management Systeme", "Progress Tracking Tools", "WBS-Systeme", "Claims Tracking Tools", "Digitale Dokumentationssysteme"],
             standards: ["PMI", "IPMA", "PRINCE2", "ISO 21500", "ISO 9001:2015", "FIDIC", "VOB", "ÖNORM", "Critical Path Method", "Earned Value Management"]
+        },
+        {
+            id: 3,
+            number: "03",
+            title: "Site Services & Vor-Ort-Betreuung",
+            subtitle: "Professionelle Montageüberwachung und Inbetriebnahmebegleitung",
+            description: "Umfassende Vor-Ort-Betreuung während der gesamten Bauphase bis zur erfolgreichen Inbetriebnahme von Industrieanlagen.",
+            detailedDescription: "PROMAX Site Services Experten begleiten jeden Schritt der Projektrealisierung vor Ort in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Von der professionellen Montageüberwachung über kontinuierliche Qualitätskontrolle bis zur finalen Inbetriebnahme gewährleisten wir höchste Qualität und termingerechte Fertigstellung. Unser erfahrenes Team koordiniert alle Gewerke und stellt sicher, dass Ihre Anlage funktionsfähig und optimal eingestellt übergeben wird. Mit über 25 Jahren Erfahrung seit 1999 und internationaler Projektexpertise sorgen wir für reibungslose Abläufe auf der Baustelle. Durch systematische Qualitätskontrolle nach internationalen Standards und professionelles Sicherheitsmanagement nach SCC-Standards minimieren wir Risiken und gewährleisten termingerechte, budgetkonforme Fertigstellung.",
+            image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&auto=format",
+            features: [
+                "Professionelle Montageüberwachung und kontinuierliche Qualitätskontrolle nach internationalen Standards",
+                "Systematische Inbetriebnahmebegleitung und umfassendes Commissioning von Industrieanlagen",
+                "Koordination aller Gewerke und professionelles Sicherheitsmanagement nach SCC-Standards",
+                "Performance-Tests, Anlagenoptimierung und systematische Leistungsvalidierung"
+            ],
+            highlights: [
+                "Vor-Ort-Expertise mit erfahrener Bauleitung und über 25 Jahren Branchenerfahrung",
+                "Qualitätskontrolle nach internationalen Standards mit systematischer Dokumentation",
+                "Termingerechte und budgetkonforme Fertigstellung durch professionelle Projektkoordination",
+                "Sicherheitsmanagement nach SCC-Standards für maximalen Arbeitsschutz"
+            ],
+            icon: "project",
+            technologies: ["Digitale Dokumentationssysteme", "Mobile Erfassungsgeräte", "3D-Scanning", "Qualitätsmanagementsysteme", "Baustellenmanagement-Software"],
+            standards: ["SCC", "ISO 45001", "OHSAS 18001", "CE-Kennzeichnung", "ISO 9001:2015", "VDI-Richtlinien"]
+        },
+        {
+            id: 4,
+            number: "04",
+            title: "Organisationsberatung",
+            subtitle: "Spezialisierte Beratung für komplexe Themenbereiche",
+            description: "Unterschiedliche Projekte in verschiedenen Branchen werfen spezielle Fragestellungen auf, die das Tagesgeschäft übersteigen.",
+            detailedDescription: "Komplexe Themenbereiche, die das Tagesgeschäft übersteigen, bedürfen spezieller Expertise. PROMAX Organisationsberatung entwickelt maßgeschneiderte Präventionsmaßnahmen und Claims Management Systeme für Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Wir unterstützen bei strategischen Entscheidungen, der Optimierung von Projektabläufen und der Implementierung bewährter Verfahren aus unserer über 25-jährigen Praxis im Industrieanlagenbau. Mit Fokus auf nachhaltige und wirtschaftliche Lösungsansätze bieten unsere interdisziplinären Beratungsteams technisch-kaufmännische Kompetenz für komplexe Herausforderungen. Unser Leistungsspektrum umfasst Contract & Claims Management für rechtssichere Vertragsabwicklung sowie systematische Projektverfolgung mit Time Scheduling und Progress Control.",
+            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format",
+            features: [
+                "Entwicklung maßgeschneiderter Präventionsmaßnahmen für komplexe Industrieanlagenprojekte",
+                "Aufbau und Implementierung professioneller Claims Management Systeme",
+                "Strukturierte Lessons Learned-Workshops und systematische Projektanalysen",
+                "Strategische Prozessoptimierung und umfassende Organisationsentwicklung"
+            ],
+            highlights: [
+                "Spezialisierte Beratung über das Tagesgeschäft hinaus mit technisch-kaufmännischer Kompetenz",
+                "Bewährte Lösungsansätze aus über 1000 erfolgreich abgewickelten Industrieanlagenprojekten",
+                "Branchenübergreifende Expertise in Papier, Zellstoff, Pharma, Chemie und Energietechnik",
+                "Nachhaltige und wirtschaftliche Lösungsansätze für komplexe Herausforderungen"
+            ],
+            icon: "consulting",
+            technologies: ["Digitale Analyse-Tools", "Workflow-Management-Systeme", "Contract Management Systeme", "Claims Tracking Tools", "Primavera P6"],
+            standards: ["ISO 9001:2015", "ISO 14001", "ISO 45001", "FIDIC", "VOB", "ÖNORM", "PMI", "IPMA"]
         }
     ];
-
-    // Separate Pop-up Services für Cards
-    const handleCardSelect = (cardType: 'siteServices' | 'consulting') => {
-        const cardServices = {
-            siteServices: {
-                id: 3,
-                number: "03",
-                title: "Site Services & Vor-Ort-Betreuung",
-                subtitle: "Professionelle Montageüberwachung und Inbetriebnahmebegleitung",
-                description: "Umfassende Vor-Ort-Betreuung während der gesamten Bauphase bis zur erfolgreichen Inbetriebnahme von Industrieanlagen.",
-                detailedDescription: "PROMAX Site Services Experten begleiten jeden Schritt der Projektrealisierung vor Ort in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Von der professionellen Montageüberwachung über kontinuierliche Qualitätskontrolle bis zur finalen Inbetriebnahme gewährleisten wir höchste Qualität und termingerechte Fertigstellung. Unser erfahrenes Team koordiniert alle Gewerke und stellt sicher, dass Ihre Anlage funktionsfähig und optimal eingestellt übergeben wird. Mit über 25 Jahren Erfahrung seit 1999 und internationaler Projektexpertise sorgen wir für reibungslose Abläufe auf der Baustelle. Durch systematische Qualitätskontrolle nach internationalen Standards und professionelles Sicherheitsmanagement nach SCC-Standards minimieren wir Risiken und gewährleisten termingerechte, budgetkonforme Fertigstellung.",
-                image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&auto=format",
-                features: [
-                    "Professionelle Montageüberwachung und kontinuierliche Qualitätskontrolle nach internationalen Standards",
-                    "Systematische Inbetriebnahmebegleitung und umfassendes Commissioning von Industrieanlagen",
-                    "Koordination aller Gewerke und professionelles Sicherheitsmanagement nach SCC-Standards",
-                    "Performance-Tests, Anlagenoptimierung und systematische Leistungsvalidierung",
-                    "Umfassende Mitarbeiterschulung und strukturierter Know-how-Transfer an Betreiber",
-                    "Erstellung detaillierter As-Built-Dokumentationen und technischer Betriebshandbücher",
-                    "Garantie- und Gewährleistungsmanagement mit langfristiger Betreuung",
-                    "Digitale Baustellendokumentation mit modernsten mobilen Erfassungsgeräten",
-                    "Interdisziplinäre Koordination aller Projektbeteiligten und Fachplaner vor Ort",
-                    "24/7 Vor-Ort-Betreuung bei kritischen Projektphasen und Inbetriebnahmeprozessen"
-                ],
-                highlights: [
-                    "Vor-Ort-Expertise mit erfahrener Bauleitung und über 25 Jahren Branchenerfahrung",
-                    "Qualitätskontrolle nach internationalen Standards mit systematischer Dokumentation",
-                    "Termingerechte und budgetkonforme Fertigstellung durch professionelle Projektkoordination",
-                    "Sicherheitsmanagement nach SCC-Standards für maximalen Arbeitsschutz",
-                    "Nahtlose funktionsfähige Übergabe an den Betreiber mit umfassender Einweisung",
-                    "Digitale Baustellendokumentation für transparente und nachvollziehbare Abläufe",
-                    "Interdisziplinäre Projektteams mit spezialisierter Branchenerfahrung",
-                    "Systematische Optimierung der Anlagenperformance durch Verfahrenstechnik-Expertise",
-                    "Umfassende As-Built-Dokumentation für optimalen Betrieb und Wartung",
-                    "Langfristige Betreuung über die Inbetriebnahme hinaus mit Garantiemanagement"
-                ],
-                icon: "project",
-                technologies: ["Digitale Dokumentationssysteme", "Mobile Erfassungsgeräte", "3D-Scanning", "Qualitätsmanagementsysteme", "Baustellenmanagement-Software"],
-                standards: ["SCC", "ISO 45001", "OHSAS 18001", "CE-Kennzeichnung", "ISO 9001:2015", "VDI-Richtlinien"]
-            },
-            consulting: {
-                id: 4,
-                number: "04",
-                title: "Organisationsberatung",
-                subtitle: "Spezialisierte Beratung für komplexe Themenbereiche",
-                description: "Unterschiedliche Projekte in verschiedenen Branchen werfen spezielle Fragestellungen auf, die das Tagesgeschäft übersteigen.",
-                detailedDescription: "Komplexe Themenbereiche, die das Tagesgeschäft übersteigen, bedürfen spezieller Expertise. PROMAX Organisationsberatung entwickelt maßgeschneiderte Präventionsmaßnahmen und Claims Management Systeme für Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Wir unterstützen bei strategischen Entscheidungen, der Optimierung von Projektabläufen und der Implementierung bewährter Verfahren aus unserer über 25-jährigen Praxis im Industrieanlagenbau. Mit Fokus auf nachhaltige und wirtschaftliche Lösungsansätze bieten unsere interdisziplinären Beratungsteams technisch-kaufmännische Kompetenz für komplexe Herausforderungen. Unser Leistungsspektrum umfasst Contract & Claims Management für rechtssichere Vertragsabwicklung sowie systematische Projektverfolgung mit Time Scheduling und Progress Control.",
-                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format",
-                features: [
-                    "Entwicklung maßgeschneiderter Präventionsmaßnahmen für komplexe Industrieanlagenprojekte",
-                    "Aufbau und Implementierung professioneller Claims Management Systeme",
-                    "Strukturierte Lessons Learned-Workshops und systematische Projektanalysen",
-                    "Strategische Prozessoptimierung und umfassende Organisationsentwicklung",
-                    "Change Management bei komplexen Transformationsprojekten und Restrukturierungen",
-                    "Compliance Management und Regulatory Affairs für internationale Projektabwicklung",
-                    "Umfassendes Risikomanagement und proaktive Krisenprävention",
-                    "Contract & Claims Management für rechtssichere Vertragsgestaltung und -abwicklung",
-                    "Projektverfolgung mit systematischem Time Scheduling und Progress Control",
-                    "Vertragsanalyse und Erstellung von detaillierten Projekt-Strukturplänen"
-                ],
-                highlights: [
-                    "Spezialisierte Beratung über das Tagesgeschäft hinaus mit technisch-kaufmännischer Kompetenz",
-                    "Bewährte Lösungsansätze aus über 1000 erfolgreich abgewickelten Industrieanlagenprojekten",
-                    "Branchenübergreifende Expertise in Papier, Zellstoff, Pharma, Chemie und Energietechnik",
-                    "Nachhaltige und wirtschaftliche Lösungsansätze für komplexe Herausforderungen",
-                    "Individuelle Anpassung der Beratungsleistungen an Ihre spezifische Organisation",
-                    "Umfassende Erfahrung aus über 25 Jahren intensiver Projektpraxis seit 1999",
-                    "Interdisziplinäre Beratungsteams mit fundierter technisch-kaufmännischer Kompetenz",
-                    "Langfristige Partnerschaft und kontinuierliche Betreuung über Projektgrenzen hinaus",
-                    "Proaktive Vertragsgestaltung und -umsetzung über sämtliche Projektphasen",
-                    "Rechtzeitige Erkennung von Claimpotentialen und Vermeidung von Konventionalstrafen"
-                ],
-                icon: "consulting",
-                technologies: ["Digitale Analyse-Tools", "Workflow-Management-Systeme", "Contract Management Systeme", "Claims Tracking Tools", "Primavera P6"],
-                standards: ["ISO 9001:2015", "ISO 14001", "ISO 45001", "FIDIC", "VOB", "ÖNORM", "PMI", "IPMA"]
-            }
-        };
-
-        setSelectedService(cardServices[cardType]);
-    };
 
     return (
         <>
@@ -295,9 +263,12 @@ const NewLeistungen: React.FC = () => {
                 {/* Header Section */}
                 <div className="bg-[#1e3767] text-white py-16">
                     <div className="max-w-6xl mx-auto px-6">
-                        <h1 className="text-5xl font-light mb-4 tracking-wide">LEISTUNGEN</h1>
-                        <div className="w-24 h-0.5 bg-white mb-8"></div>
-                        <p className="text-2xl font-light text-[#d1d8dc] max-w-3xl leading-relaxed">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-white mb-4 sm:mb-6">
+                            Engineering Excellence.
+                            <span className="block font-semibold text-[#d97539] mt-1 sm:mt-2">Leistungen.</span>
+                        </h1>
+                        <div className="w-20 h-1 bg-[#d97539] mb-6 sm:mb-8"></div>
+                        <p className="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl leading-relaxed">
                             Von der ersten Projektidee bis zur erfolgreichen Inbetriebnahme - umfassende Lösungen für komplexe Industrieanlagenprojekte.
                         </p>
                     </div>
@@ -315,8 +286,13 @@ const NewLeistungen: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                         <div className="text-center text-white max-w-4xl px-6">
-                            <h2 className="text-4xl font-light mb-4">Expertise und Innovation für Ihre Industrieprojekte</h2>
-                            <p className="text-lg opacity-90">Spezialisierte Planungsleistungen und Projektmanagement mit über 20 Jahren Erfahrung</p>
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-4">
+                                Expertise und Innovation für Ihre{' '}
+                                <span className="text-[#d97539] font-semibold">Industrieprojekte</span>
+                            </h2>
+                            <p className="text-lg sm:text-xl text-gray-200">
+                                Spezialisierte Planungsleistungen und Projektmanagement mit über 20 Jahren Erfahrung
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -330,13 +306,14 @@ const NewLeistungen: React.FC = () => {
                         }`}
                              data-section="services">
                             <div className="max-w-4xl mx-auto text-center">
-                                <h2 className="text-5xl font-semibold text-[#1e3767] mb-6 leading-tight tracking-normal">
-                                    Wir sind Ihr Partner für <span className="text-[#d97539]">technische Exzellenz</span>
+                                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6">
+                                    Wir sind Ihr Partner für{' '}
+                                    <span className="text-[#1e3767] font-semibold">technische Exzellenz</span>
                                 </h2>
-                                <p className="text-xl text-[#1e3767] leading-relaxed">
+                                <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
                                     Mit über 20 Jahren Erfahrung in der Industrieplanung entwickeln wir
                                     maßgeschneiderte Lösungen für komplexe technische Herausforderungen.
-                                    Von der ersten Idee bis zur erfolgreichen Umsetzung – wir begleiten
+                                    Von der ersten Idee bis zur erfolgreichen Umsetzung — wir begleiten
                                     Sie durch alle Projektphasen mit bewährten Methoden und innovativen Ansätzen.
                                 </p>
                             </div>
@@ -348,17 +325,18 @@ const NewLeistungen: React.FC = () => {
                 <section className="py-16 bg-[#d1d8dc]/30">
                     <div className="max-w-7xl mx-auto px-8">
                         <div className="text-center mb-16">
-                            <h2 className="text-5xl font-black text-[#1e3767] mb-4 tracking-tight">
-                                Unsere <span className="text-[#d97539]">Kernkompetenzen</span>
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
+                                Unsere{' '}
+                                <span className="text-[#1e3767] font-semibold">Kernkompetenzen</span>
                             </h2>
-                            <div className="w-24 h-1 bg-[#d97539] mx-auto"></div>
+                            <div className="w-20 h-1 bg-[#d97539] mx-auto"></div>
                         </div>
 
-                        <div className="space-y-20">
+                        <div className="space-y-16">
                             {services.map((service, index) => (
                                 <div
                                     key={service.id}
-                                    className="border-b border-[#9ba8b3] pb-16 last:border-b-0 cursor-pointer group"
+                                    className={`${index < services.length - 1 ? 'border-b border-[#9ba8b3] pb-12' : ''} cursor-pointer group`}
                                     data-section={`service-${service.id}`}
                                     onClick={(e) => { e.stopPropagation(); setSelectedService(service); }}
                                 >
@@ -368,33 +346,33 @@ const NewLeistungen: React.FC = () => {
                                             isVisible[`service-${service.id}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                                         }`}>
                                             <div className="flex items-start gap-6 mb-6">
-                                                <span className="text-5xl font-light text-[#d1d8dc] group-hover:text-[#d97539] transition-colors">
+                                                <span className="text-4xl sm:text-5xl font-light text-[#d1d8dc] group-hover:text-[#d97539] transition-colors">
                                                     {service.number}
                                                 </span>
                                                 <div>
-                                                    <h3 className="text-3xl font-bold text-[#1e3767] mb-2 group-hover:text-[#d97539] transition-colors">
+                                                    <h3 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2 group-hover:text-[#1e3767] transition-colors">
                                                         {service.title}
                                                     </h3>
                                                     <div className="w-16 h-1 bg-[#d97539] mb-3 group-hover:w-[70px] transition-all duration-300"></div>
-                                                    <p className="text-xl text-[#1e3767] mb-4 font-semibold">
+                                                    <p className="text-lg sm:text-xl text-gray-700 mb-4 font-medium">
                                                         {service.subtitle}
                                                     </p>
                                                 </div>
                                             </div>
 
-                                            <p className="text-[#1e3767] leading-relaxed mb-6 text-lg">
+                                            <p className="text-gray-600 leading-relaxed mb-6 text-base sm:text-lg">
                                                 {service.detailedDescription}
                                             </p>
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 {/* Kernleistungen */}
                                                 <div>
-                                                    <h4 className="text-base font-semibold text-[#1e3767] mb-3 uppercase tracking-wider">
+                                                    <h4 className="text-base font-semibold text-gray-900 mb-3 uppercase tracking-wider">
                                                         Kernleistungen
                                                     </h4>
                                                     <ul className="space-y-2">
                                                         {service.features.slice(0, 4).map((feature, featureIndex) => (
-                                                            <li key={featureIndex} className="text-base text-[#1e3767] flex items-start">
+                                                            <li key={featureIndex} className="text-base text-gray-600 flex items-start">
                                                                 <span className="w-2 h-2 bg-[#d97539] rounded-full mr-3 flex-shrink-0 mt-2"></span>
                                                                 <span>{feature}</span>
                                                             </li>
@@ -431,97 +409,6 @@ const NewLeistungen: React.FC = () => {
                                     </div>
                                 </div>
                             ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Large Service Cards */}
-                <section className="py-20 bg-gradient-to-br from-[#d1d8dc]/30 to-[#d1d8dc]/50">
-                    <div className="max-w-7xl mx-auto px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-5xl font-black text-[#1e3767] mb-4 tracking-tight">
-                                Weitere <span className="text-[#d97539]">Speziallösungen</span>
-                            </h2>
-                            <div className="w-24 h-1 bg-[#d97539] mx-auto mb-6"></div>
-                            <p className="text-xl text-[#1e3767] max-w-3xl mx-auto leading-relaxed">
-                                Erweiterte Dienstleistungen für komplexe Anforderungen in der Projektabwicklung
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                            {/* Site Services - Large Card */}
-                            <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 hover:-translate-y-1 cursor-pointer group h-[400px]"
-                                 onClick={() => handleCardSelect('siteServices')}>
-                                {/* Background Image */}
-                                <img
-                                    src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=400&fit=crop&auto=format"
-                                    alt="Site Services - Vor-Ort-Betreuung - PROMAX"
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                    loading="lazy"
-                                    width="800"
-                                    height="400"
-                                />
-
-                                {/* Color Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3767]/90 to-[#2d4a7a]/80"></div>
-
-                                {/* Content */}
-                                <div className="relative h-full flex flex-col justify-center items-center text-center text-white p-8">
-                                    {/* Icon */}
-                                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Site Services Icon">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                                        </svg>
-                                    </div>
-
-                                    {/* Title */}
-                                    <h3 className="text-3xl lg:text-4xl font-black leading-tight group-hover:text-[#d97539] transition-colors duration-300">
-                                        Site Services &<br />Vor-Ort-Betreuung
-                                    </h3>
-
-                                    {/* Description */}
-                                    <p className="text-lg text-white/90 mt-4 leading-relaxed">
-                                        Professionelle Montageüberwachung, Qualitätskontrolle und Inbetriebnahmebegleitung direkt vor Ort
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Organisationsberatung - Large Card */}
-                            <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 hover:-translate-y-1 cursor-pointer group h-[400px]"
-                                 onClick={() => handleCardSelect('consulting')}>
-                                {/* Background Image */}
-                                <img
-                                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop&auto=format"
-                                    alt="Organisationsberatung - PROMAX"
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                    loading="lazy"
-                                    width="800"
-                                    height="400"
-                                />
-
-                                {/* Color Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#d97539]/90 to-[#e68547]/80"></div>
-
-                                {/* Content */}
-                                <div className="relative h-full flex flex-col justify-center items-center text-center text-white p-8">
-                                    {/* Icon */}
-                                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Consulting Icon">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                    </div>
-
-                                    {/* Title */}
-                                    <h3 className="text-3xl lg:text-4xl font-black leading-tight group-hover:text-[#1e3767] transition-colors duration-300">
-                                        Organisations-<br />beratung
-                                    </h3>
-
-                                    {/* Description */}
-                                    <p className="text-lg text-white/90 mt-4 leading-relaxed">
-                                        Spezialisierte Beratung für komplexe Themenbereiche, die das Tagesgeschäft übersteigen
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </section>
