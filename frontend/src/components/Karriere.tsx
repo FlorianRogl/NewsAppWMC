@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { MapPin, Clock, Users, ArrowRight, Calendar, ChevronLeft, ChevronRight, Sparkles, Mail } from 'lucide-react';
-import planungImage from '../assets/Fotolia Planung M.jpg';
+import planungImage from '../assets/Fotolia_59046832_XS.jpg';
 
 // Interface für Job
 interface Job {

@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
+import planungImage from '../../assets/Fotolia_69729812_dfdM.jpg';
+
 
 const JobSection: React.FC = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const [isHeaderVisible, setIsHeaderVisible] = useState(false);
     const [isContentVisible, setIsContentVisible] = useState(false);
 
-    // Placeholder image
-    const planungImage = "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+
 
     useEffect(() => {
         const observer = new IntersectionObserver(
