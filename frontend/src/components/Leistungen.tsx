@@ -528,6 +528,6 @@ const NewLeistungen: React.FC = () => {
             </div>
         </>
     );
-};
+}; 
 
 export default NewLeistungen;
