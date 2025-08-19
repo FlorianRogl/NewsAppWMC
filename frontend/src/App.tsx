@@ -13,13 +13,13 @@ import Kontakt2 from "./components/Kontakt2.tsx";
 import Kontakt3 from "./components/Kontakt3.tsx";
 import {HelmetProvider} from "@vuer-ai/react-helmet-async";
 import Error404 from "./components/Error404.tsx";
-import Navbar from "./components/Navbar.tsx";
+import Navbar2 from "./components/Navbar.tsx";
 
 function App() {
     return (
         <HelmetProvider>
         <div>
-            <Navbar/>
+            <Navbar2/>
             <ScrollToTop/>
             <Routes>
                 <Route path="/" element={<Homepage/>} />
