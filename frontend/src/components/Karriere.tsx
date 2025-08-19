@@ -899,7 +899,7 @@ const Karriere = () => {
                 .scrollbar-hide::-webkit-scrollbar {
                     display: none;
                 }
-            `}</style>
+            `}</style>         
         </div>
     );
 };
