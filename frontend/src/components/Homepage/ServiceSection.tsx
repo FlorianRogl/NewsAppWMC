@@ -336,7 +336,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     mainTitle: {
         fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
-        fontWeight: '800',
+        fontWeight: '300', // Geändert von 800 zu 300 (light)
         color: '#1e3763',
         marginBottom: '1.5rem',
         lineHeight: 1.2,
@@ -351,7 +351,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
         color: '#9ba8b3',
         lineHeight: 1.7,
-        fontWeight: '400',
+        fontWeight: '300', // Geändert von 400 zu 300 (light)
         marginBottom: '3rem',
     },
 
@@ -435,7 +435,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     cardTitle: {
         fontSize: '1.5rem',
-        fontWeight: '700',
+        fontWeight: '300', // Geändert von 700 zu 300 (light)
         color: '#1e3763',
         marginBottom: '1rem',
         lineHeight: 1.3,
@@ -449,7 +449,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         color: '#9ba8b3',
         lineHeight: 1.7,
         marginBottom: '2rem',
-        fontWeight: '400',
+        fontWeight: '300', // Geändert von 400 zu 300 (light)
     },
     cardDescriptionMobile: {
         fontSize: '0.9rem',
@@ -468,7 +468,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         gap: '0.75rem',
         fontSize: '0.9rem',
         color: '#1e3763',
-        fontWeight: '500',
+        fontWeight: '400', // Geändert von 500 zu 400 (normal)
     },
     featureItemMobile: {
         fontSize: '0.85rem',
@@ -550,7 +550,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     ctaTitle: {
         fontSize: 'clamp(1.4rem, 4vw, 2.2rem)',
-        fontWeight: '700',
+        fontWeight: '300', // Geändert von 700 zu 300 (light)
         marginBottom: '1rem',
         lineHeight: 1.3,
     },
@@ -560,7 +560,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         color: 'rgba(255, 255, 255, 0.9)',
         lineHeight: 1.7,
         marginBottom: '1.5rem',
-        fontWeight: '400',
+        fontWeight: '300', // Geändert von 400 zu 300 (light)
     },
     ctaDescriptionMobile: {
         fontSize: '1rem',
@@ -587,7 +587,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         gap: '0.75rem',
         fontSize: '0.9rem',
         color: 'rgba(255, 255, 255, 0.95)',
-        fontWeight: '500',
+        fontWeight: '400', // Geändert von 500 zu 400 (normal)
     },
     ctaFeatureTablet: {
         justifyContent: 'center',
@@ -639,7 +639,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         borderRadius: '8px',
         padding: '1rem 1.5rem',
         fontSize: '0.95rem',
-        fontWeight: '600',
+        fontWeight: '500', // Geändert von 600 zu 500 (medium)
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         boxShadow: '0 4px 15px rgba(30, 55, 99, 0.2)',
@@ -666,7 +666,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         borderRadius: '8px',
         padding: '1rem 1.5rem',
         fontSize: '0.95rem',
-        fontWeight: '600',
+        fontWeight: '500', // Geändert von 600 zu 500 (medium)
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         textDecoration: 'none',
