@@ -429,24 +429,25 @@ const Unternehmen = () => {
                 </section>
 
                 {/* Projects Carousel Section */}
-                <section id="projects-section" className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+                <section id="projects-section" className="py-12 sm:py-16 lg:py-24 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                        <div className="text-center mb-12 sm:mb-16">
-                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
+                        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+                            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light text-gray-900 mb-3 sm:mb-4">
                                 Unsere <span className="text-[#1e3767] font-semibold">Referenzprojekte</span>
                             </h2>
-                            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+                            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
                                 Einblicke in erfolgreich realisierte Industrieprojekte
                             </p>
                         </div>
 
                         <div className="relative">
-                            {/* Navigation Buttons */}
+                            {/* Navigation Buttons - Mobile optimiert */}
                             <button
-                                className="absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-[#1e3767] hover:bg-[#1e3767] hover:text-white"
+                                className="absolute left-1 sm:left-2 lg:left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-[#1e3767] hover:bg-[#1e3767] hover:text-white touch-manipulation"
                                 onClick={prevProject}
+                                aria-label="Vorheriges Projekt"
                             >
-                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor"
+                                <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor"
                                      viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                           d="M15 19l-7-7 7-7"/>
@@ -454,74 +455,91 @@ const Unternehmen = () => {
                             </button>
 
                             <button
-                                className="absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-[#1e3767] hover:bg-[#1e3767] hover:text-white"
+                                className="absolute right-1 sm:right-2 lg:right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-[#1e3767] hover:bg-[#1e3767] hover:text-white touch-manipulation"
                                 onClick={nextProject}
+                                aria-label="Nächstes Projekt"
                             >
-                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor"
+                                <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor"
                                      viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                           d="M9 5l7 7-7 7"/>
                                 </svg>
                             </button>
 
-                            {/* Projects Grid - Responsive */}
-                            <div className={`grid gap-6 sm:gap-8 px-12 sm:px-16 ${
-                                projectsPerPage === 1 ? 'grid-cols-1' :
-                                    projectsPerPage === 2 ? 'grid-cols-2' :
-                                        'lg:grid-cols-3'
-                            }`}>
-                                {projects.slice(currentProjectIndex, currentProjectIndex + projectsPerPage).map((project, index) => (
-                                    <div
-                                        key={project.id}
-                                        className={`group cursor-pointer transform hover:-translate-y-2 transition-all duration-300 ${
-                                            visibleSections.has('projects') ? 'animate-fade-in-up opacity-100' : 'opacity-0'
-                                        }`}
-                                        style={{animationDelay: `${index * 100}ms`}}
-                                        onClick={() => navigate(`/projektberichte?project=${project.id}`)}
-                                    >
+                            {/* Projects Grid - Vollständig responsive */}
+                            <div className="px-10 sm:px-12 lg:px-16">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                                    {projects.slice(currentProjectIndex, currentProjectIndex + projectsPerPage).map((project, index) => (
                                         <div
-                                            className="relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                                            <div className="relative h-40 sm:h-48 overflow-hidden">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                                />
-                                                <div className="absolute top-4 left-4">
-                                                <span
-                                                    className="px-2 sm:px-3 py-1 bg-[#d97539] text-white text-xs rounded-full">
-                                                    {project.category}
-                                                </span>
+                                            key={project.id}
+                                            className={`group cursor-pointer transform hover:-translate-y-2 transition-all duration-300 touch-manipulation ${
+                                                visibleSections.has('projects') ? 'animate-fade-in-up opacity-100' : 'opacity-0'
+                                            }`}
+                                            style={{animationDelay: `${index * 100}ms`}}
+                                            onClick={() => navigate(`/projektberichte?project=${project.id}`)}
+                                        >
+                                            <div className="relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                                                {/* Projekt Bild */}
+                                                <div className="relative h-36 sm:h-40 lg:h-48 overflow-hidden">
+                                                    <img
+                                                        src={project.image}
+                                                        alt={project.title}
+                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                        loading="lazy"
+                                                    />
+                                                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+                                        <span className="px-2 sm:px-3 py-1 bg-[#d97539] text-white text-xs sm:text-sm rounded-full font-medium">
+                                            {project.category}
+                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="p-4 sm:p-6">
-                                                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 group-hover:text-[#1e3767] transition-colors">
-                                                    {project.title}
-                                                </h3>
-                                                <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2">
-                                                    {project.excerpt}
-                                                </p>
-                                                <div
-                                                    className="flex items-center text-[#1e3767] font-medium text-sm sm:text-base">
-                                                    <span>Mehr erfahren</span>
-                                                    <svg
-                                                        className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"
-                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round"
-                                                              strokeWidth={2} d="M9 5l7 7-7 7"/>
-                                                    </svg>
+
+                                                {/* Projekt Inhalt */}
+                                                <div className="p-4 sm:p-5 lg:p-6">
+                                                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 group-hover:text-[#1e3767] transition-colors leading-tight">
+                                                        {project.title}
+                                                    </h3>
+                                                    <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2 leading-relaxed">
+                                                        {project.excerpt}
+                                                    </p>
+                                                    <div className="flex items-center text-[#1e3767] font-medium text-sm sm:text-base">
+                                                        <span>Mehr erfahren</span>
+                                                        <svg
+                                                            className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"
+                                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round"
+                                                                  strokeWidth={2} d="M9 5l7 7-7 7"/>
+                                                        </svg>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Pagination Dots für Mobile */}
+                            <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
+                                {Array.from({length: Math.ceil(projects.length / projectsPerPage)}).map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentProjectIndex(index * projectsPerPage)}
+                                        className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                                            Math.floor(currentProjectIndex / projectsPerPage) === index
+                                                ? 'bg-[#1e3767] w-6 sm:w-8'
+                                                : 'bg-gray-300 hover:bg-gray-400'
+                                        }`}
+                                        aria-label={`Zu Seite ${index + 1} gehen`}
+                                    />
                                 ))}
                             </div>
                         </div>
 
-                        <div className="text-center mt-8 sm:mt-12">
+                        {/* Alle Projekte Button */}
+                        <div className="text-center mt-8 sm:mt-10 lg:mt-12">
                             <button
-                                onClick={() => navigate('/projektberichte')}
-                                className="px-6 sm:px-8 py-3 bg-[#1e3767] text-white rounded-full hover:bg-[#2a4a7f] transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl text-sm sm:text-base"
+                                onClick={() => navigate('/Projektberichte')}
+                                className="px-6 sm:px-8 py-3 bg-[#1e3767] text-white rounded-full hover:bg-[#2a4a7f] transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl text-sm sm:text-base touch-manipulation"
                             >
                                 Alle Projekte ansehen
                             </button>
@@ -734,8 +752,8 @@ const Unternehmen = () => {
                                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6">
                                     Zertifizierte{' '}
                                     <span className="text-[#1e3767] font-semibold">
-                                    Qualität
-                                </span>
+                    Qualität
+                </span>
                                 </h2>
                                 <div className="w-20 h-1 bg-[#d97539] mb-6 sm:mb-8"></div>
                                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8">
@@ -761,8 +779,8 @@ const Unternehmen = () => {
                                     ].map((item, index) => (
                                         <div key={index} className="flex space-x-3 sm:space-x-4">
                                             <div
-                                                className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                                <svg className="w-3 h-3 sm:w-5 sm:h-5 text-green-600"
+                                                className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <svg className="w-3 h-3 sm:w-5 sm:h-5 text-[#1e3767]"
                                                      fill="currentColor" viewBox="0 0 20 20">
                                                     <path fillRule="evenodd"
                                                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"

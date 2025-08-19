@@ -59,152 +59,229 @@ const VideoSection = () => {
                     }
                 }
 
+                /* Mobile Layout: Video oben, Text unten */
                 @media (max-width: 768px) {
-                    .video-section {
-                        height: 65vh !important;
-                        min-height: 400px !important;
-                    }
-                    .content-overlay {
-                        padding: 0 1.5rem !important;
-                        justify-content: center !important;
-                        text-align: center !important;
-                    }
-                    .overlay-content {
-                        max-width: 100% !important;
-                        text-align: center !important;
-                    }
-                    .stats-container {
+                    .promax-video-section {
+                        height: auto !important;
+                        min-height: auto !important;
+                        display: flex !important;
                         flex-direction: column !important;
-                        gap: 1rem !important;
-                        padding: 1.5rem 0 !important;
                     }
-                    .stat-divider {
-                        width: 60px !important;
-                        height: 1px !important;
+                    
+                    .promax-video-container {
+                        height: 0 !important;
+                        padding-bottom: 56.25% !important; /* 16:9 Aspect Ratio */
+                        position: relative !important;
+                        flex-shrink: 0 !important;
+                        width: 100% !important;
                     }
-                    .stat-item {
+                    
+                    .promax-video {
+                        width: 100% !important;
+                        height: 100% !important;
+                        object-fit: cover !important;
+                        position: absolute !important;
+                        top: 0 !important;
+                        left: 0 !important;
+                        transform: none !important;
+                    }
+                    
+                    .promax-video-overlay {
+                        background: linear-gradient(to bottom, 
+                            rgba(0,0,0,0.1) 0%, 
+                            rgba(30, 58, 95, 0.3) 100%) !important;
+                    }
+                    
+                    .promax-content-overlay {
+                        position: relative !important;
+                        flex: 1 !important;
+                        background: #f8f9fa !important;
+                        padding: 2rem 1.5rem 2rem 1.5rem !important;
+                        display: flex !important;
+                        align-items: center !important;
+                        justify-content: center !important;
+                        min-height: 35vh !important;
+                        margin-top: 0.5rem !important;
+                    }
+                    
+                    .promax-overlay-content {
                         text-align: center !important;
+                        max-width: 100% !important;
+                        width: 100% !important;
+                        color: #1e3767 !important;
                     }
-                    .badge {
+                    
+                    .promax-stats-container {
+                        flex-direction: row !important;
+                        gap: 2rem !important;
+                        padding: 1.5rem 0 1rem 0 !important;
+                        margin-top: 1.5rem !important;
+                        border-top: 1px solid rgba(230, 126, 34, 0.3) !important;
+                        justify-content: center !important;
+                    }
+                    
+                    .promax-stat-divider {
+                        width: 1px !important;
+                        height: 45px !important;
+                        background: rgba(230, 126, 34, 0.4) !important;
+                    }
+                    
+                    .promax-badge {
+                        display: none !important;
+                    }
+                    
+                    .promax-title {
                         margin-bottom: 1rem !important;
                     }
-                    .description {
-                        margin-bottom: 2rem !important;
+                    
+                    .promax-title-main {
+                        font-size: clamp(1.75rem, 8vw, 2.5rem) !important;
+                        color: #1e3767 !important;
+                        margin-bottom: 0.2rem !important;
+                        text-shadow: none !important;
+                        font-weight: 300 !important;
                     }
-                    .title-main {
-                        font-size: clamp(2.2rem, 8vw, 3.5rem) !important;
-                        margin-bottom: 0.3rem !important;
+                    
+                    .promax-title-sub {
+                        font-size: clamp(0.9rem, 4vw, 1.2rem) !important;
+                        color: #E67E22 !important;
+                        text-shadow: none !important;
+                        font-weight: 600 !important;
                     }
-                    .title-sub {
-                        font-size: clamp(1rem, 4vw, 1.5rem) !important;
+                    
+                    .promax-description {
+                        font-size: 0.9rem !important;
+                        line-height: 1.6 !important;
+                        color: #1e3767 !important;
+                        margin-bottom: 1.5rem !important;
+                        text-shadow: none !important;
+                        opacity: 0.8 !important;
+                        font-weight: 400 !important;
                     }
                 }
 
                 @media (max-width: 640px) {
-                    .video-section {
-                        height: 60vh !important;
-                        min-height: 380px !important;
+                    .promax-video-container {
+                        padding-bottom: 56.25% !important;
                     }
-                    .content-overlay {
-                        padding: 0 1.25rem !important;
+                    
+                    .promax-content-overlay {
+                        padding: 1.5rem 1.25rem 1.75rem 1.25rem !important;
+                        min-height: 30vh !important;
+                        margin-top: 0.5rem !important;
                     }
-                    .stats-container {
-                        padding: 1.25rem 0 !important;
-                        margin-top: 1.5rem !important;
+                    
+                    .promax-stats-container {
+                        gap: 1.5rem !important;
+                        padding: 1.25rem 0 1rem 0 !important;
+                        margin-top: 1.25rem !important;
                     }
-                    .stat-number {
-                        font-size: 2rem !important;
+                    
+                    .promax-stat-number {
+                        font-size: 1.5rem !important;
+                        color: #E67E22 !important;
+                        font-weight: 300 !important;
                     }
-                    .stat-label {
-                        font-size: 0.8rem !important;
+                    
+                    .promax-stat-label {
+                        font-size: 0.7rem !important;
+                        color: #1e3767 !important;
+                        opacity: 0.7 !important;
+                        font-weight: 400 !important;
+                    }
+                    
+                    .promax-stat-divider {
+                        height: 40px !important;
+                        background: rgba(230, 126, 34, 0.4) !important;
                     }
                 }
 
                 @media (max-width: 480px) {
-                    .video-section {
-                        height: 55vh !important;
-                        min-height: 350px !important;
+                    .promax-video-container {
+                        padding-bottom: 56.25% !important;
                     }
-                    .content-overlay {
-                        padding: 0 1rem !important;
+                    
+                    .promax-content-overlay {
+                        padding: 1.25rem 1rem 1.5rem 1rem !important;
+                        min-height: 28vh !important;
+                        margin-top: 0.5rem !important;
                     }
-                    .badge {
-                        font-size: 0.625rem !important;
-                        padding: 6px 12px !important;
-                        margin-bottom: 0.75rem !important;
+                    
+                    .promax-title {
+                        margin-bottom: 0.8rem !important;
                     }
-                    .title {
-                        margin-bottom: 1.5rem !important;
+                    
+                    .promax-title-main {
+                        font-size: clamp(1.5rem, 9vw, 2.2rem) !important;
+                        margin-bottom: 0.15rem !important;
+                        font-weight: 300 !important;
                     }
-                    .title-main {
-                        font-size: clamp(1.8rem, 10vw, 2.8rem) !important;
-                        margin-bottom: 0.25rem !important;
+                    
+                    .promax-title-sub {
+                        font-size: clamp(0.8rem, 5vw, 1.1rem) !important;
+                        font-weight: 600 !important;
                     }
-                    .title-sub {
-                        font-size: clamp(0.9rem, 5vw, 1.2rem) !important;
-                    }
-                    .description {
-                        font-size: 0.9rem !important;
-                        margin-bottom: 1.5rem !important;
-                    }
-                    .stats-container {
-                        padding: 1rem 0 !important;
-                        margin-top: 1rem !important;
-                    }
-                    .stat-number {
-                        font-size: 1.75rem !important;
-                        margin-bottom: 0.25rem !important;
-                    }
-                    .stat-label {
-                        font-size: 0.75rem !important;
-                    }
-                }
-
-                @media (max-width: 360px) {
-                    .video-section {
-                        height: 50vh !important;
-                        min-height: 320px !important;
-                    }
-                    .content-overlay {
-                        padding: 0 0.75rem !important;
-                    }
-                    .title-main {
-                        font-size: clamp(1.5rem, 12vw, 2.2rem) !important;
-                    }
-                    .title-sub {
-                        font-size: clamp(0.8rem, 6vw, 1rem) !important;
-                    }
-                    .description {
+                    
+                    .promax-description {
                         font-size: 0.85rem !important;
+                        margin-bottom: 1rem !important;
                         line-height: 1.5 !important;
                     }
-                    .stat-number {
-                        font-size: 1.5rem !important;
+                    
+                    .promax-stats-container {
+                        gap: 1.25rem !important;
+                        padding: 1rem 0 1rem 0 !important;
+                        margin-top: 1rem !important;
                     }
-                    .stat-label {
-                        font-size: 0.7rem !important;
+                    
+                    .promax-stat-number {
+                        font-size: 1.3rem !important;
+                        color: #E67E22 !important;
+                        font-weight: 300 !important;
+                    }
+                    
+                    .promax-stat-label {
+                        font-size: 0.65rem !important;
+                        color: #1e3767 !important;
+                        opacity: 0.7 !important;
+                        font-weight: 400 !important;
+                    }
+                    
+                    .promax-stat-divider {
+                        height: 35px !important;
+                        background: rgba(230, 126, 34, 0.4) !important;
                     }
                 }
 
-                /* High DPI displays */
-                @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-                    .video {
-                        image-rendering: -webkit-optimize-contrast;
-                    }
-                }
-
-                /* Landscape orientation on mobile */
-                @media (max-height: 500px) and (orientation: landscape) {
+                /* Landscape auf Mobile */
+                @media (max-height: 500px) and (orientation: landscape) and (max-width: 900px) {
                     .video-section {
-                        height: 90vh !important;
-                        min-height: 400px !important;
+                        flex-direction: row !important;
                     }
+                    
+                    .video-container {
+                        width: 60% !important;
+                        height: 100vh !important;
+                    }
+                    
                     .content-overlay {
-                        padding: 0 2rem !important;
+                        width: 40% !important;
+                        min-height: 100vh !important;
+                        padding: 1rem !important;
                     }
+                    
                     .overlay-content {
                         transform: scale(0.85) !important;
-                        transform-origin: left center !important;
+                    }
+                    
+                    .stats-container {
+                        flex-direction: row !important;
+                        gap: 1rem !important;
+                    }
+                    
+                    .stat-divider {
+                        width: 1px !important;
+                        height: 30px !important;
                     }
                 }
 
@@ -218,14 +295,14 @@ const VideoSection = () => {
                     }
                 }
 
-                /* Reduced motion preference */
+                /* Reduced motion */
                 @media (prefers-reduced-motion: reduce) {
                     .overlay-content {
                         transition: none !important;
                     }
                 }
 
-                /* High contrast mode */
+                /* High contrast */
                 @media (prefers-contrast: high) {
                     .video-overlay {
                         background: rgba(0, 0, 0, 0.8) !important;
@@ -236,11 +313,11 @@ const VideoSection = () => {
                 }
             `}</style>
 
-            <section ref={sectionRef} className="video-section" style={styles.videoSection}>
-                {/* Full-screen video background */}
-                <div style={styles.videoContainer}>
+            <section ref={sectionRef} className="promax-video-section" style={{...styles.videoSection, margin: 0, padding: 0}}>
+                {/* Video Container */}
+                <div className="promax-video-container" style={styles.videoContainer}>
                     <iframe
-                        className="video"
+                        className="promax-video"
                         style={styles.video}
                         src="https://www.youtube.com/embed/JIN6KC3glto?autoplay=1&mute=1&loop=1&playlist=JIN6KC3glto&controls=0&showinfo=0&rel=0&modestbranding=1&vq=hd1080"
                         title="PROMAX Industrial Plant Engineering"
@@ -248,50 +325,48 @@ const VideoSection = () => {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                     />
-
-                    {/* Dark gradient overlay */}
-                    <div className="video-overlay" style={styles.videoOverlay} />
+                    <div className="promax-video-overlay" style={styles.videoOverlay} />
                 </div>
 
-                {/* Company information overlay */}
-                <div className="content-overlay" style={styles.contentOverlay}>
+                {/* Content Overlay */}
+                <div className="promax-content-overlay" style={styles.contentOverlay}>
                     <div
-                        className="overlay-content"
+                        className="promax-overlay-content"
                         style={{
                             ...styles.overlayContent,
                             opacity: isVisible ? 1 : 0,
                             transform: isVisible ? 'translateY(0)' : 'translateY(40px)'
                         }}
                     >
-                        {/* Professional Badge */}
-                        <div className="badge" style={styles.badge}>
+                        {/* Badge */}
+                        <div className="promax-badge" style={styles.badge}>
                             <span>Industrieanlagenbau & Projektmanagement</span>
                         </div>
 
-                        {/* Main Title */}
-                        <h1 className="title" style={styles.title}>
-                            <span className="title-main" style={styles.titleMain}>PROMAX</span>
-                            <span className="title-sub" style={styles.titleSub}>Engineering Excellence</span>
+                        {/* Title */}
+                        <h1 className="promax-title" style={styles.title}>
+                            <span className="promax-title-main" style={styles.titleMain}>PROMAX</span>
+                            <span className="promax-title-sub" style={styles.titleSub}>Engineering Excellence</span>
                         </h1>
 
                         {/* Description */}
-                        <div className="description" style={styles.description}>
+                        <div className="promax-description" style={styles.description}>
                             <p>
                                 Professionelle Lösungen im Industrieanlagenbau mit jahrelanger
                                 Erfahrung in den Branchen Chemie, Energie & Umwelt, Pharma und Papier & Zellstoff.
                             </p>
                         </div>
 
-                        {/* Professional Stats */}
-                        <div className="stats-container" style={styles.statsContainer}>
-                            <div className="stat-item" style={styles.statItem}>
-                                <div className="stat-number" style={styles.statNumber}>15+</div>
-                                <div className="stat-label" style={styles.statLabel}>Jahre Erfahrung</div>
+                        {/* Stats */}
+                        <div className="promax-stats-container" style={styles.statsContainer}>
+                            <div className="promax-stat-item" style={styles.statItem}>
+                                <div className="promax-stat-number" style={styles.statNumber}>15+</div>
+                                <div className="promax-stat-label" style={styles.statLabel}>Jahre Erfahrung</div>
                             </div>
-                            <div className="stat-divider" style={styles.statDivider} />
-                            <div className="stat-item" style={styles.statItem}>
-                                <div className="stat-number" style={styles.statNumber}>ISO</div>
-                                <div className="stat-label" style={styles.statLabel}>9001:2015 zertifiziert</div>
+                            <div className="promax-stat-divider" style={styles.statDivider} />
+                            <div className="promax-stat-item" style={styles.statItem}>
+                                <div className="promax-stat-number" style={styles.statNumber}>ISO</div>
+                                <div className="promax-stat-label" style={styles.statLabel}>9001:2015 zertifiziert</div>
                             </div>
                         </div>
                     </div>
@@ -309,6 +384,8 @@ const styles: { [key: string]: React.CSSProperties } = {
         minHeight: 500,
         overflow: 'hidden',
         fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
+        margin: 0,
+        padding: 0,
     },
 
     videoContainer: {
@@ -377,7 +454,6 @@ const styles: { [key: string]: React.CSSProperties } = {
         textTransform: 'uppercase',
         letterSpacing: '0.05em',
         marginBottom: '1.5rem',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
     },
 
     title: {
@@ -389,18 +465,18 @@ const styles: { [key: string]: React.CSSProperties } = {
     titleMain: {
         display: 'block',
         fontSize: 'clamp(3rem, 8vw, 6rem)',
-        fontWeight: 900,
+        fontWeight: 300,
         color: '#ffffff',
         marginBottom: '0.5rem',
-        textShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
     },
 
     titleSub: {
         display: 'block',
         fontSize: 'clamp(1.25rem, 3vw, 2rem)',
-        fontWeight: 300,
+        fontWeight: 600,
         color: '#E67E22',
-        textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)',
+        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
     },
 
     description: {
@@ -409,7 +485,6 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontWeight: 400,
         lineHeight: 1.6,
         marginBottom: '3rem',
-        textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)',
         maxWidth: 500,
     },
 
@@ -428,18 +503,18 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     statNumber: {
         fontSize: '2.5rem',
-        fontWeight: 800,
+        fontWeight: 300,
         color: '#E67E22',
         lineHeight: 1,
         marginBottom: '0.5rem',
-        textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)',
+        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
     },
 
     statLabel: {
         fontSize: '0.875rem',
         color: 'rgba(255, 255, 255, 0.8)',
-        fontWeight: 500,
-        textShadow: '0 1px 5px rgba(0, 0, 0, 0.5)',
+        fontWeight: 400,
+        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
     },
 
     statDivider: {

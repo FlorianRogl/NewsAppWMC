@@ -208,12 +208,13 @@ const BranchesOverview: React.FC = () => {
                     <div
                         className={`transition-all duration-1000 ${isVisible.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                     >
-                        <h1 className="text-7xl font-bold mb-8" style={{ color: '#1e3767' }}>
-                            BRANCHEN
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-gray-900 mb-4 sm:mb-6">
+                            Engineering Excellence.
+                            <span className="block font-semibold text-[#d97539] mt-1 sm:mt-2">Branchen.</span>
                         </h1>
-                        <p className="text-xl max-w-3xl leading-relaxed" style={{ color: '#1e3767' }}>
+                        <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-3xl leading-relaxed">
                             Spezialisierte Engineering-Expertise für unterschiedlichste Industriezweige.
-                            Von der chemischen Industrie über Pharma bis hin zu Energie- und Umwelttechnik –
+                            Von der chemischen Industrie über Pharma bis hin zu Energie- und Umwelttechnik —
                             wir entwickeln maßgeschneiderte Lösungen für komplexe Anlagenprojekte mit höchsten
                             Qualitäts- und Sicherheitsstandards.
                         </p>
@@ -226,17 +227,16 @@ const BranchesOverview: React.FC = () => {
                         <div
                             className={`transition-all duration-1000 delay-300 ${isVisible.about ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
                         >
-                            <h2 className="text-5xl font-bold mb-8" style={{ color: '#1e3767' }}>
-                                Branchenexpertise ist unser Erfolgsrezept.
-                                <br />
-                                Und das macht den Unterschied.
+                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6">
+                                Branchenexpertise ist unser Erfolgsrezept
                             </h2>
-                            <p className="text-lg mb-6 leading-relaxed" style={{ color: '#1e3767' }}>
+                            <div className="w-20 h-1 bg-[#d97539] mb-6 sm:mb-8"></div>
+                            <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-4 sm:mb-6">
                                 Wir verstehen die spezifischen Anforderungen jeder Branche und entwickeln darauf aufbauend
-                                maßgeschneiderte Engineering-Lösungen. Von der chemischen Industrie bis zur Pharmabranche –
+                                maßgeschneiderte Engineering-Lösungen. Von der chemischen Industrie bis zur Pharmabranche —
                                 unser tiefgreifendes Fachwissen in den jeweiligen Industriezweigen ist die Basis für erfolgreiche Projekte.
                             </p>
-                            <p className="text-lg leading-relaxed" style={{ color: '#1e3767' }}>
+                            <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                                 Diese branchenspezifische Spezialisierung ermöglicht es uns, auch bei komplexesten
                                 Anforderungen die optimale Lösung zu finden und termingerecht umzusetzen.
                             </p>
@@ -263,9 +263,13 @@ const BranchesOverview: React.FC = () => {
                     <div
                         className={`transition-all duration-1000 ${isVisible.services ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                     >
-                        <h2 className="text-7xl font-bold mb-16" style={{ color: '#1e3767' }}>
-                            Unser Leistungsangebot
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
+                            Unser{' '}
+                            <span className="text-[#1e3767] font-semibold">Leistungsangebot</span>
                         </h2>
+                        <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mb-12 sm:mb-16">
+                            Ganzheitliche Lösungen für Ihre Industrieprojekte
+                        </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -302,11 +306,11 @@ const BranchesOverview: React.FC = () => {
                                             </svg>
                                         )}
                                     </div>
-                                    <h3 className="text-xl font-bold mb-4" style={{ color: '#1e3767' }}>
+                                    <h3 className="text-xl font-semibold mb-4 text-gray-900">
                                         {branch.title}
                                     </h3>
                                 </div>
-                                <p className="text-sm leading-relaxed" style={{ color: '#1e3767' }}>
+                                <p className="text-sm leading-relaxed text-gray-600">
                                     {branch.description}
                                 </p>
                             </div>
@@ -319,11 +323,11 @@ const BranchesOverview: React.FC = () => {
                     <div
                         className={`transition-all duration-1000 ${isVisible.additional ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                     >
-                        <h2 className="text-4xl font-bold mb-8" style={{ color: '#1e3767' }}>
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6">
                             Darüber hinaus bearbeiten wir Projekte in weiteren Industriezweigen
                         </h2>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-lg leading-relaxed" style={{ color: '#1e3767' }}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-base sm:text-lg leading-relaxed text-gray-600">
                             <div
                                 className={`transition-all duration-1000 delay-300 ${isVisible.additional ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
                             >

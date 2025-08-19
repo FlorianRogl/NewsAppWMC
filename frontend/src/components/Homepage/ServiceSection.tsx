@@ -6,17 +6,24 @@ const ServicesSection = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const [isTablet, setIsTablet] = useState(false);
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
+        // Fallback: Set visible after a short delay if intersection observer doesn't trigger
+        const fallbackTimer = setTimeout(() => {
+            setIsVisible(true);
+        }, 100);
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
+                    clearTimeout(fallbackTimer);
                 }
             },
             {
-                threshold: 0.2,
+                threshold: 0.1,
+                rootMargin: '50px 0px',
             }
         );
 
@@ -26,7 +33,7 @@ const ServicesSection = () => {
 
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 480);
-            setIsTablet(window.innerWidth <= 768 && window.innerWidth > 480);
+            setIsTablet(window.innerWidth <= 1200 && window.innerWidth > 480);
         };
 
         handleResize();
@@ -38,10 +45,15 @@ const ServicesSection = () => {
                 observer.unobserve(currentRef);
             }
             window.removeEventListener('resize', handleResize);
+            clearTimeout(fallbackTimer);
         };
     }, []);
 
-    const getResponsiveStyles = (baseStyles: React.CSSProperties, mobileStyles: React.CSSProperties = {}, tabletStyles: React.CSSProperties = {}): React.CSSProperties => {
+    const getResponsiveStyles = (
+        baseStyles: React.CSSProperties,
+        mobileStyles: React.CSSProperties = {},
+        tabletStyles: React.CSSProperties = {}
+    ): React.CSSProperties => {
         if (isMobile) {
             return { ...baseStyles, ...mobileStyles };
         }
@@ -84,7 +96,7 @@ const ServicesSection = () => {
                         onMouseEnter={(e) => {
                             const target = e.currentTarget as HTMLDivElement;
                             target.style.transform = 'translateY(-8px) scale(1.02)';
-                            target.style.boxShadow = '0 20px 40px rgba(30, 55, 99, 0.15)';
+                            target.style.boxShadow = '0 12px 30px rgba(30, 55, 99, 0.12)';
                         }}
                         onMouseLeave={(e) => {
                             const target = e.currentTarget as HTMLDivElement;
@@ -141,7 +153,7 @@ const ServicesSection = () => {
                         onMouseEnter={(e) => {
                             const target = e.currentTarget as HTMLDivElement;
                             target.style.transform = 'translateY(-8px) scale(1.02)';
-                            target.style.boxShadow = '0 20px 40px rgba(217, 83, 57, 0.15)';
+                            target.style.boxShadow = '0 12px 30px rgba(217, 83, 57, 0.12)';
                         }}
                         onMouseLeave={(e) => {
                             const target = e.currentTarget as HTMLDivElement;
@@ -229,10 +241,10 @@ const ServicesSection = () => {
                             </div>
                         </div>
 
-                        <div style={getResponsiveStyles(styles.ctaActions, styles.ctaActionsMobile)}>
+                        <div style={getResponsiveStyles(styles.ctaActions, styles.ctaActionsMobile, styles.ctaActionsTablet)}>
                             <a
                                 href="/kontakt"
-                                style={getResponsiveStyles(styles.primaryButton, styles.primaryButtonMobile)}
+                                style={getResponsiveStyles(styles.primaryButton, styles.primaryButtonMobile, styles.primaryButtonTablet)}
                                 onMouseEnter={(e) => {
                                     const target = e.currentTarget as HTMLAnchorElement;
                                     target.style.background = 'linear-gradient(135deg, #1a2f5a 0%, #1e3763 100%)';
@@ -250,17 +262,15 @@ const ServicesSection = () => {
                             </a>
                             <a
                                 href="/leistungen"
-                                style={getResponsiveStyles(styles.secondaryButton, styles.secondaryButtonMobile)}
+                                style={getResponsiveStyles(styles.secondaryButton, styles.secondaryButtonMobile, styles.secondaryButtonTablet)}
                                 onMouseEnter={(e) => {
                                     const target = e.currentTarget as HTMLAnchorElement;
-                                    target.style.background = '#d97539';
-                                    target.style.color = '#ffffff';
+                                    target.style.background = 'linear-gradient(135deg, #c76632 0%, #d97539 100%)';
                                     target.style.transform = 'translateY(-2px)';
                                 }}
                                 onMouseLeave={(e) => {
                                     const target = e.currentTarget as HTMLAnchorElement;
-                                    target.style.background = 'transparent';
-                                    target.style.color = '#d97539';
+                                    target.style.background = 'linear-gradient(135deg, #d97539 0%, #e8864a 100%)';
                                     target.style.transform = 'translateY(0)';
                                 }}
                             >
@@ -326,7 +336,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     mainTitle: {
         fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
-        fontWeight: '800',
+        fontWeight: '300', // Geändert von 800 zu 300 (light)
         color: '#1e3763',
         marginBottom: '1.5rem',
         lineHeight: 1.2,
@@ -341,7 +351,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
         color: '#9ba8b3',
         lineHeight: 1.7,
-        fontWeight: '400',
+        fontWeight: '300', // Geändert von 400 zu 300 (light)
         marginBottom: '3rem',
     },
 
@@ -425,7 +435,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     cardTitle: {
         fontSize: '1.5rem',
-        fontWeight: '700',
+        fontWeight: '300', // Geändert von 700 zu 300 (light)
         color: '#1e3763',
         marginBottom: '1rem',
         lineHeight: 1.3,
@@ -439,7 +449,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         color: '#9ba8b3',
         lineHeight: 1.7,
         marginBottom: '2rem',
-        fontWeight: '400',
+        fontWeight: '300', // Geändert von 400 zu 300 (light)
     },
     cardDescriptionMobile: {
         fontSize: '0.9rem',
@@ -458,7 +468,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         gap: '0.75rem',
         fontSize: '0.9rem',
         color: '#1e3763',
-        fontWeight: '500',
+        fontWeight: '400', // Geändert von 500 zu 400 (normal)
     },
     featureItemMobile: {
         fontSize: '0.85rem',
@@ -496,7 +506,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         boxSizing: 'border-box',
     },
     ctaSectionTablet: {
-        padding: '2.5rem 1.5rem',
+        padding: '3rem 2rem',
         borderRadius: '6px',
     },
     ctaSectionMobile: {
@@ -507,25 +517,31 @@ const styles: { [key: string]: React.CSSProperties } = {
         display: 'flex',
         flexDirection: 'row',
         gap: '3rem',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         width: '100%',
+        maxWidth: '1200px',
+        margin: '0 auto',
     },
     ctaContentTablet: {
         flexDirection: 'column',
         gap: '2rem',
+        alignItems: 'center',
         textAlign: 'center',
     },
     ctaContentMobile: {
         flexDirection: 'column',
         gap: '2.5rem',
         textAlign: 'center',
+        alignItems: 'center',
     },
 
     ctaTextSection: {
-        flex: 1,
+        flex: 2,
         width: '100%',
+        minWidth: 0,
     },
     ctaTextSectionTablet: {
+        flex: 1,
         textAlign: 'center',
     },
     ctaTextSectionMobile: {
@@ -534,7 +550,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     ctaTitle: {
         fontSize: 'clamp(1.4rem, 4vw, 2.2rem)',
-        fontWeight: '700',
+        fontWeight: '300', // Geändert von 700 zu 300 (light)
         marginBottom: '1rem',
         lineHeight: 1.3,
     },
@@ -544,7 +560,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         color: 'rgba(255, 255, 255, 0.9)',
         lineHeight: 1.7,
         marginBottom: '1.5rem',
-        fontWeight: '400',
+        fontWeight: '300', // Geändert von 400 zu 300 (light)
     },
     ctaDescriptionMobile: {
         fontSize: '1rem',
@@ -554,9 +570,11 @@ const styles: { [key: string]: React.CSSProperties } = {
         display: 'flex',
         flexDirection: 'column',
         gap: '0.6rem',
+        marginTop: '0.5rem',
     },
     ctaFeaturesTablet: {
         alignItems: 'center',
+        marginTop: '0.5rem',
     },
     ctaFeaturesMobile: {
         gap: '0.5rem',
@@ -569,7 +587,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         gap: '0.75rem',
         fontSize: '0.9rem',
         color: 'rgba(255, 255, 255, 0.95)',
-        fontWeight: '500',
+        fontWeight: '400', // Geändert von 500 zu 400 (normal)
     },
     ctaFeatureTablet: {
         justifyContent: 'center',
@@ -597,10 +615,17 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     ctaActions: {
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         gap: '1rem',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        flex: 1,
+        minWidth: '200px',
+    },
+    ctaActionsTablet: {
+        flexDirection: 'row',
+        width: '100%',
+        gap: '1rem',
     },
     ctaActionsMobile: {
         flexDirection: 'column',
@@ -614,7 +639,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         borderRadius: '8px',
         padding: '1rem 1.5rem',
         fontSize: '0.95rem',
-        fontWeight: '600',
+        fontWeight: '500', // Geändert von 600 zu 500 (medium)
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         boxShadow: '0 4px 15px rgba(30, 55, 99, 0.2)',
@@ -624,6 +649,10 @@ const styles: { [key: string]: React.CSSProperties } = {
         justifyContent: 'center',
         minWidth: '180px',
     },
+    primaryButtonTablet: {
+        flex: 1,
+        minWidth: 'auto',
+    },
     primaryButtonMobile: {
         width: '100%',
         padding: '0.875rem 1rem',
@@ -631,13 +660,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     },
 
     secondaryButton: {
-        background: 'transparent',
-        color: '#d97539',
+        background: 'linear-gradient(135deg, #d97539 0%, #e8864a 100%)',
+        color: '#ffffff',
         border: '2px solid #d97539',
         borderRadius: '8px',
         padding: '1rem 1.5rem',
         fontSize: '0.95rem',
-        fontWeight: '600',
+        fontWeight: '500', // Geändert von 600 zu 500 (medium)
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         textDecoration: 'none',
@@ -645,6 +674,10 @@ const styles: { [key: string]: React.CSSProperties } = {
         alignItems: 'center',
         justifyContent: 'center',
         minWidth: '180px',
+    },
+    secondaryButtonTablet: {
+        flex: 1,
+        minWidth: 'auto',
     },
     secondaryButtonMobile: {
         width: '100%',
