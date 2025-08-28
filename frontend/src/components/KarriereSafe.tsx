@@ -56,8 +56,10 @@ const Karriere: React.FC = () => {
 
     // SEO Meta Tags setzen
     useEffect(() => {
+        // Title setzen
         document.title = 'Karriere bei PROMAX - Jobs im Industrieanlagenbau in Graz';
 
+        // Meta Tags setzen/aktualisieren
         const setMetaTag = (name: string, content: string, property = false) => {
             const attribute = property ? 'property' : 'name';
             let meta = document.querySelector(`meta[${attribute}="${name}"]`) as HTMLMetaElement;
@@ -69,14 +71,38 @@ const Karriere: React.FC = () => {
             meta.content = content;
         };
 
+        // Basic Meta Tags
         setMetaTag('description', 'Karrieremöglichkeiten bei PROMAX in Graz. Offene Stellen für Verfahrensingenieure, CAD-Konstrukteure, Projektmanager und Automatisierungstechniker. Jetzt bewerben!');
         setMetaTag('keywords', 'Jobs Graz, Karriere Industrieanlagenbau, Verfahrensingenieur Jobs, CAD Konstrukteur, Projektmanager Anlagenbau, Automatisierungstechniker, PROMAX Karriere');
+        setMetaTag('author', 'PROMAX Projektmanagement');
+        setMetaTag('robots', 'index, follow');
+
+        // Open Graph Tags
+        setMetaTag('og:title', 'Karriere bei PROMAX - Jobs im Industrieanlagenbau', true);
+        setMetaTag('og:description', 'Werden Sie Teil unseres innovativen Teams von über 100 Experten. Offene Stellen in Engineering, Design und Projektmanagement.', true);
+        setMetaTag('og:url', 'https://www.promax.at/karriere', true);
+        setMetaTag('og:type', 'website', true);
+        setMetaTag('og:locale', 'de_AT', true);
+        setMetaTag('og:site_name', 'PROMAX', true);
+
+        // Twitter Cards
+        setMetaTag('twitter:card', 'summary_large_image');
+        setMetaTag('twitter:title', 'Karriere bei PROMAX - Jobs im Industrieanlagenbau');
+        setMetaTag('twitter:description', 'Werden Sie Teil unseres innovativen Teams von über 100 Experten.');
+
+        // Canonical Link
+        let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+        if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.rel = 'canonical';
+            document.head.appendChild(canonical);
+        }
+        canonical.href = 'https://www.promax.at/karriere';
+
     }, []);
 
     // Intersection Observer für Scroll-Animationen
     useEffect(() => {
-        if (loading) return;
-
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -89,11 +115,7 @@ const Karriere: React.FC = () => {
                     if (sectionId === 'hero') {
                         setIsVisible(true);
                     } else if (sectionId) {
-                        setVisibleSections(prev => {
-                            const newSet = new Set(prev);
-                            newSet.add(sectionId);
-                            return newSet;
-                        });
+                        setVisibleSections(prev => new Set(prev).add(sectionId));
                     }
                 }
             });
@@ -101,29 +123,24 @@ const Karriere: React.FC = () => {
 
         const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-        setTimeout(() => {
-            if (heroRef.current) {
-                heroRef.current.setAttribute('data-section', 'hero');
-                observer.observe(heroRef.current);
+        // Observe hero
+        if (heroRef.current) {
+            heroRef.current.setAttribute('data-section', 'hero');
+            observer.observe(heroRef.current);
+        }
 
-                const rect = heroRef.current.getBoundingClientRect();
-                if (rect.top < window.innerHeight) {
-                    setIsVisible(true);
-                }
+        // Observe other sections
+        Object.entries(sectionRefs.current).forEach(([key, ref]) => {
+            if (ref) {
+                ref.setAttribute('data-section', key);
+                observer.observe(ref);
             }
-
-            Object.entries(sectionRefs.current).forEach(([key, ref]) => {
-                if (ref) {
-                    ref.setAttribute('data-section', key);
-                    observer.observe(ref);
-                }
-            });
-        }, 100);
+        });
 
         return () => {
             observer.disconnect();
         };
-    }, [loading]);
+    }, []);
 
     // Carousel scroll functions
     const scrollCarousel = useCallback((direction: 'left' | 'right') => {
@@ -166,7 +183,7 @@ const Karriere: React.FC = () => {
                 window.removeEventListener('resize', checkScrollability);
             };
         }
-    }, [checkScrollability, jobOpenings]);
+    }, [checkScrollability]);
 
     // Touch handling for mobile
     const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -183,12 +200,17 @@ const Karriere: React.FC = () => {
 
     const handleTouchEnd = () => {
         if (!touchStart || !touchEnd) return;
+
         const distance = touchStart - touchEnd;
         const isLeftSwipe = distance > 50;
         const isRightSwipe = distance < -50;
 
-        if (isLeftSwipe) scrollCarousel('right');
-        if (isRightSwipe) scrollCarousel('left');
+        if (isLeftSwipe) {
+            scrollCarousel('right');
+        }
+        if (isRightSwipe) {
+            scrollCarousel('left');
+        }
     };
 
     const handleJobClick = (job: FormattedJob) => {
@@ -204,7 +226,7 @@ const Karriere: React.FC = () => {
     // Loading State
     if (loading) {
         return (
-            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767' }}>
                 <div className="max-w-6xl mx-auto px-6 py-40 text-center">
                     <div className="animate-pulse">
                         <div className="w-16 h-16 mx-auto mb-4 rounded-full" style={{ backgroundColor: '#d1d8dc' }}></div>
@@ -218,7 +240,7 @@ const Karriere: React.FC = () => {
     // Error State
     if (error) {
         return (
-            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767' }}>
                 <div className="max-w-6xl mx-auto px-6 py-40 text-center">
                     <div className="text-xl text-red-600 mb-4">{error}</div>
                     <button
@@ -236,7 +258,7 @@ const Karriere: React.FC = () => {
     // Keine Jobs vorhanden
     if (!loading && jobOpenings.length === 0) {
         return (
-            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767' }}>
                 <section className="max-w-6xl mx-auto px-6 py-40 text-center">
                     <h1 className="text-4xl font-bold mb-4">Karriere bei PROMAX</h1>
                     <p className="text-xl mb-8">
@@ -269,10 +291,10 @@ const Karriere: React.FC = () => {
     const carouselJobs = jobOpenings.slice(3);
 
     return (
-        <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+        <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767' }}>
             {/* Hero Section */}
             <section ref={heroRef} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8" style={{ backgroundColor: '#d1d8dc' }}>
                         <Sparkles size={16} style={{ color: '#1e3767' }} />
                         <span className="text-sm font-medium" style={{ color: '#1e3767' }}>Wir stellen ein</span>
@@ -289,10 +311,14 @@ const Karriere: React.FC = () => {
                 </div>
             </section>
 
-            {/* Values Section */}
-            <section ref={setSectionRef('values')} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`transition-all duration-1000 transform ${visibleSections.has('values') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* Values Section with Text and Image */}
+            <section
+                ref={setSectionRef('values')}
+                className="max-w-6xl mx-auto px-6 py-20"
+            >
+                <div className={`transition-all duration-1000 ${visibleSections.has('values') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        {/* Text Content */}
                         <div>
                             <h2 className="text-5xl font-bold mb-8" style={{ color: '#1e3767' }}>
                                 Innovation trifft auf Tradition
@@ -328,6 +354,7 @@ const Karriere: React.FC = () => {
                             </div>
                         </div>
 
+                        {/* Image - Hidden on mobile */}
                         <div className="relative hidden lg:block">
                             <div className="w-full h-96 lg:h-[500px] rounded-2xl shadow-2xl overflow-hidden">
                                 <img
@@ -335,6 +362,8 @@ const Karriere: React.FC = () => {
                                     alt="PROMAX Team bei der Projektplanung"
                                     className="w-full h-full object-cover"
                                     loading="lazy"
+                                    width="600"
+                                    height="500"
                                 />
                             </div>
                         </div>
@@ -343,8 +372,11 @@ const Karriere: React.FC = () => {
             </section>
 
             {/* Jobs Section */}
-            <section ref={setSectionRef('jobs')} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`transition-all duration-1000 transform ${visibleSections.has('jobs') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section
+                ref={setSectionRef('jobs')}
+                className="max-w-6xl mx-auto px-6 py-20"
+            >
+                <div className={`transition-all duration-1000 ${visibleSections.has('jobs') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h2 className="text-4xl font-bold mb-4" style={{ color: '#1e3767' }}>
                         Offene Stellen
                     </h2>
@@ -352,12 +384,16 @@ const Karriere: React.FC = () => {
                         Finden Sie Ihre perfekte Position in unserem wachsenden Unternehmen
                     </p>
 
+                    {/* Featured Jobs - First 3 */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                         {featuredJobs.map((job, index) => (
                             <div
                                 key={job.id}
                                 className="bg-white border rounded-xl p-6 cursor-pointer hover:transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                                style={{ borderColor: '#d1d8dc', transitionDelay: `${index * 100}ms` }}
+                                style={{
+                                    borderColor: '#d1d8dc',
+                                    transitionDelay: `${index * 100}ms`
+                                }}
                                 onClick={() => handleJobClick(job)}
                             >
                                 <div className="mb-4">
@@ -367,9 +403,11 @@ const Karriere: React.FC = () => {
                                     >
                                         {job.department}
                                     </span>
+
                                     <h3 className="text-xl font-bold mb-3" style={{ color: '#1e3767' }}>
                                         {job.title}
                                     </h3>
+
                                     <div className="flex flex-wrap gap-4 mb-4 text-sm" style={{ color: '#1e3767' }}>
                                         <div className="flex items-center gap-1">
                                             <MapPin size={14} />
@@ -385,9 +423,11 @@ const Karriere: React.FC = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <p className="text-sm leading-relaxed mb-6 line-clamp-3" style={{ color: '#1e3767' }}>
+
+                                <p className="text-sm leading-relaxed mb-6" style={{ color: '#1e3767' }}>
                                     {job.description}
                                 </p>
+
                                 <div className="flex items-center justify-between">
                                     <div className="text-xs" style={{ color: '#1e3767' }}>
                                         <div className="mb-1">
@@ -405,6 +445,7 @@ const Karriere: React.FC = () => {
                         ))}
                     </div>
 
+                    {/* Carousel for additional jobs */}
                     {carouselJobs.length > 0 && (
                         <div>
                             <div className="flex items-center justify-between mb-8">
@@ -449,7 +490,11 @@ const Karriere: React.FC = () => {
                                         <div
                                             key={job.id}
                                             className="bg-white border rounded-xl p-6 cursor-pointer hover:transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                                            style={{ borderColor: '#d1d8dc', width: '320px', flexShrink: 0 }}
+                                            style={{
+                                                borderColor: '#d1d8dc',
+                                                width: '320px',
+                                                flexShrink: 0
+                                            }}
                                             onClick={() => handleJobClick(job)}
                                         >
                                             <div className="mb-4">
@@ -459,9 +504,11 @@ const Karriere: React.FC = () => {
                                                 >
                                                     {job.department}
                                                 </span>
+
                                                 <h3 className="text-xl font-bold mb-3" style={{ color: '#1e3767' }}>
                                                     {job.title}
                                                 </h3>
+
                                                 <div className="flex flex-col gap-2 mb-4 text-sm" style={{ color: '#1e3767' }}>
                                                     <div className="flex items-center gap-1">
                                                         <MapPin size={14} />
@@ -477,9 +524,11 @@ const Karriere: React.FC = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <p className="text-sm leading-relaxed mb-6 line-clamp-3" style={{ color: '#1e3767' }}>
+
+                                            <p className="text-sm leading-relaxed mb-6" style={{ color: '#1e3767' }}>
                                                 {job.description}
                                             </p>
+
                                             <div className="flex items-center justify-between">
                                                 <div className="text-xs" style={{ color: '#1e3767' }}>
                                                     <div className="mb-1">
@@ -497,7 +546,8 @@ const Karriere: React.FC = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="text-center mt-6 text-sm lg:hidden" style={{ color: '#1e3767' }}>
+
+                            <div className="text-center mt-6 text-sm" style={{ color: '#1e3767' }}>
                                 ← Wischen Sie für weitere Stellen →
                             </div>
                         </div>
@@ -506,11 +556,15 @@ const Karriere: React.FC = () => {
             </section>
 
             {/* Benefits Section */}
-            <section ref={setSectionRef('benefits')} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`transition-all duration-1000 transform ${visibleSections.has('benefits') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section
+                ref={setSectionRef('benefits')}
+                className="max-w-6xl mx-auto px-6 py-20"
+            >
+                <div className={`transition-all duration-1000 ${visibleSections.has('benefits') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h2 className="text-4xl font-bold mb-16" style={{ color: '#1e3767' }}>
                         Was wir bieten
                     </h2>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div className="text-center">
                             <h4 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>Attraktive Vergütung</h4>
@@ -541,35 +595,61 @@ const Karriere: React.FC = () => {
             </section>
 
             {/* Application Process Section */}
-            <section ref={setSectionRef('process')} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`transition-all duration-1000 transform ${visibleSections.has('process') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section
+                ref={setSectionRef('process')}
+                className="max-w-6xl mx-auto px-6 py-20"
+            >
+                <div className={`transition-all duration-1000 ${visibleSections.has('process') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h2 className="text-4xl font-bold mb-16" style={{ color: '#1e3767' }}>
                         Unser Bewerbungsprozess
                     </h2>
+
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-                        {[
-                            { num: '1', title: 'Bewerbung', desc: 'Senden Sie uns Ihre aussagekräftigen Unterlagen' },
-                            { num: '2', title: 'Erstgespräch', desc: 'Persönliches oder virtuelles Kennenlernen' },
-                            { num: '3', title: 'Fachgespräch', desc: 'Detailliertes Gespräch mit dem Fachbereich' },
-                            { num: '4', title: 'Angebot', desc: 'Individuelles Vertragsangebot' },
-                            { num: '5', title: 'Onboarding', desc: 'Strukturierte Einarbeitung im Team' }
-                        ].map((step) => (
-                            <div key={step.num} className="text-center">
-                                <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold"
-                                     style={{ backgroundColor: '#1e3767' }}>
-                                    {step.num}
-                                </div>
-                                <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>{step.title}</h4>
-                                <p className="text-sm" style={{ color: '#1e3767' }}>{step.desc}</p>
+                        <div className="text-center">
+                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
+                                1
                             </div>
-                        ))}
+                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Bewerbung</h4>
+                            <p className="text-sm" style={{ color: '#1e3767' }}>Senden Sie uns Ihre aussagekräftigen Unterlagen</p>
+                        </div>
+                        <div className="text-center">
+                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
+                                2
+                            </div>
+                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Erstgespräch</h4>
+                            <p className="text-sm" style={{ color: '#1e3767' }}>Persönliches oder virtuelles Kennenlernen</p>
+                        </div>
+                        <div className="text-center">
+                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
+                                3
+                            </div>
+                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Fachgespräch</h4>
+                            <p className="text-sm" style={{ color: '#1e3767' }}>Detailliertes Gespräch mit dem Fachbereich</p>
+                        </div>
+                        <div className="text-center">
+                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
+                                4
+                            </div>
+                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Angebot</h4>
+                            <p className="text-sm" style={{ color: '#1e3767' }}>Individuelles Vertragsangebot</p>
+                        </div>
+                        <div className="text-center">
+                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
+                                5
+                            </div>
+                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Onboarding</h4>
+                            <p className="text-sm" style={{ color: '#1e3767' }}>Strukturierte Einarbeitung im Team</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* CTA Section */}
-            <section ref={setSectionRef('cta')} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`text-center transition-all duration-1000 transform ${visibleSections.has('cta') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section
+                ref={setSectionRef('cta')}
+                className="max-w-6xl mx-auto px-6 py-20"
+            >
+                <div className={`text-center transition-all duration-1000 ${visibleSections.has('cta') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h3 className="text-3xl font-bold mb-4" style={{ color: '#1e3767' }}>
                         Bewerbungen und Kontakt
                     </h3>
@@ -601,7 +681,10 @@ const Karriere: React.FC = () => {
             {/* Job Details Modal */}
             {selectedJob && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ paddingTop: '80px' }}>
-                    <div className="absolute inset-0 bg-black bg-opacity-75 backdrop-blur-sm" onClick={closeModal}></div>
+                    <div
+                        className="absolute inset-0 bg-black bg-opacity-75 backdrop-blur-sm"
+                        onClick={closeModal}
+                    ></div>
 
                     <div className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[calc(100vh-160px)] overflow-y-auto">
                         <button
@@ -620,7 +703,11 @@ const Karriere: React.FC = () => {
                                 >
                                     {selectedJob.department}
                                 </span>
-                                <h2 className="text-3xl font-bold mb-2">{selectedJob.title}</h2>
+
+                                <h2 className="text-3xl font-bold mb-2">
+                                    {selectedJob.title}
+                                </h2>
+
                                 <div className="flex flex-wrap gap-4 text-sm">
                                     <div className="flex items-center gap-1">
                                         <MapPin size={14} />
@@ -651,39 +738,39 @@ const Karriere: React.FC = () => {
                                             {selectedJob.description}
                                         </p>
                                     </div>
+
                                     <div className="mb-8">
                                         <h3 className="text-xl font-bold mb-4" style={{ color: '#1e3767' }}>Ihre Aufgaben</h3>
                                         <ul className="space-y-2">
                                             {selectedJob.responsibilities.map((item, index) => (
                                                 <li key={index} className="flex items-start">
-                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2"
-                                                         style={{ backgroundColor: '#1e3767' }}></div>
+                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2" style={{ backgroundColor: '#1e3767' }}></div>
                                                     <span className="text-sm" style={{ color: '#1e3767' }}>{item}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
                                 </div>
+
                                 <div>
                                     <div className="mb-8">
                                         <h3 className="text-xl font-bold mb-4" style={{ color: '#1e3767' }}>Ihr Profil</h3>
                                         <ul className="space-y-2">
                                             {selectedJob.requirements.map((item, index) => (
                                                 <li key={index} className="flex items-start">
-                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2"
-                                                         style={{ backgroundColor: '#1e3767' }}></div>
+                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2" style={{ backgroundColor: '#1e3767' }}></div>
                                                     <span className="text-sm" style={{ color: '#1e3767' }}>{item}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
+
                                     <div className="mb-8">
                                         <h3 className="text-xl font-bold mb-4" style={{ color: '#1e3767' }}>Wir bieten</h3>
                                         <ul className="space-y-2">
                                             {selectedJob.benefits.map((item, index) => (
                                                 <li key={index} className="flex items-start">
-                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2"
-                                                         style={{ backgroundColor: '#d97539' }}></div>
+                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2" style={{ backgroundColor: '#d97539' }}></div>
                                                     <span className="text-sm" style={{ color: '#1e3767' }}>{item}</span>
                                                 </li>
                                             ))}
@@ -691,6 +778,7 @@ const Karriere: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
+
                             <div className="text-center pt-8 border-t" style={{ borderColor: '#d1d8dc' }}>
                                 <div className="bg-gray-50 rounded-xl p-6">
                                     <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Jetzt bewerben</h4>
@@ -719,12 +807,6 @@ const Karriere: React.FC = () => {
                 }
                 .scrollbar-hide::-webkit-scrollbar {
                     display: none;
-                }
-                .line-clamp-3 {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
                 }
             `}</style>
         </div>
