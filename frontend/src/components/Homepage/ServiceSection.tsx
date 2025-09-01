@@ -33,7 +33,7 @@ const ServicesSection = () => {
 
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 480);
-            setIsTablet(window.innerWidth <= 1200 && window.innerWidth > 480);
+            setIsTablet(window.innerWidth <= 930 && window.innerWidth > 480); // Geändert: ab 930px nebeneinander
         };
 
         handleResize();
@@ -336,7 +336,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     mainTitle: {
         fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
-        fontWeight: '300', // Geändert von 800 zu 300 (light)
+        fontWeight: '300',
         color: '#1e3763',
         marginBottom: '1.5rem',
         lineHeight: 1.2,
@@ -351,7 +351,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
         color: '#9ba8b3',
         lineHeight: 1.7,
-        fontWeight: '300', // Geändert von 400 zu 300 (light)
+        fontWeight: '300',
         marginBottom: '3rem',
     },
 
@@ -363,14 +363,14 @@ const styles: { [key: string]: React.CSSProperties } = {
         width: '100%',
     },
     servicesGridTablet: {
-        gridTemplateColumns: '1fr',
+        gridTemplateColumns: '1fr', // Eine Spalte bis 930px
         gap: '2rem',
         marginBottom: '4rem',
     },
     servicesGridMobile: {
         gap: '1.5rem',
         marginBottom: '3rem',
-        gridTemplateColumns: '1fr',
+        gridTemplateColumns: '1fr', // Mobile: Nur eine Spalte
     },
 
     serviceCard: {
@@ -435,7 +435,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     cardTitle: {
         fontSize: '1.5rem',
-        fontWeight: '300', // Geändert von 700 zu 300 (light)
+        fontWeight: '300',
         color: '#1e3763',
         marginBottom: '1rem',
         lineHeight: 1.3,
@@ -449,7 +449,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         color: '#9ba8b3',
         lineHeight: 1.7,
         marginBottom: '2rem',
-        fontWeight: '300', // Geändert von 400 zu 300 (light)
+        fontWeight: '300',
     },
     cardDescriptionMobile: {
         fontSize: '0.9rem',
@@ -468,7 +468,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         gap: '0.75rem',
         fontSize: '0.9rem',
         color: '#1e3763',
-        fontWeight: '400', // Geändert von 500 zu 400 (normal)
+        fontWeight: '400',
     },
     featureItemMobile: {
         fontSize: '0.85rem',
@@ -550,7 +550,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
     ctaTitle: {
         fontSize: 'clamp(1.4rem, 4vw, 2.2rem)',
-        fontWeight: '300', // Geändert von 700 zu 300 (light)
+        fontWeight: '300',
         marginBottom: '1rem',
         lineHeight: 1.3,
     },
@@ -560,7 +560,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         color: 'rgba(255, 255, 255, 0.9)',
         lineHeight: 1.7,
         marginBottom: '1.5rem',
-        fontWeight: '300', // Geändert von 400 zu 300 (light)
+        fontWeight: '300',
     },
     ctaDescriptionMobile: {
         fontSize: '1rem',
@@ -587,7 +587,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         gap: '0.75rem',
         fontSize: '0.9rem',
         color: 'rgba(255, 255, 255, 0.95)',
-        fontWeight: '400', // Geändert von 500 zu 400 (normal)
+        fontWeight: '400',
     },
     ctaFeatureTablet: {
         justifyContent: 'center',
@@ -639,7 +639,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         borderRadius: '8px',
         padding: '1rem 1.5rem',
         fontSize: '0.95rem',
-        fontWeight: '500', // Geändert von 600 zu 500 (medium)
+        fontWeight: '500',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         boxShadow: '0 4px 15px rgba(30, 55, 99, 0.2)',
@@ -666,7 +666,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         borderRadius: '8px',
         padding: '1rem 1.5rem',
         fontSize: '0.95rem',
-        fontWeight: '500', // Geändert von 600 zu 500 (medium)
+        fontWeight: '500',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         textDecoration: 'none',

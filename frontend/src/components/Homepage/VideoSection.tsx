@@ -59,8 +59,19 @@ const VideoSection = () => {
                     }
                 }
 
-                /* Mobile Layout: Video oben, Text unten */
-                @media (max-width: 768px) {
+                /* PHASE 1: Desktop - Labels bleiben weiß bis 769px */
+                @media (min-width: 770px) {
+                    .promax-stat-label {
+                        color: rgba(255, 255, 255, 0.8) !important;
+                        font-weight: 400 !important;
+                    }
+                    .promax-stat-number {
+                        color: #E67E22 !important;
+                    }
+                }
+
+                /* PHASE 2: Mobile Layout - Video oben, Text unten */
+                @media (max-width: 769px) {
                     .promax-video-section {
                         height: auto !important;
                         min-height: auto !important;
@@ -109,6 +120,9 @@ const VideoSection = () => {
                         max-width: 100% !important;
                         width: 100% !important;
                         color: #1e3767 !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        align-items: center !important;
                     }
                     
                     .promax-stats-container {
@@ -118,6 +132,26 @@ const VideoSection = () => {
                         margin-top: 1.5rem !important;
                         border-top: 1px solid rgba(230, 126, 34, 0.3) !important;
                         justify-content: center !important;
+                        display: flex !important;
+                        align-items: center !important;
+                    }
+                    
+                    .promax-stat-item {
+                        text-align: center !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        align-items: center !important;
+                    }
+                    
+                    /* PHASE 2: Labels sind hellgrau */
+                    .promax-stat-label {
+                        color: #666666 !important;
+                        font-size: 0.8rem !important;
+                        font-weight: 500 !important;
+                    }
+                    
+                    .promax-stat-number {
+                        color: #E67E22 !important;
                     }
                     
                     .promax-stat-divider {
@@ -127,11 +161,18 @@ const VideoSection = () => {
                     }
                     
                     .promax-badge {
-                        display: none !important;
+                        display: inline-flex !important;
+                        align-self: center !important;
+                        margin-left: auto !important;
+                        margin-right: auto !important;
                     }
                     
                     .promax-title {
                         margin-bottom: 1rem !important;
+                        text-align: center !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        align-items: center !important;
                     }
                     
                     .promax-title-main {
@@ -140,6 +181,7 @@ const VideoSection = () => {
                         margin-bottom: 0.2rem !important;
                         text-shadow: none !important;
                         font-weight: 300 !important;
+                        text-align: center !important;
                     }
                     
                     .promax-title-sub {
@@ -147,6 +189,7 @@ const VideoSection = () => {
                         color: #E67E22 !important;
                         text-shadow: none !important;
                         font-weight: 600 !important;
+                        text-align: center !important;
                     }
                     
                     .promax-description {
@@ -157,6 +200,8 @@ const VideoSection = () => {
                         text-shadow: none !important;
                         opacity: 0.8 !important;
                         font-weight: 400 !important;
+                        text-align: center !important;
+                        max-width: 100% !important;
                     }
                 }
 
@@ -185,8 +230,8 @@ const VideoSection = () => {
                     
                     .promax-stat-label {
                         font-size: 0.7rem !important;
-                        color: #1e3767 !important;
-                        opacity: 0.7 !important;
+                        color: #666666 !important;
+                        opacity: 0.8 !important;
                         font-weight: 400 !important;
                     }
                     
@@ -242,8 +287,8 @@ const VideoSection = () => {
                     
                     .promax-stat-label {
                         font-size: 0.65rem !important;
-                        color: #1e3767 !important;
-                        opacity: 0.7 !important;
+                        color: #666666 !important;
+                        opacity: 0.8 !important;
                         font-weight: 400 !important;
                     }
                     

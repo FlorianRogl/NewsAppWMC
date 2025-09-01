@@ -1,202 +1,29 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { MapPin, Clock, Users, ArrowRight, Calendar, ChevronLeft, ChevronRight, Sparkles, Mail } from 'lucide-react';
+import { MapPin, Clock, Users, ArrowRight, ChevronLeft, ChevronRight, Sparkles, Mail, X } from 'lucide-react';
 import planungImage from '../assets/Fotolia_59046832_XS.jpg';
-
-// Interface für Job
-interface Job {
-    id: number;
-    title: string;
-    department: string;
-    location: string;
-    type: string;
-    experience: string;
-    posted: string;
-    description: string;
-    teamSize: string;
-    responsibilities: string[];
-    requirements: string[];
-    benefits: string[];
-}
-
-// Mock Job Data
-const jobOpenings: Job[] = [
-    {
-        id: 1,
-        title: "Senior Verfahrensingenieur",
-        department: "Engineering",
-        location: "Graz",
-        type: "Vollzeit",
-        experience: "5+ Jahre",
-        posted: "vor 2 Tagen",
-        description: "Entwicklung und Optimierung verfahrenstechnischer Prozesse für die chemische und pharmazeutische Industrie. Verantwortung für komplexe Anlagenprojekte von der Konzeption bis zur Inbetriebnahme.",
-        teamSize: "8-12",
-        responsibilities: [
-            "Konzeptionierung und Auslegung verfahrenstechnischer Anlagen",
-            "Durchführung von Prozesssimulationen und -optimierungen",
-            "Projektleitung komplexer Anlagenprojekte",
-            "Zusammenarbeit mit interdisziplinären Teams",
-            "Kundenbetreuung und technische Präsentationen"
-        ],
-        requirements: [
-            "Abgeschlossenes Studium der Verfahrenstechnik oder vergleichbar",
-            "Mindestens 5 Jahre Berufserfahrung in der Anlagenplanung",
-            "Erfahrung mit Prozesssimulation (ChemCAD, Aspen Plus)",
-            "Sehr gute Deutsch- und Englischkenntnisse",
-            "Reisebereitschaft für internationale Projekte"
-        ],
-        benefits: [
-            "Überkollektivvertragliche Entlohnung",
-            "Flexible Arbeitszeiten und Home-Office",
-            "Internationale Projekttätigkeit",
-            "Umfassende Weiterbildungsmöglichkeiten",
-            "Betriebliche Gesundheitsvorsorge"
-        ]
-    },
-    {
-        id: 2,
-        title: "CAD-Konstrukteur Rohrleitungstechnik",
-        department: "Design",
-        location: "Graz",
-        type: "Vollzeit",
-        experience: "3+ Jahre",
-        posted: "vor 1 Woche",
-        description: "3D-Konstruktion und Detailplanung von Rohrleitungssystemen für industrielle Anlagen. Schwerpunkt auf AutoCAD Plant 3D und PDMS für komplexe Anlagenprojekte.",
-        teamSize: "6-10",
-        responsibilities: [
-            "3D-Konstruktion von Rohrleitungssystemen",
-            "Erstellung von Isometrien und Stücklisten",
-            "Kollisionsprüfung und Optimierung",
-            "Zusammenarbeit mit Verfahrens- und Statik-Ingenieuren",
-            "Qualitätssicherung und Dokumentation"
-        ],
-        requirements: [
-            "Ausbildung als Maschinenbautechniker oder vergleichbar",
-            "Fundierte Kenntnisse in AutoCAD Plant 3D oder PDMS",
-            "Erfahrung in der Rohrleitungsplanung",
-            "Kenntnisse in Normen und Standards (ASME, DIN)",
-            "Teamorientierte Arbeitsweise"
-        ],
-        benefits: [
-            "Moderne CAD-Arbeitsplätze",
-            "Regelmäßige Software-Schulungen",
-            "Abwechslungsreiche Projektarbeit",
-            "Gute Work-Life-Balance",
-            "Firmenparkplatz"
-        ]
-    },
-    {
-        id: 3,
-        title: "Projektmanager Anlagenbau",
-        department: "Projektmanagement",
-        location: "Graz",
-        type: "Vollzeit",
-        experience: "7+ Jahre",
-        posted: "vor 3 Tagen",
-        description: "Gesamtverantwortung für Anlagenbauprojekte von der Akquisition bis zur Übergabe. Koordination aller Projektbeteiligten und Sicherstellung der termingerechten Projektumsetzung.",
-        teamSize: "15-25",
-        responsibilities: [
-            "End-to-End Projektmanagement großer Anlagenprojekte",
-            "Budgetverantwortung und Kostenkontrolle",
-            "Koordination interner und externer Stakeholder",
-            "Risikomanagement und Qualitätssicherung",
-            "Kundenbetreuung auf Managementebene"
-        ],
-        requirements: [
-            "Studium im technischen Bereich oder vergleichbare Qualifikation",
-            "Mehrjährige Erfahrung im Projektmanagement",
-            "PMP oder vergleichbare Zertifizierung von Vorteil",
-            "Exzellente Kommunikations- und Führungsqualitäten",
-            "Verhandlungssichere Englischkenntnisse"
-        ],
-        benefits: [
-            "Hohe Eigenverantwortung und Gestaltungsspielraum",
-            "Internationale Karrieremöglichkeiten",
-            "Leistungsabhängige Vergütung",
-            "Firmenhandy und Laptop",
-            "Reisekostenerstattung"
-        ]
-    },
-    {
-        id: 4,
-        title: "Mess- und Regelungstechniker",
-        department: "Automatisierung",
-        location: "Graz",
-        type: "Vollzeit",
-        experience: "4+ Jahre",
-        posted: "vor 5 Tagen",
-        description: "Planung und Programmierung von Automatisierungssystemen für industrielle Anlagen. Inbetriebnahme und Service von Mess-, Steuer- und Regelungstechnik.",
-        teamSize: "5-8",
-        responsibilities: [
-            "Programmierung von SPS-Systemen (Siemens, ABB)",
-            "Erstellung von Schalt- und Verrohrungsplänen",
-            "Inbetriebnahme vor Ort beim Kunden",
-            "Fehlerdiagnose und Störungsbehebung",
-            "Dokumentation und Schulung der Anlagenbediener"
-        ],
-        requirements: [
-            "Ausbildung als Automatisierungstechniker oder vergleichbar",
-            "Erfahrung mit SPS-Systemen (Step 7, TIA Portal)",
-            "Kenntnisse in Prozessleittechnik",
-            "Bereitschaft zu Dienstreisen und Montagen",
-            "Problemlösungskompetenz und selbstständiges Arbeiten"
-        ],
-        benefits: [
-            "Abwechslungsreiche Tätigkeiten",
-            "Moderne Arbeitsausrüstung",
-            "Regelmäßige Herstellerschulungen",
-            "Montage- und Reisezulagen",
-            "Kollegiales Arbeitsklima"
-        ]
-    },
-    {
-        id: 5,
-        title: "Junior Verfahrensingenieur",
-        department: "Engineering",
-        location: "Graz",
-        type: "Vollzeit",
-        experience: "0-2 Jahre",
-        posted: "vor 1 Woche",
-        description: "Einstiegsposition für Absolventen mit Interesse an verfahrenstechnischen Fragestellungen. Mitarbeit in spannenden Projekten mit umfassendem Mentoring-Programm.",
-        teamSize: "8-12",
-        responsibilities: [
-            "Unterstützung bei Prozessberechnungen",
-            "Erstellung technischer Dokumentationen",
-            "Mitarbeit in Projektteams",
-            "Durchführung von Literaturrecherchen",
-            "Teilnahme an Kundenterminen"
-        ],
-        requirements: [
-            "Abgeschlossenes Studium der Verfahrenstechnik, Maschinenbau oder ähnlich",
-            "Grundkenntnisse in Prozesssimulation von Vorteil",
-            "Gute analytische Fähigkeiten",
-            "Motivation zur Einarbeitung in neue Themengebiete",
-            "Gute Deutsch- und Englischkenntnisse"
-        ],
-        benefits: [
-            "Strukturiertes Einarbeitungsprogramm",
-            "Persönlicher Mentor",
-            "Vielfältige Weiterbildungsmöglichkeiten",
-            "Junges, dynamisches Team",
-            "Gute Übernahmechancen"
-        ]
-    }
-];
+import { jobService } from '../services/jobService';
+import type { FormattedJob } from '../types/job.types';
 
 const getDepartmentColor = (department: string): string => {
     const colors: { [key: string]: string } = {
         'Engineering': '#1e3767',
         'Design': '#d97539',
-        'Projektmanagement': '#1e3767',
-        'Automatisierung': '#d97539',
-        'Management': '#1e3767'
+        'Projektmanagement': '#2d4a73',
+        'Automatisierung': '#e68545',
+        'Management': '#1a2f5f'
     };
     return colors[department] || '#1e3767';
 };
 
-const Karriere = () => {
+const Karriere: React.FC = () => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+    const [selectedJob, setSelectedJob] = useState<FormattedJob | null>(null);
     const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+
+    // Sanity Integration States
+    const [jobOpenings, setJobOpenings] = useState<FormattedJob[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     // Refs
     const heroRef = useRef<HTMLElement>(null);
@@ -208,15 +35,32 @@ const Karriere = () => {
         sectionRefs.current[key] = el;
     };
 
+    // Jobs von Sanity laden
+    useEffect(() => {
+        const loadJobs = async (): Promise<void> => {
+            try {
+                setLoading(true);
+                setError(null);
+                const jobs = await jobService.getActiveJobs();
+                setJobOpenings(jobs);
+            } catch (err) {
+                console.error('Fehler beim Laden der Jobs:', err);
+                setError('Jobs konnten nicht geladen werden. Bitte versuchen Sie es später erneut.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadJobs();
+    }, []);
+
     // SEO Meta Tags setzen
     useEffect(() => {
-        // Title setzen
         document.title = 'Karriere bei PROMAX - Jobs im Industrieanlagenbau in Graz';
 
-        // Meta Tags setzen/aktualisieren
-        const setMetaTag = (name: string, content: string, property = false) => {
+        const setMetaTag = (name: string, content: string, property = false): void => {
             const attribute = property ? 'property' : 'name';
-            let meta = document.querySelector(`meta[${attribute}="${name}"]`) as HTMLMetaElement;
+            let meta = document.querySelector(`meta[${attribute}="${name}"]`) as HTMLMetaElement | null;
             if (!meta) {
                 meta = document.createElement('meta');
                 meta.setAttribute(attribute, name);
@@ -225,51 +69,31 @@ const Karriere = () => {
             meta.content = content;
         };
 
-        // Basic Meta Tags
         setMetaTag('description', 'Karrieremöglichkeiten bei PROMAX in Graz. Offene Stellen für Verfahrensingenieure, CAD-Konstrukteure, Projektmanager und Automatisierungstechniker. Jetzt bewerben!');
         setMetaTag('keywords', 'Jobs Graz, Karriere Industrieanlagenbau, Verfahrensingenieur Jobs, CAD Konstrukteur, Projektmanager Anlagenbau, Automatisierungstechniker, PROMAX Karriere');
-        setMetaTag('author', 'PROMAX Projektmanagement');
-        setMetaTag('robots', 'index, follow');
-
-        // Open Graph Tags
-        setMetaTag('og:title', 'Karriere bei PROMAX - Jobs im Industrieanlagenbau', true);
-        setMetaTag('og:description', 'Werden Sie Teil unseres innovativen Teams von über 100 Experten. Offene Stellen in Engineering, Design und Projektmanagement.', true);
-        setMetaTag('og:url', 'https://www.promax.at/karriere', true);
-        setMetaTag('og:type', 'website', true);
-        setMetaTag('og:locale', 'de_AT', true);
-        setMetaTag('og:site_name', 'PROMAX', true);
-
-        // Twitter Cards
-        setMetaTag('twitter:card', 'summary_large_image');
-        setMetaTag('twitter:title', 'Karriere bei PROMAX - Jobs im Industrieanlagenbau');
-        setMetaTag('twitter:description', 'Werden Sie Teil unseres innovativen Teams von über 100 Experten.');
-
-        // Canonical Link
-        let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
-        if (!canonical) {
-            canonical = document.createElement('link');
-            canonical.rel = 'canonical';
-            document.head.appendChild(canonical);
-        }
-        canonical.href = 'https://www.promax.at/karriere';
-
     }, []);
 
     // Intersection Observer für Scroll-Animationen
     useEffect(() => {
-        const observerOptions = {
+        if (loading) return;
+
+        const observerOptions: IntersectionObserverInit = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
 
-        const observerCallback = (entries: IntersectionObserverEntry[]) => {
+        const observerCallback = (entries: IntersectionObserverEntry[]): void => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const sectionId = entry.target.getAttribute('data-section');
                     if (sectionId === 'hero') {
                         setIsVisible(true);
                     } else if (sectionId) {
-                        setVisibleSections(prev => new Set(prev).add(sectionId));
+                        setVisibleSections(prev => {
+                            const newSet = new Set(prev);
+                            newSet.add(sectionId);
+                            return newSet;
+                        });
                     }
                 }
             });
@@ -277,27 +101,32 @@ const Karriere = () => {
 
         const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-        // Observe hero
-        if (heroRef.current) {
-            heroRef.current.setAttribute('data-section', 'hero');
-            observer.observe(heroRef.current);
-        }
+        setTimeout(() => {
+            if (heroRef.current) {
+                heroRef.current.setAttribute('data-section', 'hero');
+                observer.observe(heroRef.current);
 
-        // Observe other sections
-        Object.entries(sectionRefs.current).forEach(([key, ref]) => {
-            if (ref) {
-                ref.setAttribute('data-section', key);
-                observer.observe(ref);
+                const rect = heroRef.current.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    setIsVisible(true);
+                }
             }
-        });
+
+            Object.entries(sectionRefs.current).forEach(([key, ref]) => {
+                if (ref) {
+                    ref.setAttribute('data-section', key);
+                    observer.observe(ref);
+                }
+            });
+        }, 100);
 
         return () => {
             observer.disconnect();
         };
-    }, []);
+    }, [loading]);
 
     // Carousel scroll functions
-    const scrollCarousel = useCallback((direction: 'left' | 'right') => {
+    const scrollCarousel = useCallback((direction: 'left' | 'right'): void => {
         if (carouselRef.current) {
             const scrollAmount = 350;
             const currentScroll = carouselRef.current.scrollLeft;
@@ -313,10 +142,10 @@ const Karriere = () => {
     }, []);
 
     // Check if carousel can scroll
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
-    const [canScrollRight, setCanScrollRight] = useState(true);
+    const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
+    const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
 
-    const checkScrollability = useCallback(() => {
+    const checkScrollability = useCallback((): void => {
         if (carouselRef.current) {
             const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
             setCanScrollLeft(scrollLeft > 0);
@@ -337,56 +166,114 @@ const Karriere = () => {
                 window.removeEventListener('resize', checkScrollability);
             };
         }
-    }, [checkScrollability]);
+    }, [checkScrollability, jobOpenings]);
 
     // Touch handling for mobile
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-    const handleTouchStart = (e: React.TouchEvent) => {
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
         setTouchEnd(null);
         setTouchStart(e.targetTouches[0].clientX);
     };
 
-    const handleTouchMove = (e: React.TouchEvent) => {
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>): void => {
         setTouchEnd(e.targetTouches[0].clientX);
     };
 
-    const handleTouchEnd = () => {
+    const handleTouchEnd = (): void => {
         if (!touchStart || !touchEnd) return;
-
         const distance = touchStart - touchEnd;
         const isLeftSwipe = distance > 50;
         const isRightSwipe = distance < -50;
 
-        if (isLeftSwipe) {
-            scrollCarousel('right');
-        }
-        if (isRightSwipe) {
-            scrollCarousel('left');
-        }
+        if (isLeftSwipe) scrollCarousel('right');
+        if (isRightSwipe) scrollCarousel('left');
     };
+
+    const handleJobClick = (job: FormattedJob): void => {
+        setSelectedJob(job);
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = (): void => {
+        setSelectedJob(null);
+        document.body.style.overflow = 'unset';
+    };
+
+    // Loading State
+    if (loading) {
+        return (
+            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+                <div className="max-w-6xl mx-auto px-6 py-40 text-center">
+                    <div className="animate-pulse">
+                        <div className="w-16 h-16 mx-auto mb-4 bg-gray-200"></div>
+                        <div className="text-xl">Jobs werden geladen...</div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Error State
+    if (error) {
+        return (
+            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+                <div className="max-w-6xl mx-auto px-6 py-40 text-center">
+                    <div className="text-xl text-red-600 mb-4">{error}</div>
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="px-6 py-3 text-white hover:opacity-90 transition-opacity"
+                        style={{ backgroundColor: '#1e3767' }}
+                    >
+                        Seite neu laden
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    // Keine Jobs vorhanden
+    if (!loading && jobOpenings.length === 0) {
+        return (
+            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+                <section className="max-w-6xl mx-auto px-6 py-40 text-center">
+                    <h1 className="text-4xl font-bold mb-4">Karriere bei PROMAX</h1>
+                    <p className="text-xl mb-8">
+                        Momentan sind keine offenen Stellen verfügbar.
+                    </p>
+                    <p className="text-lg mb-8">
+                        Wir freuen uns aber jederzeit über Initiativbewerbungen!
+                    </p>
+                    <div className="bg-white border p-8 max-w-md mx-auto" style={{ borderColor: '#d1d8dc' }}>
+                        <Mail size={48} className="mx-auto mb-4" style={{ color: '#1e3767' }} />
+                        <h3 className="text-xl font-bold mb-2">Initiativbewerbung</h3>
+                        <p className="text-sm mb-4">
+                            Senden Sie uns Ihre Bewerbungsunterlagen an:
+                        </p>
+                        <a
+                            href="mailto:karriere@promax.at"
+                            className="text-lg font-medium hover:underline"
+                            style={{ color: '#d97539' }}
+                        >
+                            karriere@promax.at
+                        </a>
+                    </div>
+                </section>
+            </div>
+        );
+    }
 
     // Split jobs into featured and carousel
     const featuredJobs = jobOpenings.slice(0, 3);
     const carouselJobs = jobOpenings.slice(3);
 
-    const handleJobClick = (job: Job) => {
-        setSelectedJob(job);
-        document.body.style.overflow = 'hidden';
-    };
-
-    const closeModal = () => {
-        setSelectedJob(null);
-        document.body.style.overflow = 'unset';
-    };
-
     return (
-        <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767' }}>
+        <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
             {/* Hero Section */}
             <section ref={heroRef} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8" style={{ backgroundColor: '#d1d8dc' }}>
+                <div className={`transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-8" style={{ backgroundColor: '#d1d8dc' }}>
                         <Sparkles size={16} style={{ color: '#1e3767' }} />
                         <span className="text-sm font-medium" style={{ color: '#1e3767' }}>Wir stellen ein</span>
                     </div>
@@ -402,14 +289,10 @@ const Karriere = () => {
                 </div>
             </section>
 
-            {/* Values Section with Text and Image */}
-            <section
-                ref={setSectionRef('values')}
-                className="max-w-6xl mx-auto px-6 py-20"
-            >
-                <div className={`transition-all duration-1000 ${visibleSections.has('values') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* Values Section */}
+            <section ref={setSectionRef('values')} className="max-w-6xl mx-auto px-6 py-20">
+                <div className={`transition-all duration-1000 transform ${visibleSections.has('values') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        {/* Text Content */}
                         <div>
                             <h2 className="text-5xl font-bold mb-8" style={{ color: '#1e3767' }}>
                                 Innovation trifft auf Tradition
@@ -436,25 +319,22 @@ const Karriere = () => {
                             </div>
 
                             <div className="mt-8 flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#1e3767' }}>
+                                <div className="w-12 h-12 flex items-center justify-center" style={{ backgroundColor: '#1e3767' }}>
                                     <span className="text-white text-xl">💼</span>
                                 </div>
                                 <span className="text-lg font-medium" style={{ color: '#1e3767' }}>
-                                        Work-Life-Balance ist bei uns kein Buzzword, sondern gelebte Realität
-                                    </span>
+                                    Work-Life-Balance ist bei uns kein Buzzword, sondern gelebte Realität
+                                </span>
                             </div>
                         </div>
 
-                        {/* Image - Hidden on mobile */}
                         <div className="relative hidden lg:block">
-                            <div className="w-full h-96 lg:h-[500px] rounded-2xl shadow-2xl overflow-hidden">
+                            <div className="w-full h-96 lg:h-[500px] shadow-2xl overflow-hidden">
                                 <img
                                     src={planungImage}
                                     alt="PROMAX Team bei der Projektplanung"
                                     className="w-full h-full object-cover"
                                     loading="lazy"
-                                    width="600"
-                                    height="500"
                                 />
                             </div>
                         </div>
@@ -462,12 +342,9 @@ const Karriere = () => {
                 </div>
             </section>
 
-            {/* Jobs Section */}
-            <section
-                ref={setSectionRef('jobs')}
-                className="max-w-6xl mx-auto px-6 py-20"
-            >
-                <div className={`transition-all duration-1000 ${visibleSections.has('jobs') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* Jobs Section - Angular Design */}
+            <section ref={setSectionRef('jobs')} className="max-w-6xl mx-auto px-6 py-20">
+                <div className={`transition-all duration-1000 transform ${visibleSections.has('jobs') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h2 className="text-4xl font-bold mb-4" style={{ color: '#1e3767' }}>
                         Offene Stellen
                     </h2>
@@ -475,79 +352,95 @@ const Karriere = () => {
                         Finden Sie Ihre perfekte Position in unserem wachsenden Unternehmen
                     </p>
 
-                    {/* Featured Jobs - First 3 */}
+                    {/* Featured Jobs - Angular Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                         {featuredJobs.map((job, index) => (
                             <div
                                 key={job.id}
-                                className="bg-white border rounded-xl p-6 cursor-pointer hover:transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
+                                className="group relative bg-white p-8 cursor-pointer transition-all duration-500 hover:-translate-y-1 overflow-hidden"
                                 style={{
-                                    borderColor: '#d1d8dc',
+                                    boxShadow: '0 8px 32px rgba(30, 55, 103, 0.12)',
                                     transitionDelay: `${index * 100}ms`
                                 }}
                                 onClick={() => handleJobClick(job)}
                             >
-                                <div className="mb-4">
-                                        <span
-                                            className="px-3 py-1 rounded-lg text-sm font-medium text-white mb-3 inline-block"
+                                {/* Top accent line */}
+                                <div
+                                    className="absolute top-0 left-0 w-full h-1"
+                                    style={{ backgroundColor: getDepartmentColor(job.department) }}
+                                />
+
+                                {/* Content */}
+                                <div className="relative z-10">
+                                    {/* Header */}
+                                    <div className="flex items-start justify-between mb-6">
+                                        <div
+                                            className="px-4 py-2 text-sm font-semibold text-white"
                                             style={{ backgroundColor: getDepartmentColor(job.department) }}
                                         >
                                             {job.department}
-                                        </span>
+                                        </div>
+                                        <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
+                                            <ArrowRight size={20} style={{ color: getDepartmentColor(job.department) }} />
+                                        </div>
+                                    </div>
 
-                                    <h3 className="text-xl font-bold mb-3" style={{ color: '#1e3767' }}>
+                                    {/* Title */}
+                                    <h3 className="text-xl font-bold mb-4 leading-tight" style={{ color: '#1e3767' }}>
                                         {job.title}
                                     </h3>
 
-                                    <div className="flex flex-wrap gap-4 mb-4 text-sm" style={{ color: '#1e3767' }}>
-                                        <div className="flex items-center gap-1">
-                                            <MapPin size={14} />
-                                            <span>{job.location}</span>
+                                    {/* Description */}
+                                    <p className="text-sm leading-relaxed mb-6 opacity-80 line-clamp-3" style={{ color: '#1e3767' }}>
+                                        {job.description}
+                                    </p>
+
+                                    {/* Metadata */}
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-3 text-xs" style={{ color: '#1e3767' }}>
+                                            <div className="flex items-center gap-2 px-3 py-2 bg-gray-100">
+                                                <MapPin size={12} />
+                                                <span className="font-medium">{job.location}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2 px-3 py-2 bg-gray-100">
+                                                <Clock size={12} />
+                                                <span className="font-medium">{job.type}</span>
+                                            </div>
                                         </div>
-                                        <div className="flex items-center gap-1">
-                                            <Clock size={14} />
-                                            <span>{job.type}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <Users size={14} />
-                                            <span>Team: {job.teamSize}</span>
+
+                                        <div className="flex items-center justify-between text-xs" style={{ color: '#1e3767' }}>
+                                            <div className="flex items-center gap-2 opacity-70">
+                                                <Users size={12} />
+                                                <span>Team: {job.teamSize}</span>
+                                            </div>
+                                            <div className="opacity-70">
+                                                {job.posted}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <p className="text-sm leading-relaxed mb-6" style={{ color: '#1e3767' }}>
-                                    {job.description}
-                                </p>
-
-                                <div className="flex items-center justify-between">
-                                    <div className="text-xs" style={{ color: '#1e3767' }}>
-                                        <div className="mb-1">
-                                            <span className="font-medium">Erfahrung: </span>
-                                            <span>{job.experience}</span>
-                                        </div>
-                                        <div>
-                                            <span className="font-medium">Veröffentlicht: </span>
-                                            <span>{job.posted}</span>
-                                        </div>
-                                    </div>
-                                    <ArrowRight size={16} style={{ color: '#1e3767' }} />
-                                </div>
+                                {/* Hover effect */}
+                                <div
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-300"
+                                    style={{ backgroundColor: getDepartmentColor(job.department) }}
+                                />
                             </div>
                         ))}
                     </div>
 
-                    {/* Carousel for additional jobs */}
+                    {/* Carousel Jobs */}
                     {carouselJobs.length > 0 && (
                         <div>
                             <div className="flex items-center justify-between mb-8">
                                 <h3 className="text-2xl font-bold" style={{ color: '#1e3767' }}>Weitere Positionen</h3>
-                                <div className="flex gap-2">
+                                <div className="flex gap-3">
                                     <button
-                                        className="w-10 h-10 rounded-lg border flex items-center justify-center transition-colors disabled:opacity-50"
+                                        className="w-12 h-12 flex items-center justify-center transition-all duration-300 disabled:opacity-40"
                                         style={{
-                                            borderColor: '#d1d8dc',
-                                            backgroundColor: canScrollLeft ? '#1e3767' : '#d1d8dc',
-                                            color: canScrollLeft ? 'white' : '#1e3767'
+                                            backgroundColor: canScrollLeft ? '#1e3767' : '#f8f9fa',
+                                            color: canScrollLeft ? 'white' : '#1e3767',
+                                            boxShadow: '0 4px 16px rgba(30, 55, 103, 0.2)'
                                         }}
                                         onClick={() => scrollCarousel('left')}
                                         disabled={!canScrollLeft}
@@ -555,11 +448,11 @@ const Karriere = () => {
                                         <ChevronLeft size={20} />
                                     </button>
                                     <button
-                                        className="w-10 h-10 rounded-lg border flex items-center justify-center transition-colors disabled:opacity-50"
+                                        className="w-12 h-12 flex items-center justify-center transition-all duration-300 disabled:opacity-40"
                                         style={{
-                                            borderColor: '#d1d8dc',
-                                            backgroundColor: canScrollRight ? '#1e3767' : '#d1d8dc',
-                                            color: canScrollRight ? 'white' : '#1e3767'
+                                            backgroundColor: canScrollRight ? '#1e3767' : '#f8f9fa',
+                                            color: canScrollRight ? 'white' : '#1e3767',
+                                            boxShadow: '0 4px 16px rgba(30, 55, 103, 0.2)'
                                         }}
                                         onClick={() => scrollCarousel('right')}
                                         disabled={!canScrollRight}
@@ -576,69 +469,84 @@ const Karriere = () => {
                                 onTouchMove={handleTouchMove}
                                 onTouchEnd={handleTouchEnd}
                             >
-                                <div className="flex gap-6" style={{ width: 'max-content' }}>
+                                <div className="flex gap-8 pb-4" style={{ width: 'max-content' }}>
                                     {carouselJobs.map((job) => (
                                         <div
                                             key={job.id}
-                                            className="bg-white border rounded-xl p-6 cursor-pointer hover:transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
+                                            className="group relative bg-white p-8 cursor-pointer transition-all duration-500 hover:-translate-y-1 overflow-hidden"
                                             style={{
-                                                borderColor: '#d1d8dc',
-                                                width: '320px',
-                                                flexShrink: 0
+                                                width: '340px',
+                                                flexShrink: 0,
+                                                boxShadow: '0 8px 32px rgba(30, 55, 103, 0.12)'
                                             }}
                                             onClick={() => handleJobClick(job)}
                                         >
-                                            <div className="mb-4">
-                                                    <span
-                                                        className="px-3 py-1 rounded-lg text-sm font-medium text-white mb-3 inline-block"
+                                            {/* Top accent line */}
+                                            <div
+                                                className="absolute top-0 left-0 w-full h-1"
+                                                style={{ backgroundColor: getDepartmentColor(job.department) }}
+                                            />
+
+                                            {/* Content */}
+                                            <div className="relative z-10">
+                                                {/* Header */}
+                                                <div className="flex items-start justify-between mb-6">
+                                                    <div
+                                                        className="px-4 py-2 text-sm font-semibold text-white"
                                                         style={{ backgroundColor: getDepartmentColor(job.department) }}
                                                     >
                                                         {job.department}
-                                                    </span>
+                                                    </div>
+                                                    <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
+                                                        <ArrowRight size={20} style={{ color: getDepartmentColor(job.department) }} />
+                                                    </div>
+                                                </div>
 
-                                                <h3 className="text-xl font-bold mb-3" style={{ color: '#1e3767' }}>
+                                                {/* Title */}
+                                                <h3 className="text-xl font-bold mb-4 leading-tight" style={{ color: '#1e3767' }}>
                                                     {job.title}
                                                 </h3>
 
-                                                <div className="flex flex-col gap-2 mb-4 text-sm" style={{ color: '#1e3767' }}>
-                                                    <div className="flex items-center gap-1">
-                                                        <MapPin size={14} />
-                                                        <span>{job.location}</span>
+                                                {/* Description */}
+                                                <p className="text-sm leading-relaxed mb-6 opacity-80 line-clamp-3" style={{ color: '#1e3767' }}>
+                                                    {job.description}
+                                                </p>
+
+                                                {/* Metadata */}
+                                                <div className="space-y-3">
+                                                    <div className="flex items-center gap-3 text-xs" style={{ color: '#1e3767' }}>
+                                                        <div className="flex items-center gap-2 px-3 py-2 bg-gray-100">
+                                                            <MapPin size={12} />
+                                                            <span className="font-medium">{job.location}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 px-3 py-2 bg-gray-100">
+                                                            <Clock size={12} />
+                                                            <span className="font-medium">{job.type}</span>
+                                                        </div>
                                                     </div>
-                                                    <div className="flex items-center gap-1">
-                                                        <Clock size={14} />
-                                                        <span>{job.type}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-1">
-                                                        <Users size={14} />
-                                                        <span>Team: {job.teamSize}</span>
+
+                                                    <div className="flex items-center justify-between text-xs" style={{ color: '#1e3767' }}>
+                                                        <div className="flex items-center gap-2 opacity-70">
+                                                            <Users size={12} />
+                                                            <span>Team: {job.teamSize}</span>
+                                                        </div>
+                                                        <div className="opacity-70">
+                                                            {job.posted}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <p className="text-sm leading-relaxed mb-6" style={{ color: '#1e3767' }}>
-                                                {job.description}
-                                            </p>
-
-                                            <div className="flex items-center justify-between">
-                                                <div className="text-xs" style={{ color: '#1e3767' }}>
-                                                    <div className="mb-1">
-                                                        <span className="font-medium">Erfahrung: </span>
-                                                        <span>{job.experience}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span className="font-medium">Veröffentlicht: </span>
-                                                        <span>{job.posted}</span>
-                                                    </div>
-                                                </div>
-                                                <ArrowRight size={16} style={{ color: '#1e3767' }} />
-                                            </div>
+                                            {/* Hover effect */}
+                                            <div
+                                                className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-300"
+                                                style={{ backgroundColor: getDepartmentColor(job.department) }}
+                                            />
                                         </div>
                                     ))}
                                 </div>
                             </div>
-
-                            <div className="text-center mt-6 text-sm" style={{ color: '#1e3767' }}>
+                            <div className="text-center mt-6 text-sm lg:hidden opacity-60" style={{ color: '#1e3767' }}>
                                 ← Wischen Sie für weitere Stellen →
                             </div>
                         </div>
@@ -647,15 +555,11 @@ const Karriere = () => {
             </section>
 
             {/* Benefits Section */}
-            <section
-                ref={setSectionRef('benefits')}
-                className="max-w-6xl mx-auto px-6 py-20"
-            >
-                <div className={`transition-all duration-1000 ${visibleSections.has('benefits') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section ref={setSectionRef('benefits')} className="max-w-6xl mx-auto px-6 py-20">
+                <div className={`transition-all duration-1000 transform ${visibleSections.has('benefits') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h2 className="text-4xl font-bold mb-16" style={{ color: '#1e3767' }}>
                         Was wir bieten
                     </h2>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div className="text-center">
                             <h4 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>Attraktive Vergütung</h4>
@@ -686,61 +590,35 @@ const Karriere = () => {
             </section>
 
             {/* Application Process Section */}
-            <section
-                ref={setSectionRef('process')}
-                className="max-w-6xl mx-auto px-6 py-20"
-            >
-                <div className={`transition-all duration-1000 ${visibleSections.has('process') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section ref={setSectionRef('process')} className="max-w-6xl mx-auto px-6 py-20">
+                <div className={`transition-all duration-1000 transform ${visibleSections.has('process') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h2 className="text-4xl font-bold mb-16" style={{ color: '#1e3767' }}>
                         Unser Bewerbungsprozess
                     </h2>
-
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-                        <div className="text-center">
-                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
-                                1
+                        {[
+                            { num: '1', title: 'Bewerbung', desc: 'Senden Sie uns Ihre aussagekräftigen Unterlagen' },
+                            { num: '2', title: 'Erstgespräch', desc: 'Persönliches oder virtuelles Kennenlernen' },
+                            { num: '3', title: 'Fachgespräch', desc: 'Detailliertes Gespräch mit dem Fachbereich' },
+                            { num: '4', title: 'Angebot', desc: 'Individuelles Vertragsangebot' },
+                            { num: '5', title: 'Onboarding', desc: 'Strukturierte Einarbeitung im Team' }
+                        ].map((step) => (
+                            <div key={step.num} className="text-center">
+                                <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center text-white font-bold"
+                                     style={{ backgroundColor: '#1e3767' }}>
+                                    {step.num}
+                                </div>
+                                <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>{step.title}</h4>
+                                <p className="text-sm" style={{ color: '#1e3767' }}>{step.desc}</p>
                             </div>
-                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Bewerbung</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Senden Sie uns Ihre aussagekräftigen Unterlagen</p>
-                        </div>
-                        <div className="text-center">
-                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
-                                2
-                            </div>
-                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Erstgespräch</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Persönliches oder virtuelles Kennenlernen</p>
-                        </div>
-                        <div className="text-center">
-                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
-                                3
-                            </div>
-                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Fachgespräch</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Detailliertes Gespräch mit dem Fachbereich</p>
-                        </div>
-                        <div className="text-center">
-                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
-                                4
-                            </div>
-                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Angebot</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Individuelles Vertragsangebot</p>
-                        </div>
-                        <div className="text-center">
-                            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#1e3767' }}>
-                                5
-                            </div>
-                            <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Onboarding</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Strukturierte Einarbeitung im Team</p>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* CTA Section */}
-            <section
-                ref={setSectionRef('cta')}
-                className="max-w-6xl mx-auto px-6 py-20"
-            >
-                <div className={`text-center transition-all duration-1000 ${visibleSections.has('cta') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section ref={setSectionRef('cta')} className="max-w-6xl mx-auto px-6 py-20">
+                <div className={`text-center transition-all duration-1000 transform ${visibleSections.has('cta') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <h3 className="text-3xl font-bold mb-4" style={{ color: '#1e3767' }}>
                         Bewerbungen und Kontakt
                     </h3>
@@ -748,9 +626,9 @@ const Karriere = () => {
                         Interessiert? Senden Sie Ihre vollständigen Bewerbungsunterlagen
                         per E-Mail an unser HR-Team.
                     </p>
-                    <div className="bg-white border rounded-xl p-8 max-w-md mx-auto" style={{ borderColor: '#d1d8dc' }}>
+                    <div className="bg-white border p-8 max-w-md mx-auto" style={{ borderColor: '#d1d8dc' }}>
                         <div className="flex items-center justify-center mb-4">
-                            <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#1e3767' }}>
+                            <div className="w-12 h-12 flex items-center justify-center" style={{ backgroundColor: '#1e3767' }}>
                                 <Mail size={24} color="white" />
                             </div>
                         </div>
@@ -769,128 +647,184 @@ const Karriere = () => {
                 </div>
             </section>
 
-            {/* Job Details Modal */}
+            {/* Modern Job Details Modal */}
             {selectedJob && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ paddingTop: '80px' }}>
-                    <div
-                        className="absolute inset-0 bg-black bg-opacity-75 backdrop-blur-sm"
-                        onClick={closeModal}
-                    ></div>
-
-                    <div className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[calc(100vh-160px)] overflow-y-auto">
-                        <button
-                            className="absolute top-4 right-4 z-10 w-10 h-10 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center transition-colors shadow-md border"
-                            style={{ borderColor: '#d1d8dc' }}
-                            onClick={closeModal}
-                        >
-                            <span className="text-xl" style={{ color: '#1e3767' }}>×</span>
-                        </button>
-
-                        <div className="relative h-48 rounded-t-2xl" style={{ backgroundColor: '#1e3767' }}>
-                            <div className="absolute bottom-6 left-6 text-white">
-                                    <span
-                                        className="px-3 py-1 rounded-lg text-sm font-medium mb-3 inline-block"
+                <div className="fixed inset-0 z-[9999] bg-black bg-opacity-60 backdrop-blur-sm">
+                    <div className="h-full flex items-center justify-center p-4 sm:p-6 lg:p-8">
+                        <div className="relative bg-white w-full max-w-7xl max-h-[90vh] shadow-2xl flex flex-col">
+                            {/* Header with Close Button */}
+                            <div className="flex justify-between items-center p-4 sm:p-6 border-b border-gray-200 flex-shrink-0">
+                                <div>
+                                    <div
+                                        className="inline-block px-3 py-1 text-sm font-semibold text-white mb-2"
                                         style={{ backgroundColor: getDepartmentColor(selectedJob.department) }}
                                     >
                                         {selectedJob.department}
-                                    </span>
-
-                                <h2 className="text-3xl font-bold mb-2">
-                                    {selectedJob.title}
-                                </h2>
-
-                                <div className="flex flex-wrap gap-4 text-sm">
-                                    <div className="flex items-center gap-1">
-                                        <MapPin size={14} />
-                                        <span>{selectedJob.location}</span>
                                     </div>
-                                    <div className="flex items-center gap-1">
-                                        <Clock size={14} />
-                                        <span>{selectedJob.type}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <Users size={14} />
-                                        <span>Team: {selectedJob.teamSize}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <Calendar size={14} />
-                                        <span>{selectedJob.posted}</span>
-                                    </div>
+                                    <h1 className="text-xl font-bold" style={{ color: '#1e3767' }}>
+                                        {selectedJob.title}
+                                    </h1>
                                 </div>
+                                <button
+                                    className="w-10 h-10 bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                                    onClick={closeModal}
+                                    style={{ borderRadius: '50%' }}
+                                >
+                                    <X size={20} style={{ color: '#1e3767' }} />
+                                </button>
                             </div>
-                        </div>
 
-                        <div className="p-8">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                <div>
-                                    <div className="mb-8">
-                                        <h3 className="text-xl font-bold mb-4" style={{ color: '#1e3767' }}>Beschreibung</h3>
-                                        <p className="leading-relaxed" style={{ color: '#1e3767' }}>
-                                            {selectedJob.description}
+                            {/* Content Area */}
+                            <div className="flex flex-1 overflow-hidden">
+                                {/* Fixed Left Sidebar */}
+                                <div className="w-80 flex-shrink-0 p-6 border-r border-gray-200 bg-gray-50 overflow-y-auto">
+                                    {/* Job Meta Info */}
+                                    <div className="space-y-4 mb-6">
+                                        <div className="text-sm" style={{ color: '#1e3767' }}>
+                                            <div className="font-semibold text-sm mb-1">Standort</div>
+                                            <div className="opacity-70">{selectedJob.location}</div>
+                                        </div>
+
+                                        <div className="text-sm" style={{ color: '#1e3767' }}>
+                                            <div className="font-semibold text-sm mb-1">Arbeitszeit</div>
+                                            <div className="opacity-70">{selectedJob.type}</div>
+                                        </div>
+
+                                        <div className="text-sm" style={{ color: '#1e3767' }}>
+                                            <div className="font-semibold text-sm mb-1">Team</div>
+                                            <div className="opacity-70">{selectedJob.teamSize} Personen</div>
+                                        </div>
+
+                                        <div className="text-sm" style={{ color: '#1e3767' }}>
+                                            <div className="font-semibold text-sm mb-1">Veröffentlicht</div>
+                                            <div className="opacity-70">{selectedJob.posted}</div>
+                                        </div>
+
+                                        <div className="text-sm" style={{ color: '#1e3767' }}>
+                                            <div className="font-semibold text-sm mb-1">Erfahrung</div>
+                                            <div className="opacity-70">{selectedJob.experience}</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Team Description */}
+                                    <div className="bg-white p-4 border-l-4 mb-6" style={{ borderLeftColor: getDepartmentColor(selectedJob.department) }}>
+                                        <p className="text-xs text-gray-700 leading-relaxed">
+                                            Als Teil unseres {selectedJob.department}-Teams arbeiten Sie in einem dynamischen Umfeld
+                                            mit modernster Technologie und internationalen Projekten. Wir bieten Ihnen die Möglichkeit,
+                                            Ihre Expertise einzusetzen und gleichzeitig kontinuierlich zu wachsen.
                                         </p>
                                     </div>
 
-                                    <div className="mb-8">
-                                        <h3 className="text-xl font-bold mb-4" style={{ color: '#1e3767' }}>Ihre Aufgaben</h3>
-                                        <ul className="space-y-2">
-                                            {selectedJob.responsibilities.map((item, index) => (
-                                                <li key={index} className="flex items-start">
-                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2" style={{ backgroundColor: '#1e3767' }}></div>
-                                                    <span className="text-sm" style={{ color: '#1e3767' }}>{item}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                    {/* Quick Contact Info */}
+                                    <div className="p-4 bg-white border border-gray-200 shadow-sm">
+                                        <h4 className="font-semibold mb-2 text-sm" style={{ color: '#1e3767' }}>Direkter Kontakt</h4>
+                                        <p className="text-xs text-gray-600 mb-1">Haben Sie Fragen zu dieser Position?</p>
+                                        <p className="text-xs" style={{ color: '#1e3767' }}>
+                                            <span className="font-medium">HR-Team:</span><br />
+                                            karriere@promax.at
+                                        </p>
                                     </div>
                                 </div>
 
-                                <div>
-                                    <div className="mb-8">
-                                        <h3 className="text-xl font-bold mb-4" style={{ color: '#1e3767' }}>Ihr Profil</h3>
-                                        <ul className="space-y-2">
-                                            {selectedJob.requirements.map((item, index) => (
-                                                <li key={index} className="flex items-start">
-                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2" style={{ backgroundColor: '#1e3767' }}></div>
-                                                    <span className="text-sm" style={{ color: '#1e3767' }}>{item}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                {/* Scrollable Right Content Area */}
+                                <div className="flex-1 overflow-y-auto">
+                                    <div className="p-6 lg:p-8">
+                                        {/* Job Description */}
+                                        <section className="mb-8">
+                                            <h2 className="text-xl lg:text-2xl font-bold mb-6" style={{ color: '#1e3767' }}>Über diese Position</h2>
+                                            <div>
+                                                <p className="text-base lg:text-lg leading-relaxed" style={{ color: '#1e3767' }}>
+                                                    {selectedJob.description}
+                                                </p>
+                                            </div>
+                                        </section>
 
-                                    <div className="mb-8">
-                                        <h3 className="text-xl font-bold mb-4" style={{ color: '#1e3767' }}>Wir bieten</h3>
-                                        <ul className="space-y-2">
-                                            {selectedJob.benefits.map((item, index) => (
-                                                <li key={index} className="flex items-start">
-                                                    <div className="w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-2" style={{ backgroundColor: '#d97539' }}></div>
-                                                    <span className="text-sm" style={{ color: '#1e3767' }}>{item}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                                        {/* Responsibilities and Requirements Side by Side */}
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                                            {/* Responsibilities */}
+                                            <section>
+                                                <h2 className="text-lg lg:text-xl font-bold mb-5" style={{ color: '#1e3767' }}>Ihre Aufgaben</h2>
+                                                <div className="space-y-3">
+                                                    {selectedJob.responsibilities.map((item, index) => (
+                                                        <div key={index} className="flex items-start gap-3 p-3 bg-white border border-gray-200 shadow-sm">
+                                                            <div
+                                                                className="w-6 h-6 flex items-center justify-center text-white text-xs font-bold mt-0.5 flex-shrink-0"
+                                                                style={{ backgroundColor: getDepartmentColor(selectedJob.department) }}
+                                                            >
+                                                                {index + 1}
+                                                            </div>
+                                                            <span className="leading-relaxed text-sm lg:text-base" style={{ color: '#1e3767' }}>{item}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </section>
 
-                            <div className="text-center pt-8 border-t" style={{ borderColor: '#d1d8dc' }}>
-                                <div className="bg-gray-50 rounded-xl p-6">
-                                    <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>Jetzt bewerben</h4>
-                                    <p className="text-sm mb-4" style={{ color: '#1e3767' }}>
-                                        Senden Sie Ihre Bewerbungsunterlagen an:
-                                    </p>
-                                    <a
-                                        href={`mailto:karriere@promax.at?subject=Bewerbung: ${selectedJob.title}`}
-                                        className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-medium transition-colors hover:opacity-90"
-                                        style={{ backgroundColor: '#1e3767' }}
-                                    >
-                                        <Mail size={16} />
-                                        <span>karriere@promax.at</span>
-                                    </a>
+                                            {/* Requirements */}
+                                            <section>
+                                                <h2 className="text-lg lg:text-xl font-bold mb-5" style={{ color: '#1e3767' }}>Ihr Profil</h2>
+                                                <div className="space-y-3">
+                                                    {selectedJob.requirements.map((item, index) => (
+                                                        <div key={index} className="flex items-start gap-3 p-3 bg-white border border-gray-200 shadow-sm">
+                                                            <div
+                                                                className="w-6 h-6 flex items-center justify-center text-white text-xs font-bold mt-0.5 flex-shrink-0"
+                                                                style={{ backgroundColor: getDepartmentColor(selectedJob.department) }}
+                                                            >
+                                                                {index + 1}
+                                                            </div>
+                                                            <span className="leading-relaxed text-sm lg:text-base" style={{ color: '#1e3767' }}>{item}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </section>
+                                        </div>
+
+                                        {/* Benefits */}
+                                        <section className="mb-6">
+                                            <h2 className="text-lg lg:text-xl font-bold mb-5" style={{ color: '#1e3767' }}>Was wir bieten</h2>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                                {selectedJob.benefits.map((item, index) => (
+                                                    <div key={index} className="flex items-start gap-3 p-3 bg-white border border-gray-200 shadow-sm">
+                                                        <div
+                                                            className="w-6 h-6 flex items-center justify-center text-white text-xs font-bold mt-0.5 flex-shrink-0"
+                                                            style={{ backgroundColor: getDepartmentColor(selectedJob.department) }}
+                                                        >
+                                                            {index + 1}
+                                                        </div>
+                                                        <span className="leading-relaxed text-sm lg:text-base" style={{ color: '#1e3767' }}>{item}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </section>
+
+                                        {/* Contact Information */}
+                                        <section className="border-t border-gray-200 pt-6">
+                                            <div className="text-center">
+                                                <h3 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>
+                                                    Interesse an dieser Position?
+                                                </h3>
+                                                <p className="text-sm lg:text-base mb-4 text-gray-700">
+                                                    Senden Sie Ihre Bewerbungsunterlagen an unser HR-Team.
+                                                </p>
+                                                <div className="bg-white border border-gray-200 p-6 shadow-sm max-w-md mx-auto">
+                                                    <div className="flex items-center justify-center mb-3">
+                                                        <div className="w-10 h-10 flex items-center justify-center" style={{ backgroundColor: '#1e3767' }}>
+                                                            <Mail size={20} color="white" />
+                                                        </div>
+                                                    </div>
+                                                    <p className="font-medium text-lg mb-1" style={{ color: '#1e3767' }}>karriere@promax.at</p>
+                                                    <p className="text-sm text-gray-600">
+                                                        Bitte fügen Sie Lebenslauf, Anschreiben und relevante Zeugnisse bei.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             )}
-
             <style>{`
                 .scrollbar-hide {
                     -ms-overflow-style: none;
@@ -899,7 +833,16 @@ const Karriere = () => {
                 .scrollbar-hide::-webkit-scrollbar {
                     display: none;
                 }
-            `}</style>         
+                .line-clamp-3 {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+                .pl-13 {
+                    padding-left: 3.25rem;
+                }
+            `}</style>
         </div>
     );
 };
