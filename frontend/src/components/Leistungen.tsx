@@ -39,9 +39,9 @@ const NewLeistungen: React.FC = () => {
             number: "01",
             title: "Technische Planung & Engineering",
             subtitle: "Von der Projektierung bis zur detaillierten 3D-Anlagenplanung",
-            description: "Umfassende technische Planung und Engineering-Dienstleistungen für Industrieanlagen von der ersten Konzeptentwicklung bis zur ausführungsreifen Detail-Planung.",
+            description: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik.",
             detailedDescription: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Unsere Planungsphilosophie basiert auf der effizienten Überführung der Verfahrenstechnik in die Anlagenplanung mit angemessener Berücksichtigung besonderer Kundenanforderungen für Betrieb, Wartung und Instandhaltung. Wir entwickeln fundierte Basisplanungen als solide Grundlage für Ihre Investitionsentscheidungen und erstellen realistische Terminpläne sowie belastbare Projektbudgets. Unsere 3D-Planungstechnologie ermöglicht automatische Kollisionsprüfung und gewerkeübergreifende Koordination bereits in der Planungsphase.",
-            image: "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?w=800&h=600&fit=crop&auto=format",
+            image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Basic Engineering und konzeptionelle Anlagenentwicklung",
                 "3D-Anlagenplanung mit PDMS, E3D und AutoCAD Plant 3D",
@@ -49,23 +49,23 @@ const NewLeistungen: React.FC = () => {
                 "Machbarkeitsstudien und Wirtschaftlichkeitsanalysen"
             ],
             highlights: [
-                "Über 25 Jahre Expertise im Industrieanlagenbau",
-                "Datenbank-basierte 3D-Planungen mit Kollisionsprüfung",
-                "Basic Engineering der Anlagenplanung aus einer Hand",
-                "Einsatz modernster 3D-Planungstools"
+                "Jahrzehntelange Expertise in technischer Planung",
+                "Effiziente Überführung der Verfahrenstechnik in die Anlagenplanung",
+                "Fundierte Basisplanungen für Investitionsentscheidungen",
+                "3D-Planungstechnologie mit automatischer Kollisionsprüfung"
             ],
-            icon: "planning",
-            technologies: ["PDMS", "E3D", "AutoCAD Plant 3D", "PointSense Plant", "3D-Laserscanning", "Rohr 2", "SmartPlant", "BIM-Software"],
-            standards: ["DIN", "EN", "ASME", "API", "DGUV", "ISO 9001:2015", "Industriestandards Papier/Pharma/Chemie"]
+            icon: "engineering",
+            technologies: ["PDMS", "E3D", "AutoCAD Plant 3D", "SmartPlant Review", "Navisworks", "CAESAR II", "BENTLEY AutoPLANT"],
+            standards: ["ISO 9001:2015", "VDI-Richtlinien", "DIN-Normen", "ASME Standards", "API Standards", "PED-Richtlinie"]
         },
         {
             id: 2,
             number: "02",
             title: "Projektmanagement & Koordination",
             subtitle: "Professionelle Projektführung für erfolgreiche Anlagenrealisierung",
-            description: "Umfassendes Projektmanagement von der Planungsphase bis zur Inbetriebnahme mit Fokus auf Qualität, Termine und Kosten im Industrieanlagenbau.",
+            description: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich Qualität, Termine und Kosten zu erfüllen oder im positiven Sinne zu übertreffen.",
             detailedDescription: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich Qualität, Termine und Kosten zu erfüllen oder im positiven Sinne zu übertreffen. PROMAX begegnet dieser Herausforderung mit einem Team erfahrener Projektmanager, die seit 1999 komplexe Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik erfolgreich abwickeln. Dabei bieten wir sowohl komplettes Projektmanagement als auch modulare Teilleistungen, je nach Projektgröße und Kundenanforderungen. Mit ISO 9001:2015 Zertifizierung sorgen wir für höchste Qualitätsstandards und termingerechte Projektumsetzung.",
-            image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop&auto=format",
+            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Komplettes Projektmanagement oder modulare Teilleistungen",
                 "Aufbau- und Ablauforganisation nach PMI-Standards",
@@ -73,68 +73,68 @@ const NewLeistungen: React.FC = () => {
                 "Risikomanagement und Change Management"
             ],
             highlights: [
-                "Über 25 Jahre Projekterfahrung seit 1999",
-                "ISO 9001:2015 zertifizierte Projektmanagement-Expertise",
-                "Bewährte Methoden aus über 1000 Projekten",
-                "24/7 Projektüberwachung und Reporting"
+                "Erfahrene Projektmanager seit 1999",
+                "Komplettes Projektmanagement oder modulare Teilleistungen",
+                "ISO 9001:2015 Zertifizierung für höchste Qualitätsstandards",
+                "PMI-Standards für professionelle Projektführung"
             ],
-            icon: "project",
-            technologies: ["MS Project", "Primavera P6", "SAP PS", "Contract Management Systeme", "Progress Tracking Tools", "WBS-Systeme", "Claims Tracking Tools", "Digitale Dokumentationssysteme"],
-            standards: ["PMI", "IPMA", "PRINCE2", "ISO 21500", "ISO 9001:2015", "FIDIC", "VOB", "ÖNORM", "Critical Path Method", "Earned Value Management"]
+            icon: "project-management",
+            technologies: ["MS Project", "Primavera P6", "SAP PS", "Jira", "Confluence", "MS Teams", "Sharepoint"],
+            standards: ["PMI", "IPMA", "ISO 9001:2015", "ISO 21500", "PRINCE2", "Agile PM", "Scrum"]
         },
         {
             id: 3,
             number: "03",
-            title: "Site Services & Vor-Ort-Betreuung",
-            subtitle: "Professionelle Montageüberwachung und Inbetriebnahmebegleitung",
-            description: "Umfassende Vor-Ort-Betreuung während der gesamten Bauphase bis zur erfolgreichen Inbetriebnahme von Industrieanlagen.",
-            detailedDescription: "PROMAX Site Services Experten begleiten jeden Schritt der Projektrealisierung vor Ort in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Von der professionellen Montageüberwachung über kontinuierliche Qualitätskontrolle bis zur finalen Inbetriebnahme gewährleisten wir höchste Qualität und termingerechte Fertigstellung. Unser erfahrenes Team koordiniert alle Gewerke und stellt sicher, dass Ihre Anlage funktionsfähig und optimal eingestellt übergeben wird. Mit über 25 Jahren Erfahrung seit 1999 und internationaler Projektexpertise sorgen wir für reibungslose Abläufe auf der Baustelle. Durch systematische Qualitätskontrolle nach internationalen Standards und professionelles Sicherheitsmanagement nach SCC-Standards minimieren wir Risiken und gewährleisten termingerechte, budgetkonforme Fertigstellung.",
-            image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&auto=format",
+            title: "VR-Technologie & Virtual Reality",
+            subtitle: "Immersive Planungserlebnisse mit modernsten VR-Brillen",
+            description: "Revolutionäre VR-Brillen-Technologie für immersive 3D-Anlagenbegehungen, virtuelle Schulungen und interaktive Planungsvisualisierung in der Industrie 4.0.",
+            detailedDescription: "PROMAX nutzt hochmoderne VR-Brillen wie Oculus Quest, HTC Vive Pro und Microsoft HoloLens, um Industrieanlagen bereits in der Planungsphase vollständig erlebbar zu machen. Unsere VR-Brillen ermöglichen es Ingenieuren, Planern und Betreibern, virtuell durch zukünftige Produktionsstätten zu wandeln, als wären sie bereits gebaut. Mit hand-trackenden Controllern können Nutzer Ventile betätigen, Wartungsarbeiten simulieren und Optimierungen direkt in der virtuellen Umgebung durchführen. Die VR-Brillen bieten eine 360-Grad-Rundumsicht mit realistischen Maßstäben und physikalischen Eigenschaften. Durch die immersive VR-Erfahrung werden Planungsfehler frühzeitig erkannt, Entscheidungswege verkürzt und kostspielige Änderungen in der Bauphase vermieden. Unsere VR-Umgebungen sind nahtlos in die CAD-Planungsprozesse integriert.",
+            image: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&h=600&fit=crop&auto=format",
             features: [
-                "Professionelle Montageüberwachung und kontinuierliche Qualitätskontrolle nach internationalen Standards",
-                "Systematische Inbetriebnahmebegleitung und umfassendes Commissioning von Industrieanlagen",
-                "Koordination aller Gewerke und professionelles Sicherheitsmanagement nach SCC-Standards",
-                "Performance-Tests, Anlagenoptimierung und systematische Leistungsvalidierung"
+                "Immersive VR-Begehungen mit High-End VR-Brillen (Oculus, HTC Vive)",
+                "Hand-Tracking und Controller-basierte Interaktion in virtuellen Anlagen",
+                "Realistische 1:1 Maßstäbe mit physikalischen Materialeigenschaften",
+                "Virtuelle Wartungsschulungen und Sicherheitstrainings in VR",
+                "Kollaborative Multi-User VR-Sessions für Projektteams",
+                "Echtzeit-Anpassungen und Optimierungen in der VR-Umgebung"
             ],
             highlights: [
-                "Vor-Ort-Expertise mit erfahrener Bauleitung und über 25 Jahren Branchenerfahrung",
-                "Qualitätskontrolle nach internationalen Standards mit systematischer Dokumentation",
-                "Termingerechte und budgetkonforme Fertigstellung durch professionelle Projektkoordination",
-                "Sicherheitsmanagement nach SCC-Standards für maximalen Arbeitsschutz"
+                "Modernste VR-Brillen-Technologie für industrielle Anwendungen",
+                "Frühzeitige Fehlererkennung durch immersive VR-Visualisierung",
+                "Kostenreduktion durch virtuelle Planungsvalidierung",
+                "Revolutionäre Planungsmethodik mit VR-Integration"
             ],
-            icon: "project",
-            technologies: ["Digitale Dokumentationssysteme", "Mobile Erfassungsgeräte", "3D-Scanning", "Qualitätsmanagementsysteme", "Baustellenmanagement-Software"],
-            standards: ["SCC", "ISO 45001", "OHSAS 18001", "CE-Kennzeichnung", "ISO 9001:2015", "VDI-Richtlinien"]
+            icon: "vr-headset",
+            technologies: ["Oculus Quest Pro", "HTC Vive Pro 2", "Microsoft HoloLens", "Unity 3D Engine", "Unreal Engine 5", "VR-Tracking-Systeme", "Haptic Feedback Controller", "Mixed Reality Plattformen"],
+            standards: ["VR-Sicherheitsstandards", "Ergonomie-Richtlinien VR", "Industrial VR Standards", "OpenXR Initiative", "WebVR Standards", "ISO 9241-210 VR", "IEEE VR Guidelines"]
         },
         {
             id: 4,
             number: "04",
-            title: "Organisationsberatung",
-            subtitle: "Spezialisierte Beratung für komplexe Themenbereiche",
-            description: "Unterschiedliche Projekte in verschiedenen Branchen werfen spezielle Fragestellungen auf, die das Tagesgeschäft übersteigen.",
-            detailedDescription: "Komplexe Themenbereiche, die das Tagesgeschäft übersteigen, bedürfen spezieller Expertise. PROMAX Organisationsberatung entwickelt maßgeschneiderte Präventionsmaßnahmen und Claims Management Systeme für Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Wir unterstützen bei strategischen Entscheidungen, der Optimierung von Projektabläufen und der Implementierung bewährter Verfahren aus unserer über 25-jährigen Praxis im Industrieanlagenbau. Mit Fokus auf nachhaltige und wirtschaftliche Lösungsansätze bieten unsere interdisziplinären Beratungsteams technisch-kaufmännische Kompetenz für komplexe Herausforderungen. Unser Leistungsspektrum umfasst Contract & Claims Management für rechtssichere Vertragsabwicklung sowie systematische Projektverfolgung mit Time Scheduling und Progress Control.",
-            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format",
+            title: "3D-Laserscanning Technologie",
+            subtitle: "Präzise Vermessung mit hochmodernen Laserscannern",
+            description: "State-of-the-Art 3D-Laserscanning mit Millimeter-Genauigkeit für exakte Bestandsaufnahmen, digitale Zwillinge und präzise Reverse-Engineering-Projekte.",
+            detailedDescription: "PROMAX setzt die neuesten 3D-Laserscanner von Leica, FARO und Trimble ein, um komplexe Industrieanlagen mit Sub-Millimeter-Genauigkeit zu erfassen. Unsere High-End-Laserscanner erstellen präzise Punktwolken mit Millionen von Messpunkten, die als Grundlage für digitale Zwillinge und CAD-Modelle dienen. Terrestrische Laserscanner erfassen stationär große Anlagenbereiche, während mobile Scanner wie der NavVis VLX kontinuierliche Erfassung ermöglichen. Drohnen-basierte Laserscanner erreichen schwer zugängliche Bereiche wie Dächer und hohe Strukturen. Die gescannten Punktwolken werden mit spezieller Software zu detaillierten 3D-Modellen verarbeitet, die millimetergenau bestehende Anlagen abbilden. Diese digitalen Zwillinge ermöglichen präzise Planungen für Umbauten, Erweiterungen und Modernisierungen ohne Kollisionsrisiken.",
+            image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&h=600&fit=crop&auto=format",
             features: [
-                "Entwicklung maßgeschneiderter Präventionsmaßnahmen für komplexe Industrieanlagenprojekte",
-                "Aufbau und Implementierung professioneller Claims Management Systeme",
-                "Strukturierte Lessons Learned-Workshops und systematische Projektanalysen",
-                "Strategische Prozessoptimierung und umfassende Organisationsentwicklung"
+                "Hochpräzise terrestrische 3D-Laserscanner (Leica, FARO, Trimble)",
+                "Mobile Laserscanning-Systeme für kontinuierliche Erfassung",
+                "Drohnen-basierte Laserscanner für schwer erreichbare Bereiche",
+                "Sub-Millimeter-Genauigkeit mit Millionen von Messpunkten",
+                "Automatische Punktwolken-zu-CAD Konvertierung",
+                "Digitale Zwillinge für präzise Planungsgrundlagen"
             ],
             highlights: [
-                "Spezialisierte Beratung über das Tagesgeschäft hinaus mit technisch-kaufmännischer Kompetenz",
-                "Bewährte Lösungsansätze aus über 1000 erfolgreich abgewickelten Industrieanlagenprojekten",
-                "Branchenübergreifende Expertise in Papier, Zellstoff, Pharma, Chemie und Energietechnik",
-                "Nachhaltige und wirtschaftliche Lösungsansätze für komplexe Herausforderungen"
+                "Millimetergenaue Vermessung mit modernsten Laserscannern",
+                "Zeiteffiziente Erfassung kompletter Industrieanlagen",
+                "Digitale Zwillinge für kollisionsfreie Planung",
+                "Nahtlose Integration in CAD-Planungsprozesse"
             ],
-            icon: "consulting",
-            technologies: ["Digitale Analyse-Tools", "Workflow-Management-Systeme", "Contract Management Systeme", "Claims Tracking Tools", "Primavera P6"],
-            standards: ["ISO 9001:2015", "ISO 14001", "ISO 45001", "FIDIC", "VOB", "ÖNORM", "PMI", "IPMA"]
+            icon: "laser-scanner",
+            technologies: ["Leica ScanStation P50", "FARO Focus Premium", "Trimble TX8", "NavVis VLX Mobile Scanner", "PointSense Plant Software", "CloudCompare", "Autodesk ReCap Pro", "Cyclone 3DR"],
+            standards: ["ISO 17123 Vermessung", "VDI 2634 Laserscanning", "ASTM E2938 Standards", "Kalibrierrichtlinien", "Punktwolken-Genauigkeitsstandards", "CAD-Konvertierungsstandards", "Vermessungstechnik-Normen"]
         }
     ];
-
-    // Split services into main services (1-2) and popup services (3-4)
-    const mainServices = services.slice(0, 2);
-    const popupServices = services.slice(2, 4);
 
     return (
         <>
@@ -278,25 +278,32 @@ const NewLeistungen: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Hero Image Section */}
-                <div className="relative h-[500px] bg-gray-100 overflow-hidden">
+                {/* Hero Section */}
+                <div className="relative h-96 overflow-hidden">
+                    {/* Background Image */}
                     <img
-                        src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&h=500&fit=crop&auto=format"
-                        alt="Professional project management and engineering consulting - PROMAX"
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        width="1200"
-                        height="500"
+                        src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&h=600&fit=crop&auto=format"
+                        alt="Industrial Engineering Background"
+                        className="absolute inset-0 w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                        <div className="text-center text-white max-w-4xl px-6">
-                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-4">
-                                Expertise und Innovation für Ihre{' '}
-                                <span className="text-[#d97539] font-semibold">Industrieprojekte</span>
-                            </h2>
-                            <p className="text-lg sm:text-xl text-gray-200">
-                                Spezialisierte Planungsleistungen und Projektmanagement mit über 20 Jahren Erfahrung
-                            </p>
+
+                    {/* Dark Overlay */}
+                    <div className="absolute inset-0 bg-black/40"></div>
+
+                    {/* Content */}
+                    <div className="relative z-10 h-full flex items-center">
+                        <div className="max-w-6xl mx-auto px-6 text-white">
+                            <div className="max-w-2xl">
+                                <h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-4">
+                                    Expertise und Innovation für Ihre
+                                </h2>
+                                <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#d97539] mb-6">
+                                    Industrieanlagen-Märkte
+                                </h3>
+                                <p className="text-lg sm:text-xl leading-relaxed opacity-90">
+                                    Spezialisierte Planungsleistungen und Projektmanagement mit über 20 Jahren Erfahrung
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -325,24 +332,23 @@ const NewLeistungen: React.FC = () => {
                     </div>
                 </section>
 
-                {/* Main Services - Only showing services 1 and 2 */}
+                {/* Detailed Services Section */}
                 <section className="py-16 bg-[#d1d8dc]/30">
                     <div className="max-w-7xl mx-auto px-8">
                         <div className="text-center mb-16">
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
                                 Unsere{' '}
-                                <span className="text-[#1e3767] font-semibold">Kernkompetenzen</span>
+                                <span className="text-[#1e3767] font-semibold">Technologie-Details</span>
                             </h2>
                             <div className="w-20 h-1 bg-[#d97539] mx-auto"></div>
                         </div>
 
                         <div className="space-y-16">
-                            {mainServices.map((service, index) => (
+                            {services.slice(0, 2).map((service, index) => (
                                 <div
                                     key={service.id}
-                                    className={`${index < mainServices.length - 1 ? 'border-b border-[#9ba8b3] pb-12' : ''} cursor-pointer group`}
+                                    className={`${index < 1 ? 'border-b border-[#9ba8b3] pb-12' : ''}`}
                                     data-section={`service-${service.id}`}
-                                    onClick={(e) => { e.stopPropagation(); setSelectedService(service); }}
                                 >
                                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                                         {/* Content Side */}
@@ -350,14 +356,14 @@ const NewLeistungen: React.FC = () => {
                                             isVisible[`service-${service.id}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                                         }`}>
                                             <div className="flex items-start gap-6 mb-6">
-                                                <span className="text-4xl sm:text-5xl font-light text-[#d1d8dc] group-hover:text-[#d97539] transition-colors">
+                                                <span className="text-4xl sm:text-5xl font-light text-[#d1d8dc]">
                                                     {service.number}
                                                 </span>
                                                 <div>
-                                                    <h3 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2 group-hover:text-[#1e3767] transition-colors">
+                                                    <h3 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
                                                         {service.title}
                                                     </h3>
-                                                    <div className="w-16 h-1 bg-[#d97539] mb-3 group-hover:w-[70px] transition-all duration-300"></div>
+                                                    <div className="w-16 h-1 bg-[#d97539] mb-3"></div>
                                                     <p className="text-lg sm:text-xl text-gray-700 mb-4 font-medium">
                                                         {service.subtitle}
                                                     </p>
@@ -384,26 +390,17 @@ const NewLeistungen: React.FC = () => {
                                                     </ul>
                                                 </div>
                                             </div>
-
-                                            <div className="mt-6">
-                                                <span className="inline-flex items-center text-[#d97539] text-base font-medium group-hover:text-[#1e3767] transition-colors">
-                                                    Mehr Details anzeigen
-                                                    <svg className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                </span>
-                                            </div>
                                         </div>
 
                                         {/* Image Side */}
                                         <div className={`${index % 2 === 0 ? 'order-2' : 'order-1'} transition-all duration-1000 delay-300 ${
                                             isVisible[`service-${service.id}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                                         }`}>
-                                            <div className="relative group transition-all duration-300">
+                                            <div className="relative">
                                                 <img
                                                     src={service.image}
                                                     alt={`${service.title} - PROMAX Industrial Engineering`}
-                                                    className="w-full h-[450px] object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-[1.02]"
+                                                    className="w-full h-[450px] object-cover rounded-lg shadow-lg"
                                                     loading="lazy"
                                                     width="800"
                                                     height="450"
@@ -417,101 +414,101 @@ const NewLeistungen: React.FC = () => {
                     </div>
                 </section>
 
-                {/* Additional Services as Popup Buttons */}
-                <section className="py-20 bg-gray-50">
+                {/* Bottom Cards Section */}
+                <section className="py-24 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl sm:text-4xl font-light text-gray-900 mb-4">
-                                Weitere{' '}
-                                <span className="text-[#1e3767] font-semibold">Leistungen</span>
-                            </h2>
-                            <div className="w-20 h-1 bg-[#d97539] mx-auto mb-6"></div>
-                            <p className="text-lg text-gray-600">
-                                Entdecken Sie unsere zusätzlichen Spezialdienste
-                            </p>
-                        </div>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            {/* VR Technology Card */}
+                            <div
+                                className="relative h-96 rounded-2xl overflow-hidden cursor-pointer group shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl"
+                                onClick={() => setSelectedService(services[2])}
+                            >
+                                {/* Background Image */}
+                                <img
+                                    src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=1000&h=600&fit=crop&auto=format"
+                                    alt="VR Technology Background"
+                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                            {popupServices.map((service, index) => (
-                                <div
-                                    key={service.id}
-                                    className={`relative overflow-hidden rounded-2xl cursor-pointer group transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
-                                        index === 0
-                                            ? 'bg-[#1e3767]/10 border-2 border-[#1e3767]/20 hover:bg-[#1e3767]/15 hover:border-[#1e3767]/30'
-                                            : 'bg-[#d97539]/10 border-2 border-[#d97539]/20 hover:bg-[#d97539]/15 hover:border-[#d97539]/30'
-                                    }`}
-                                    onClick={() => setSelectedService(service)}
-                                >
-                                    {/* Background Pattern */}
-                                    <div className="absolute inset-0 opacity-5">
-                                        <div className={`w-full h-full ${
-                                            index === 0 ? 'bg-[#1e3767]' : 'bg-[#d97539]'
-                                        }`}></div>
+                                {/* Color Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#d97539]/75 via-[#d97539]/65 to-[#d97539]/80 group-hover:from-[#d97539]/85 group-hover:via-[#d97539]/75 group-hover:to-[#d97539]/90 transition-all duration-500"></div>
+
+                                {/* Content */}
+                                <div className="absolute inset-0 flex flex-col justify-center items-start p-12 text-white">
+                                    {/* VR Headset Icon */}
+                                    <div className="mb-8 group-hover:scale-110 transition-transform duration-300">
+                                        <svg className="w-20 h-20 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M20.26 7.8a4.82 4.82 0 0 0-3.93-2.44 3.91 3.91 0 0 0-2.54 1.09 10.58 10.58 0 0 0-1.52 1.71 3 3 0 0 1-2.54 0 10.58 10.58 0 0 0-1.52-1.71 3.91 3.91 0 0 0-2.54-1.09A4.82 4.82 0 0 0 1.74 7.8a4.82 4.82 0 0 0 0 8.4 4.82 4.82 0 0 0 3.93 2.44 3.91 3.91 0 0 0 2.54-1.09c.53-.53 1.04-1.11 1.52-1.71a3 3 0 0 1 2.54 0c.48.6 1 1.18 1.52 1.71a3.91 3.91 0 0 0 2.54 1.09 4.82 4.82 0 0 0 3.93-2.44 4.82 4.82 0 0 0 0-8.4zM7.5 14.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm9 0a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+                                        </svg>
                                     </div>
 
-                                    {/* Content */}
-                                    <div className="relative p-10">
-                                        <div className="flex items-start gap-6 mb-6">
-                                            <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold transition-all duration-300 ${
-                                                index === 0
-                                                    ? 'bg-[#1e3767]/20 text-[#1e3767] group-hover:bg-[#1e3767] group-hover:text-white group-hover:scale-110'
-                                                    : 'bg-[#d97539]/20 text-[#d97539] group-hover:bg-[#d97539] group-hover:text-white group-hover:scale-110'
-                                            }`}>
-                                                {service.number}
-                                            </div>
-                                            <div className="flex-1">
-                                                <h3 className={`text-2xl font-bold mb-3 transition-colors duration-300 ${
-                                                    index === 0
-                                                        ? 'text-[#1e3767] group-hover:text-[#1e3767]'
-                                                        : 'text-[#d97539] group-hover:text-[#d97539]'
-                                                }`}>
-                                                    {service.title}
-                                                </h3>
-                                                <p className="text-xl text-gray-700 font-medium leading-relaxed">
-                                                    {service.subtitle}
-                                                </p>
-                                            </div>
-                                        </div>
+                                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight drop-shadow-lg">
+                                        VR-Technologie &<br />
+                                        Immersive Planung
+                                    </h3>
 
-                                        <p className="text-gray-600 leading-relaxed text-lg mb-8 line-clamp-4">
-                                            {service.description}
-                                        </p>
+                                    <p className="text-xl opacity-95 leading-relaxed mb-8 max-w-md drop-shadow-sm">
+                                        Revolutionäre VR-Brillen für virtuelle Anlagenbegehungen und immersive 3D-Planungserlebnisse
+                                    </p>
 
-                                        {/* Features Preview */}
-                                        <div className="mb-8">
-                                            <ul className="space-y-3">
-                                                {service.features.slice(0, 2).map((feature, featureIndex) => (
-                                                    <li key={featureIndex} className="flex items-start">
-                                                        <span className={`w-2 h-2 rounded-full mr-3 flex-shrink-0 mt-3 ${
-                                                            index === 0 ? 'bg-[#1e3767]' : 'bg-[#d97539]'
-                                                        }`}></span>
-                                                        <span className="text-gray-700 leading-relaxed">{feature.split(' ').slice(0, 8).join(' ')}...</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-
-                                        {/* Call to Action */}
-                                        <div className="flex items-center justify-between">
-                                            <span className={`inline-flex items-center font-semibold text-lg transition-all duration-300 ${
-                                                index === 0
-                                                    ? 'text-[#1e3767] group-hover:text-[#1e3767]'
-                                                    : 'text-[#d97539] group-hover:text-[#d97539]'
-                                            }`}>
-                                                Alle Details anzeigen
-                                                <svg className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                                </svg>
-                                            </span>
-                                        </div>
-
-                                        {/* Hover Indicator */}
-                                        <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 ${
-                                            index === 0 ? 'bg-[#1e3767]' : 'bg-[#d97539]'
-                                        }`}></div>
+                                    <div className="flex items-center text-white group-hover:translate-x-2 transition-transform duration-300 font-semibold text-lg">
+                                        <span>Mehr erfahren</span>
+                                        <svg className="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
                                     </div>
                                 </div>
-                            ))}
+
+                                {/* Hover Border Effect */}
+                                <div className="absolute inset-0 border-4 border-transparent group-hover:border-white/30 rounded-2xl transition-all duration-300"></div>
+                            </div>
+
+                            {/* 3D Laser Scanner Card */}
+                            <div
+                                className="relative h-96 rounded-2xl overflow-hidden cursor-pointer group shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl"
+                                onClick={() => setSelectedService(services[3])}
+                            >
+                                {/* Background Image */}
+                                <img
+                                    src="https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=1000&h=600&fit=crop&auto=format"
+                                    alt="3D Laser Scanning Background"
+                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+
+                                {/* Color Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3767]/75 via-[#1e3767]/65 to-[#1e3767]/80 group-hover:from-[#1e3767]/85 group-hover:via-[#1e3767]/75 group-hover:to-[#1e3767]/90 transition-all duration-500"></div>
+
+                                {/* Content */}
+                                <div className="absolute inset-0 flex flex-col justify-center items-start p-12 text-white">
+                                    {/* Laser Scanner Icon */}
+                                    <div className="mb-8 group-hover:scale-110 transition-transform duration-300">
+                                        <svg className="w-20 h-20 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                                            <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v6m0 6v6m9-9h-6m-6 0H3"/>
+                                        </svg>
+                                    </div>
+
+                                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight drop-shadow-lg">
+                                        3D-Laserscanning &<br />
+                                        Präzisionsvermessung
+                                    </h3>
+
+                                    <p className="text-xl opacity-95 leading-relaxed mb-8 max-w-md drop-shadow-sm">
+                                        Hochpräzise 3D-Laserscanner für millimetergenaue Bestandsaufnahmen und digitale Zwillinge
+                                    </p>
+
+                                    <div className="flex items-center text-white group-hover:translate-x-2 transition-transform duration-300 font-semibold text-lg">
+                                        <span>Mehr erfahren</span>
+                                        <svg className="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                {/* Hover Border Effect */}
+                                <div className="absolute inset-0 border-4 border-transparent group-hover:border-white/30 rounded-2xl transition-all duration-300"></div>
+                            </div>
                         </div>
                     </div>
                 </section>
