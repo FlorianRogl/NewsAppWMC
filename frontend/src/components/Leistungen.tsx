@@ -40,7 +40,7 @@ const NewLeistungen: React.FC = () => {
             title: "Technische Planung & Engineering",
             subtitle: "Von der Projektierung bis zur detaillierten 3D-Anlagenplanung",
             description: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik.",
-            detailedDescription: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Unsere Planungsphilosophie basiert auf der effizienten Überführung der Verfahrenstechnik in die Anlagenplanung mit angemessener Berücksichtigung besonderer Kundenanforderungen für Betrieb, Wartung und Instandhaltung. Wir entwickeln fundierte Basisplanungen als solide Grundlage für Ihre Investitionsentscheidungen und erstellen realistische Terminpläne sowie belastbare Projektbudgets. Unsere 3D-Planungstechnologie ermöglicht automatische Kollisionsprüfung und gewerkeübergreifende Koordination bereits in der Planungsphase.",
+            detailedDescription: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Unsere Planungsphilosophie basiert auf der effizienten ÃœberfÃ¼hrung der Verfahrenstechnik in die Anlagenplanung mit angemessener BerÃ¼cksichtigung besonderer Kundenanforderungen fÃ¼r Betrieb, Wartung und Instandhaltung. Wir entwickeln fundierte Basisplanungen als solide Grundlage fÃ¼r Ihre Investitionsentscheidungen und erstellen realistische TerminplÃ¤ne sowie belastbare Projektbudgets. Unsere 3D-Planungstechnologie ermÃ¶glicht automatische KollisionsprÃ¼fung und gewerkeÃ¼bergreifende Koordination bereits in der Planungsphase.",
             image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Basic Engineering und konzeptionelle Anlagenentwicklung",
@@ -50,9 +50,9 @@ const NewLeistungen: React.FC = () => {
             ],
             highlights: [
                 "Jahrzehntelange Expertise in technischer Planung",
-                "Effiziente Überführung der Verfahrenstechnik in die Anlagenplanung",
-                "Fundierte Basisplanungen für Investitionsentscheidungen",
-                "3D-Planungstechnologie mit automatischer Kollisionsprüfung"
+                "Effiziente ÃœberfÃ¼hrung der Verfahrenstechnik in die Anlagenplanung",
+                "Fundierte Basisplanungen fÃ¼r Investitionsentscheidungen",
+                "3D-Planungstechnologie mit automatischer KollisionsprÃ¼fung"
             ],
             icon: "engineering",
             technologies: ["PDMS", "E3D", "AutoCAD Plant 3D", "SmartPlant Review", "Navisworks", "CAESAR II", "BENTLEY AutoPLANT"],
@@ -62,9 +62,9 @@ const NewLeistungen: React.FC = () => {
             id: 2,
             number: "02",
             title: "Projektmanagement & Koordination",
-            subtitle: "Professionelle Projektführung für erfolgreiche Anlagenrealisierung",
-            description: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich Qualität, Termine und Kosten zu erfüllen oder im positiven Sinne zu übertreffen.",
-            detailedDescription: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich Qualität, Termine und Kosten zu erfüllen oder im positiven Sinne zu übertreffen. PROMAX begegnet dieser Herausforderung mit einem Team erfahrener Projektmanager, die seit 1999 komplexe Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik erfolgreich abwickeln. Dabei bieten wir sowohl komplettes Projektmanagement als auch modulare Teilleistungen, je nach Projektgröße und Kundenanforderungen. Mit ISO 9001:2015 Zertifizierung sorgen wir für höchste Qualitätsstandards und termingerechte Projektumsetzung.",
+            subtitle: "Professionelle ProjektfÃ¼hrung fÃ¼r erfolgreiche Anlagenrealisierung",
+            description: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich QualitÃ¤t, Termine und Kosten zu erfÃ¼llen oder im positiven Sinne zu Ã¼bertreffen.",
+            detailedDescription: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich QualitÃ¤t, Termine und Kosten zu erfÃ¼llen oder im positiven Sinne zu Ã¼bertreffen. PROMAX begegnet dieser Herausforderung mit einem Team erfahrener Projektmanager, die seit 1999 komplexe Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik erfolgreich abwickeln. Dabei bieten wir sowohl komplettes Projektmanagement als auch modulare Teilleistungen, je nach ProjektgrÃ¶ÃŸe und Kundenanforderungen. Mit ISO 9001:2015 Zertifizierung sorgen wir fÃ¼r hÃ¶chste QualitÃ¤tsstandards und termingerechte Projektumsetzung.",
             image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Komplettes Projektmanagement oder modulare Teilleistungen",
@@ -75,8 +75,8 @@ const NewLeistungen: React.FC = () => {
             highlights: [
                 "Erfahrene Projektmanager seit 1999",
                 "Komplettes Projektmanagement oder modulare Teilleistungen",
-                "ISO 9001:2015 Zertifizierung für höchste Qualitätsstandards",
-                "PMI-Standards für professionelle Projektführung"
+                "ISO 9001:2015 Zertifizierung fÃ¼r hÃ¶chste QualitÃ¤tsstandards",
+                "PMI-Standards fÃ¼r professionelle ProjektfÃ¼hrung"
             ],
             icon: "project-management",
             technologies: ["MS Project", "Primavera P6", "SAP PS", "Jira", "Confluence", "MS Teams", "Sharepoint"],
@@ -87,22 +87,22 @@ const NewLeistungen: React.FC = () => {
             number: "03",
             title: "VR-Technologie & Virtual Reality",
             subtitle: "Immersive Planungserlebnisse mit modernsten VR-Brillen",
-            description: "Revolutionäre VR-Brillen-Technologie für immersive 3D-Anlagenbegehungen, virtuelle Schulungen und interaktive Planungsvisualisierung in der Industrie 4.0.",
-            detailedDescription: "PROMAX nutzt hochmoderne VR-Brillen wie Oculus Quest, HTC Vive Pro und Microsoft HoloLens, um Industrieanlagen bereits in der Planungsphase vollständig erlebbar zu machen. Unsere VR-Brillen ermöglichen es Ingenieuren, Planern und Betreibern, virtuell durch zukünftige Produktionsstätten zu wandeln, als wären sie bereits gebaut. Mit hand-trackenden Controllern können Nutzer Ventile betätigen, Wartungsarbeiten simulieren und Optimierungen direkt in der virtuellen Umgebung durchführen. Die VR-Brillen bieten eine 360-Grad-Rundumsicht mit realistischen Maßstäben und physikalischen Eigenschaften. Durch die immersive VR-Erfahrung werden Planungsfehler frühzeitig erkannt, Entscheidungswege verkürzt und kostspielige Änderungen in der Bauphase vermieden. Unsere VR-Umgebungen sind nahtlos in die CAD-Planungsprozesse integriert.",
+            description: "RevolutionÃ¤re VR-Brillen-Technologie fÃ¼r immersive 3D-Anlagenbegehungen, virtuelle Schulungen und interaktive Planungsvisualisierung in der Industrie 4.0.",
+            detailedDescription: "PROMAX nutzt hochmoderne VR-Brillen wie Oculus Quest, HTC Vive Pro und Microsoft HoloLens, um Industrieanlagen bereits in der Planungsphase vollstÃ¤ndig erlebbar zu machen. Unsere VR-Brillen ermÃ¶glichen es Ingenieuren, Planern und Betreibern, virtuell durch zukÃ¼nftige ProduktionsstÃ¤tten zu wandeln, als wÃ¤ren sie bereits gebaut. Mit hand-trackenden Controllern kÃ¶nnen Nutzer Ventile betÃ¤tigen, Wartungsarbeiten simulieren und Optimierungen direkt in der virtuellen Umgebung durchfÃ¼hren. Die VR-Brillen bieten eine 360-Grad-Rundumsicht mit realistischen MaÃŸstÃ¤ben und physikalischen Eigenschaften. Durch die immersive VR-Erfahrung werden Planungsfehler frÃ¼hzeitig erkannt, Entscheidungswege verkÃ¼rzt und kostspielige Ã„nderungen in der Bauphase vermieden. Unsere VR-Umgebungen sind nahtlos in die CAD-Planungsprozesse integriert.",
             image: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Immersive VR-Begehungen mit High-End VR-Brillen (Oculus, HTC Vive)",
                 "Hand-Tracking und Controller-basierte Interaktion in virtuellen Anlagen",
-                "Realistische 1:1 Maßstäbe mit physikalischen Materialeigenschaften",
+                "Realistische 1:1 MaÃŸstÃ¤be mit physikalischen Materialeigenschaften",
                 "Virtuelle Wartungsschulungen und Sicherheitstrainings in VR",
-                "Kollaborative Multi-User VR-Sessions für Projektteams",
+                "Kollaborative Multi-User VR-Sessions fÃ¼r Projektteams",
                 "Echtzeit-Anpassungen und Optimierungen in der VR-Umgebung"
             ],
             highlights: [
-                "Modernste VR-Brillen-Technologie für industrielle Anwendungen",
-                "Frühzeitige Fehlererkennung durch immersive VR-Visualisierung",
+                "Modernste VR-Brillen-Technologie fÃ¼r industrielle Anwendungen",
+                "FrÃ¼hzeitige Fehlererkennung durch immersive VR-Visualisierung",
                 "Kostenreduktion durch virtuelle Planungsvalidierung",
-                "Revolutionäre Planungsmethodik mit VR-Integration"
+                "RevolutionÃ¤re Planungsmethodik mit VR-Integration"
             ],
             icon: "vr-headset",
             technologies: ["Oculus Quest Pro", "HTC Vive Pro 2", "Microsoft HoloLens", "Unity 3D Engine", "Unreal Engine 5", "VR-Tracking-Systeme", "Haptic Feedback Controller", "Mixed Reality Plattformen"],
@@ -112,22 +112,22 @@ const NewLeistungen: React.FC = () => {
             id: 4,
             number: "04",
             title: "3D-Laserscanning Technologie",
-            subtitle: "Präzise Vermessung mit hochmodernen Laserscannern",
-            description: "State-of-the-Art 3D-Laserscanning mit Millimeter-Genauigkeit für exakte Bestandsaufnahmen, digitale Zwillinge und präzise Reverse-Engineering-Projekte.",
-            detailedDescription: "PROMAX setzt die neuesten 3D-Laserscanner von Leica, FARO und Trimble ein, um komplexe Industrieanlagen mit Sub-Millimeter-Genauigkeit zu erfassen. Unsere High-End-Laserscanner erstellen präzise Punktwolken mit Millionen von Messpunkten, die als Grundlage für digitale Zwillinge und CAD-Modelle dienen. Terrestrische Laserscanner erfassen stationär große Anlagenbereiche, während mobile Scanner wie der NavVis VLX kontinuierliche Erfassung ermöglichen. Drohnen-basierte Laserscanner erreichen schwer zugängliche Bereiche wie Dächer und hohe Strukturen. Die gescannten Punktwolken werden mit spezieller Software zu detaillierten 3D-Modellen verarbeitet, die millimetergenau bestehende Anlagen abbilden. Diese digitalen Zwillinge ermöglichen präzise Planungen für Umbauten, Erweiterungen und Modernisierungen ohne Kollisionsrisiken.",
+            subtitle: "PrÃ¤zise Vermessung mit hochmodernen Laserscannern",
+            description: "State-of-the-Art 3D-Laserscanning mit Millimeter-Genauigkeit fÃ¼r exakte Bestandsaufnahmen, digitale Zwillinge und prÃ¤zise Reverse-Engineering-Projekte.",
+            detailedDescription: "PROMAX setzt die neuesten 3D-Laserscanner von Leica, FARO und Trimble ein, um komplexe Industrieanlagen mit Sub-Millimeter-Genauigkeit zu erfassen. Unsere High-End-Laserscanner erstellen prÃ¤zise Punktwolken mit Millionen von Messpunkten, die als Grundlage fÃ¼r digitale Zwillinge und CAD-Modelle dienen. Terrestrische Laserscanner erfassen stationÃ¤r groÃŸe Anlagenbereiche, wÃ¤hrend mobile Scanner wie der NavVis VLX kontinuierliche Erfassung ermÃ¶glichen. Drohnen-basierte Laserscanner erreichen schwer zugÃ¤ngliche Bereiche wie DÃ¤cher und hohe Strukturen. Die gescannten Punktwolken werden mit spezieller Software zu detaillierten 3D-Modellen verarbeitet, die millimetergenau bestehende Anlagen abbilden. Diese digitalen Zwillinge ermÃ¶glichen prÃ¤zise Planungen fÃ¼r Umbauten, Erweiterungen und Modernisierungen ohne Kollisionsrisiken.",
             image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&h=600&fit=crop&auto=format",
             features: [
-                "Hochpräzise terrestrische 3D-Laserscanner (Leica, FARO, Trimble)",
-                "Mobile Laserscanning-Systeme für kontinuierliche Erfassung",
-                "Drohnen-basierte Laserscanner für schwer erreichbare Bereiche",
+                "HochprÃ¤zise terrestrische 3D-Laserscanner (Leica, FARO, Trimble)",
+                "Mobile Laserscanning-Systeme fÃ¼r kontinuierliche Erfassung",
+                "Drohnen-basierte Laserscanner fÃ¼r schwer erreichbare Bereiche",
                 "Sub-Millimeter-Genauigkeit mit Millionen von Messpunkten",
                 "Automatische Punktwolken-zu-CAD Konvertierung",
-                "Digitale Zwillinge für präzise Planungsgrundlagen"
+                "Digitale Zwillinge fÃ¼r prÃ¤zise Planungsgrundlagen"
             ],
             highlights: [
                 "Millimetergenaue Vermessung mit modernsten Laserscannern",
                 "Zeiteffiziente Erfassung kompletter Industrieanlagen",
-                "Digitale Zwillinge für kollisionsfreie Planung",
+                "Digitale Zwillinge fÃ¼r kollisionsfreie Planung",
                 "Nahtlose Integration in CAD-Planungsprozesse"
             ],
             icon: "laser-scanner",
@@ -282,9 +282,9 @@ const NewLeistungen: React.FC = () => {
                 <div className="relative h-96 overflow-hidden">
                     {/* Background Image */}
                     <img
-                        src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&h=600&fit=crop&auto=format"
-                        alt="Industrial Engineering Background"
-                        className="absolute inset-0 w-full h-full object-cover"
+                        src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&h=600&fit=crop&crop=center&auto=format"
+                        alt="Professional Engineering Team Collaboration"
+                        className="absolute inset-0 w-full h-full object-cover object-center"
                     />
 
                     {/* Dark Overlay */}
@@ -420,94 +420,80 @@ const NewLeistungen: React.FC = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             {/* VR Technology Card */}
                             <div
-                                className="relative h-96 rounded-2xl overflow-hidden cursor-pointer group shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl"
+                                className="relative h-96 rounded-2xl overflow-hidden cursor-pointer group shadow-xl transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl"
                                 onClick={() => setSelectedService(services[2])}
                             >
                                 {/* Background Image */}
                                 <img
                                     src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=1000&h=600&fit=crop&auto=format"
                                     alt="VR Technology Background"
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 />
 
-                                {/* Color Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#d97539]/75 via-[#d97539]/65 to-[#d97539]/80 group-hover:from-[#d97539]/85 group-hover:via-[#d97539]/75 group-hover:to-[#d97539]/90 transition-all duration-500"></div>
+                                {/* Gradient Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#d97539]/75 via-[#d97539]/65 to-[#d97539]/80 group-hover:from-[#d97539]/85 group-hover:to-[#d97539]/70 transition-all duration-500"></div>
 
                                 {/* Content */}
                                 <div className="absolute inset-0 flex flex-col justify-center items-start p-12 text-white">
                                     {/* VR Headset Icon */}
-                                    <div className="mb-8 group-hover:scale-110 transition-transform duration-300">
+                                    <div className="mb-8 group-hover:scale-110 transition-transform duration-500">
                                         <svg className="w-20 h-20 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M20.26 7.8a4.82 4.82 0 0 0-3.93-2.44 3.91 3.91 0 0 0-2.54 1.09 10.58 10.58 0 0 0-1.52 1.71 3 3 0 0 1-2.54 0 10.58 10.58 0 0 0-1.52-1.71 3.91 3.91 0 0 0-2.54-1.09A4.82 4.82 0 0 0 1.74 7.8a4.82 4.82 0 0 0 0 8.4 4.82 4.82 0 0 0 3.93 2.44 3.91 3.91 0 0 0 2.54-1.09c.53-.53 1.04-1.11 1.52-1.71a3 3 0 0 1 2.54 0c.48.6 1 1.18 1.52 1.71a3.91 3.91 0 0 0 2.54 1.09 4.82 4.82 0 0 0 3.93-2.44 4.82 4.82 0 0 0 0-8.4zM7.5 14.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm9 0a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
                                         </svg>
                                     </div>
 
-                                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight drop-shadow-lg">
+                                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight drop-shadow-lg transform group-hover:translate-x-2 transition-transform duration-500">
                                         VR-Technologie &<br />
                                         Immersive Planung
                                     </h3>
 
-                                    <p className="text-xl opacity-95 leading-relaxed mb-8 max-w-md drop-shadow-sm">
-                                        Revolutionäre VR-Brillen für virtuelle Anlagenbegehungen und immersive 3D-Planungserlebnisse
-                                    </p>
-
-                                    <div className="flex items-center text-white group-hover:translate-x-2 transition-transform duration-300 font-semibold text-lg">
-                                        <span>Mehr erfahren</span>
-                                        <svg className="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </div>
                                 </div>
 
-                                {/* Hover Border Effect */}
-                                <div className="absolute inset-0 border-4 border-transparent group-hover:border-white/30 rounded-2xl transition-all duration-300"></div>
+                                {/* Subtle Border Effect */}
+                                <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-2xl transition-all duration-500"></div>
                             </div>
 
                             {/* 3D Laser Scanner Card */}
                             <div
-                                className="relative h-96 rounded-2xl overflow-hidden cursor-pointer group shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl"
+                                className="relative h-96 rounded-2xl overflow-hidden cursor-pointer group shadow-xl transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl"
                                 onClick={() => setSelectedService(services[3])}
                             >
                                 {/* Background Image */}
                                 <img
                                     src="https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=1000&h=600&fit=crop&auto=format"
                                     alt="3D Laser Scanning Background"
-                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 />
 
-                                {/* Color Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3767]/75 via-[#1e3767]/65 to-[#1e3767]/80 group-hover:from-[#1e3767]/85 group-hover:via-[#1e3767]/75 group-hover:to-[#1e3767]/90 transition-all duration-500"></div>
+                                {/* Gradient Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3767]/75 via-[#1e3767]/65 to-[#1e3767]/80 group-hover:from-[#1e3767]/85 group-hover:to-[#1e3767]/70 transition-all duration-500"></div>
 
                                 {/* Content */}
                                 <div className="absolute inset-0 flex flex-col justify-center items-start p-12 text-white">
                                     {/* Laser Scanner Icon */}
-                                    <div className="mb-8 group-hover:scale-110 transition-transform duration-300">
+                                    <div className="mb-8 group-hover:scale-110 transition-transform duration-500">
                                         <svg className="w-20 h-20 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                                            <circle cx="12" cy="12" r="3" fill="currentColor"/>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v6m0 6v6m9-9h-6m-6 0H3"/>
+                                            {/* Main scanner body */}
+                                            <rect x="10" y="8" width="4" height="8" rx="1" fill="currentColor"/>
+                                            {/* Tripod legs */}
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 16l-6 6M12 16l6 6M12 16l0 6"/>
+                                            {/* Laser beams */}
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 10l-8-2M12 10l8-2M12 10l-6-6M12 10l6-6M12 10l0-8"/>
+                                            {/* Rotating scanner head */}
+                                            <circle cx="12" cy="10" r="2" fill="none" stroke="currentColor" strokeWidth="2"/>
+                                            {/* Central dot */}
+                                            <circle cx="12" cy="10" r="0.5" fill="currentColor"/>
                                         </svg>
                                     </div>
 
-                                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight drop-shadow-lg">
+                                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight drop-shadow-lg transform group-hover:translate-x-2 transition-transform duration-500">
                                         3D-Laserscanning &<br />
                                         Präzisionsvermessung
                                     </h3>
-
-                                    <p className="text-xl opacity-95 leading-relaxed mb-8 max-w-md drop-shadow-sm">
-                                        Hochpräzise 3D-Laserscanner für millimetergenaue Bestandsaufnahmen und digitale Zwillinge
-                                    </p>
-
-                                    <div className="flex items-center text-white group-hover:translate-x-2 transition-transform duration-300 font-semibold text-lg">
-                                        <span>Mehr erfahren</span>
-                                        <svg className="ml-3 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </div>
                                 </div>
 
-                                {/* Hover Border Effect */}
-                                <div className="absolute inset-0 border-4 border-transparent group-hover:border-white/30 rounded-2xl transition-all duration-300"></div>
+                                {/* Subtle Border Effect */}
+                                <div className="absolute inset-0 border-2 border-transparent group-hover:border-cyan-300/30 rounded-2xl transition-all duration-500"></div>
                             </div>
                         </div>
                     </div>
