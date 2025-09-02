@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom'; // Add this import
+import { useLocation } from 'react-router-dom';
 
 // TypeScript Interfaces
 interface Service {
@@ -24,8 +24,8 @@ interface VisibilityState {
 const NewLeistungen: React.FC = () => {
     const [isVisible, setIsVisible] = useState<VisibilityState>({});
     const [selectedService, setSelectedService] = useState<Service | null>(null);
-    const location = useLocation(); // Add this hook
-    //const serviceRefs = useRef<{ [key: string]: HTMLDivElement | null }>({}); // Add refs for services
+    const location = useLocation();
+    //const serviceRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
     useEffect(() => {
         // Set initial visibility
@@ -37,7 +37,7 @@ const NewLeistungen: React.FC = () => {
 
         // Auto-scroll functionality
         if (location.hash) {
-            const targetId = location.hash.substring(1); // Remove the '#'
+            const targetId = location.hash.substring(1);
             setTimeout(() => {
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
@@ -155,10 +155,10 @@ const NewLeistungen: React.FC = () => {
 
     return (
         <>
-            <div className="min-h-screen bg-white">
+            <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif" }}>
                 {/* Pop-up Modal */}
                 {selectedService && (
-                    <div className="fixed inset-0 z-[1100] flex items-start justify-center pt-[110px] p-4 sm:p-6 md:p-8">
+                    <div className="fixed inset-0 z-[1100] flex items-start justify-center pt-4 sm:pt-8 lg:pt-[110px] p-3 sm:p-4 md:p-6 lg:p-8">
                         {/* Backdrop */}
                         <div
                             className="absolute inset-0 bg-[#1e3767] bg-opacity-75 backdrop-blur-sm transition-opacity duration-300"
@@ -166,17 +166,17 @@ const NewLeistungen: React.FC = () => {
                         ></div>
 
                         {/* Modal Content */}
-                        <div className="relative bg-white rounded-2xl max-w-5xl w-full max-h-[calc(100vh-130px)] overflow-y-auto shadow-xl transform transition-all duration-500 animate-in fade-in zoom-in-95">
+                        <div className="relative bg-white rounded-xl sm:rounded-2xl max-w-xs sm:max-w-lg md:max-w-3xl lg:max-w-5xl w-full max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)] lg:max-h-[calc(100vh-130px)] overflow-y-auto shadow-xl transform transition-all duration-500 animate-in fade-in zoom-in-95">
                             {/* Close Button */}
                             <button
                                 onClick={() => setSelectedService(null)}
-                                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white hover:bg-[#d1d8dc] rounded-full flex items-center justify-center transition-colors shadow-md border border-[#9ba8b3]"
+                                className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-white hover:bg-[#d1d8dc] rounded-full flex items-center justify-center transition-colors shadow-md border border-[#9ba8b3]"
                             >
-                                <span className="text-[#1e3767] text-xl">×</span>
+                                <span className="text-[#1e3767] text-lg sm:text-xl">×</span>
                             </button>
 
                             {/* Modal Header */}
-                            <div className="relative h-64 sm:h-72 md:h-80 overflow-hidden rounded-t-2xl">
+                            <div className="relative h-40 sm:h-48 md:h-64 lg:h-80 overflow-hidden rounded-t-xl sm:rounded-t-2xl">
                                 <img
                                     src={selectedService.image}
                                     alt={`${selectedService.title} - PROMAX Industrial Engineering`}
@@ -186,54 +186,54 @@ const NewLeistungen: React.FC = () => {
                                     height="320"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#1e3767]/90 via-[#1e3767]/40 to-transparent"></div>
-                                <div className="absolute bottom-6 left-6 text-white">
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 leading-tight">
+                                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6 text-white pr-8 sm:pr-12">
+                                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-1 sm:mb-2 leading-tight">
                                         {selectedService.title}
                                     </h3>
-                                    <p className="text-lg sm:text-xl text-[#d1d8dc] font-light leading-relaxed">
+                                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#d1d8dc] font-light leading-relaxed">
                                         {selectedService.subtitle}
                                     </p>
                                 </div>
                             </div>
 
                             {/* Modal Body */}
-                            <div className="p-6 sm:p-8 md:p-10">
+                            <div className="p-4 sm:p-6 md:p-8 lg:p-10">
                                 {/* Beschreibung */}
-                                <div className="mb-8">
-                                    <h4 className="text-xl sm:text-2xl font-bold text-[#1e3767] mb-4 pb-2 border-b-2 border-[#9ba8b3]">
+                                <div className="mb-6 sm:mb-8">
+                                    <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#1e3767] mb-3 sm:mb-4 pb-2 border-b-2 border-[#9ba8b3]">
                                         Über diese Leistung
                                     </h4>
-                                    <p className="text-[#1e3767] leading-relaxed text-base sm:text-lg">
+                                    <p className="text-[#1e3767] leading-relaxed text-sm sm:text-base lg:text-lg">
                                         {selectedService.detailedDescription}
                                     </p>
                                 </div>
 
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
                                     {/* Kernleistungen */}
-                                    <div className="bg-[#d1d8dc] rounded-xl p-6 sm:p-8">
-                                        <h4 className="text-lg sm:text-xl font-bold text-[#1e3767] mb-4 pb-2 border-b-2 border-[#9ba8b3]">
+                                    <div className="bg-[#d1d8dc] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8">
+                                        <h4 className="text-base sm:text-lg lg:text-xl font-bold text-[#1e3767] mb-3 sm:mb-4 pb-2 border-b-2 border-[#9ba8b3]">
                                             Kernleistungen
                                         </h4>
-                                        <ul className="space-y-3">
+                                        <ul className="space-y-2 sm:space-y-3">
                                             {selectedService.features.map((feature, index) => (
                                                 <li key={index} className="flex items-start">
-                                                    <span className="w-2 h-2 bg-[#1e3767] rounded-full mr-3 flex-shrink-0 mt-2"></span>
-                                                    <span className="text-[#1e3767] text-sm sm:text-base leading-relaxed">{feature}</span>
+                                                    <span className="w-2 h-2 bg-[#1e3767] rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-1.5 sm:mt-2"></span>
+                                                    <span className="text-[#1e3767] text-xs sm:text-sm lg:text-base leading-relaxed">{feature}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
 
                                     {/* Vorteile */}
-                                    <div className="bg-[#d97539]/10 rounded-xl p-6 sm:p-8">
-                                        <h4 className="text-lg sm:text-xl font-bold text-[#1e3767] mb-4 pb-2 border-b-2 border-[#d97539]">
+                                    <div className="bg-[#d97539]/10 rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8">
+                                        <h4 className="text-base sm:text-lg lg:text-xl font-bold text-[#1e3767] mb-3 sm:mb-4 pb-2 border-b-2 border-[#d97539]">
                                             Ihre Vorteile
                                         </h4>
-                                        <ul className="space-y-3">
+                                        <ul className="space-y-2 sm:space-y-3">
                                             {selectedService.highlights.map((highlight, index) => (
                                                 <li key={index} className="flex items-start">
-                                                    <span className="w-2 h-2 bg-[#d97539] rounded-full mr-3 flex-shrink-0 mt-2"></span>
-                                                    <span className="text-[#1e3767] text-sm sm:text-base leading-relaxed">{highlight}</span>
+                                                    <span className="w-2 h-2 bg-[#d97539] rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-1.5 sm:mt-2"></span>
+                                                    <span className="text-[#1e3767] text-xs sm:text-sm lg:text-base leading-relaxed">{highlight}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -242,16 +242,16 @@ const NewLeistungen: React.FC = () => {
 
                                 {/* Technologien & Standards */}
                                 {(selectedService.technologies || selectedService.standards) && (
-                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                                         {/* Technologien */}
                                         {selectedService.technologies && (
-                                            <div className="bg-white border border-[#9ba8b3] rounded-xl p-6 sm:p-8">
-                                                <h4 className="text-lg sm:text-xl font-bold text-[#1e3767] mb-4">
+                                            <div className="bg-white border border-[#9ba8b3] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8">
+                                                <h4 className="text-base sm:text-lg lg:text-xl font-bold text-[#1e3767] mb-3 sm:mb-4">
                                                     Technologien & Tools
                                                 </h4>
-                                                <div className="flex flex-wrap gap-2">
+                                                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                                     {selectedService.technologies.map((tech, index) => (
-                                                        <span key={index} className="px-3 py-1 bg-[#d1d8dc] text-[#1e3767] rounded-lg text-sm font-medium">
+                                                        <span key={index} className="px-2 sm:px-3 py-1 bg-[#d1d8dc] text-[#1e3767] rounded-md sm:rounded-lg text-xs sm:text-sm font-medium">
                                                             {tech}
                                                         </span>
                                                     ))}
@@ -261,13 +261,13 @@ const NewLeistungen: React.FC = () => {
 
                                         {/* Standards */}
                                         {selectedService.standards && (
-                                            <div className="bg-white border border-[#d97539] rounded-xl p-6 sm:p-8">
-                                                <h4 className="text-lg sm:text-xl font-bold text-[#1e3767] mb-4">
+                                            <div className="bg-white border border-[#d97539] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8">
+                                                <h4 className="text-base sm:text-lg lg:text-xl font-bold text-[#1e3767] mb-3 sm:mb-4">
                                                     Standards & Normen
                                                 </h4>
-                                                <div className="flex flex-wrap gap-2">
+                                                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                                     {selectedService.standards.map((standard, index) => (
-                                                        <span key={index} className="px-3 py-1 bg-[#d97539]/10 text-[#d97539] rounded-lg text-sm font-medium">
+                                                        <span key={index} className="px-2 sm:px-3 py-1 bg-[#d97539]/10 text-[#d97539] rounded-md sm:rounded-lg text-xs sm:text-sm font-medium">
                                                             {standard}
                                                         </span>
                                                     ))}
@@ -282,21 +282,21 @@ const NewLeistungen: React.FC = () => {
                 )}
 
                 {/* Header Section */}
-                <div className="bg-[#1e3767] text-white py-16">
-                    <div className="max-w-6xl mx-auto px-6">
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-white mb-4 sm:mb-6">
+                <div className="bg-[#1e3767] text-white py-8 sm:py-12 md:py-16" style={{ fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif" }}>
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-light text-white mb-3 sm:mb-4 md:mb-6 leading-tight">
                             Engineering Excellence.
                             <span className="block font-semibold text-[#d97539] mt-1 sm:mt-2">Leistungen.</span>
                         </h1>
-                        <div className="w-20 h-1 bg-[#d97539] mb-6 sm:mb-8"></div>
-                        <p className="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl leading-relaxed">
+                        <div className="w-16 sm:w-20 h-1 bg-[#d97539] mb-4 sm:mb-6 md:mb-8"></div>
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-3xl leading-relaxed">
                             Von der ersten Projektidee bis zur erfolgreichen Inbetriebnahme - umfassende Lösungen für komplexe Industrieanlagenprojekte.
                         </p>
                     </div>
                 </div>
 
                 {/* Hero Section */}
-                <div className="relative h-96 overflow-hidden">
+                <div className="relative h-64 sm:h-80 md:h-96 overflow-hidden">
                     {/* Background Image */}
                     <img
                         src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&h=600&fit=crop&crop=center&auto=format"
@@ -309,15 +309,15 @@ const NewLeistungen: React.FC = () => {
 
                     {/* Content */}
                     <div className="relative z-10 h-full flex items-center">
-                        <div className="max-w-6xl mx-auto px-6 text-white">
+                        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-white">
                             <div className="max-w-2xl">
-                                <h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-4">
+                                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-3 sm:mb-4 leading-tight">
                                     Expertise und Innovation für Ihre
                                 </h2>
-                                <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#d97539] mb-6">
+                                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#d97539] mb-4 sm:mb-6 leading-tight">
                                     Industrieanlagen-Märkte
                                 </h3>
-                                <p className="text-lg sm:text-xl leading-relaxed opacity-90">
+                                <p className="text-base sm:text-lg md:text-xl leading-relaxed opacity-90">
                                     Spezialisierte Planungsleistungen und Projektmanagement mit über 20 Jahren Erfahrung
                                 </p>
                             </div>
@@ -326,19 +326,19 @@ const NewLeistungen: React.FC = () => {
                 </div>
 
                 {/* Services Section */}
-                <section className="py-16 bg-white">
-                    <div className="max-w-7xl mx-auto px-8">
+                <section className="py-8 sm:py-12 md:py-16 bg-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                         {/* Intro Section */}
-                        <div className={`mb-12 transition-all duration-1000 ${
+                        <div className={`mb-8 sm:mb-12 transition-all duration-1000 ${
                             isVisible.services ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                         }`}
                              data-section="services">
                             <div className="max-w-4xl mx-auto text-center">
-                                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6">
+                                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-3 sm:mb-4 md:mb-6 leading-tight">
                                     Wir sind Ihr Partner für{' '}
                                     <span className="text-[#1e3767] font-semibold">technische Exzellenz</span>
                                 </h2>
-                                <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+                                <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed px-4 sm:px-0">
                                     Mit über 20 Jahren Erfahrung in der Industrieplanung entwickeln wir
                                     maßgeschneiderte Lösungen für komplexe technische Herausforderungen.
                                     Von der ersten Idee bis zur erfolgreichen Umsetzung – wir begleiten
@@ -350,60 +350,57 @@ const NewLeistungen: React.FC = () => {
                 </section>
 
                 {/* Detailed Services Section */}
-                <section className="py-16 bg-[#d1d8dc]/30">
-                    <div className="max-w-7xl mx-auto px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
+                <section className="py-8 sm:py-12 md:py-16 bg-[#d1d8dc]/30">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-3 sm:mb-4 leading-tight">
                                 Unsere{' '}
                                 <span className="text-[#1e3767] font-semibold">Technologie-Details</span>
                             </h2>
-                            <div className="w-20 h-1 bg-[#d97539] mx-auto"></div>
+                            <div className="w-16 sm:w-20 h-1 bg-[#d97539] mx-auto"></div>
                         </div>
 
-                        <div className="space-y-16">
+                        <div className="space-y-8 sm:space-y-12 md:space-y-16">
                             {services.slice(0, 2).map((service, index) => (
                                 <div
                                     key={service.id}
-                                    id={`service-${service.id}`} // Add ID for auto-scroll
-                                    //ref={el => serviceRefs.current[`service-${service.id}`] = el} // Add ref
-                                    className={`${index < 1 ? 'border-b border-[#9ba8b3] pb-12' : ''} scroll-mt-20`} // Add scroll margin
+                                    id={`service-${service.id}`}
+                                    //ref={el => serviceRefs.current[`service-${service.id}`] = el}
+                                    className={`${index < 1 ? 'border-b border-[#9ba8b3] pb-8 sm:pb-12' : ''} scroll-mt-20`}
                                     data-section={`service-${service.id}`}
                                 >
-                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
                                         {/* Content Side */}
-                                        <div className={`${index % 2 === 0 ? 'order-1' : 'order-2'} transition-all duration-1000 ${
+                                        <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} transition-all duration-1000 ${
                                             isVisible[`service-${service.id}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                                         }`}>
-                                            <div className="flex items-start gap-6 mb-6">
-                                                <span className="text-4xl sm:text-5xl font-light text-[#d1d8dc]">
+                                            <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 mb-4 sm:mb-6">
+                                                <span className="text-3xl sm:text-4xl md:text-5xl font-light text-[#d1d8dc] flex-shrink-0">
                                                     {service.number}
                                                 </span>
-                                                <div>
-                                                    <h3 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
-                                                        {service.title}
-                                                    </h3>
-                                                    <div className="w-16 h-1 bg-[#d97539] mb-3"></div>
-                                                    <p className="text-lg sm:text-xl text-gray-700 mb-4 font-medium">
+                                                <div className="min-w-0">
+                                                    <div className="w-12 sm:w-16 h-1 bg-[#d97539] mb-2 sm:mb-3"></div>
+                                                    <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-3 sm:mb-4 font-medium leading-relaxed">
                                                         {service.subtitle}
                                                     </p>
                                                 </div>
                                             </div>
 
-                                            <p className="text-gray-600 leading-relaxed mb-6 text-base sm:text-lg">
+                                            <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base md:text-lg">
                                                 {service.detailedDescription}
                                             </p>
 
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="grid grid-cols-1 gap-4 sm:gap-6">
                                                 {/* Kernleistungen */}
                                                 <div>
-                                                    <h4 className="text-base font-semibold text-gray-900 mb-3 uppercase tracking-wider">
+                                                    <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wider">
                                                         Kernleistungen
                                                     </h4>
-                                                    <ul className="space-y-2">
+                                                    <ul className="space-y-1.5 sm:space-y-2">
                                                         {service.features.slice(0, 4).map((feature, featureIndex) => (
-                                                            <li key={featureIndex} className="text-base text-gray-600 flex items-start">
-                                                                <span className="w-2 h-2 bg-[#d97539] rounded-full mr-3 flex-shrink-0 mt-2"></span>
-                                                                <span>{feature}</span>
+                                                            <li key={featureIndex} className="text-sm sm:text-base text-gray-600 flex items-start">
+                                                                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#d97539] rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-1.5 sm:mt-2"></span>
+                                                                <span className="leading-relaxed">{feature}</span>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -412,14 +409,14 @@ const NewLeistungen: React.FC = () => {
                                         </div>
 
                                         {/* Image Side */}
-                                        <div className={`${index % 2 === 0 ? 'order-2' : 'order-1'} transition-all duration-1000 delay-300 ${
+                                        <div className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'} transition-all duration-1000 delay-300 ${
                                             isVisible[`service-${service.id}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                                         }`}>
                                             <div className="relative">
                                                 <img
                                                     src={service.image}
                                                     alt={`${service.title} - PROMAX Industrial Engineering`}
-                                                    className="w-full h-[450px] object-cover rounded-lg shadow-lg"
+                                                    className="w-full h-48 sm:h-64 md:h-80 lg:h-[400px] xl:h-[450px] object-cover rounded-lg shadow-lg"
                                                     loading="lazy"
                                                     width="800"
                                                     height="450"
@@ -434,12 +431,12 @@ const NewLeistungen: React.FC = () => {
                 </section>
 
                 {/* Bottom Cards Section */}
-                <section className="py-24 bg-gray-50">
-                    <div className="max-w-7xl mx-auto px-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-gray-50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
                             {/* VR Technology Card */}
                             <div
-                                className="relative h-96 rounded-2xl overflow-hidden cursor-pointer group shadow-xl transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl"
+                                className="relative h-64 sm:h-80 md:h-96 rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer group shadow-xl transition-all duration-500 hover:scale-[1.02] sm:hover:scale-[1.03] hover:shadow-2xl"
                                 onClick={() => setSelectedService(services[2])}
                             >
                                 {/* Background Image */}
@@ -453,15 +450,15 @@ const NewLeistungen: React.FC = () => {
                                 <div className="absolute inset-0 bg-gradient-to-br from-[#d97539]/75 via-[#d97539]/65 to-[#d97539]/80 group-hover:from-[#d97539]/85 group-hover:to-[#d97539]/70 transition-all duration-500"></div>
 
                                 {/* Content */}
-                                <div className="absolute inset-0 flex flex-col justify-center items-start p-12 text-white">
+                                <div className="absolute inset-0 flex flex-col justify-center items-start p-6 sm:p-8 md:p-12 text-white">
                                     {/* VR Headset Icon */}
-                                    <div className="mb-8 group-hover:scale-110 transition-transform duration-500">
-                                        <svg className="w-20 h-20 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                                    <div className="mb-4 sm:mb-6 md:mb-8 group-hover:scale-110 transition-transform duration-500">
+                                        <svg className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M20.26 7.8a4.82 4.82 0 0 0-3.93-2.44 3.91 3.91 0 0 0-2.54 1.09 10.58 10.58 0 0 0-1.52 1.71 3 3 0 0 1-2.54 0 10.58 10.58 0 0 0-1.52-1.71 3.91 3.91 0 0 0-2.54-1.09A4.82 4.82 0 0 0 1.74 7.8a4.82 4.82 0 0 0 0 8.4 4.82 4.82 0 0 0 3.93 2.44 3.91 3.91 0 0 0 2.54-1.09c.53-.53 1.04-1.11 1.52-1.71a3 3 0 0 1 2.54 0c.48.6 1 1.18 1.52 1.71a3.91 3.91 0 0 0 2.54 1.09 4.82 4.82 0 0 0 3.93-2.44 4.82 4.82 0 0 0 0-8.4zM7.5 14.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm9 0a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
                                         </svg>
                                     </div>
 
-                                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight drop-shadow-lg transform group-hover:translate-x-2 transition-transform duration-500">
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight drop-shadow-lg transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500">
                                         VR-Technologie &<br />
                                         Immersive Planung
                                     </h3>
@@ -469,12 +466,12 @@ const NewLeistungen: React.FC = () => {
                                 </div>
 
                                 {/* Subtle Border Effect */}
-                                <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-2xl transition-all duration-500"></div>
+                                <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-xl sm:rounded-2xl transition-all duration-500"></div>
                             </div>
 
                             {/* 3D Laser Scanner Card */}
                             <div
-                                className="relative h-96 rounded-2xl overflow-hidden cursor-pointer group shadow-xl transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl"
+                                className="relative h-64 sm:h-80 md:h-96 rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer group shadow-xl transition-all duration-500 hover:scale-[1.02] sm:hover:scale-[1.03] hover:shadow-2xl"
                                 onClick={() => setSelectedService(services[3])}
                             >
                                 {/* Background Image */}
@@ -488,10 +485,10 @@ const NewLeistungen: React.FC = () => {
                                 <div className="absolute inset-0 bg-gradient-to-br from-[#1e3767]/75 via-[#1e3767]/65 to-[#1e3767]/80 group-hover:from-[#1e3767]/85 group-hover:to-[#1e3767]/70 transition-all duration-500"></div>
 
                                 {/* Content */}
-                                <div className="absolute inset-0 flex flex-col justify-center items-start p-12 text-white">
+                                <div className="absolute inset-0 flex flex-col justify-center items-start p-6 sm:p-8 md:p-12 text-white">
                                     {/* Laser Scanner Icon */}
-                                    <div className="mb-8 group-hover:scale-110 transition-transform duration-500">
-                                        <svg className="w-20 h-20 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                                    <div className="mb-4 sm:mb-6 md:mb-8 group-hover:scale-110 transition-transform duration-500">
+                                        <svg className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                                             {/* Main scanner body */}
                                             <rect x="10" y="8" width="4" height="8" rx="1" fill="currentColor"/>
                                             {/* Tripod legs */}
@@ -505,14 +502,14 @@ const NewLeistungen: React.FC = () => {
                                         </svg>
                                     </div>
 
-                                    <h3 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight drop-shadow-lg transform group-hover:translate-x-2 transition-transform duration-500">
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight drop-shadow-lg transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500">
                                         3D-Laserscanning &<br />
                                         Präzisionsvermessung
                                     </h3>
                                 </div>
 
                                 {/* Subtle Border Effect */}
-                                <div className="absolute inset-0 border-2 border-transparent group-hover:border-cyan-300/30 rounded-2xl transition-all duration-500"></div>
+                                <div className="absolute inset-0 border-2 border-transparent group-hover:border-cyan-300/30 rounded-xl sm:rounded-2xl transition-all duration-500"></div>
                             </div>
                         </div>
                     </div>
