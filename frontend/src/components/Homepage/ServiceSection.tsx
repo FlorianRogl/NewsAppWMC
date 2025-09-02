@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this import
 import banner1Image from '../../assets/Fotolia_Banner 1_L.jpg';
 import banner2Image from '../../assets/Fotolia_Banner 2_L.jpg';
 
@@ -7,6 +8,7 @@ const ServicesSection = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [isTablet, setIsTablet] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
+    const navigate = useNavigate(); // Add this hook
 
     useEffect(() => {
         // Fallback: Set visible after a short delay if intersection observer doesn't trigger
@@ -63,6 +65,11 @@ const ServicesSection = () => {
         return baseStyles;
     };
 
+    // Add navigation function
+    const handleServiceClick = (serviceId: number) => {
+        navigate(`/leistungen#service-${serviceId}`);
+    };
+
     return (
         <section ref={sectionRef} style={getResponsiveStyles(styles.servicesSection, styles.servicesSectionMobile, styles.servicesSectionTablet)}>
             <div style={getResponsiveStyles(styles.container, styles.containerMobile, styles.containerTablet)}>
@@ -84,7 +91,7 @@ const ServicesSection = () => {
 
                 {/* Services Cards Grid */}
                 <div style={getResponsiveStyles(styles.servicesGrid, styles.servicesGridMobile, styles.servicesGridTablet)}>
-                    {/* Planning Service Card */}
+                    {/* Planning Service Card - Now clickable */}
                     <div
                         style={{
                             ...getResponsiveStyles(styles.serviceCard, styles.serviceCardMobile),
@@ -93,6 +100,7 @@ const ServicesSection = () => {
                             transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
                             transitionDelay: '0.2s'
                         }}
+                        onClick={() => handleServiceClick(1)} // Add click handler for service 1
                         onMouseEnter={(e) => {
                             const target = e.currentTarget as HTMLDivElement;
                             target.style.transform = 'translateY(-8px) scale(1.02)';
@@ -141,7 +149,7 @@ const ServicesSection = () => {
                         </div>
                     </div>
 
-                    {/* Project Management Card */}
+                    {/* Project Management Card - Now clickable */}
                     <div
                         style={{
                             ...getResponsiveStyles(styles.serviceCard, styles.serviceCardMobile),
@@ -150,6 +158,7 @@ const ServicesSection = () => {
                             transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
                             transitionDelay: '0.4s'
                         }}
+                        onClick={() => handleServiceClick(2)} // Add click handler for service 2
                         onMouseEnter={(e) => {
                             const target = e.currentTarget as HTMLDivElement;
                             target.style.transform = 'translateY(-8px) scale(1.02)';

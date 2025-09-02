@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; // Add this import
 
 // TypeScript Interfaces
 interface Service {
@@ -23,6 +24,8 @@ interface VisibilityState {
 const NewLeistungen: React.FC = () => {
     const [isVisible, setIsVisible] = useState<VisibilityState>({});
     const [selectedService, setSelectedService] = useState<Service | null>(null);
+    const location = useLocation(); // Add this hook
+    //const serviceRefs = useRef<{ [key: string]: HTMLDivElement | null }>({}); // Add refs for services
 
     useEffect(() => {
         // Set initial visibility
@@ -31,7 +34,21 @@ const NewLeistungen: React.FC = () => {
             'service-1': true,
             'service-2': true
         });
-    }, []);
+
+        // Auto-scroll functionality
+        if (location.hash) {
+            const targetId = location.hash.substring(1); // Remove the '#'
+            setTimeout(() => {
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }, 100);
+        }
+    }, [location]);
 
     const services: Service[] = [
         {
@@ -40,7 +57,7 @@ const NewLeistungen: React.FC = () => {
             title: "Technische Planung & Engineering",
             subtitle: "Von der Projektierung bis zur detaillierten 3D-Anlagenplanung",
             description: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik.",
-            detailedDescription: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Unsere Planungsphilosophie basiert auf der effizienten ÃœberfÃ¼hrung der Verfahrenstechnik in die Anlagenplanung mit angemessener BerÃ¼cksichtigung besonderer Kundenanforderungen fÃ¼r Betrieb, Wartung und Instandhaltung. Wir entwickeln fundierte Basisplanungen als solide Grundlage fÃ¼r Ihre Investitionsentscheidungen und erstellen realistische TerminplÃ¤ne sowie belastbare Projektbudgets. Unsere 3D-Planungstechnologie ermÃ¶glicht automatische KollisionsprÃ¼fung und gewerkeÃ¼bergreifende Koordination bereits in der Planungsphase.",
+            detailedDescription: "PROMAX vereint jahrzehntelange Expertise in der technischen Planung von Industrieanlagen der Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik. Unsere Planungsphilosophie basiert auf der effizienten Überführung der Verfahrenstechnik in die Anlagenplanung mit angemessener Berücksichtigung besonderer Kundenanforderungen für Betrieb, Wartung und Instandhaltung. Wir entwickeln fundierte Basisplanungen als solide Grundlage für Ihre Investitionsentscheidungen und erstellen realistische Terminpläne sowie belastbare Projektbudgets. Unsere 3D-Planungstechnologie ermöglicht automatische Kollisionsprüfung und gewerkeübergreifende Koordination bereits in der Planungsphase.",
             image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Basic Engineering und konzeptionelle Anlagenentwicklung",
@@ -50,9 +67,9 @@ const NewLeistungen: React.FC = () => {
             ],
             highlights: [
                 "Jahrzehntelange Expertise in technischer Planung",
-                "Effiziente ÃœberfÃ¼hrung der Verfahrenstechnik in die Anlagenplanung",
-                "Fundierte Basisplanungen fÃ¼r Investitionsentscheidungen",
-                "3D-Planungstechnologie mit automatischer KollisionsprÃ¼fung"
+                "Effiziente Überführung der Verfahrenstechnik in die Anlagenplanung",
+                "Fundierte Basisplanungen für Investitionsentscheidungen",
+                "3D-Planungstechnologie mit automatischer Kollisionsprüfung"
             ],
             icon: "engineering",
             technologies: ["PDMS", "E3D", "AutoCAD Plant 3D", "SmartPlant Review", "Navisworks", "CAESAR II", "BENTLEY AutoPLANT"],
@@ -62,9 +79,9 @@ const NewLeistungen: React.FC = () => {
             id: 2,
             number: "02",
             title: "Projektmanagement & Koordination",
-            subtitle: "Professionelle ProjektfÃ¼hrung fÃ¼r erfolgreiche Anlagenrealisierung",
-            description: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich QualitÃ¤t, Termine und Kosten zu erfÃ¼llen oder im positiven Sinne zu Ã¼bertreffen.",
-            detailedDescription: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich QualitÃ¤t, Termine und Kosten zu erfÃ¼llen oder im positiven Sinne zu Ã¼bertreffen. PROMAX begegnet dieser Herausforderung mit einem Team erfahrener Projektmanager, die seit 1999 komplexe Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik erfolgreich abwickeln. Dabei bieten wir sowohl komplettes Projektmanagement als auch modulare Teilleistungen, je nach ProjektgrÃ¶ÃŸe und Kundenanforderungen. Mit ISO 9001:2015 Zertifizierung sorgen wir fÃ¼r hÃ¶chste QualitÃ¤tsstandards und termingerechte Projektumsetzung.",
+            subtitle: "Professionelle Projektführung für erfolgreiche Anlagenrealisierung",
+            description: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich Qualität, Termine und Kosten zu erfüllen oder im positiven Sinne zu übertreffen.",
+            detailedDescription: "In der Realisierungsphase von Industrieanlagenprojekten kommt es wesentlich darauf an, vordefinierte Zielsetzungen hinsichtlich Qualität, Termine und Kosten zu erfüllen oder im positiven Sinne zu übertreffen. PROMAX begegnet dieser Herausforderung mit einem Team erfahrener Projektmanager, die seit 1999 komplexe Industrieanlagenprojekte in den Branchen Papier, Zellstoff, Pharma, Chemie sowie Energie- und Umwelttechnik erfolgreich abwickeln. Dabei bieten wir sowohl komplettes Projektmanagement als auch modulare Teilleistungen, je nach Projektgröße und Kundenanforderungen. Mit ISO 9001:2015 Zertifizierung sorgen wir für höchste Qualitätsstandards und termingerechte Projektumsetzung.",
             image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Komplettes Projektmanagement oder modulare Teilleistungen",
@@ -75,8 +92,8 @@ const NewLeistungen: React.FC = () => {
             highlights: [
                 "Erfahrene Projektmanager seit 1999",
                 "Komplettes Projektmanagement oder modulare Teilleistungen",
-                "ISO 9001:2015 Zertifizierung fÃ¼r hÃ¶chste QualitÃ¤tsstandards",
-                "PMI-Standards fÃ¼r professionelle ProjektfÃ¼hrung"
+                "ISO 9001:2015 Zertifizierung für höchste Qualitätsstandards",
+                "PMI-Standards für professionelle Projektführung"
             ],
             icon: "project-management",
             technologies: ["MS Project", "Primavera P6", "SAP PS", "Jira", "Confluence", "MS Teams", "Sharepoint"],
@@ -87,22 +104,22 @@ const NewLeistungen: React.FC = () => {
             number: "03",
             title: "VR-Technologie & Virtual Reality",
             subtitle: "Immersive Planungserlebnisse mit modernsten VR-Brillen",
-            description: "RevolutionÃ¤re VR-Brillen-Technologie fÃ¼r immersive 3D-Anlagenbegehungen, virtuelle Schulungen und interaktive Planungsvisualisierung in der Industrie 4.0.",
-            detailedDescription: "PROMAX nutzt hochmoderne VR-Brillen wie Oculus Quest, HTC Vive Pro und Microsoft HoloLens, um Industrieanlagen bereits in der Planungsphase vollstÃ¤ndig erlebbar zu machen. Unsere VR-Brillen ermÃ¶glichen es Ingenieuren, Planern und Betreibern, virtuell durch zukÃ¼nftige ProduktionsstÃ¤tten zu wandeln, als wÃ¤ren sie bereits gebaut. Mit hand-trackenden Controllern kÃ¶nnen Nutzer Ventile betÃ¤tigen, Wartungsarbeiten simulieren und Optimierungen direkt in der virtuellen Umgebung durchfÃ¼hren. Die VR-Brillen bieten eine 360-Grad-Rundumsicht mit realistischen MaÃŸstÃ¤ben und physikalischen Eigenschaften. Durch die immersive VR-Erfahrung werden Planungsfehler frÃ¼hzeitig erkannt, Entscheidungswege verkÃ¼rzt und kostspielige Ã„nderungen in der Bauphase vermieden. Unsere VR-Umgebungen sind nahtlos in die CAD-Planungsprozesse integriert.",
+            description: "Revolutionäre VR-Brillen-Technologie für immersive 3D-Anlagenbegehungen, virtuelle Schulungen und interaktive Planungsvisualisierung in der Industrie 4.0.",
+            detailedDescription: "PROMAX nutzt hochmoderne VR-Brillen wie Oculus Quest, HTC Vive Pro und Microsoft HoloLens, um Industrieanlagen bereits in der Planungsphase vollständig erlebbar zu machen. Unsere VR-Brillen ermöglichen es Ingenieuren, Planern und Betreibern, virtuell durch zukünftige Produktionsstätten zu wandeln, als wären sie bereits gebaut. Mit hand-trackenden Controllern können Nutzer Ventile betätigen, Wartungsarbeiten simulieren und Optimierungen direkt in der virtuellen Umgebung durchführen. Die VR-Brillen bieten eine 360-Grad-Rundumsicht mit realistischen Maßstäben und physikalischen Eigenschaften. Durch die immersive VR-Erfahrung werden Planungsfehler frühzeitig erkannt, Entscheidungswege verkürzt und kostspielige Änderungen in der Bauphase vermieden. Unsere VR-Umgebungen sind nahtlos in die CAD-Planungsprozesse integriert.",
             image: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&h=600&fit=crop&auto=format",
             features: [
                 "Immersive VR-Begehungen mit High-End VR-Brillen (Oculus, HTC Vive)",
                 "Hand-Tracking und Controller-basierte Interaktion in virtuellen Anlagen",
-                "Realistische 1:1 MaÃŸstÃ¤be mit physikalischen Materialeigenschaften",
+                "Realistische 1:1 Maßstäbe mit physikalischen Materialeigenschaften",
                 "Virtuelle Wartungsschulungen und Sicherheitstrainings in VR",
-                "Kollaborative Multi-User VR-Sessions fÃ¼r Projektteams",
+                "Kollaborative Multi-User VR-Sessions für Projektteams",
                 "Echtzeit-Anpassungen und Optimierungen in der VR-Umgebung"
             ],
             highlights: [
-                "Modernste VR-Brillen-Technologie fÃ¼r industrielle Anwendungen",
-                "FrÃ¼hzeitige Fehlererkennung durch immersive VR-Visualisierung",
+                "Modernste VR-Brillen-Technologie für industrielle Anwendungen",
+                "Frühzeitige Fehlererkennung durch immersive VR-Visualisierung",
                 "Kostenreduktion durch virtuelle Planungsvalidierung",
-                "RevolutionÃ¤re Planungsmethodik mit VR-Integration"
+                "Revolutionäre Planungsmethodik mit VR-Integration"
             ],
             icon: "vr-headset",
             technologies: ["Oculus Quest Pro", "HTC Vive Pro 2", "Microsoft HoloLens", "Unity 3D Engine", "Unreal Engine 5", "VR-Tracking-Systeme", "Haptic Feedback Controller", "Mixed Reality Plattformen"],
@@ -112,22 +129,22 @@ const NewLeistungen: React.FC = () => {
             id: 4,
             number: "04",
             title: "3D-Laserscanning Technologie",
-            subtitle: "PrÃ¤zise Vermessung mit hochmodernen Laserscannern",
-            description: "State-of-the-Art 3D-Laserscanning mit Millimeter-Genauigkeit fÃ¼r exakte Bestandsaufnahmen, digitale Zwillinge und prÃ¤zise Reverse-Engineering-Projekte.",
-            detailedDescription: "PROMAX setzt die neuesten 3D-Laserscanner von Leica, FARO und Trimble ein, um komplexe Industrieanlagen mit Sub-Millimeter-Genauigkeit zu erfassen. Unsere High-End-Laserscanner erstellen prÃ¤zise Punktwolken mit Millionen von Messpunkten, die als Grundlage fÃ¼r digitale Zwillinge und CAD-Modelle dienen. Terrestrische Laserscanner erfassen stationÃ¤r groÃŸe Anlagenbereiche, wÃ¤hrend mobile Scanner wie der NavVis VLX kontinuierliche Erfassung ermÃ¶glichen. Drohnen-basierte Laserscanner erreichen schwer zugÃ¤ngliche Bereiche wie DÃ¤cher und hohe Strukturen. Die gescannten Punktwolken werden mit spezieller Software zu detaillierten 3D-Modellen verarbeitet, die millimetergenau bestehende Anlagen abbilden. Diese digitalen Zwillinge ermÃ¶glichen prÃ¤zise Planungen fÃ¼r Umbauten, Erweiterungen und Modernisierungen ohne Kollisionsrisiken.",
+            subtitle: "Präzise Vermessung mit hochmodernen Laserscannern",
+            description: "State-of-the-Art 3D-Laserscanning mit Millimeter-Genauigkeit für exakte Bestandsaufnahmen, digitale Zwillinge und präzise Reverse-Engineering-Projekte.",
+            detailedDescription: "PROMAX setzt die neuesten 3D-Laserscanner von Leica, FARO und Trimble ein, um komplexe Industrieanlagen mit Sub-Millimeter-Genauigkeit zu erfassen. Unsere High-End-Laserscanner erstellen präzise Punktwolken mit Millionen von Messpunkten, die als Grundlage für digitale Zwillinge und CAD-Modelle dienen. Terrestrische Laserscanner erfassen stationär große Anlagenbereiche, während mobile Scanner wie der NavVis VLX kontinuierliche Erfassung ermöglichen. Drohnen-basierte Laserscanner erreichen schwer zugängliche Bereiche wie Dächer und hohe Strukturen. Die gescannten Punktwolken werden mit spezieller Software zu detaillierten 3D-Modellen verarbeitet, die millimetergenau bestehende Anlagen abbilden. Diese digitalen Zwillinge ermöglichen präzise Planungen für Umbauten, Erweiterungen und Modernisierungen ohne Kollisionsrisiken.",
             image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=800&h=600&fit=crop&auto=format",
             features: [
-                "HochprÃ¤zise terrestrische 3D-Laserscanner (Leica, FARO, Trimble)",
-                "Mobile Laserscanning-Systeme fÃ¼r kontinuierliche Erfassung",
-                "Drohnen-basierte Laserscanner fÃ¼r schwer erreichbare Bereiche",
+                "Hochpräzise terrestrische 3D-Laserscanner (Leica, FARO, Trimble)",
+                "Mobile Laserscanning-Systeme für kontinuierliche Erfassung",
+                "Drohnen-basierte Laserscanner für schwer erreichbare Bereiche",
                 "Sub-Millimeter-Genauigkeit mit Millionen von Messpunkten",
                 "Automatische Punktwolken-zu-CAD Konvertierung",
-                "Digitale Zwillinge fÃ¼r prÃ¤zise Planungsgrundlagen"
+                "Digitale Zwillinge für präzise Planungsgrundlagen"
             ],
             highlights: [
                 "Millimetergenaue Vermessung mit modernsten Laserscannern",
                 "Zeiteffiziente Erfassung kompletter Industrieanlagen",
-                "Digitale Zwillinge fÃ¼r kollisionsfreie Planung",
+                "Digitale Zwillinge für kollisionsfreie Planung",
                 "Nahtlose Integration in CAD-Planungsprozesse"
             ],
             icon: "laser-scanner",
@@ -347,7 +364,9 @@ const NewLeistungen: React.FC = () => {
                             {services.slice(0, 2).map((service, index) => (
                                 <div
                                     key={service.id}
-                                    className={`${index < 1 ? 'border-b border-[#9ba8b3] pb-12' : ''}`}
+                                    id={`service-${service.id}`} // Add ID for auto-scroll
+                                    //ref={el => serviceRefs.current[`service-${service.id}`] = el} // Add ref
+                                    className={`${index < 1 ? 'border-b border-[#9ba8b3] pb-12' : ''} scroll-mt-20`} // Add scroll margin
                                     data-section={`service-${service.id}`}
                                 >
                                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
