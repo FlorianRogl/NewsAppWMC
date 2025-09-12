@@ -204,11 +204,11 @@ const Karriere: React.FC = () => {
     // Loading State
     if (loading) {
         return (
-            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+            <div style={{ fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif", color: '#1e3767', minHeight: '100vh' }}>
                 <div className="max-w-6xl mx-auto px-6 py-40 text-center">
                     <div className="animate-pulse">
                         <div className="w-16 h-16 mx-auto mb-4 bg-gray-200"></div>
-                        <div className="text-xl">Jobs werden geladen...</div>
+                        <div style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)' }}>Jobs werden geladen...</div>
                     </div>
                 </div>
             </div>
@@ -218,13 +218,13 @@ const Karriere: React.FC = () => {
     // Error State
     if (error) {
         return (
-            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+            <div style={{ fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif", color: '#1e3767', minHeight: '100vh' }}>
                 <div className="max-w-6xl mx-auto px-6 py-40 text-center">
-                    <div className="text-xl text-red-600 mb-4">{error}</div>
+                    <div style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)', color: '#ef4444', marginBottom: '1rem' }}>{error}</div>
                     <button
                         onClick={() => window.location.reload()}
                         className="px-6 py-3 text-white hover:opacity-90 transition-opacity"
-                        style={{ backgroundColor: '#1e3767' }}
+                        style={{ backgroundColor: '#1e3767', fontSize: 'clamp(0.875rem, 2vw, 1rem)', fontWeight: 400 }}
                     >
                         Seite neu laden
                     </button>
@@ -236,27 +236,27 @@ const Karriere: React.FC = () => {
     // Keine Jobs vorhanden
     if (!loading && jobOpenings.length === 0) {
         return (
-            <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
+            <div style={{ fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif", color: '#1e3767', minHeight: '100vh' }}>
                 <section className="max-w-6xl mx-auto px-6 py-40 text-center">
-                    <h1 className="text-4xl font-bold mb-4">Karriere bei PROMAX</h1>
-                    <p className="text-xl mb-8">
+                    <h1 style={{ fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight: 300, marginBottom: '1rem' }}>Karriere bei PROMAX</h1>
+                    <p style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', marginBottom: '2rem', fontWeight: 400 }}>
                         Momentan sind keine offenen Stellen verfügbar.
                     </p>
-                    <p className="text-lg mb-8">
+                    <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1.125rem)', marginBottom: '2rem', fontWeight: 400 }}>
                         Wir freuen uns aber jederzeit über Initiativbewerbungen!
                     </p>
                     <div className="bg-white border p-8 max-w-md mx-auto" style={{ borderColor: '#d1d8dc' }}>
                         <Mail size={48} className="mx-auto mb-4" style={{ color: '#1e3767' }} />
-                        <h3 className="text-xl font-bold mb-2">Initiativbewerbung</h3>
-                        <p className="text-sm mb-4">
+                        <h3 style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)', fontWeight: 600, marginBottom: '0.5rem' }}>Initiativbewerbung</h3>
+                        <p style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', marginBottom: '1rem', fontWeight: 400 }}>
                             Senden Sie uns Ihre Bewerbungsunterlagen an:
                         </p>
                         <a
-                            href="mailto:karriere@promax.at"
-                            className="text-lg font-medium hover:underline"
-                            style={{ color: '#d97539' }}
+                            href="mailto:jasmin.pieber@promax.at"
+                            className="hover:underline"
+                            style={{ color: '#d97539', fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', fontWeight: 500 }}
                         >
-                            karriere@promax.at
+                            jasmin.pieber@promax.at
                         </a>
                     </div>
                 </section>
@@ -269,62 +269,81 @@ const Karriere: React.FC = () => {
     const carouselJobs = jobOpenings.slice(3);
 
     return (
-        <div style={{ fontFamily: 'Arial, sans-serif', color: '#1e3767', minHeight: '100vh' }}>
-            {/* Hero Section */}
+        <div style={{ fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif", color: '#1e3767', minHeight: '100vh' }}>
+            {/* Hero Section mit originalem Firmentext */}
             <section ref={heroRef} className="max-w-6xl mx-auto px-6 py-20">
                 <div className={`transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <div className="inline-flex items-center gap-2 px-4 py-2 mb-8" style={{ backgroundColor: '#d1d8dc' }}>
                         <Sparkles size={16} style={{ color: '#1e3767' }} />
-                        <span className="text-sm font-medium" style={{ color: '#1e3767' }}>Wir stellen ein</span>
+                        <span style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', fontWeight: 500, color: '#1e3767' }}>Wir stellen ein</span>
                     </div>
 
-                    <h1 className="text-7xl font-bold mb-8" style={{ color: '#1e3767' }}>
-                        KARRIERE
+                    <h1 style={{ fontSize: 'clamp(3rem, 8vw, 4.5rem)', fontWeight: 600, marginBottom: '1.5rem', color: '#1e3767', lineHeight: 1.1 }}>
+                        Karriere bei PROMAX
                     </h1>
 
-                    <p className="text-xl max-w-3xl leading-relaxed mb-12" style={{ color: '#1e3767' }}>
-                        Werden Sie Teil eines innovativen Teams von über 100 Experten und arbeiten Sie an
-                        wegweisenden Projekten in der Pharma-, Chemie- und Lebensmittelindustrie.
+                    <h2 style={{ fontSize: 'clamp(1.125rem, 3vw, 1.5rem)', fontWeight: 600, color: '#d97539', marginBottom: '2rem', lineHeight: 1.3 }}>
+                        Ihre Zukunft im Industrieanlagenbau
+                    </h2>
+
+                    <h3 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 500, color: '#1e3767', marginBottom: '2rem', lineHeight: 1.4 }}>
+                        Unsere Projekte. Ihre Ideen. Gemeinsame Erfolge.
+                    </h3>
+
+                    <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1.1rem)', maxWidth: '48rem', lineHeight: 1.7, marginBottom: '1.5rem', color: '#64748b', fontWeight: 400 }}>
+                        Als erfahrenes Ingenieurbüro im Industrieanlagenbau sind wir seit mehr als 25 Jahren ein verlässlicher Partner für namhafte Kunden aus verschiedenen Branchen. Unsere Arbeit verbindet technisches Know-how mit praxisnahen Lösungen. Dabei stehen Qualität, Sicherheit und Nachhaltigkeit stets im Mittelpunkt.
+                    </p>
+
+                    <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1.1rem)', maxWidth: '48rem', lineHeight: 1.7, marginBottom: '3rem', color: '#64748b', fontWeight: 400 }}>
+                        Was uns besonders macht? Unser Team. Bei PROMAX arbeiten Ingenieurinnen und Ingenieure, Techniker*innen und Projektmanager*innen mit Leidenschaft, Präzision und Teamgeist an anspruchsvollen Aufgaben. Wir glauben: Nur gemeinsam können wir Spitzenleistungen erbringen.
                     </p>
                 </div>
             </section>
 
-            {/* Values Section */}
+            {/* Warum PROMAX Section */}
             <section ref={setSectionRef('values')} className="max-w-6xl mx-auto px-6 py-20">
                 <div className={`transition-all duration-1000 transform ${visibleSections.has('values') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div>
-                            <h2 className="text-5xl font-bold mb-8" style={{ color: '#1e3767' }}>
-                                Innovation trifft auf Tradition
+                            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 600, marginBottom: '2rem', color: '#1e3767', lineHeight: 1.2 }}>
+                                Warum PROMAX?
                             </h2>
 
-                            <div className="space-y-6 text-lg leading-relaxed" style={{ color: '#1e3767' }}>
-                                <p>
-                                    Bei uns erleben Sie eine einzigartige Arbeitskultur, die <strong>technische Exzellenz</strong> mit
-                                    menschlichen Werten verbindet. Seit über drei Jahrzehnten entwickeln wir wegweisende Lösungen
-                                    für die komplexesten Herausforderungen der Industrie.
-                                </p>
-
-                                <p>
-                                    Unser Team aus über 100 Spezialisten lebt von der perfekten Balance zwischen <strong>Innovation
-                                    und Teamgeist</strong>. Wir investieren nicht nur in modernste Technologien, sondern vor allem
-                                    in die Menschen, die diese zum Leben erwecken.
-                                </p>
-
-                                <p>
-                                    Flexible Arbeitsmodelle, internationale Projekte und eine Kultur des kontinuierlichen Lernens
-                                    schaffen ein Umfeld, in dem sich <strong>persönliche Ambitionen mit beruflichem Erfolg</strong>
-                                    vereinen lassen.
-                                </p>
-                            </div>
-
-                            <div className="mt-8 flex items-center gap-4">
-                                <div className="w-12 h-12 flex items-center justify-center" style={{ backgroundColor: '#1e3767' }}>
-                                    <span className="text-white text-xl">💼</span>
+                            <div className="space-y-6" style={{ fontSize: 'clamp(0.875rem, 2vw, 1.1rem)', lineHeight: 1.7, color: '#64748b' }}>
+                                <div className="flex items-start gap-3">
+                                    <span style={{ color: '#d97539', fontWeight: 600, fontSize: '1.2em', lineHeight: 1 }}>✓</span>
+                                    <div>
+                                        <strong style={{ color: '#1e3767' }}>Abwechslungsreiche Projekte</strong> in unterschiedlichsten Industrien – vom Mittelstand bis zum Großkonzern
+                                    </div>
                                 </div>
-                                <span className="text-lg font-medium" style={{ color: '#1e3767' }}>
-                                    Work-Life-Balance ist bei uns kein Buzzword, sondern gelebte Realität
-                                </span>
+
+                                <div className="flex items-start gap-3">
+                                    <span style={{ color: '#d97539', fontWeight: 600, fontSize: '1.2em', lineHeight: 1 }}>✓</span>
+                                    <div>
+                                        <strong style={{ color: '#1e3767' }}>Ein kollegiales Miteinander</strong>, das auf Vertrauen, Offenheit und gegenseitiger Unterstützung basiert
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-3">
+                                    <span style={{ color: '#d97539', fontWeight: 600, fontSize: '1.2em', lineHeight: 1 }}>✓</span>
+                                    <div>
+                                        <strong style={{ color: '#1e3767' }}>Weiterentwicklung:</strong> Fachliche und persönliche Weiterbildung ist bei uns keine Floskel, sondern gelebter Alltag.
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-3">
+                                    <span style={{ color: '#d97539', fontWeight: 600, fontSize: '1.2em', lineHeight: 1 }}>✓</span>
+                                    <div>
+                                        <strong style={{ color: '#1e3767' }}>Modernes Arbeitsumfeld:</strong> Flexible Arbeitszeiten, moderne Tools und eine offene Unternehmenskultur.
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-3">
+                                    <span style={{ color: '#d97539', fontWeight: 600, fontSize: '1.2em', lineHeight: 1 }}>✓</span>
+                                    <div>
+                                        <strong style={{ color: '#1e3767' }}>Sicherheit & Perspektive:</strong> Als etabliertes Unternehmen bieten wir langfristige Perspektiven und einen sicheren Arbeitsplatz.
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -342,13 +361,48 @@ const Karriere: React.FC = () => {
                 </div>
             </section>
 
+            {/* Wen wir suchen Section */}
+            <section ref={setSectionRef('seeking')} className="max-w-6xl mx-auto px-6 py-20">
+                <div className={`text-center transition-all duration-1000 transform ${visibleSections.has('seeking') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                    <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 600, marginBottom: '2rem', color: '#1e3767', lineHeight: 1.2 }}>
+                        Wen wir suchen
+                    </h2>
+
+                    <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1.1rem)', lineHeight: 1.7, marginBottom: '2rem', color: '#64748b', fontWeight: 400, maxWidth: '48rem', margin: '0 auto 2rem auto' }}>
+                        Wir sind immer auf der Suche nach engagierten Persönlichkeiten, die Technik lieben, mitdenken und Verantwortung übernehmen möchten – z. B. in folgenden Bereichen:
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div className="bg-white border rounded-lg p-6 text-center flex items-center justify-center" style={{ borderColor: '#d1d8dc', minHeight: '120px' }}>
+                            <h3 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 500, color: '#1e3767', margin: 0 }}>
+                                Planung und Projektierung von Industrieanlagen
+                            </h3>
+                        </div>
+                        <div className="bg-white border rounded-lg p-6 text-center flex items-center justify-center" style={{ borderColor: '#d1d8dc', minHeight: '120px' }}>
+                            <h3 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 500, color: '#1e3767', margin: 0 }}>
+                                Maschinenbau
+                            </h3>
+                        </div>
+                        <div className="bg-white border rounded-lg p-6 text-center flex items-center justify-center" style={{ borderColor: '#d1d8dc', minHeight: '120px' }}>
+                            <h3 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 500, color: '#1e3767', margin: 0 }}>
+                                Projektmanagement
+                            </h3>
+                        </div>
+                    </div>
+
+                    <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1.1rem)', lineHeight: 1.7, color: '#64748b', fontWeight: 400, maxWidth: '36rem', margin: '0 auto' }}>
+                        Ob Berufseinsteiger*in, Junior - oder Senior Engineers – bei uns finden Sie den passenden Einstieg.
+                    </p>
+                </div>
+            </section>
+
             {/* Jobs Section - Angular Design */}
             <section ref={setSectionRef('jobs')} className="max-w-6xl mx-auto px-6 py-20">
                 <div className={`transition-all duration-1000 transform ${visibleSections.has('jobs') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <h2 className="text-4xl font-bold mb-4" style={{ color: '#1e3767' }}>
+                    <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 600, marginBottom: '1rem', color: '#1e3767' }}>
                         Offene Stellen
                     </h2>
-                    <p className="text-lg mb-16 max-w-2xl" style={{ color: '#1e3767' }}>
+                    <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1.125rem)', marginBottom: '4rem', maxWidth: '32rem', color: '#64748b', fontWeight: 400 }}>
                         Finden Sie Ihre perfekte Position in unserem wachsenden Unternehmen
                     </p>
 
@@ -386,18 +440,18 @@ const Karriere: React.FC = () => {
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-xl font-bold mb-4 leading-tight" style={{ color: '#1e3767' }}>
+                                    <h3 style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.3, color: '#1e3767' }}>
                                         {job.title}
                                     </h3>
 
                                     {/* Description */}
-                                    <p className="text-sm leading-relaxed mb-6 opacity-80 line-clamp-3" style={{ color: '#1e3767' }}>
+                                    <p className="leading-relaxed mb-6 opacity-80 line-clamp-3" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>
                                         {job.description}
                                     </p>
 
                                     {/* Metadata */}
                                     <div className="space-y-3">
-                                        <div className="flex items-center gap-3 text-xs" style={{ color: '#1e3767' }}>
+                                        <div className="flex items-center gap-3" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.75rem)', color: '#1e3767' }}>
                                             <div className="flex items-center gap-2 px-3 py-2 bg-gray-100">
                                                 <MapPin size={12} />
                                                 <span className="font-medium">{job.location}</span>
@@ -408,7 +462,7 @@ const Karriere: React.FC = () => {
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center justify-between text-xs" style={{ color: '#1e3767' }}>
+                                        <div className="flex items-center justify-between" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.75rem)', color: '#1e3767' }}>
                                             <div className="flex items-center gap-2 opacity-70">
                                                 <Users size={12} />
                                                 <span>Team: {job.teamSize}</span>
@@ -433,7 +487,7 @@ const Karriere: React.FC = () => {
                     {carouselJobs.length > 0 && (
                         <div>
                             <div className="flex items-center justify-between mb-8">
-                                <h3 className="text-2xl font-bold" style={{ color: '#1e3767' }}>Weitere Positionen</h3>
+                                <h3 style={{ fontSize: 'clamp(1.25rem, 3vw, 1.5rem)', fontWeight: 600, color: '#1e3767' }}>Weitere Positionen</h3>
                                 <div className="flex gap-3">
                                     <button
                                         className="w-12 h-12 flex items-center justify-center transition-all duration-300 disabled:opacity-40"
@@ -503,18 +557,18 @@ const Karriere: React.FC = () => {
                                                 </div>
 
                                                 {/* Title */}
-                                                <h3 className="text-xl font-bold mb-4 leading-tight" style={{ color: '#1e3767' }}>
+                                                <h3 style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.3, color: '#1e3767' }}>
                                                     {job.title}
                                                 </h3>
 
                                                 {/* Description */}
-                                                <p className="text-sm leading-relaxed mb-6 opacity-80 line-clamp-3" style={{ color: '#1e3767' }}>
+                                                <p className="leading-relaxed mb-6 opacity-80 line-clamp-3" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>
                                                     {job.description}
                                                 </p>
 
                                                 {/* Metadata */}
                                                 <div className="space-y-3">
-                                                    <div className="flex items-center gap-3 text-xs" style={{ color: '#1e3767' }}>
+                                                    <div className="flex items-center gap-3" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.75rem)', color: '#1e3767' }}>
                                                         <div className="flex items-center gap-2 px-3 py-2 bg-gray-100">
                                                             <MapPin size={12} />
                                                             <span className="font-medium">{job.location}</span>
@@ -525,7 +579,7 @@ const Karriere: React.FC = () => {
                                                         </div>
                                                     </div>
 
-                                                    <div className="flex items-center justify-between text-xs" style={{ color: '#1e3767' }}>
+                                                    <div className="flex items-center justify-between" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.75rem)', color: '#1e3767' }}>
                                                         <div className="flex items-center gap-2 opacity-70">
                                                             <Users size={12} />
                                                             <span>Team: {job.teamSize}</span>
@@ -546,7 +600,7 @@ const Karriere: React.FC = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="text-center mt-6 text-sm lg:hidden opacity-60" style={{ color: '#1e3767' }}>
+                            <div className="text-center mt-6 opacity-60 lg:hidden" style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>
                                 ← Wischen Sie für weitere Stellen →
                             </div>
                         </div>
@@ -554,77 +608,14 @@ const Karriere: React.FC = () => {
                 </div>
             </section>
 
-            {/* Benefits Section */}
-            <section ref={setSectionRef('benefits')} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`transition-all duration-1000 transform ${visibleSections.has('benefits') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <h2 className="text-4xl font-bold mb-16" style={{ color: '#1e3767' }}>
-                        Was wir bieten
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div className="text-center">
-                            <h4 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>Attraktive Vergütung</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Leistungsgerechte Bezahlung über Kollektivvertrag</p>
-                        </div>
-                        <div className="text-center">
-                            <h4 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>Flexible Arbeitszeiten</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Gleitzeit und Home-Office Möglichkeiten</p>
-                        </div>
-                        <div className="text-center">
-                            <h4 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>Weiterbildung</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Individuelle Entwicklungsprogramme und Schulungen</p>
-                        </div>
-                        <div className="text-center">
-                            <h4 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>Gesundheitsvorsorge</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Betriebsarzt und Gesundheitsprogramme</p>
-                        </div>
-                        <div className="text-center">
-                            <h4 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>Internationale Projekte</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>Spannende Projekte weltweit</p>
-                        </div>
-                        <div className="text-center">
-                            <h4 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>Modernes Arbeitsumfeld</h4>
-                            <p className="text-sm" style={{ color: '#1e3767' }}>State-of-the-art Büros und Technologie</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Application Process Section */}
-            <section ref={setSectionRef('process')} className="max-w-6xl mx-auto px-6 py-20">
-                <div className={`transition-all duration-1000 transform ${visibleSections.has('process') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <h2 className="text-4xl font-bold mb-16" style={{ color: '#1e3767' }}>
-                        Unser Bewerbungsprozess
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-                        {[
-                            { num: '1', title: 'Bewerbung', desc: 'Senden Sie uns Ihre aussagekräftigen Unterlagen' },
-                            { num: '2', title: 'Erstgespräch', desc: 'Persönliches oder virtuelles Kennenlernen' },
-                            { num: '3', title: 'Fachgespräch', desc: 'Detailliertes Gespräch mit dem Fachbereich' },
-                            { num: '4', title: 'Angebot', desc: 'Individuelles Vertragsangebot' },
-                            { num: '5', title: 'Onboarding', desc: 'Strukturierte Einarbeitung im Team' }
-                        ].map((step) => (
-                            <div key={step.num} className="text-center">
-                                <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center text-white font-bold"
-                                     style={{ backgroundColor: '#1e3767' }}>
-                                    {step.num}
-                                </div>
-                                <h4 className="text-lg font-bold mb-2" style={{ color: '#1e3767' }}>{step.title}</h4>
-                                <p className="text-sm" style={{ color: '#1e3767' }}>{step.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA Section */}
+            {/* CTA Section mit originalem Firmentext */}
             <section ref={setSectionRef('cta')} className="max-w-6xl mx-auto px-6 py-20">
                 <div className={`text-center transition-all duration-1000 transform ${visibleSections.has('cta') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <h3 className="text-3xl font-bold mb-4" style={{ color: '#1e3767' }}>
-                        Bewerbungen und Kontakt
+                    <h3 style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 600, marginBottom: '1rem', color: '#1e3767' }}>
+                        Jetzt bewerben – Werden Sie Teil unseres Teams
                     </h3>
-                    <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: '#1e3767' }}>
-                        Interessiert? Senden Sie Ihre vollständigen Bewerbungsunterlagen
-                        per E-Mail an unser HR-Team.
+                    <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1.125rem)', marginBottom: '2rem', maxWidth: '32rem', margin: '0 auto 2rem auto', color: '#64748b', fontWeight: 400 }}>
+                        Sie möchten mit uns die Industrie von morgen gestalten? Dann freuen wir uns auf Ihre Bewerbung! Entdecken Sie unsere aktuellen Stellenangebote oder senden Sie uns Ihre <strong>Initiativbewerbung</strong>.
                     </p>
                     <div className="bg-white border p-8 max-w-md mx-auto" style={{ borderColor: '#d1d8dc' }}>
                         <div className="flex items-center justify-center mb-4">
@@ -632,15 +623,15 @@ const Karriere: React.FC = () => {
                                 <Mail size={24} color="white" />
                             </div>
                         </div>
-                        <h4 className="text-xl font-bold mb-2" style={{ color: '#1e3767' }}>E-Mail Bewerbung</h4>
+                        <h4 style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)', fontWeight: 600, marginBottom: '0.5rem', color: '#1e3767' }}>E-Mail Bewerbung</h4>
                         <a
-                            href="mailto:karriere@promax.at"
-                            className="text-lg font-medium hover:underline"
-                            style={{ color: '#d97539' }}
+                            href="mailto:jasmin.pieber@promax.at"
+                            className="hover:underline"
+                            style={{ color: '#d97539', fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', fontWeight: 500 }}
                         >
-                            karriere@promax.at
+                            jasmin.pieber@promax.at
                         </a>
-                        <p className="text-sm mt-4" style={{ color: '#1e3767' }}>
+                        <p style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', marginTop: '1rem', color: '#1e3767', fontWeight: 400 }}>
                             Bitte fügen Sie Lebenslauf, Anschreiben und relevante Zeugnisse bei.
                         </p>
                     </div>
@@ -661,7 +652,7 @@ const Karriere: React.FC = () => {
                                     >
                                         {selectedJob.department}
                                     </div>
-                                    <h1 className="text-xl font-bold" style={{ color: '#1e3767' }}>
+                                    <h1 style={{ fontSize: 'clamp(1.125rem, 3vw, 1.25rem)', fontWeight: 600, color: '#1e3767' }}>
                                         {selectedJob.title}
                                     </h1>
                                 </div>
@@ -680,35 +671,35 @@ const Karriere: React.FC = () => {
                                 <div className="w-80 flex-shrink-0 p-6 border-r border-gray-200 bg-gray-50 overflow-y-auto">
                                     {/* Job Meta Info */}
                                     <div className="space-y-4 mb-6">
-                                        <div className="text-sm" style={{ color: '#1e3767' }}>
-                                            <div className="font-semibold text-sm mb-1">Standort</div>
+                                        <div style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>
+                                            <div className="font-semibold mb-1">Standort</div>
                                             <div className="opacity-70">{selectedJob.location}</div>
                                         </div>
 
-                                        <div className="text-sm" style={{ color: '#1e3767' }}>
-                                            <div className="font-semibold text-sm mb-1">Arbeitszeit</div>
+                                        <div style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>
+                                            <div className="font-semibold mb-1">Arbeitszeit</div>
                                             <div className="opacity-70">{selectedJob.type}</div>
                                         </div>
 
-                                        <div className="text-sm" style={{ color: '#1e3767' }}>
-                                            <div className="font-semibold text-sm mb-1">Team</div>
+                                        <div style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>
+                                            <div className="font-semibold mb-1">Team</div>
                                             <div className="opacity-70">{selectedJob.teamSize} Personen</div>
                                         </div>
 
-                                        <div className="text-sm" style={{ color: '#1e3767' }}>
-                                            <div className="font-semibold text-sm mb-1">Veröffentlicht</div>
+                                        <div style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>
+                                            <div className="font-semibold mb-1">Veröffentlicht</div>
                                             <div className="opacity-70">{selectedJob.posted}</div>
                                         </div>
 
-                                        <div className="text-sm" style={{ color: '#1e3767' }}>
-                                            <div className="font-semibold text-sm mb-1">Erfahrung</div>
+                                        <div style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>
+                                            <div className="font-semibold mb-1">Erfahrung</div>
                                             <div className="opacity-70">{selectedJob.experience}</div>
                                         </div>
                                     </div>
 
                                     {/* Team Description */}
                                     <div className="bg-white p-4 border-l-4 mb-6" style={{ borderLeftColor: getDepartmentColor(selectedJob.department) }}>
-                                        <p className="text-xs text-gray-700 leading-relaxed">
+                                        <p style={{ fontSize: 'clamp(0.75rem, 2vw, 0.75rem)', color: '#64748b', lineHeight: 1.6 }}>
                                             Als Teil unseres {selectedJob.department}-Teams arbeiten Sie in einem dynamischen Umfeld
                                             mit modernster Technologie und internationalen Projekten. Wir bieten Ihnen die Möglichkeit,
                                             Ihre Expertise einzusetzen und gleichzeitig kontinuierlich zu wachsen.
@@ -717,11 +708,11 @@ const Karriere: React.FC = () => {
 
                                     {/* Quick Contact Info */}
                                     <div className="p-4 bg-white border border-gray-200 shadow-sm">
-                                        <h4 className="font-semibold mb-2 text-sm" style={{ color: '#1e3767' }}>Direkter Kontakt</h4>
-                                        <p className="text-xs text-gray-600 mb-1">Haben Sie Fragen zu dieser Position?</p>
-                                        <p className="text-xs" style={{ color: '#1e3767' }}>
+                                        <h4 style={{ fontWeight: 600, marginBottom: '0.5rem', fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#1e3767' }}>Direkter Kontakt</h4>
+                                        <p style={{ fontSize: 'clamp(0.75rem, 2vw, 0.75rem)', color: '#64748b', marginBottom: '0.25rem' }}>Haben Sie Fragen zu dieser Position?</p>
+                                        <p style={{ fontSize: 'clamp(0.75rem, 2vw, 0.75rem)', color: '#1e3767' }}>
                                             <span className="font-medium">HR-Team:</span><br />
-                                            karriere@promax.at
+                                            jasmin.pieber@promax.at
                                         </p>
                                     </div>
                                 </div>
@@ -731,9 +722,9 @@ const Karriere: React.FC = () => {
                                     <div className="p-6 lg:p-8">
                                         {/* Job Description */}
                                         <section className="mb-8">
-                                            <h2 className="text-xl lg:text-2xl font-bold mb-6" style={{ color: '#1e3767' }}>Über diese Position</h2>
+                                            <h2 style={{ fontSize: 'clamp(1.125rem, 3vw, 1.5rem)', fontWeight: 600, marginBottom: '1.5rem', color: '#1e3767' }}>Über diese Position</h2>
                                             <div>
-                                                <p className="text-base lg:text-lg leading-relaxed" style={{ color: '#1e3767' }}>
+                                                <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1.1rem)', lineHeight: 1.7, color: '#1e3767' }}>
                                                     {selectedJob.description}
                                                 </p>
                                             </div>
@@ -743,17 +734,17 @@ const Karriere: React.FC = () => {
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                                             {/* Responsibilities */}
                                             <section>
-                                                <h2 className="text-lg lg:text-xl font-bold mb-5" style={{ color: '#1e3767' }}>Ihre Aufgaben</h2>
+                                                <h2 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 600, marginBottom: '1.25rem', color: '#1e3767' }}>Ihre Aufgaben</h2>
                                                 <div className="space-y-3">
                                                     {selectedJob.responsibilities.map((item, index) => (
                                                         <div key={index} className="flex items-start gap-3 p-3 bg-white border border-gray-200 shadow-sm">
                                                             <div
-                                                                className="w-6 h-6 flex items-center justify-center text-white text-xs font-bold mt-0.5 flex-shrink-0"
-                                                                style={{ backgroundColor: getDepartmentColor(selectedJob.department) }}
+                                                                className="w-6 h-6 flex items-center justify-center text-white font-bold mt-0.5 flex-shrink-0"
+                                                                style={{ backgroundColor: getDepartmentColor(selectedJob.department), fontSize: 'clamp(0.75rem, 2vw, 0.75rem)' }}
                                                             >
                                                                 {index + 1}
                                                             </div>
-                                                            <span className="leading-relaxed text-sm lg:text-base" style={{ color: '#1e3767' }}>{item}</span>
+                                                            <span style={{ lineHeight: 1.6, fontSize: 'clamp(0.75rem, 2vw, 1rem)', color: '#1e3767' }}>{item}</span>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -761,17 +752,17 @@ const Karriere: React.FC = () => {
 
                                             {/* Requirements */}
                                             <section>
-                                                <h2 className="text-lg lg:text-xl font-bold mb-5" style={{ color: '#1e3767' }}>Ihr Profil</h2>
+                                                <h2 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 600, marginBottom: '1.25rem', color: '#1e3767' }}>Ihr Profil</h2>
                                                 <div className="space-y-3">
                                                     {selectedJob.requirements.map((item, index) => (
                                                         <div key={index} className="flex items-start gap-3 p-3 bg-white border border-gray-200 shadow-sm">
                                                             <div
-                                                                className="w-6 h-6 flex items-center justify-center text-white text-xs font-bold mt-0.5 flex-shrink-0"
-                                                                style={{ backgroundColor: getDepartmentColor(selectedJob.department) }}
+                                                                className="w-6 h-6 flex items-center justify-center text-white font-bold mt-0.5 flex-shrink-0"
+                                                                style={{ backgroundColor: getDepartmentColor(selectedJob.department), fontSize: 'clamp(0.75rem, 2vw, 0.75rem)' }}
                                                             >
                                                                 {index + 1}
                                                             </div>
-                                                            <span className="leading-relaxed text-sm lg:text-base" style={{ color: '#1e3767' }}>{item}</span>
+                                                            <span style={{ lineHeight: 1.6, fontSize: 'clamp(0.75rem, 2vw, 1rem)', color: '#1e3767' }}>{item}</span>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -780,17 +771,17 @@ const Karriere: React.FC = () => {
 
                                         {/* Benefits */}
                                         <section className="mb-6">
-                                            <h2 className="text-lg lg:text-xl font-bold mb-5" style={{ color: '#1e3767' }}>Was wir bieten</h2>
+                                            <h2 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', fontWeight: 600, marginBottom: '1.25rem', color: '#1e3767' }}>Was wir bieten</h2>
                                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                                                 {selectedJob.benefits.map((item, index) => (
                                                     <div key={index} className="flex items-start gap-3 p-3 bg-white border border-gray-200 shadow-sm">
                                                         <div
-                                                            className="w-6 h-6 flex items-center justify-center text-white text-xs font-bold mt-0.5 flex-shrink-0"
-                                                            style={{ backgroundColor: getDepartmentColor(selectedJob.department) }}
+                                                            className="w-6 h-6 flex items-center justify-center text-white font-bold mt-0.5 flex-shrink-0"
+                                                            style={{ backgroundColor: getDepartmentColor(selectedJob.department), fontSize: 'clamp(0.75rem, 2vw, 0.75rem)' }}
                                                         >
                                                             {index + 1}
                                                         </div>
-                                                        <span className="leading-relaxed text-sm lg:text-base" style={{ color: '#1e3767' }}>{item}</span>
+                                                        <span style={{ lineHeight: 1.6, fontSize: 'clamp(0.75rem, 2vw, 1rem)', color: '#1e3767' }}>{item}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -799,10 +790,10 @@ const Karriere: React.FC = () => {
                                         {/* Contact Information */}
                                         <section className="border-t border-gray-200 pt-6">
                                             <div className="text-center">
-                                                <h3 className="text-lg font-bold mb-3" style={{ color: '#1e3767' }}>
+                                                <h3 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', fontWeight: 600, marginBottom: '0.75rem', color: '#1e3767' }}>
                                                     Interesse an dieser Position?
                                                 </h3>
-                                                <p className="text-sm lg:text-base mb-4 text-gray-700">
+                                                <p style={{ fontSize: 'clamp(0.875rem, 2vw, 1rem)', marginBottom: '1rem', color: '#64748b' }}>
                                                     Senden Sie Ihre Bewerbungsunterlagen an unser HR-Team.
                                                 </p>
                                                 <div className="bg-white border border-gray-200 p-6 shadow-sm max-w-md mx-auto">
@@ -811,8 +802,8 @@ const Karriere: React.FC = () => {
                                                             <Mail size={20} color="white" />
                                                         </div>
                                                     </div>
-                                                    <p className="font-medium text-lg mb-1" style={{ color: '#1e3767' }}>karriere@promax.at</p>
-                                                    <p className="text-sm text-gray-600">
+                                                    <p style={{ fontWeight: 500, fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', marginBottom: '0.25rem', color: '#1e3767' }}>jasmin.pieber@promax.at</p>
+                                                    <p style={{ fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', color: '#64748b' }}>
                                                         Bitte fügen Sie Lebenslauf, Anschreiben und relevante Zeugnisse bei.
                                                     </p>
                                                 </div>

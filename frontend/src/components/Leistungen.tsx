@@ -25,7 +25,6 @@ const NewLeistungen: React.FC = () => {
     const [isVisible, setIsVisible] = useState<VisibilityState>({});
     const [selectedService, setSelectedService] = useState<Service | null>(null);
     const location = useLocation();
-    //const serviceRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
     useEffect(() => {
         // Set initial visibility
@@ -187,10 +186,10 @@ const NewLeistungen: React.FC = () => {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#1e3767]/90 via-[#1e3767]/40 to-transparent"></div>
                                 <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 md:bottom-6 md:left-6 text-white pr-8 sm:pr-12">
-                                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-1 sm:mb-2 leading-tight">
+                                    <h3 className="font-weight: 300; font-size: clamp(1.125rem, 3vw, 2.5rem); margin-bottom: 0.25rem; line-height: 1.2; letter-spacing: -0.02em;">
                                         {selectedService.title}
                                     </h3>
-                                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#d1d8dc] font-light leading-relaxed">
+                                    <p className="font-weight: 400; font-size: clamp(0.875rem, 2vw, 1.25rem); color: #d1d8dc; line-height: 1.6;">
                                         {selectedService.subtitle}
                                     </p>
                                 </div>
@@ -200,10 +199,10 @@ const NewLeistungen: React.FC = () => {
                             <div className="p-4 sm:p-6 md:p-8 lg:p-10">
                                 {/* Beschreibung */}
                                 <div className="mb-6 sm:mb-8">
-                                    <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#1e3767] mb-3 sm:mb-4 pb-2 border-b-2 border-[#9ba8b3]">
+                                    <h4 style={{ fontWeight: 300, fontSize: 'clamp(1.125rem, 3vw, 1.5rem)', color: '#1e3767', marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '2px solid #9ba8b3' }}>
                                         Über diese Leistung
                                     </h4>
-                                    <p className="text-[#1e3767] leading-relaxed text-sm sm:text-base lg:text-lg">
+                                    <p style={{ color: '#1e3767', lineHeight: 1.7, fontWeight: 400, fontSize: 'clamp(0.875rem, 2vw, 1.1rem)' }}>
                                         {selectedService.detailedDescription}
                                     </p>
                                 </div>
@@ -211,14 +210,14 @@ const NewLeistungen: React.FC = () => {
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
                                     {/* Kernleistungen */}
                                     <div className="bg-[#d1d8dc] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8">
-                                        <h4 className="text-base sm:text-lg lg:text-xl font-bold text-[#1e3767] mb-3 sm:mb-4 pb-2 border-b-2 border-[#9ba8b3]">
+                                        <h4 style={{ fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', color: '#1e3767', marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '2px solid #9ba8b3' }}>
                                             Kernleistungen
                                         </h4>
                                         <ul className="space-y-2 sm:space-y-3">
                                             {selectedService.features.map((feature, index) => (
                                                 <li key={index} className="flex items-start">
                                                     <span className="w-2 h-2 bg-[#1e3767] rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-1.5 sm:mt-2"></span>
-                                                    <span className="text-[#1e3767] text-xs sm:text-sm lg:text-base leading-relaxed">{feature}</span>
+                                                    <span style={{ color: '#1e3767', fontSize: 'clamp(0.75rem, 2vw, 1rem)', lineHeight: 1.6, fontWeight: 400 }}>{feature}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -226,14 +225,14 @@ const NewLeistungen: React.FC = () => {
 
                                     {/* Vorteile */}
                                     <div className="bg-[#d97539]/10 rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8">
-                                        <h4 className="text-base sm:text-lg lg:text-xl font-bold text-[#1e3767] mb-3 sm:mb-4 pb-2 border-b-2 border-[#d97539]">
+                                        <h4 style={{ fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', color: '#1e3767', marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '2px solid #d97539' }}>
                                             Ihre Vorteile
                                         </h4>
                                         <ul className="space-y-2 sm:space-y-3">
                                             {selectedService.highlights.map((highlight, index) => (
                                                 <li key={index} className="flex items-start">
                                                     <span className="w-2 h-2 bg-[#d97539] rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-1.5 sm:mt-2"></span>
-                                                    <span className="text-[#1e3767] text-xs sm:text-sm lg:text-base leading-relaxed">{highlight}</span>
+                                                    <span style={{ color: '#1e3767', fontSize: 'clamp(0.75rem, 2vw, 1rem)', lineHeight: 1.6, fontWeight: 400 }}>{highlight}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -246,12 +245,12 @@ const NewLeistungen: React.FC = () => {
                                         {/* Technologien */}
                                         {selectedService.technologies && (
                                             <div className="bg-white border border-[#9ba8b3] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8">
-                                                <h4 className="text-base sm:text-lg lg:text-xl font-bold text-[#1e3767] mb-3 sm:mb-4">
+                                                <h4 style={{ fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', color: '#1e3767', marginBottom: '1rem' }}>
                                                     Technologien & Tools
                                                 </h4>
                                                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                                     {selectedService.technologies.map((tech, index) => (
-                                                        <span key={index} className="px-2 sm:px-3 py-1 bg-[#d1d8dc] text-[#1e3767] rounded-md sm:rounded-lg text-xs sm:text-sm font-medium">
+                                                        <span key={index} style={{ padding: '0.25rem 0.75rem', backgroundColor: '#d1d8dc', color: '#1e3767', borderRadius: '0.5rem', fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', fontWeight: 400 }}>
                                                             {tech}
                                                         </span>
                                                     ))}
@@ -262,12 +261,12 @@ const NewLeistungen: React.FC = () => {
                                         {/* Standards */}
                                         {selectedService.standards && (
                                             <div className="bg-white border border-[#d97539] rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8">
-                                                <h4 className="text-base sm:text-lg lg:text-xl font-bold text-[#1e3767] mb-3 sm:mb-4">
+                                                <h4 style={{ fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', color: '#1e3767', marginBottom: '1rem' }}>
                                                     Standards & Normen
                                                 </h4>
                                                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                                     {selectedService.standards.map((standard, index) => (
-                                                        <span key={index} className="px-2 sm:px-3 py-1 bg-[#d97539]/10 text-[#d97539] rounded-md sm:rounded-lg text-xs sm:text-sm font-medium">
+                                                        <span key={index} style={{ padding: '0.25rem 0.75rem', backgroundColor: 'rgba(217, 117, 57, 0.1)', color: '#d97539', borderRadius: '0.5rem', fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', fontWeight: 400 }}>
                                                             {standard}
                                                         </span>
                                                     ))}
@@ -284,12 +283,12 @@ const NewLeistungen: React.FC = () => {
                 {/* Header Section */}
                 <div className="bg-[#1e3767] text-white py-8 sm:py-12 md:py-16" style={{ fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif" }}>
                     <div className="max-w-6xl mx-auto px-4 sm:px-6">
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-light text-white mb-3 sm:mb-4 md:mb-6 leading-tight">
+                        <h1 style={{ fontSize: 'clamp(2rem, 5vw, 4.5rem)', fontWeight: 300, color: 'white', marginBottom: 'clamp(0.75rem, 2vw, 1.5rem)', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
                             Engineering Excellence.
                             <span className="block font-semibold text-[#d97539] mt-1 sm:mt-2">Leistungen.</span>
                         </h1>
                         <div className="w-16 sm:w-20 h-1 bg-[#d97539] mb-4 sm:mb-6 md:mb-8"></div>
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-3xl leading-relaxed">
+                        <p style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', color: '#9ba8b3', maxWidth: '48rem', lineHeight: 1.7, fontWeight: 300 }}>
                             Von der ersten Projektidee bis zur erfolgreichen Inbetriebnahme - umfassende Lösungen für komplexe Industrieanlagenprojekte.
                         </p>
                     </div>
@@ -311,13 +310,13 @@ const NewLeistungen: React.FC = () => {
                     <div className="relative z-10 h-full flex items-center">
                         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-white">
                             <div className="max-w-2xl">
-                                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-3 sm:mb-4 leading-tight">
+                                <h2 style={{ fontSize: 'clamp(1.25rem, 4vw, 2.5rem)', fontWeight: 300, marginBottom: 'clamp(0.75rem, 2vw, 1rem)', lineHeight: 1.3 }}>
                                     Expertise und Innovation für Ihre
                                 </h2>
-                                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#d97539] mb-4 sm:mb-6 leading-tight">
+                                <h3 style={{ fontSize: 'clamp(1.5rem, 5vw, 3rem)', fontWeight: 600, color: '#d97539', marginBottom: 'clamp(1rem, 3vw, 1.5rem)', lineHeight: 1.2 }}>
                                     Industrieanlagen-Märkte
                                 </h3>
-                                <p className="text-base sm:text-lg md:text-xl leading-relaxed opacity-90">
+                                <p style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', lineHeight: 1.7, opacity: 0.9, fontWeight: 300 }}>
                                     Spezialisierte Planungsleistungen und Projektmanagement mit über 20 Jahren Erfahrung
                                 </p>
                             </div>
@@ -334,11 +333,11 @@ const NewLeistungen: React.FC = () => {
                         }`}
                              data-section="services">
                             <div className="max-w-4xl mx-auto text-center">
-                                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-3 sm:mb-4 md:mb-6 leading-tight">
+                                <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontWeight: 300, color: '#1e3763', marginBottom: 'clamp(0.75rem, 2vw, 1.5rem)', lineHeight: 1.3 }}>
                                     Wir sind Ihr Partner für{' '}
-                                    <span className="text-[#1e3767] font-semibold">technische Exzellenz</span>
+                                    <span style={{ color: '#1e3767', fontWeight: 600 }}>technische Exzellenz</span>
                                 </h2>
-                                <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed px-4 sm:px-0">
+                                <p style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', color: '#9ba8b3', lineHeight: 1.7, fontWeight: 400, padding: '0 1rem' }}>
                                     Mit über 20 Jahren Erfahrung in der Industrieplanung entwickeln wir
                                     maßgeschneiderte Lösungen für komplexe technische Herausforderungen.
                                     Von der ersten Idee bis zur erfolgreichen Umsetzung – wir begleiten
@@ -353,9 +352,9 @@ const NewLeistungen: React.FC = () => {
                 <section className="py-8 sm:py-12 md:py-16 bg-[#d1d8dc]/30">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                         <div className="text-center mb-8 sm:mb-12 md:mb-16">
-                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-3 sm:mb-4 leading-tight">
+                            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontWeight: 300, color: '#1e3767', marginBottom: 'clamp(0.75rem, 2vw, 1rem)', lineHeight: 1.3 }}>
                                 Unsere{' '}
-                                <span className="text-[#1e3767] font-semibold">Technologie-Details</span>
+                                <span style={{ color: '#1e3767', fontWeight: 600 }}>Technologie-Details</span>
                             </h2>
                             <div className="w-16 sm:w-20 h-1 bg-[#d97539] mx-auto"></div>
                         </div>
@@ -365,7 +364,6 @@ const NewLeistungen: React.FC = () => {
                                 <div
                                     key={service.id}
                                     id={`service-${service.id}`}
-                                    //ref={el => serviceRefs.current[`service-${service.id}`] = el}
                                     className={`${index < 1 ? 'border-b border-[#9ba8b3] pb-8 sm:pb-12' : ''} scroll-mt-20`}
                                     data-section={`service-${service.id}`}
                                 >
@@ -375,32 +373,32 @@ const NewLeistungen: React.FC = () => {
                                             isVisible[`service-${service.id}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                                         }`}>
                                             <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 mb-4 sm:mb-6">
-                                                <span className="text-3xl sm:text-4xl md:text-5xl font-light text-[#d1d8dc] flex-shrink-0">
+                                                <span style={{ fontSize: 'clamp(2rem, 6vw, 4rem)', fontWeight: 300, color: '#d1d8dc' }} className="flex-shrink-0">
                                                     {service.number}
                                                 </span>
                                                 <div className="min-w-0">
                                                     <div className="w-12 sm:w-16 h-1 bg-[#d97539] mb-2 sm:mb-3"></div>
-                                                    <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-3 sm:mb-4 font-medium leading-relaxed">
+                                                    <p style={{ fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', color: '#64748b', marginBottom: 'clamp(0.75rem, 2vw, 1rem)', fontWeight: 400, lineHeight: 1.6 }}>
                                                         {service.subtitle}
                                                     </p>
                                                 </div>
                                             </div>
 
-                                            <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base md:text-lg">
+                                            <p style={{ color: '#64748b', lineHeight: 1.7, marginBottom: 'clamp(1rem, 3vw, 1.5rem)', fontSize: 'clamp(0.875rem, 2vw, 1.1rem)', fontWeight: 400 }}>
                                                 {service.detailedDescription}
                                             </p>
 
                                             <div className="grid grid-cols-1 gap-4 sm:gap-6">
                                                 {/* Kernleistungen */}
                                                 <div>
-                                                    <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wider">
+                                                    <h4 style={{ fontSize: 'clamp(0.875rem, 2vw, 1rem)', fontWeight: 600, color: '#1e3767', marginBottom: 'clamp(0.5rem, 1.5vw, 0.75rem)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                                         Kernleistungen
                                                     </h4>
                                                     <ul className="space-y-1.5 sm:space-y-2">
                                                         {service.features.slice(0, 4).map((feature, featureIndex) => (
-                                                            <li key={featureIndex} className="text-sm sm:text-base text-gray-600 flex items-start">
+                                                            <li key={featureIndex} className="flex items-start" style={{ fontSize: 'clamp(0.875rem, 2vw, 1rem)', color: '#64748b' }}>
                                                                 <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#d97539] rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-1.5 sm:mt-2"></span>
-                                                                <span className="leading-relaxed">{feature}</span>
+                                                                <span style={{ lineHeight: 1.6, fontWeight: 400 }}>{feature}</span>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -458,7 +456,7 @@ const NewLeistungen: React.FC = () => {
                                         </svg>
                                     </div>
 
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight drop-shadow-lg transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500">
+                                    <h3 style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontWeight: 600, marginBottom: 'clamp(0.5rem, 2vw, 1rem)', lineHeight: 1.2, textShadow: '0 4px 8px rgba(0,0,0,0.3)' }} className="transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500">
                                         VR-Technologie &<br />
                                         Immersive Planung
                                     </h3>
@@ -502,7 +500,7 @@ const NewLeistungen: React.FC = () => {
                                         </svg>
                                     </div>
 
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight drop-shadow-lg transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500">
+                                    <h3 style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)', fontWeight: 600, marginBottom: 'clamp(0.5rem, 2vw, 1rem)', lineHeight: 1.2, textShadow: '0 4px 8px rgba(0,0,0,0.3)' }} className="transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-500">
                                         3D-Laserscanning &<br />
                                         Präzisionsvermessung
                                     </h3>
