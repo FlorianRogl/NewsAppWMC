@@ -230,61 +230,6 @@ const Homepage = () => {
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer className="bg-gray-900 text-white py-12">
-                <div className="container mx-auto px-6">
-                    <div className="grid md:grid-cols-4 gap-8">
-                        <div>
-                            <div className="flex items-center space-x-2 mb-4">
-                                <div className="relative w-8 h-8">
-                                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[8px] border-b-promax-orange"></div>
-                                    <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white"></div>
-                                    <div className="absolute bottom-0 left-0 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-t-[8px] border-r-white border-t-white"></div>
-                                    <div className="absolute bottom-0 right-0 w-0 h-0 border-r-[8px] border-r-transparent border-l-[8px] border-t-[8px] border-l-white border-t-white"></div>
-                                </div>
-                                <span className="text-xl font-bold">PROMAX</span>
-                            </div>
-                            <p className="text-gray-400">Engineering Excellence</p>
-                        </div>
-
-                        <div>
-                            <h4 className="font-semibold mb-4 text-promax-orange">Unternehmen</h4>
-                            <ul className="space-y-2 text-gray-400">
-                                {['Ãœber uns', 'Team', 'Karriere'].map((item) => (
-                                    <li key={item}>
-                                        <a href="#" className="hover:text-white transition">{item}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4 className="font-semibold mb-4 text-promax-orange">Leistungen</h4>
-                            <ul className="space-y-2 text-gray-400">
-                                {['Ingenieurplanung', 'Projektunterstützung', 'Beratung'].map((item) => (
-                                    <li key={item}>
-                                        <a href="#" className="hover:text-white transition">{item}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4 className="font-semibold mb-4 text-promax-orange">Kontakt</h4>
-                            <ul className="space-y-2 text-gray-400">
-                                <li>Tel: +43 XXX XXXXX</li>
-                                <li>Email: info@promax.at</li>
-                                <li>Adresse: Ã–sterreich</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                        <p>&copy; 2025 PROMAX Engineering. Alle Rechte vorbehalten.</p>
-                    </div>
-                </div>
-            </footer>
-
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
                 
