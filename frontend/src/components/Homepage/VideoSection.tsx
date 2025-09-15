@@ -212,7 +212,7 @@ const VideoSection = () => {
                         loop
                         playsInline
                         className="absolute inset-0 w-full h-full object-cover"
-                        src="/PromaxStockVideo.mp4"
+                        src="/PromaxStock.mp4"
                     />
                     <div className="absolute inset-0 hero-gradient"></div>
                 </div>
