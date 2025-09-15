@@ -1,689 +1,428 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import banner1Image from '../../assets/Fotolia_Banner 1_L.jpg';
 import banner2Image from '../../assets/Fotolia_Banner 2_L.jpg';
 
 const ServicesSection = () => {
-    const [isVisible, setIsVisible] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-    const [isTablet, setIsTablet] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-        // Fallback: Set visible after a short delay if intersection observer doesn't trigger
-        const fallbackTimer = setTimeout(() => {
-            setIsVisible(true);
-        }, 100);
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    clearTimeout(fallbackTimer);
-                }
-            },
-            {
-                threshold: 0.1,
-                rootMargin: '50px 0px',
-            }
-        );
-
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
-
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 480);
-            setIsTablet(window.innerWidth <= 1200 && window.innerWidth > 480);
-        };
-
-        handleResize();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            const currentRef = sectionRef.current;
-            if (currentRef) {
-                observer.unobserve(currentRef);
-            }
-            window.removeEventListener('resize', handleResize);
-            clearTimeout(fallbackTimer);
-        };
-    }, []);
-
-    const getResponsiveStyles = (
-        baseStyles: React.CSSProperties,
-        mobileStyles: React.CSSProperties = {},
-        tabletStyles: React.CSSProperties = {}
-    ): React.CSSProperties => {
-        if (isMobile) {
-            return { ...baseStyles, ...mobileStyles };
-        }
-        if (isTablet) {
-            return { ...baseStyles, ...tabletStyles };
-        }
-        return baseStyles;
-    };
+    const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
     return (
-        <section ref={sectionRef} style={getResponsiveStyles(styles.servicesSection, styles.servicesSectionMobile, styles.servicesSectionTablet)}>
-            <div style={getResponsiveStyles(styles.container, styles.containerMobile, styles.containerTablet)}>
-                {/* Hero Section */}
-                <div style={{
-                    ...getResponsiveStyles(styles.heroSection, styles.heroSectionMobile, styles.heroSectionTablet),
-                    opacity: isVisible ? 1 : 0,
-                    transform: isVisible ? 'translateY(0)' : 'translateY(30px)'
-                }}>
-                    <div style={styles.heroContent}>
-                        <h2 style={styles.mainTitle}>Technische Exzellenz für Ihre Projekte</h2>
-                        <p style={styles.heroDescription}>
-                            Über 20 Jahre Expertise in Industrieplanung und Projektmanagement.
-                            Von der Konzeption bis zur Umsetzung – Ihr vertrauensvoller Partner
-                            für komplexe technische Herausforderungen.
-                        </p>
-                    </div>
-                </div>
+        <section ref={sectionRef} className="services-section">
+            <style>{`
+                .services-section {
+                    background: #f8f9fa;
+                    padding: 120px 0;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+                    position: relative;
+                }
 
-                {/* Services Cards Grid */}
-                <div style={getResponsiveStyles(styles.servicesGrid, styles.servicesGridMobile, styles.servicesGridTablet)}>
-                    {/* Planning Service Card */}
-                    <div
-                        style={{
-                            ...getResponsiveStyles(styles.serviceCard, styles.serviceCardMobile),
-                            ...styles.planningCard,
-                            opacity: isVisible ? 1 : 0,
-                            transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-                            transitionDelay: '0.2s'
-                        }}
-                        onMouseEnter={(e) => {
-                            const target = e.currentTarget as HTMLDivElement;
-                            target.style.transform = 'translateY(-8px) scale(1.02)';
-                            target.style.boxShadow = '0 12px 30px rgba(30, 55, 99, 0.12)';
-                        }}
-                        onMouseLeave={(e) => {
-                            const target = e.currentTarget as HTMLDivElement;
-                            target.style.transform = isVisible ? 'translateY(0) scale(1)' : 'translateY(40px)';
-                            target.style.boxShadow = '0 8px 25px rgba(30, 55, 99, 0.08)';
-                        }}
+                .services-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 0 40px;
+                }
+
+                /* Header */
+                .services-header {
+                    margin-bottom: 80px;
+                }
+
+                .section-label {
+                    font-size: 0.85rem;
+                    font-weight: 400;
+                    letter-spacing: 0.15em;
+                    text-transform: uppercase;
+                    color: #d97539;
+                    margin-bottom: 1rem;
+                }
+
+                .section-title {
+                    font-size: 3rem;
+                    font-weight: 200;
+                    color: #1e3767;
+                    margin-bottom: 1.5rem;
+                    letter-spacing: -0.02em;
+                }
+
+                .section-description {
+                    font-size: 1.1rem;
+                    color: #64748b;
+                    line-height: 1.7;
+                    max-width: 700px;
+                    font-weight: 300;
+                }
+
+                /* Service Cards */
+                .services-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 60px;
+                    margin-bottom: 80px;
+                }
+
+                .service-card {
+                    background: #ffffff;
+                    border: 1px solid #e5e7eb;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .service-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 20px 40px rgba(30, 55, 103, 0.08);
+                    border-color: #d97539;
+                }
+
+                .service-image-container {
+                    width: 100%;
+                    height: 300px;
+                    overflow: hidden;
+                    position: relative;
+                }
+
+                .service-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.3s ease;
+                }
+
+                .service-card:hover .service-image {
+                    transform: scale(1.05);
+                }
+
+                .service-content {
+                    padding: 40px;
+                }
+
+                .service-title {
+                    font-size: 1.5rem;
+                    font-weight: 300;
+                    color: #1e3767;
+                    margin-bottom: 1rem;
+                    letter-spacing: -0.01em;
+                }
+
+                .service-description {
+                    font-size: 1rem;
+                    color: #64748b;
+                    line-height: 1.7;
+                    margin-bottom: 2rem;
+                    font-weight: 300;
+                }
+
+                .service-features {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                }
+
+                .service-feature {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    font-size: 0.95rem;
+                    color: #1e3767;
+                    font-weight: 400;
+                }
+
+                .feature-dot {
+                    width: 6px;
+                    height: 6px;
+                    background: #d97539;
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                }
+
+                /* CTA Section */
+                .cta-section {
+                    background: #1e3767;
+                    padding: 60px;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .cta-section::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: -200px;
+                    width: 400px;
+                    height: 400px;
+                    background: #d97539;
+                    opacity: 0.05;
+                    border-radius: 50%;
+                }
+
+                .cta-content {
+                    position: relative;
+                    z-index: 1;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .cta-text {
+                    flex: 1;
+                    max-width: 600px;
+                }
+
+                .cta-title {
+                    font-size: 2rem;
+                    font-weight: 200;
+                    color: #ffffff;
+                    margin-bottom: 1rem;
+                    letter-spacing: -0.01em;
+                }
+
+                .cta-description {
+                    font-size: 1rem;
+                    color: rgba(255, 255, 255, 0.8);
+                    line-height: 1.6;
+                    font-weight: 300;
+                }
+
+                .cta-buttons {
+                    display: flex;
+                    gap: 20px;
+                }
+
+                .cta-button {
+                    padding: 14px 32px;
+                    font-size: 0.95rem;
+                    font-weight: 400;
+                    letter-spacing: 0.05em;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                    border: none;
+                }
+
+                .cta-button-primary {
+                    background: #ffffff;
+                    color: #1e3767;
+                }
+
+                .cta-button-primary:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                }
+
+                .cta-button-secondary {
+                    background: transparent;
+                    color: #ffffff;
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                }
+
+                .cta-button-secondary:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    border-color: rgba(255, 255, 255, 0.5);
+                }
+
+                /* Responsive */
+                @media (max-width: 1024px) {
+                    .services-grid {
+                        grid-template-columns: 1fr;
+                        gap: 40px;
+                    }
+
+                    .cta-content {
+                        flex-direction: column;
+                        gap: 40px;
+                        text-align: center;
+                    }
+
+                    .cta-buttons {
+                        justify-content: center;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .services-section {
+                        padding: 80px 0;
+                    }
+
+                    .services-container {
+                        padding: 0 20px;
+                    }
+
+                    .section-title {
+                        font-size: 2rem;
+                    }
+
+                    .service-content {
+                        padding: 30px;
+                    }
+
+                    .cta-section {
+                        padding: 40px 30px;
+                    }
+
+                    .cta-title {
+                        font-size: 1.5rem;
+                    }
+
+                    .cta-buttons {
+                        flex-direction: column;
+                        width: 100%;
+                    }
+
+                    .cta-button {
+                        width: 100%;
+                        text-align: center;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .services-header {
+                        margin-bottom: 60px;
+                    }
+
+                    .service-image-container {
+                        height: 200px;
+                    }
+
+                    .service-content {
+                        padding: 25px;
+                    }
+
+                    .service-title {
+                        font-size: 1.25rem;
+                    }
+                }
+            `}</style>
+
+            <div className="services-container">
+                {/* Header */}
+                <motion.div
+                    className="services-header"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6 }}
+                >
+                    <div className="section-label">Unsere Leistungen</div>
+                    <h2 className="section-title">Technische Exzellenz für Ihre Projekte</h2>
+                    <p className="section-description">
+                        Über 20 Jahre Expertise in Industrieplanung und Projektmanagement.
+                        Von der Konzeption bis zur Umsetzung – Ihr vertrauensvoller Partner
+                        für komplexe technische Herausforderungen.
+                    </p>
+                </motion.div>
+
+                {/* Services Grid */}
+                <div className="services-grid">
+                    <motion.div
+                        className="service-card"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <div style={styles.cardImageSection}>
+                        <div className="service-image-container">
                             <img
                                 src={banner1Image}
                                 alt="Technische Planung & Engineering"
-                                style={getResponsiveStyles(styles.cardImage, styles.cardImageMobile, styles.cardImageTablet)}
+                                className="service-image"
                             />
                         </div>
-
-                        <div style={getResponsiveStyles(styles.cardContent, styles.cardContentMobile, styles.cardContentTablet)}>
-                            <h3 style={getResponsiveStyles(styles.cardTitle, styles.cardTitleMobile)}>Technische Planung & Engineering</h3>
-                            <p style={getResponsiveStyles(styles.cardDescription, styles.cardDescriptionMobile)}>
+                        <div className="service-content">
+                            <h3 className="service-title">Technische Planung & Engineering</h3>
+                            <p className="service-description">
                                 Umfassende Planungsleistungen von der Konzeptentwicklung bis zur
-                                Detail- und Ausführungsplanung für komplexe Industrieanlagen mit
-                                modernsten Methoden und Tools.
+                                Detail- und Ausführungsplanung für komplexe Industrieanlagen.
                             </p>
-
-                            <div style={styles.featuresList}>
-                                <div style={getResponsiveStyles(styles.featureItem, styles.featureItemMobile)}>
-                                    <div style={getResponsiveStyles(styles.featureIcon, styles.featureIconMobile)}>✓</div>
+                            <div className="service-features">
+                                <div className="service-feature">
+                                    <span className="feature-dot"></span>
                                     <span>Anlagenkonzeption & Design</span>
                                 </div>
-                                <div style={getResponsiveStyles(styles.featureItem, styles.featureItemMobile)}>
-                                    <div style={getResponsiveStyles(styles.featureIcon, styles.featureIconMobile)}>✓</div>
+                                <div className="service-feature">
+                                    <span className="feature-dot"></span>
                                     <span>3D-Modellierung & Simulation</span>
                                 </div>
-                                <div style={getResponsiveStyles(styles.featureItem, styles.featureItemMobile)}>
-                                    <div style={getResponsiveStyles(styles.featureIcon, styles.featureIconMobile)}>✓</div>
+                                <div className="service-feature">
+                                    <span className="feature-dot"></span>
                                     <span>Verfahrenstechnik</span>
                                 </div>
-                                <div style={getResponsiveStyles(styles.featureItem, styles.featureItemMobile)}>
-                                    <div style={getResponsiveStyles(styles.featureIcon, styles.featureIconMobile)}>✓</div>
+                                <div className="service-feature">
+                                    <span className="feature-dot"></span>
                                     <span>Genehmigungsplanung</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    {/* Project Management Card */}
-                    <div
-                        style={{
-                            ...getResponsiveStyles(styles.serviceCard, styles.serviceCardMobile),
-                            ...styles.projectCard,
-                            opacity: isVisible ? 1 : 0,
-                            transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-                            transitionDelay: '0.4s'
-                        }}
-                        onMouseEnter={(e) => {
-                            const target = e.currentTarget as HTMLDivElement;
-                            target.style.transform = 'translateY(-8px) scale(1.02)';
-                            target.style.boxShadow = '0 12px 30px rgba(217, 83, 57, 0.12)';
-                        }}
-                        onMouseLeave={(e) => {
-                            const target = e.currentTarget as HTMLDivElement;
-                            target.style.transform = isVisible ? 'translateY(0) scale(1)' : 'translateY(40px)';
-                            target.style.boxShadow = '0 8px 25px rgba(217, 83, 57, 0.08)';
-                        }}
+                    <motion.div
+                        className="service-card"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.6, delay: 0.4 }}
                     >
-                        <div style={styles.cardImageSection}>
+                        <div className="service-image-container">
                             <img
                                 src={banner2Image}
                                 alt="Projektmanagement & Koordination"
-                                style={getResponsiveStyles(styles.cardImage, styles.cardImageMobile, styles.cardImageTablet)}
+                                className="service-image"
                             />
                         </div>
-
-                        <div style={getResponsiveStyles(styles.cardContent, styles.cardContentMobile, styles.cardContentTablet)}>
-                            <h3 style={getResponsiveStyles(styles.cardTitle, styles.cardTitleMobile)}>Projektmanagement & Koordination</h3>
-                            <p style={getResponsiveStyles(styles.cardDescription, styles.cardDescriptionMobile)}>
+                        <div className="service-content">
+                            <h3 className="service-title">Projektmanagement & Koordination</h3>
+                            <p className="service-description">
                                 Professionelles Projektmanagement nach internationalen Standards
-                                für die erfolgreiche Umsetzung komplexer Industrieprojekte mit
-                                bewährten Methoden.
+                                für die erfolgreiche Umsetzung komplexer Industrieprojekte.
                             </p>
-
-                            <div style={styles.featuresList}>
-                                <div style={getResponsiveStyles(styles.featureItem, styles.featureItemMobile)}>
-                                    <div style={getResponsiveStyles(styles.featureIcon, styles.featureIconMobile)}>✓</div>
+                            <div className="service-features">
+                                <div className="service-feature">
+                                    <span className="feature-dot"></span>
                                     <span>Projektsteuerung & -kontrolle</span>
                                 </div>
-                                <div style={getResponsiveStyles(styles.featureItem, styles.featureItemMobile)}>
-                                    <div style={getResponsiveStyles(styles.featureIcon, styles.featureIconMobile)}>✓</div>
+                                <div className="service-feature">
+                                    <span className="feature-dot"></span>
                                     <span>Risikomanagement</span>
                                 </div>
-                                <div style={getResponsiveStyles(styles.featureItem, styles.featureItemMobile)}>
-                                    <div style={getResponsiveStyles(styles.featureIcon, styles.featureIconMobile)}>✓</div>
+                                <div className="service-feature">
+                                    <span className="feature-dot"></span>
                                     <span>Qualitätssicherung</span>
                                 </div>
-                                <div style={getResponsiveStyles(styles.featureItem, styles.featureItemMobile)}>
-                                    <div style={getResponsiveStyles(styles.featureIcon, styles.featureIconMobile)}>✓</div>
+                                <div className="service-feature">
+                                    <span className="feature-dot"></span>
                                     <span>Gewerkekoordination</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
 
-                {/* Enhanced CTA Section */}
-                <div style={{
-                    ...getResponsiveStyles(styles.ctaSection, styles.ctaSectionMobile, styles.ctaSectionTablet),
-                    opacity: isVisible ? 1 : 0,
-                    transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
-                    transitionDelay: '0.6s'
-                }}>
-                    <div style={getResponsiveStyles(styles.ctaContent, styles.ctaContentMobile, styles.ctaContentTablet)}>
-                        <div style={getResponsiveStyles(styles.ctaTextSection, styles.ctaTextSectionMobile, styles.ctaTextSectionTablet)}>
-                            <h3 style={styles.ctaTitle}>Starten Sie Ihr nächstes Projekt mit uns</h3>
-                            <p style={getResponsiveStyles(styles.ctaDescription, styles.ctaDescriptionMobile)}>
+                {/* CTA Section */}
+                <motion.div
+                    className="cta-section"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                    <div className="cta-content">
+                        <div className="cta-text">
+                            <h3 className="cta-title">Starten Sie Ihr nächstes Projekt mit uns</h3>
+                            <p className="cta-description">
                                 Nutzen Sie unsere langjährige Erfahrung und bewährten Methoden für den
                                 Erfolg Ihres Projekts. Gemeinsam entwickeln wir die optimale Lösung.
                             </p>
-                            <div style={getResponsiveStyles(styles.ctaFeatures, styles.ctaFeaturesMobile, styles.ctaFeaturesTablet)}>
-                                <div style={getResponsiveStyles(styles.ctaFeature, styles.ctaFeatureMobile, styles.ctaFeatureTablet)}>
-                                    <div style={getResponsiveStyles(styles.ctaFeatureIcon, styles.ctaFeatureIconMobile)}>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <polyline points="20,6 9,17 4,12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        </svg>
-                                    </div>
-                                    <span>Kostenlose Erstberatung</span>
-                                </div>
-                                <div style={getResponsiveStyles(styles.ctaFeature, styles.ctaFeatureMobile, styles.ctaFeatureTablet)}>
-                                    <div style={getResponsiveStyles(styles.ctaFeatureIcon, styles.ctaFeatureIconMobile)}>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <polyline points="20,6 9,17 4,12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        </svg>
-                                    </div>
-                                    <span>Maßgeschneiderte Lösungen</span>
-                                </div>
-                                <div style={getResponsiveStyles(styles.ctaFeature, styles.ctaFeatureMobile, styles.ctaFeatureTablet)}>
-                                    <div style={getResponsiveStyles(styles.ctaFeatureIcon, styles.ctaFeatureIconMobile)}>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <polyline points="20,6 9,17 4,12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        </svg>
-                                    </div>
-                                    <span>Komplettes Leistungsspektrum</span>
-                                </div>
-                            </div>
                         </div>
-
-                        <div style={getResponsiveStyles(styles.ctaActions, styles.ctaActionsMobile, styles.ctaActionsTablet)}>
-                            <a
-                                href="/kontakt"
-                                style={getResponsiveStyles(styles.primaryButton, styles.primaryButtonMobile, styles.primaryButtonTablet)}
-                                onMouseEnter={(e) => {
-                                    const target = e.currentTarget as HTMLAnchorElement;
-                                    target.style.background = 'linear-gradient(135deg, #1a2f5a 0%, #1e3763 100%)';
-                                    target.style.transform = 'translateY(-2px)';
-                                    target.style.boxShadow = '0 8px 25px rgba(30, 55, 99, 0.3)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    const target = e.currentTarget as HTMLAnchorElement;
-                                    target.style.background = 'linear-gradient(135deg, #1e3763 0%, #2a4a7a 100%)';
-                                    target.style.transform = 'translateY(0)';
-                                    target.style.boxShadow = '0 4px 15px rgba(30, 55, 99, 0.2)';
-                                }}
-                            >
-                                Jetzt Kontakt aufnehmen
+                        <div className="cta-buttons">
+                            <a href="/kontakt" className="cta-button cta-button-primary">
+                                Kontakt aufnehmen
                             </a>
-                            <a
-                                href="/leistungen"
-                                style={getResponsiveStyles(styles.secondaryButton, styles.secondaryButtonMobile, styles.secondaryButtonTablet)}
-                                onMouseEnter={(e) => {
-                                    const target = e.currentTarget as HTMLAnchorElement;
-                                    target.style.background = 'linear-gradient(135deg, #c76632 0%, #d97539 100%)';
-                                    target.style.transform = 'translateY(-2px)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    const target = e.currentTarget as HTMLAnchorElement;
-                                    target.style.background = 'linear-gradient(135deg, #d97539 0%, #e8864a 100%)';
-                                    target.style.transform = 'translateY(0)';
-                                }}
-                            >
-                                Leistungen entdecken
+                            <a href="/leistungen" className="cta-button cta-button-secondary">
+                                Mehr erfahren
                             </a>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-    // Base styles
-    servicesSection: {
-        background: '#f5f5f7',
-        padding: '8rem 0',
-        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
-        position: 'relative',
-        width: '100%',
-        boxSizing: 'border-box',
-        overflowX: 'hidden',
-    },
-    servicesSectionTablet: {
-        padding: '6rem 0',
-    },
-    servicesSectionMobile: {
-        padding: '4rem 0',
-    },
-
-    container: {
-        maxWidth: '1400px',
-        margin: '0 auto',
-        padding: '0 2rem',
-        width: '100%',
-        boxSizing: 'border-box',
-    },
-    containerTablet: {
-        padding: '0 1rem',
-    },
-    containerMobile: {
-        padding: '0 0.75rem',
-    },
-
-    heroSection: {
-        textAlign: 'center',
-        marginBottom: '6rem',
-        transition: 'all 0.8s ease',
-    },
-    heroSectionTablet: {
-        marginBottom: '4rem',
-    },
-    heroSectionMobile: {
-        marginBottom: '3rem',
-    },
-
-    heroContent: {
-        maxWidth: '900px',
-        margin: '0 auto',
-        width: '100%',
-    },
-
-    mainTitle: {
-        fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
-        fontWeight: '300', // Geändert von 800 zu 300 (light)
-        color: '#1e3763',
-        marginBottom: '1.5rem',
-        lineHeight: 1.2,
-        letterSpacing: '-0.02em',
-        background: 'linear-gradient(135deg, #1e3763 0%, #2a4a7a 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
-    },
-
-    heroDescription: {
-        fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
-        color: '#9ba8b3',
-        lineHeight: 1.7,
-        fontWeight: '300', // Geändert von 400 zu 300 (light)
-        marginBottom: '3rem',
-    },
-
-    servicesGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '3rem',
-        marginBottom: '6rem',
-        width: '100%',
-    },
-    servicesGridTablet: {
-        gridTemplateColumns: '1fr',
-        gap: '2rem',
-        marginBottom: '4rem',
-    },
-    servicesGridMobile: {
-        gap: '1.5rem',
-        marginBottom: '3rem',
-        gridTemplateColumns: '1fr',
-    },
-
-    serviceCard: {
-        background: '#ffffff',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        boxShadow: '0 8px 25px rgba(30, 55, 99, 0.08)',
-        border: '1px solid rgba(155, 168, 179, 0.15)',
-        transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-        position: 'relative',
-        cursor: 'pointer',
-        minHeight: '550px',
-        width: '100%',
-        maxWidth: '100%',
-        boxSizing: 'border-box',
-    },
-    serviceCardMobile: {
-        minHeight: 'auto',
-        borderRadius: '6px',
-    },
-
-    planningCard: {
-        background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
-    },
-
-    projectCard: {
-        background: 'linear-gradient(145deg, #ffffff 0%, #fff9f7 100%)',
-    },
-
-    cardImageSection: {
-        marginBottom: '1.5rem',
-        width: '100%',
-        overflow: 'hidden',
-    },
-
-    cardImage: {
-        width: '100%',
-        height: '280px',
-        objectFit: 'cover',
-        transition: 'transform 0.3s ease',
-        display: 'block',
-        maxWidth: '100%',
-    },
-    cardImageTablet: {
-        height: '220px',
-    },
-    cardImageMobile: {
-        height: '200px',
-    },
-
-    cardContent: {
-        padding: '0 2rem 2rem 2rem',
-        width: '100%',
-        boxSizing: 'border-box',
-    },
-    cardContentTablet: {
-        padding: '0 1.5rem 2rem 1.5rem',
-    },
-    cardContentMobile: {
-        padding: '0 1.25rem 1.5rem 1.25rem',
-    },
-
-    cardTitle: {
-        fontSize: '1.5rem',
-        fontWeight: '300', // Geändert von 700 zu 300 (light)
-        color: '#1e3763',
-        marginBottom: '1rem',
-        lineHeight: 1.3,
-    },
-    cardTitleMobile: {
-        fontSize: '1.3rem',
-    },
-
-    cardDescription: {
-        fontSize: '1rem',
-        color: '#9ba8b3',
-        lineHeight: 1.7,
-        marginBottom: '2rem',
-        fontWeight: '300', // Geändert von 400 zu 300 (light)
-    },
-    cardDescriptionMobile: {
-        fontSize: '0.9rem',
-        marginBottom: '1.5rem',
-    },
-
-    featuresList: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.8rem',
-    },
-
-    featureItem: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem',
-        fontSize: '0.9rem',
-        color: '#1e3763',
-        fontWeight: '400', // Geändert von 500 zu 400 (normal)
-    },
-    featureItemMobile: {
-        fontSize: '0.85rem',
-    },
-
-    featureIcon: {
-        width: '20px',
-        height: '20px',
-        background: 'linear-gradient(135deg, #d97539 0%, #e8864a 100%)',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#ffffff',
-        fontSize: '0.7rem',
-        fontWeight: '700',
-        flexShrink: 0,
-    },
-    featureIconMobile: {
-        width: '18px',
-        height: '18px',
-        fontSize: '0.6rem',
-    },
-
-    ctaSection: {
-        background: 'linear-gradient(135deg, #1e3763 0%, #2a4a7a 100%)',
-        borderRadius: '8px',
-        padding: '4rem',
-        color: '#ffffff',
-        transition: 'all 0.8s ease',
-        boxShadow: '0 20px 40px rgba(30, 55, 99, 0.15)',
-        position: 'relative',
-        overflow: 'hidden',
-        width: '100%',
-        boxSizing: 'border-box',
-    },
-    ctaSectionTablet: {
-        padding: '3rem 2rem',
-        borderRadius: '6px',
-    },
-    ctaSectionMobile: {
-        padding: '2rem 1rem',
-    },
-
-    ctaContent: {
-        display: 'flex',
-        flexDirection: 'row',
-        gap: '3rem',
-        alignItems: 'flex-end',
-        width: '100%',
-        maxWidth: '1200px',
-        margin: '0 auto',
-    },
-    ctaContentTablet: {
-        flexDirection: 'column',
-        gap: '2rem',
-        alignItems: 'center',
-        textAlign: 'center',
-    },
-    ctaContentMobile: {
-        flexDirection: 'column',
-        gap: '2.5rem',
-        textAlign: 'center',
-        alignItems: 'center',
-    },
-
-    ctaTextSection: {
-        flex: 2,
-        width: '100%',
-        minWidth: 0,
-    },
-    ctaTextSectionTablet: {
-        flex: 1,
-        textAlign: 'center',
-    },
-    ctaTextSectionMobile: {
-        textAlign: 'center',
-    },
-
-    ctaTitle: {
-        fontSize: 'clamp(1.4rem, 4vw, 2.2rem)',
-        fontWeight: '300', // Geändert von 700 zu 300 (light)
-        marginBottom: '1rem',
-        lineHeight: 1.3,
-    },
-
-    ctaDescription: {
-        fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
-        color: 'rgba(255, 255, 255, 0.9)',
-        lineHeight: 1.7,
-        marginBottom: '1.5rem',
-        fontWeight: '300', // Geändert von 400 zu 300 (light)
-    },
-    ctaDescriptionMobile: {
-        fontSize: '1rem',
-    },
-
-    ctaFeatures: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.6rem',
-        marginTop: '0.5rem',
-    },
-    ctaFeaturesTablet: {
-        alignItems: 'center',
-        marginTop: '0.5rem',
-    },
-    ctaFeaturesMobile: {
-        gap: '0.5rem',
-        alignItems: 'center',
-    },
-
-    ctaFeature: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem',
-        fontSize: '0.9rem',
-        color: 'rgba(255, 255, 255, 0.95)',
-        fontWeight: '400', // Geändert von 500 zu 400 (normal)
-    },
-    ctaFeatureTablet: {
-        justifyContent: 'center',
-    },
-    ctaFeatureMobile: {
-        fontSize: '0.85rem',
-        justifyContent: 'center',
-    },
-
-    ctaFeatureIcon: {
-        width: '20px',
-        height: '20px',
-        background: 'rgba(217, 117, 57, 0.2)',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#d97539',
-        flexShrink: 0,
-    },
-    ctaFeatureIconMobile: {
-        width: '18px',
-        height: '18px',
-    },
-
-    ctaActions: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        flex: 1,
-        minWidth: '200px',
-    },
-    ctaActionsTablet: {
-        flexDirection: 'row',
-        width: '100%',
-        gap: '1rem',
-    },
-    ctaActionsMobile: {
-        flexDirection: 'column',
-        width: '100%',
-    },
-
-    primaryButton: {
-        background: 'linear-gradient(135deg, #1e3763 0%, #2a4a7a 100%)',
-        color: '#ffffff',
-        border: 'none',
-        borderRadius: '8px',
-        padding: '1rem 1.5rem',
-        fontSize: '0.95rem',
-        fontWeight: '500', // Geändert von 600 zu 500 (medium)
-        cursor: 'pointer',
-        transition: 'all 0.3s ease',
-        boxShadow: '0 4px 15px rgba(30, 55, 99, 0.2)',
-        textDecoration: 'none',
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minWidth: '180px',
-    },
-    primaryButtonTablet: {
-        flex: 1,
-        minWidth: 'auto',
-    },
-    primaryButtonMobile: {
-        width: '100%',
-        padding: '0.875rem 1rem',
-        fontSize: '0.9rem',
-    },
-
-    secondaryButton: {
-        background: 'linear-gradient(135deg, #d97539 0%, #e8864a 100%)',
-        color: '#ffffff',
-        border: '2px solid #d97539',
-        borderRadius: '8px',
-        padding: '1rem 1.5rem',
-        fontSize: '0.95rem',
-        fontWeight: '500', // Geändert von 600 zu 500 (medium)
-        cursor: 'pointer',
-        transition: 'all 0.3s ease',
-        textDecoration: 'none',
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minWidth: '180px',
-    },
-    secondaryButtonTablet: {
-        flex: 1,
-        minWidth: 'auto',
-    },
-    secondaryButtonMobile: {
-        width: '100%',
-        padding: '0.875rem 1rem',
-        fontSize: '0.9rem',
-    },
 };
 
 export default ServicesSection;

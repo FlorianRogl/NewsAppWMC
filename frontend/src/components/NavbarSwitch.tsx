@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from '../css/Navbar.module.css';
-
+import thumbnail from '../assets/img.png';
 import navLogo from '../assets/Final_V1-a.png'
-
+import navLogo2 from '../assets/Final_V1-b.png'
+import navLogo4 from '../assets/Final_V2-b.png'
+import navLogo3 from '../assets/Final_V2-a.png'
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [hasInitiallyLoaded, setHasInitiallyLoaded] = useState(false);
+    const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
     const location = useLocation();
+
+    // Logo Pool
+    const logoPool = [navLogo, navLogo2, navLogo3, navLogo4, thumbnail];
 
     const navItems = [
         { name: 'Unternehmen', path: '/Unternehmen' },
@@ -64,6 +70,10 @@ const Navbar = () => {
         closeMobileMenu();
     };
 
+    const switchLogo = () => {
+        setCurrentLogoIndex((prevIndex) => (prevIndex + 1) % logoPool.length);
+    };
+
     return (
         <nav className={`${styles.navbar} ${hasInitiallyLoaded ? styles.navbarReload : ''}`}>
             <div className={styles.container}>
@@ -74,7 +84,7 @@ const Navbar = () => {
                     onClick={(e) => handleNavClick(e)}
                 >
                     <img
-                        src={navLogo}
+                        src={logoPool[currentLogoIndex]}
                         alt="PROMAX Logo"
                         className={styles.logoImage}
                     />
@@ -100,6 +110,16 @@ const Navbar = () => {
                         ))}
                     </ul>
                 </div>
+
+                {/* Logo Switcher Button - Ganz rechts */}
+                <button
+                    className={`${styles.logoSwitcher} ${hasInitiallyLoaded ? styles.logoSwitcherReload : ''}`}
+                    onClick={switchLogo}
+                    aria-label="Logo wechseln"
+                    title="Logo wechseln"
+                >
+                    🔄
+                </button>
 
                 {/* Mobile Menu Button */}
                 <button

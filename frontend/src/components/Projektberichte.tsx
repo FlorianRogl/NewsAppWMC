@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { ArrowLeft, Beaker, FileText, Zap } from 'lucide-react';
 
 // TypeScript Interfaces
 export interface ProjectSection {
@@ -22,10 +21,11 @@ export interface Project {
     excerpt: string;
     content: ProjectContent;
     tags: string[];
+    icon?: React.ReactNode;
 }
 
-// Mock-Daten für CMS-Integration - erweitert um mehr Projekte
-const mockProjects: Project[] = [
+// Real project data based on your documents
+const realProjects: Project[] = [
     {
         id: 1,
         title: "Säurefeste Auskleidungen mit zusätzlichen Abriebfestigkeitseigenschaften",
@@ -34,6 +34,7 @@ const mockProjects: Project[] = [
         readTime: "8 min",
         image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=400&fit=crop",
         excerpt: "Entwicklung einer technisch und wirtschaftlich optimalen Lösung für einen 80 m³ Pufferbehälter mit chemisch aggressiven Abwässern bei Temperaturen bis 85°C.",
+        icon: <Beaker className="w-5 h-5" />,
         content: {
             sections: [
                 {
@@ -62,363 +63,232 @@ const mockProjects: Project[] = [
     },
     {
         id: 2,
-        title: "GMP-konforme Pharmanlage Modernisierung",
-        category: "Pharma",
+        title: "3D-Visualisiert Konstruieren & Planen mit Inventor",
+        category: "Engineering & CAD",
         date: "2024-02-20",
         readTime: "6 min",
         image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        excerpt: "Komplette Modernisierung einer pharmazeutischen Produktionsanlage unter Einhaltung aller GMP-Richtlinien und ohne Produktionsunterbrechung.",
+        excerpt: "Erweiterte 3D-Konstruktionen und Berechnungen mit Inventor für Papier-/Zellstoff-, Kunststoff-, Automobil-, Fördertechnik und Pharmazie-Bereiche.",
+        icon: <FileText className="w-5 h-5" />,
         content: {
             sections: [
                 {
-                    title: "1. Projektübersicht",
-                    content: "Die Modernisierung einer bestehenden pharmazeutischen Produktionsanlage stellte eine besondere Herausforderung dar, da der laufende Betrieb nicht unterbrochen werden durfte. Die Anlage musste dabei vollständig den aktuellen GMP-Richtlinien (Good Manufacturing Practice) entsprechen.\n\nDas Projekt umfasste die Erneuerung der kompletten Prozesstechnik, einschließlich der Steuerungssysteme, Reinraumtechnik und Dokumentationssysteme. Besonderes Augenmerk lag auf der Validierung aller Systeme und Prozesse."
+                    title: "3D-Visualisierung als MUST HAVE",
+                    content: "Da die 3D-Visualisierung in der technischen Planung ein MUST HAVE geworden ist, erweitert PROMAX das Angebotsspektrum mit 3D Konstruktion in Inventor.\n\nUnser Ziel ist es die Wettbewerbsfähigkeit unserer Kunden durch Flexibilität und schnellere Reaktion auf deren Wünsche mittels 3D Planung in Inventor zu erhöhen."
                 },
                 {
-                    title: "2. Technische Herausforderungen",
-                    content: "Die größte Herausforderung bestand darin, die Modernisierung in mehreren Phasen durchzuführen, ohne die Produktion zu stoppen. Dies erforderte eine detaillierte Planung und enge Abstimmung mit der Produktion.\n\nAlle neuen Komponenten mussten den strengen pharmazeutischen Standards entsprechen:\n• Materialien in pharmazeutischer Qualität\n• Validierbare Automatisierungssysteme\n• Dokumentation nach 21 CFR Part 11\n• Qualifizierung nach GAMP 5"
+                    title: "Unser Angebot",
+                    content: "Konstruktionen und Berechnungen in den Bereichen von Papier-/Zellstoff-, Kunststoff-, Automobil-, Fördertechnik und Pharmazie über detaillierte Anlagenkonstruktionen bis hin zum Maschinenbau.\n\n• Neu-, Detail- und Variantenkonstruktionen\n• Einzel- bzw. Fertigungszeichnungen in 2D und 3D\n• Zusammenbau- Montage- und Explosionszeichnungen in 2D und 3D\n• 3D Körper zur Weiterbearbeitung in Berechnungs- und Simulationsprogrammen\n• Stücklisten und Belastungsanalysen von Einzelbauteilen nach ANSYS"
                 },
                 {
-                    title: "3. Umsetzung und Validierung",
-                    content: "Die Umsetzung erfolgte in vier Hauptphasen:\n\nPhase 1: Installation der neuen Steuerungstechnik parallel zum bestehenden System\nPhase 2: Schrittweise Migration der Prozesse auf das neue System\nPhase 3: Validierung aller kritischen Prozessparameter\nPhase 4: Komplette Umstellung und Außerbetriebnahme der alten Systeme\n\nJede Phase wurde vollständig dokumentiert und validiert, bevor mit der nächsten Phase begonnen wurde."
+                    title: "Warum 3D-Inventor?",
+                    content: "3D Darstellungen spielen bereits in der Projektierungs-Phase eine wichtige Rolle. Aussagekräftige Präsentationen und Konstruktionen in 3D erleichtern den Einblick in ein technisches Projekt, wodurch bessere Entscheidungsgrundlagen geschaffen werden.\n\nKonstruktionszyklen verkürzen sich, da vor allem div. Nebenkonstruktionen, Änderungen und Korrekturen schneller umgewandelt werden können.\n\nEin weiterer Umstand, der für eine 3D Planung spricht, ist die mehrfache Nutzbarkeit der Daten von 3D Modellen. Die Daten können sowohl als Geometrie für Abmessungen, als auch für Funktions- und Kollisionsanalysen, Automatisierungsprozesse, Gewichts- und Festigkeitsberechnungen und wirtschaftliche Kalkulationen verwendet werden."
                 },
                 {
-                    title: "4. Ergebnisse",
-                    content: "Das Projekt wurde erfolgreich innerhalb des geplanten Zeitrahmens und Budgets abgeschlossen. Die neue Anlage erfüllt alle aktuellen GMP-Anforderungen und bietet eine deutlich verbesserte Prozessstabilität und Dokumentation.\n\nDie Produktionskapazität konnte um 15% gesteigert werden, während gleichzeitig die Betriebskosten um 8% reduziert wurden."
+                    title: "Dateiaustausch und Kompatibilität",
+                    content: "Inventor bietet einen einfachen Austausch von Dateitypen, da die gängigsten Schnittstellen für Import und Export bereits integriert sind.\n\nImport:\n• 2D *.dwg (AutoCAD) und *.dxf für Skizzen\n• 3D *.step, *.iges, *.sat, *.prt (Pro/Engineer)\n\nExport:\n• *.iges (ANSYS), *.sat, *.step\n• *.stl, *.xgl, *.zgl\n• *.bmp"
                 }
             ]
         },
-        tags: ["GMP", "Pharma", "Modernisierung", "Validierung"]
+        tags: ["3D-CAD", "Inventor", "Engineering", "Konstruktion"]
     },
     {
         id: 3,
-        title: "Nachhaltige Energiegewinnung in der Papierindustrie",
-        category: "Energie & Umwelt",
+        title: "3D-Planungen im Anlagenbau",
+        category: "Anlagenbau",
         date: "2024-01-10",
         readTime: "7 min",
         image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        excerpt: "Implementierung eines innovativen Energierückgewinnungssystems in einer Papierfabrik zur Reduzierung des CO2-Ausstoßes um 40%.",
+        excerpt: "Leistungsfähige 3D-Visualisierung mit AVEVA VANTAGE PDMS und AUTODESK ACAD PLANT 3D für komplexe Anlagenplanungen.",
+        icon: <Zap className="w-5 h-5" />,
         content: {
             sections: [
                 {
-                    title: "1. Ausgangssituation",
-                    content: "Eine große Papierfabrik suchte nach Möglichkeiten, ihren Energieverbrauch zu reduzieren und gleichzeitig die CO2-Emissionen deutlich zu senken. Die bestehende Anlage verbrauchte jährlich etwa 150 GWh Energie, hauptsächlich für Trocknungsprozesse.\n\nZiel war es, ein nachhaltiges Energiekonzept zu entwickeln, das sowohl ökologische als auch wirtschaftliche Vorteile bietet."
+                    title: "Moderne 3D-Planungstools",
+                    content: "Neben herkömmlichen 2D-CAD-Systemen führen wir seit 2003 mit AVEVA VANTAGE PDMS und seit 2013 mit AUTODESK ACAD PLANT 3D überaus leistungsfähige Tools zur 3D-Visualisierung von Planungen im Anlagenbau.\n\nDie umfassende Funktionalität der Software macht sie vielseitig einsetzbar und einfach handhabbar. Damit können komplexe Anlagen 3-dimensional dargestellt und 2D-Pläne automatisch generiert werden."
                 },
                 {
-                    title: "2. Entwickeltes Energiekonzept",
-                    content: "Das entwickelte Konzept basiert auf mehreren Säulen:\n\n• Wärmerückgewinnung aus Abluft und Abwasser\n• Installation einer Kraft-Wärme-Kopplungsanlage\n• Optimierung der Prozessdampferzeugung\n• Integration erneuerbarer Energien (Biomasse)\n• Intelligentes Energiemanagementsystem\n\nDurch die Kombination dieser Technologien konnte eine Gesamteffizienz von über 85% erreicht werden."
+                    title: "Datenbankbasierte Zusammenarbeit",
+                    content: "Der Datenbank-basierende Aufbau ermöglicht es mehreren Planern gleichzeitig an ein und demselben 3D-Modell zu planen, was zu einer Effizienz-Steigerung in der Planung führt. Durch die Datenintegrität der Systeme werden Änderungen oder Anpassungen der Planung zu jeder Zeit im 3D-Modell aktualisiert.\n\nDie der 3D-Planung zugrundeliegende Datenbank enthält u.a. geometrische Informationen zu allen eingeplanten Bauteilen, sodass die Kollisionsüberprüfung der Strukturen automatisch durchgeführt werden kann."
                 },
                 {
-                    title: "3. Technische Umsetzung",
-                    content: "Die Umsetzung erfolgte in mehreren Schritten:\n\nSchritt 1: Installation von Wärmetauschern zur Abwärmenutzung\nSchritt 2: Aufbau der KWK-Anlage mit 5 MW elektrischer Leistung\nSchritt 3: Integration der Biomasse-Feuerung\nSchritt 4: Implementierung des Energiemanagementsystems\n\nBesondere Herausforderung war die Integration in den laufenden Betrieb ohne Produktionsunterbrechungen."
+                    title: "Automatisierte Dokumentenerstellung",
+                    content: "Die automatisierte Verknüpfung der verschiedenen Planungswerkzeuge erhöht die Genauigkeit, der aus dem System generierbaren Fertigungs-, Montage- und Materialwirtschaftsdokumente. Gemeinsam mit unseren Kunden entwickeln wir Ausgabedokumente entsprechend spezifischer inhaltlicher und formatbezogener Anforderungen.\n\nDie Ausspielung von 2D-Dokumenten kann grundsätzlich in allen gängigen Zeichnungsformaten erfolgen."
                 },
                 {
-                    title: "4. Ergebnisse und Nachhaltigkeit",
-                    content: "Die Maßnahmen führten zu beeindruckenden Ergebnissen:\n\n• 40% Reduktion der CO2-Emissionen\n• 25% Senkung der Energiekosten\n• Erhöhung der Energieeffizienz um 30%\n• Amortisation der Investition in 4,5 Jahren\n\nDas Projekt dient als Referenz für nachhaltige Energielösungen in der Papierindustrie und wurde mit dem Umweltpreis der Branche ausgezeichnet."
+                    title: "Zukunftssichere Lösungen",
+                    content: "Für den Fall späterer Umbauten an der Anlage bietet die 3D-Planung eine gute Planungsbasis für Betreiber und Instandhalter.\n\nFür die Kompatibilität mit anderen Softwareprodukten sind auch kundenspezifische Datenformate generierbar. Damit wird für die weitere Bearbeitung der Daten nicht ausschließlich die Originalsoftware benötigt."
                 }
             ]
         },
-        tags: ["Nachhaltigkeit", "Energieeffizienz", "Papierindustrie", "CO2-Reduktion"]
-    },
-    {
-        id: 4,
-        title: "Hochmoderne Zellstoffaufbereitung",
-        category: "Papier & Zellstoff",
-        date: "2023-12-05",
-        readTime: "9 min",
-        image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        excerpt: "Planung und Umsetzung einer neuen Zellstoffaufbereitungsanlage mit modernster Bleichsequenz-Technologie für höchste Produktqualität.",
-        content: {
-            sections: [
-                {
-                    title: "1. Projektanforderungen",
-                    content: "Ein führender Zellstoffhersteller beauftragte PROMAX mit der Planung einer neuen Aufbereitungsanlage für hochwertige Bleichzellstoffe. Die Anlage sollte eine Kapazität von 500.000 Tonnen pro Jahr haben und modernste Umweltstandards erfüllen.\n\nBesondere Anforderungen:\n• Höchste Weißgrade (ISO-Helligkeit > 90%)\n• Minimaler Chemikalienverbrauch\n• Geschlossene Wasserkreisläufe\n• Flexibilität für verschiedene Rohstoffe"
-                },
-                {
-                    title: "2. Innovative Bleichsequenz-Technologie",
-                    content: "Die implementierte Bleichsequenz basiert auf der modernsten ECF-Technologie (Elemental Chlorine Free) mit folgenden Stufen:\n\n• Sauerstoffdelignifizierung\n• Chlordioxid-Bleichung (D0)\n• Extraktion mit Sauerstoff (Eo)\n• Chlordioxid-Bleichung (D1)\n• Wasserstoffperoxid-Bleichung (P)\n\nDiese Sequenz ermöglicht höchste Qualität bei minimaler Umweltbelastung."
-                },
-                {
-                    title: "3. Anlagentechnik und Automatisierung",
-                    content: "Die Anlage umfasst modernste Komponenten:\n\n• Hochkonsistenz-Bleichtürme mit optimierter Verweilzeit\n• Mehrstufige Waschsysteme mit Displacement-Technologie\n• Vollautomatische Chemikaliendosierung\n• Prozessleitsystem mit prädiktiven Algorithmen\n• Inline-Qualitätsmessung\n\nDie Automatisierung gewährleistet konstante Produktqualität und optimalen Ressourcenverbrauch."
-                },
-                {
-                    title: "4. Umwelt und Wirtschaftlichkeit",
-                    content: "Das Projekt übertrifft alle gesetzten Ziele:\n\nUmweltaspekte:\n• 50% weniger AOX-Bildung als konventionelle Anlagen\n• 30% Reduktion des Wasserverbrauchs\n• Vollständige Rückgewinnung der Bleichchemikalien\n\nWirtschaftliche Ergebnisse:\n• 15% höhere Ausbeute durch optimierte Prozessführung\n• 20% geringere Betriebskosten\n• Premiumpreise durch höchste Produktqualität\n\nDie Anlage gilt heute als Referenz für moderne Zellstoffbleiche in Europa."
-                }
-            ]
-        },
-        tags: ["Zellstoff", "Bleichsequenz", "Modernisierung", "Qualitätssteigerung"]
+        tags: ["AVEVA PDMS", "AutoCAD Plant 3D", "Anlagenplanung", "3D-Visualisierung"]
     }
 ];
 
 const Projektberichte: React.FC = () => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-    const [selectedCategory, setSelectedCategory] = useState<string>('Alle');
-    const [searchParams, setSearchParams] = useSearchParams();
 
-    const categories: string[] = ['Alle', ...new Set(mockProjects.map(p => p.category))];
-
-    const filteredProjects: Project[] = selectedCategory === 'Alle'
-        ? mockProjects
-        : mockProjects.filter(p => p.category === selectedCategory);
-
-    // URL-Parameter überwachen und entsprechendes Projekt laden
     useEffect(() => {
-        const projectId = searchParams.get('project');
+        // Get project ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('project');
+
         if (projectId) {
-            const project = mockProjects.find(p => p.id === parseInt(projectId));
+            const project = realProjects.find(p => p.id === parseInt(projectId));
             if (project) {
                 setSelectedProject(project);
+            } else {
+                // If project not found, redirect to company page
+                window.location.href = '/Unternehmen';
             }
+        } else {
+            // If no project ID, redirect to company page
+            window.location.href = '/Unternehmen';
         }
-    }, [searchParams]);
+    }, []);
 
-    // URL aktualisieren wenn Projekt ausgewählt wird
-    const handleProjectSelect = (project: Project) => {
-        setSelectedProject(project);
-        setSearchParams({ project: project.id.toString() });
+    const handleBackToCompany = () => {
+        window.location.href = '/Unternehmen';
     };
 
-    // Zurück zur Übersicht
-    const handleBackToOverview = () => {
-        setSelectedProject(null);
-        setSearchParams({});
+    const handleRelatedProject = (projectId: number) => {
+        const project = realProjects.find(p => p.id === projectId);
+        if (project) {
+            setSelectedProject(project);
+            // Update URL
+            window.history.pushState({}, '', `/Projektberichte?project=${projectId}`);
+        }
     };
 
-    const formatDate = (dateString: string): string => {
-        return new Date(dateString).toLocaleDateString('de-DE', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    };
-
-    if (selectedProject) {
+    if (!selectedProject) {
         return (
-            <div className="min-h-screen bg-gray-50">
-                {/* Header */}
-                <header className="bg-white shadow-sm border-b">
-                    <div className="max-w-4xl mx-auto px-6 py-4">
-                        <button
-                            onClick={handleBackToOverview}
-                            className="flex items-center text-blue-600 hover:text-blue-800 transition-colors mb-4"
-                        >
-                            <ArrowLeft className="w-5 h-5 mr-2" />
-                            Zurück zur Übersicht
-                        </button>
-                        <h1 className="text-3xl font-bold text-gray-900 leading-tight">
-                            {selectedProject.title}
-                        </h1>
-                        <div className="flex items-center text-gray-500 mt-3 space-x-4">
-                            <div className="flex items-center">
-                                <Calendar className="w-4 h-4 mr-2" />
-                                {formatDate(selectedProject.date)}
-                            </div>
-                            <div className="flex items-center">
-                                <Clock className="w-4 h-4 mr-2" />
-                                {selectedProject.readTime}
-                            </div>
-                            <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                                {selectedProject.category}
-                            </span>
-                        </div>
-                    </div>
-                </header>
-
-                {/* Content */}
-                <main className="max-w-4xl mx-auto px-6 py-8">
-                    {/* Hero Image */}
-                    <div className="mb-8">
-                        <img
-                            src={selectedProject.image}
-                            alt={selectedProject.title}
-                            className="w-full h-64 object-cover rounded-lg shadow-sm"
-                        />
-                    </div>
-
-                    <div className="bg-white rounded-lg shadow-sm p-8">
-                        <div className="prose prose-lg max-w-none">
-                            {selectedProject.content.sections.map((section: ProjectSection, index: number) => (
-                                <div key={index} className="mb-8">
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-4 border-l-4 border-blue-500 pl-4">
-                                        {section.title}
-                                    </h2>
-                                    <div className="text-gray-700 leading-relaxed whitespace-pre-line">
-                                        {section.content}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Tags */}
-                        <div className="mt-8 pt-6 border-t">
-                            <div className="flex flex-wrap gap-2">
-                                {selectedProject.tags.map((tag: string, index: number) => (
-                                    <span
-                                        key={index}
-                                        className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
-                                    >
-                                        <Tag className="w-3 h-3 mr-1" />
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Navigation zu anderen Projekten */}
-                    <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Weitere Projekte</h3>
-                        <div className="grid md:grid-cols-2 gap-4">
-                            {mockProjects
-                                .filter(p => p.id !== selectedProject.id)
-                                .slice(0, 4)
-                                .map((project) => (
-                                    <div
-                                        key={project.id}
-                                        className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                                        onClick={() => handleProjectSelect(project)}
-                                    >
-                                        <img
-                                            src={project.image}
-                                            alt={project.title}
-                                            className="w-12 h-12 object-cover rounded"
-                                        />
-                                        <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-medium text-gray-900 truncate">
-                                                {project.title}
-                                            </p>
-                                            <p className="text-xs text-gray-500">
-                                                {project.category}
-                                            </p>
-                                        </div>
-                                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                                    </div>
-                                ))}
-                        </div>
-                    </div>
-                </main>
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1e3767] mx-auto mb-4"></div>
+                    <p className="text-gray-600">Projekt wird geladen...</p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Header */}
-            <header className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-6 py-8">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                        Projektberichte
-                    </h1>
-                    <p className="text-xl text-gray-600">
-                        Technische Lösungen und Innovationen aus der Praxis
-                    </p>
+        <div className="min-h-screen bg-white">
+            {/* Professional Header */}
+            <header className="bg-white border-b border-gray-200">
+                <div className="max-w-4xl mx-auto px-6 py-8">
+                    <button
+                        onClick={handleBackToCompany}
+                        className="inline-flex items-center text-[#1e3767] hover:text-[#2a4a7f] transition-colors mb-6 group"
+                    >
+                        <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
+                        <span className="font-medium">Zurück zur Übersicht</span>
+                    </button>
+
+                    <div className="mb-6">
+                        <div className="flex items-center mb-4">
+                            <span className="px-3 py-1 bg-[#1e3767] text-white rounded-full text-sm font-medium">
+                                {selectedProject.category}
+                            </span>
+                        </div>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                            {selectedProject.title}
+                        </h1>
+                    </div>
                 </div>
             </header>
 
-            <main className="max-w-7xl mx-auto px-6 py-8">
-                {/* Category Filter */}
-                <div className="mb-8">
-                    <div className="flex flex-wrap gap-2">
-                        {categories.map((category: string) => (
-                            <button
-                                key={category}
-                                onClick={() => setSelectedCategory(category)}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                                    selectedCategory === category
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 border border-gray-200'
-                                }`}
-                            >
-                                {category}
-                            </button>
+            {/* Content */}
+            <main className="max-w-4xl mx-auto px-6 py-8">
+                {/* Hero Image */}
+                <div className="mb-8 overflow-hidden rounded-lg shadow-lg">
+                    <img
+                        src={selectedProject.image}
+                        alt={selectedProject.title}
+                        className="w-full h-64 object-cover"
+                    />
+                </div>
+
+                {/* Content Sections */}
+                <div className="bg-white">
+                    <div className="prose prose-lg max-w-none">
+                        {selectedProject.content.sections.map((section: ProjectSection, index: number) => (
+                            <div key={index} className="mb-12">
+                                <h2 className="text-2xl font-semibold text-[#1e3767] mb-6 pb-3 border-b border-gray-200">
+                                    {section.title}
+                                </h2>
+                                <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+                                    {section.content}
+                                </div>
+                            </div>
                         ))}
                     </div>
-                </div>
 
-                {/* Projects Grid */}
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {filteredProjects.map((project: Project) => (
-                        <article
-                            key={project.id}
-                            className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200 overflow-hidden"
-                            onClick={() => handleProjectSelect(project)}
-                        >
-                            {/* Project Image */}
-                            <div className="aspect-video overflow-hidden">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                />
-                            </div>
-
-                            <div className="p-6">
-                                <div className="flex items-center justify-between mb-3">
-                                    <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                                        {project.category}
-                                    </span>
-                                    <ChevronRight className="w-5 h-5 text-gray-400" />
-                                </div>
-
-                                <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                                    {project.title}
-                                </h2>
-
-                                <p className="text-gray-600 mb-4 line-clamp-3">
-                                    {project.excerpt}
-                                </p>
-
-                                <div className="flex items-center text-sm text-gray-500 space-x-4">
-                                    <div className="flex items-center">
-                                        <Calendar className="w-4 h-4 mr-1" />
-                                        {formatDate(project.date)}
-                                    </div>
-                                    <div className="flex items-center">
-                                        <Clock className="w-4 h-4 mr-1" />
-                                        {project.readTime}
-                                    </div>
-                                </div>
-
-                                {/* Tags Preview */}
-                                <div className="flex flex-wrap gap-1 mt-3">
-                                    {project.tags.slice(0, 2).map((tag: string, index: number) => (
-                                        <span
-                                            key={index}
-                                            className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs"
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
-                                    {project.tags.length > 2 && (
-                                        <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                                            +{project.tags.length - 2}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        </article>
-                    ))}
-                </div>
-
-                {/* Keine Projekte gefunden */}
-                {filteredProjects.length === 0 && (
-                    <div className="text-center py-12">
-                        <div className="text-gray-400 mb-4">
-                            <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                        </div>
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
-                            Keine Projekte gefunden
+                    {/* Tags */}
+                    <div className="mt-12 pt-8 border-t border-gray-200">
+                        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+                            Themen
                         </h3>
-                        <p className="text-gray-600">
-                            Für die ausgewählte Kategorie sind derzeit keine Projekte verfügbar.
-                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {selectedProject.tags.map((tag: string, index: number) => (
+                                <span
+                                    key={index}
+                                    className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
                     </div>
-                )}
+                </div>
+
+                {/* Related Projects */}
+                <div className="mt-12 bg-gray-50 rounded-lg p-8">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-6">
+                        Weitere Projekte
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        {realProjects
+                            .filter(p => p.id !== selectedProject.id)
+                            .slice(0, 2)
+                            .map((project) => (
+                                <div
+                                    key={project.id}
+                                    className="flex items-center gap-4 p-4 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all duration-200 group"
+                                    onClick={() => handleRelatedProject(project.id)}
+                                >
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-16 h-16 object-cover rounded-lg"
+                                    />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="font-medium text-gray-900 truncate group-hover:text-[#1e3767] transition-colors">
+                                            {project.title}
+                                        </p>
+                                        <p className="text-sm text-gray-500 mt-1">
+                                            {project.category}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                    </div>
+                </div>
             </main>
+
+            <style>{`
+                .prose {
+                    max-width: none;
+                }
+                
+                .prose h2 {
+                    margin-top: 0;
+                    margin-bottom: 1.5rem;
+                }
+                
+                .prose p {
+                    margin-bottom: 1rem;
+                }
+            `}</style>
         </div>
     );
 };

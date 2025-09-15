@@ -2,7 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 
 const VideoSection = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [scrollY, setScrollY] = useState(0);
+    const [yearsCount, setYearsCount] = useState(0);
+    const [projectsCount, setProjectsCount] = useState(0);
     const sectionRef = useRef<HTMLElement>(null);
+    const statsRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollY(window.scrollY);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -11,9 +23,7 @@ const VideoSection = () => {
                     setIsVisible(true);
                 }
             },
-            {
-                threshold: 0.1,
-            }
+            { threshold: 0.1 }
         );
 
         const currentRef = sectionRef.current;
@@ -28,500 +38,318 @@ const VideoSection = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const statsObserver = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    // Jahre Animation
+                    const yearsDuration = 2000;
+                    const yearsStart = performance.now();
+                    const animateYears = (currentTime: number) => {
+                        const elapsed = currentTime - yearsStart;
+                        const progress = Math.min(elapsed / yearsDuration, 1);
+                        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                        setYearsCount(Math.round(easeOutQuart * 25));
+
+                        if (progress < 1) {
+                            requestAnimationFrame(animateYears);
+                        }
+                    };
+                    requestAnimationFrame(animateYears);
+
+                    // Projekte Animation (mit Delay)
+                    setTimeout(() => {
+                        const projectsDuration = 1800;
+                        const projectsStart = performance.now();
+                        const animateProjects = (currentTime: number) => {
+                            const elapsed = currentTime - projectsStart;
+                            const progress = Math.min(elapsed / projectsDuration, 1);
+                            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                            setProjectsCount(Math.round(easeOutQuart * 250));
+
+                            if (progress < 1) {
+                                requestAnimationFrame(animateProjects);
+                            }
+                        };
+                        requestAnimationFrame(animateProjects);
+                    }, 500);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (statsRef.current) {
+            statsObserver.observe(statsRef.current);
+        }
+
+        return () => {
+            if (statsRef.current) {
+                statsObserver.unobserve(statsRef.current);
+            }
+        };
+    }, []);
+
     return (
         <>
             <style>{`
-                @media (max-width: 1200px) {
-                    .content-overlay {
-                        padding: 0 4rem !important;
+                .hero-gradient {
+                    background: linear-gradient(
+                        135deg,
+                        rgba(30, 55, 103, 0.85) 0%,
+                        rgba(30, 55, 103, 0.7) 40%,
+                        rgba(217, 117, 57, 0.3) 100%
+                    );
+                }
+
+                .floating-element {
+                    animation: float 6s ease-in-out infinite;
+                }
+
+                .floating-element:nth-child(2) {
+                    animation-delay: -2s;
+                }
+
+                .floating-element:nth-child(3) {
+                    animation-delay: -4s;
+                }
+
+                @keyframes float {
+                    0%, 100% {
+                        transform: translateY(0px) rotate(0deg);
                     }
-                    .stats-container {
-                        gap: 1.5rem !important;
+                    50% {
+                        transform: translateY(-20px) rotate(5deg);
                     }
                 }
 
-                @media (max-width: 1024px) {
-                    .video-section {
-                        height: 75vh !important;
-                        min-height: 450px !important;
+                .glass-effect {
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(20px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+                }
+
+                .text-shadow-custom {
+                    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                }
+
+                .scroll-indicator {
+                    animation: bounce-custom 2s infinite;
+                }
+
+                @keyframes bounce-custom {
+                    0%, 20%, 50%, 80%, 100% {
+                        transform: translateY(0) translateX(-50%);
                     }
-                    .content-overlay {
-                        padding: 0 3rem !important;
+                    40% {
+                        transform: translateY(-10px) translateX(-50%);
                     }
-                    .overlay-content {
-                        max-width: 500px !important;
-                    }
-                    .title-main {
-                        font-size: clamp(2.5rem, 7vw, 4.5rem) !important;
-                    }
-                    .title-sub {
-                        font-size: clamp(1.1rem, 2.5vw, 1.8rem) !important;
+                    60% {
+                        transform: translateY(-5px) translateX(-50%);
                     }
                 }
 
-                /* Mobile Layout: Video oben, Text unten */
+                .particle {
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: rgba(217, 117, 57, 0.6);
+                    border-radius: 50%;
+                    animation: particle-float 8s linear infinite;
+                }
+
+                @keyframes particle-float {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(100vh) translateX(0);
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    90% {
+                        opacity: 1;
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: translateY(-100px) translateX(100px);
+                    }
+                }
+
                 @media (max-width: 768px) {
-                    .promax-video-section {
-                        height: auto !important;
-                        min-height: auto !important;
-                        display: flex !important;
-                        flex-direction: column !important;
+                    .hero-title {
+                        font-size: 2.8rem !important;
                     }
-                    
-                    .promax-video-container {
-                        height: 0 !important;
-                        padding-bottom: 56.25% !important; /* 16:9 Aspect Ratio */
-                        position: relative !important;
-                        flex-shrink: 0 !important;
-                        width: 100% !important;
+                    .hero-subtitle {
+                        font-size: 1.2rem !important;
                     }
-                    
-                    .promax-video {
-                        width: 100% !important;
-                        height: 100% !important;
-                        object-fit: cover !important;
-                        position: absolute !important;
-                        top: 0 !important;
-                        left: 0 !important;
-                        transform: none !important;
+                    .stats-number {
+                        font-size: 2.5rem !important;
                     }
-                    
-                    .promax-video-overlay {
-                        background: linear-gradient(to bottom, 
-                            rgba(0,0,0,0.1) 0%, 
-                            rgba(30, 58, 95, 0.3) 100%) !important;
-                    }
-                    
-                    .promax-content-overlay {
-                        position: relative !important;
-                        flex: 1 !important;
-                        background: #f8f9fa !important;
-                        padding: 2rem 1.5rem 2rem 1.5rem !important;
-                        display: flex !important;
-                        align-items: center !important;
-                        justify-content: center !important;
-                        min-height: 35vh !important;
-                        margin-top: 0.5rem !important;
-                    }
-                    
-                    .promax-overlay-content {
-                        text-align: center !important;
-                        max-width: 100% !important;
-                        width: 100% !important;
-                        color: #1e3767 !important;
-                    }
-                    
-                    .promax-stats-container {
-                        flex-direction: row !important;
-                        gap: 2rem !important;
-                        padding: 1.5rem 0 1rem 0 !important;
-                        margin-top: 1.5rem !important;
-                        border-top: 1px solid rgba(230, 126, 34, 0.3) !important;
-                        justify-content: center !important;
-                    }
-                    
-                    .promax-stat-divider {
-                        width: 1px !important;
-                        height: 45px !important;
-                        background: rgba(230, 126, 34, 0.4) !important;
-                    }
-                    
-                    .promax-badge {
-                        display: none !important;
-                    }
-                    
-                    .promax-title {
-                        margin-bottom: 1rem !important;
-                    }
-                    
-                    .promax-title-main {
-                        font-size: clamp(1.75rem, 8vw, 2.5rem) !important;
-                        color: #1e3767 !important;
-                        margin-bottom: 0.2rem !important;
-                        text-shadow: none !important;
-                        font-weight: 300 !important;
-                    }
-                    
-                    .promax-title-sub {
-                        font-size: clamp(0.9rem, 4vw, 1.2rem) !important;
-                        color: #E67E22 !important;
-                        text-shadow: none !important;
-                        font-weight: 600 !important;
-                    }
-                    
-                    .promax-description {
-                        font-size: 0.9rem !important;
-                        line-height: 1.6 !important;
-                        color: #1e3767 !important;
-                        margin-bottom: 1.5rem !important;
-                        text-shadow: none !important;
-                        opacity: 0.8 !important;
-                        font-weight: 400 !important;
-                    }
-                }
-
-                @media (max-width: 640px) {
-                    .promax-video-container {
-                        padding-bottom: 56.25% !important;
-                    }
-                    
-                    .promax-content-overlay {
-                        padding: 1.5rem 1.25rem 1.75rem 1.25rem !important;
-                        min-height: 30vh !important;
-                        margin-top: 0.5rem !important;
-                    }
-                    
-                    .promax-stats-container {
-                        gap: 1.5rem !important;
-                        padding: 1.25rem 0 1rem 0 !important;
-                        margin-top: 1.25rem !important;
-                    }
-                    
-                    .promax-stat-number {
-                        font-size: 1.5rem !important;
-                        color: #E67E22 !important;
-                        font-weight: 300 !important;
-                    }
-                    
-                    .promax-stat-label {
-                        font-size: 0.7rem !important;
-                        color: #1e3767 !important;
-                        opacity: 0.7 !important;
-                        font-weight: 400 !important;
-                    }
-                    
-                    .promax-stat-divider {
-                        height: 40px !important;
-                        background: rgba(230, 126, 34, 0.4) !important;
+                    .floating-element {
+                        display: none;
                     }
                 }
 
                 @media (max-width: 480px) {
-                    .promax-video-container {
-                        padding-bottom: 56.25% !important;
+                    .hero-title {
+                        font-size: 2.2rem !important;
                     }
-                    
-                    .promax-content-overlay {
-                        padding: 1.25rem 1rem 1.5rem 1rem !important;
-                        min-height: 28vh !important;
-                        margin-top: 0.5rem !important;
+                    .hero-subtitle {
+                        font-size: 1rem !important;
                     }
-                    
-                    .promax-title {
-                        margin-bottom: 0.8rem !important;
-                    }
-                    
-                    .promax-title-main {
-                        font-size: clamp(1.5rem, 9vw, 2.2rem) !important;
-                        margin-bottom: 0.15rem !important;
-                        font-weight: 300 !important;
-                    }
-                    
-                    .promax-title-sub {
-                        font-size: clamp(0.8rem, 5vw, 1.1rem) !important;
-                        font-weight: 600 !important;
-                    }
-                    
-                    .promax-description {
-                        font-size: 0.85rem !important;
-                        margin-bottom: 1rem !important;
-                        line-height: 1.5 !important;
-                    }
-                    
-                    .promax-stats-container {
-                        gap: 1.25rem !important;
-                        padding: 1rem 0 1rem 0 !important;
-                        margin-top: 1rem !important;
-                    }
-                    
-                    .promax-stat-number {
-                        font-size: 1.3rem !important;
-                        color: #E67E22 !important;
-                        font-weight: 300 !important;
-                    }
-                    
-                    .promax-stat-label {
-                        font-size: 0.65rem !important;
-                        color: #1e3767 !important;
-                        opacity: 0.7 !important;
-                        font-weight: 400 !important;
-                    }
-                    
-                    .promax-stat-divider {
-                        height: 35px !important;
-                        background: rgba(230, 126, 34, 0.4) !important;
-                    }
-                }
-
-                /* Landscape auf Mobile */
-                @media (max-height: 500px) and (orientation: landscape) and (max-width: 900px) {
-                    .video-section {
-                        flex-direction: row !important;
-                    }
-                    
-                    .video-container {
-                        width: 60% !important;
-                        height: 100vh !important;
-                    }
-                    
-                    .content-overlay {
-                        width: 40% !important;
-                        min-height: 100vh !important;
-                        padding: 1rem !important;
-                    }
-                    
-                    .overlay-content {
-                        transform: scale(0.85) !important;
-                    }
-                    
-                    .stats-container {
-                        flex-direction: row !important;
-                        gap: 1rem !important;
-                    }
-                    
-                    .stat-divider {
-                        width: 1px !important;
-                        height: 30px !important;
-                    }
-                }
-
-                /* Extra large screens */
-                @media (min-width: 1920px) {
-                    .content-overlay {
-                        padding: 0 12rem !important;
-                    }
-                    .overlay-content {
-                        max-width: 700px !important;
-                    }
-                }
-
-                /* Reduced motion */
-                @media (prefers-reduced-motion: reduce) {
-                    .overlay-content {
-                        transition: none !important;
-                    }
-                }
-
-                /* High contrast */
-                @media (prefers-contrast: high) {
-                    .video-overlay {
-                        background: rgba(0, 0, 0, 0.8) !important;
-                    }
-                    .badge {
-                        border: 2px solid rgba(255, 255, 255, 0.8) !important;
+                    .stats-number {
+                        font-size: 2rem !important;
                     }
                 }
             `}</style>
 
-            <section ref={sectionRef} className="promax-video-section" style={{...styles.videoSection, margin: 0, padding: 0}}>
-                {/* Video Container */}
-                <div className="promax-video-container" style={styles.videoContainer}>
-                    <iframe
-                        className="promax-video"
-                        style={styles.video}
-                        src="https://www.youtube.com/embed/JIN6KC3glto?autoplay=1&mute=1&loop=1&playlist=JIN6KC3glto&controls=0&showinfo=0&rel=0&modestbranding=1&vq=hd1080"
-                        title="PROMAX Industrial Plant Engineering"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+            <section ref={sectionRef} className="relative h-screen overflow-hidden">
+                {/* Video Background */}
+                <div className="absolute inset-0">
+                    <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover"
+                        src="/PromaxStockVideo.mp4"
                     />
-                    <div className="promax-video-overlay" style={styles.videoOverlay} />
+                    <div className="absolute inset-0 hero-gradient"></div>
                 </div>
 
-                {/* Content Overlay */}
-                <div className="promax-content-overlay" style={styles.contentOverlay}>
+                {/* Floating Particles */}
+                {[...Array(5)].map((_, i) => (
                     <div
-                        className="promax-overlay-content"
+                        key={i}
+                        className="particle"
                         style={{
-                            ...styles.overlayContent,
+                            left: `${Math.random() * 100}%`,
+                            animationDelay: `${i * 2}s`,
+                            animationDuration: `${8 + Math.random() * 4}s`
+                        }}
+                    />
+                ))}
+
+                {/* Floating Geometric Elements */}
+                <div
+                    className="floating-element absolute w-32 h-32 opacity-20 rounded-full"
+                    style={{
+                        backgroundColor: '#d97539',
+                        top: '20%',
+                        right: '10%',
+                        transform: `translateY(${scrollY * 0.3}px)`
+                    }}
+                />
+                <div
+                    className="floating-element absolute w-24 h-24 opacity-15 rounded-lg"
+                    style={{
+                        backgroundColor: '#1e3767',
+                        bottom: '30%',
+                        left: '15%',
+                        transform: `rotate(45deg) translateY(${scrollY * -0.2}px)`
+                    }}
+                />
+                <div
+                    className="floating-element absolute w-16 h-16 opacity-25 rounded-full"
+                    style={{
+                        backgroundColor: '#d97539',
+                        top: '60%',
+                        right: '20%',
+                        transform: `translateY(${scrollY * 0.4}px)`
+                    }}
+                />
+
+                {/* Main Content */}
+                <div className="relative z-20 h-full flex flex-col items-center justify-center px-6">
+
+                    {/* Main Title */}
+                    <div
+                        className="text-center mb-8"
+                        style={{
                             opacity: isVisible ? 1 : 0,
-                            transform: isVisible ? 'translateY(0)' : 'translateY(40px)'
+                            transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+                            transition: 'all 0.8s ease 0.4s'
                         }}
                     >
-                        {/* Badge */}
-                        <div className="promax-badge" style={styles.badge}>
-                            <span>Industrieanlagenbau & Projektmanagement</span>
-                        </div>
-
-                        {/* Title */}
-                        <h1 className="promax-title" style={styles.title}>
-                            <span className="promax-title-main" style={styles.titleMain}>PROMAX</span>
-                            <span className="promax-title-sub" style={styles.titleSub}>Engineering Excellence</span>
+                        <h1 className="hero-title text-6xl md:text-7xl font-light mb-4 text-white text-shadow-custom leading-tight">
+                            PROMAX
                         </h1>
+                        <p className="hero-subtitle text-xl md:text-2xl font-semibold text-shadow-custom" style={{color: '#d97539'}}>
+                            Engineering
+                        </p>
+                    </div>
 
-                        {/* Description */}
-                        <div className="promax-description" style={styles.description}>
-                            <p>
-                                Professionelle Lösungen im Industrieanlagenbau mit jahrelanger
-                                Erfahrung in den Branchen Chemie, Energie & Umwelt, Pharma und Papier & Zellstoff.
-                            </p>
+                    {/* Stats Container */}
+                    <div
+                        ref={statsRef}
+                        className="glass-effect rounded-2xl p-8 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12"
+                        style={{
+                            opacity: isVisible ? 1 : 0,
+                            transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+                            transition: 'all 0.8s ease 0.8s'
+                        }}
+                    >
+                        {/* Years of Experience */}
+                        <div className="text-center">
+                            <div className="stats-number text-4xl md:text-5xl font-light text-white mb-2">
+                                {yearsCount}+
+                            </div>
+                            <div className="text-white/80 text-sm font-medium uppercase tracking-wider">
+                                Jahre Erfahrung
+                            </div>
                         </div>
 
-                        {/* Stats */}
-                        <div className="promax-stats-container" style={styles.statsContainer}>
-                            <div className="promax-stat-item" style={styles.statItem}>
-                                <div className="promax-stat-number" style={styles.statNumber}>15+</div>
-                                <div className="promax-stat-label" style={styles.statLabel}>Jahre Erfahrung</div>
+                        {/* Divider */}
+                        <div className="hidden md:block w-px h-12 bg-white/30"></div>
+                        <div className="md:hidden w-12 h-px bg-white/30"></div>
+
+                        {/* Projects Completed */}
+                        <div className="text-center">
+                            <div className="stats-number text-4xl md:text-5xl font-light" style={{color: '#d97539'}}>
+                                {projectsCount}+
                             </div>
-                            <div className="promax-stat-divider" style={styles.statDivider} />
-                            <div className="promax-stat-item" style={styles.statItem}>
-                                <div className="promax-stat-number" style={styles.statNumber}>ISO</div>
-                                <div className="promax-stat-label" style={styles.statLabel}>9001:2015 zertifiziert</div>
+                            <div className="text-white/80 text-sm font-medium uppercase tracking-wider">
+                                Projekte realisiert
+                            </div>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="hidden md:block w-px h-12 bg-white/30"></div>
+                        <div className="md:hidden w-12 h-px bg-white/30"></div>
+
+                        {/* ISO Certification */}
+                        <div className="text-center">
+                            <div className="stats-number text-4xl md:text-5xl font-light text-white mb-2">
+                                ISO
+                            </div>
+                            <div className="text-white/80 text-sm font-medium uppercase tracking-wider">
+                                9001:2015
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Enhanced Scroll Indicator */}
+                <div className="scroll-indicator absolute bottom-8 left-1/2 z-20">
+                    <div className="glass-effect w-8 h-12 rounded-full flex flex-col items-center justify-start p-2">
+                        <div className="w-1 h-3 bg-white rounded-full animate-bounce"></div>
+                    </div>
+                    <div className="text-white/70 text-xs font-medium uppercase tracking-wider mt-2 text-center">
+                        Scroll
+                    </div>
+                </div>
+
+                {/* Corner Accent */}
+                <div
+                    className="absolute top-0 right-0 w-32 h-32 opacity-30"
+                    style={{
+                        background: 'linear-gradient(135deg, transparent 50%, #d97539 50%)',
+                        transform: `translateY(${scrollY * 0.1}px)`
+                    }}
+                />
             </section>
         </>
     );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-    videoSection: {
-        position: 'relative',
-        width: '100%',
-        height: '80vh',
-        minHeight: 500,
-        overflow: 'hidden',
-        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
-        margin: 0,
-        padding: 0,
-    },
-
-    videoContainer: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        overflow: 'hidden',
-        zIndex: 1,
-    },
-
-    video: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        width: '120vw',
-        height: '67.5vw',
-        minWidth: '100%',
-        minHeight: '100%',
-        transform: 'translate(-50%, -50%)',
-        objectFit: 'cover',
-        pointerEvents: 'none',
-    },
-
-    videoOverlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'linear-gradient(135deg, rgba(30, 58, 95, 0.7) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(230, 126, 34, 0.3) 100%)',
-        zIndex: 2,
-    },
-
-    contentOverlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        padding: '0 8rem',
-        zIndex: 3,
-    },
-
-    overlayContent: {
-        maxWidth: 600,
-        color: 'white',
-        transition: 'all 0.8s ease',
-    },
-
-    badge: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        padding: '8px 16px',
-        background: 'rgba(255, 255, 255, 0.15)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        borderRadius: 6,
-        color: '#ffffff',
-        fontSize: '0.75rem',
-        fontWeight: 600,
-        textTransform: 'uppercase',
-        letterSpacing: '0.05em',
-        marginBottom: '1.5rem',
-    },
-
-    title: {
-        margin: '0 0 2rem 0',
-        lineHeight: 1.1,
-        letterSpacing: '-0.02em',
-    },
-
-    titleMain: {
-        display: 'block',
-        fontSize: 'clamp(3rem, 8vw, 6rem)',
-        fontWeight: 300,
-        color: '#ffffff',
-        marginBottom: '0.5rem',
-        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
-    },
-
-    titleSub: {
-        display: 'block',
-        fontSize: 'clamp(1.25rem, 3vw, 2rem)',
-        fontWeight: 600,
-        color: '#E67E22',
-        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
-    },
-
-    description: {
-        fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-        color: 'rgba(255, 255, 255, 0.9)',
-        fontWeight: 400,
-        lineHeight: 1.6,
-        marginBottom: '3rem',
-        maxWidth: 500,
-    },
-
-    statsContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '2rem',
-        padding: '2rem 0',
-        borderTop: '1px solid rgba(255, 255, 255, 0.2)',
-        marginTop: '2rem',
-    },
-
-    statItem: {
-        textAlign: 'center',
-    },
-
-    statNumber: {
-        fontSize: '2.5rem',
-        fontWeight: 300,
-        color: '#E67E22',
-        lineHeight: 1,
-        marginBottom: '0.5rem',
-        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
-    },
-
-    statLabel: {
-        fontSize: '0.875rem',
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontWeight: 400,
-        fontFamily: "'Inter', 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif",
-    },
-
-    statDivider: {
-        width: 1,
-        height: 60,
-        background: 'rgba(255, 255, 255, 0.2)',
-    },
 };
 
 export default VideoSection;

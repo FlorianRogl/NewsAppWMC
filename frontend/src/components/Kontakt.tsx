@@ -1,4 +1,3 @@
-import {Clock, CheckCircle} from 'lucide-react';
 import {Helmet} from "@vuer-ai/react-helmet-async";
 
 const Kontakt = () => {
@@ -44,20 +43,6 @@ const Kontakt = () => {
                             Wir freuen uns auf Ihre Kontaktaufnahme und stehen Ihnen gerne für
                             ein persönliches Gespräch zur Verfügung.
                         </p>
-
-                        {/* Quick Info Pills */}
-                        <div className="flex flex-wrap gap-4 mt-8">
-                            <div
-                                className="flex items-center gap-2 bg-white bg-opacity-10 backdrop-blur px-4 py-2 rounded-full">
-                                <Clock className="w-4 h-4 text-[#d97539]"/>
-                                <span className="text-sm text-white">24h Antwortzeit</span>
-                            </div>
-                            <div
-                                className="flex items-center gap-2 bg-white bg-opacity-10 backdrop-blur px-4 py-2 rounded-full">
-                                <CheckCircle className="w-4 h-4 text-[#d97539]"/>
-                                <span className="text-sm text-white">Persönliche Beratung</span>
-                            </div>
-                        </div>
                     </div>
                 </section>
 

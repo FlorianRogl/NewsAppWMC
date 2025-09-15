@@ -6,6 +6,8 @@ import fasching from '../assets/fasching.png';
 import iso from '../assets/iso.png';
 import iq from '../assets/iqZert.png';
 import {Helmet} from "@vuer-ai/react-helmet-async";
+import CheckIcon from "./CheckIcon.tsx";
+import { Beaker, FileText, Zap, ChevronRight } from 'lucide-react';
 
 // Types
 interface Project {
@@ -15,6 +17,7 @@ interface Project {
     image: string;
     excerpt: string;
     tags: string[];
+    icon: React.ReactNode;
 }
 
 interface TeamMember {
@@ -36,59 +39,36 @@ interface Resource {
 
 const Unternehmen = () => {
     const navigate = useNavigate();
-    const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
     const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
-    const [projectsPerPage, setProjectsPerPage] = useState(3);
 
-    // Projects data
+    // Projects data - matching the real projects
     const projects: Project[] = [
         {
             id: 1,
-            title: "Säurefeste Auskleidungen",
-            category: "Chemie",
+            title: "Säurefeste Auskleidungen mit Abriebfestigkeitseigenschaften",
+            category: "Chemische Industrie",
             image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            excerpt: "Entwicklung einer technisch optimalen Lösung für einen 80 m³ Pufferbehälter",
-            tags: ["Säureschutz", "Betonbau", "Abriebschutz"]
+            excerpt: "Entwicklung einer technisch und wirtschaftlich optimalen Lösung für einen 80 m³ Pufferbehälter mit chemisch aggressiven Abwässern bei Temperaturen bis 85°C.",
+            icon: <Beaker className="w-5 h-5" />,
+            tags: ["Säureschutz", "Betonbau", "Chemische Industrie"]
         },
         {
             id: 2,
-            title: "GMP-konforme Modernisierung",
-            category: "Pharma",
+            title: "3D-Visualisiert Konstruieren & Planen mit Inventor",
+            category: "Engineering & CAD",
             image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            excerpt: "Komplette Modernisierung einer pharmazeutischen Produktionsanlage",
-            tags: ["GMP", "Validierung", "Modernisierung"]
+            excerpt: "Erweiterte 3D-Konstruktionen und Berechnungen mit Inventor für Papier-/Zellstoff-, Kunststoff-, Automobil-, Fördertechnik und Pharmazie-Bereiche.",
+            icon: <FileText className="w-5 h-5" />,
+            tags: ["3D-CAD", "Inventor", "Engineering"]
         },
         {
             id: 3,
-            title: "Nachhaltige Energiegewinnung",
-            category: "Energie",
+            title: "3D-Planungen im Anlagenbau\n\n",
+            category: "Anlagenbau",
             image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            excerpt: "Innovatives Energierückgewinnungssystem zur CO2-Reduktion",
-            tags: ["Nachhaltigkeit", "CO2-Reduktion", "Energieeffizienz"]
-        },
-        {
-            id: 4,
-            title: "Zellstoffaufbereitung",
-            category: "Papier",
-            image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            excerpt: "Modernste Bleichsequenz-Technologie für höchste Produktqualität",
-            tags: ["Zellstoff", "Bleichsequenz", "Qualität"]
-        },
-        {
-            id: 5,
-            title: "Chemiepark-Infrastruktur",
-            category: "Chemie",
-            image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            excerpt: "Komplette Neugestaltung der Versorgungsinfrastruktur",
-            tags: ["Infrastruktur", "Versorgung", "Chemiepark"]
-        },
-        {
-            id: 6,
-            title: "Biotechnologie-Anlage",
-            category: "Pharma",
-            image: "https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-            excerpt: "State-of-the-art Biotechnologie-Produktionsanlage",
-            tags: ["Biotech", "Innovation", "GMP"]
+            excerpt: "Leistungsfähige 3D-Visualisierung mit AVEVA VANTAGE PDMS und AUTODESK ACAD PLANT 3D für komplexe Anlagenplanungen.",
+            icon: <Zap className="w-5 h-5" />,
+            tags: ["AVEVA PDMS", "AutoCAD Plant 3D", "3D-Visualisierung"]
         }
     ];
 
@@ -152,69 +132,25 @@ const Unternehmen = () => {
         }
     ];
 
-    // Handle responsive projects per page
+    // Smooth scroll animations
     useEffect(() => {
-        const updateProjectsPerPage = () => {
-            if (window.innerWidth < 640) {
-                setProjectsPerPage(1); // Mobile: 1 project
-            } else if (window.innerWidth < 1024) {
-                setProjectsPerPage(2); // Tablet: 2 projects
-            } else {
-                setProjectsPerPage(3); // Desktop: 3 projects
-            }
-        };
-
-        updateProjectsPerPage();
-        window.addEventListener('resize', updateProjectsPerPage);
-        return () => window.removeEventListener('resize', updateProjectsPerPage);
-    }, []);
-
-    // Handle scroll for parallax and navbar
-    useEffect(() => {
-        const handleScroll = () => {
-            // Check which sections are in view
-            const sections = [
-                {id: 'stats', element: document.getElementById('stats-section')},
-                {id: 'about', element: document.getElementById('about-section')},
-                {id: 'projects', element: document.getElementById('projects-section')},
-                {id: 'team', element: document.getElementById('team-section')},
-                {id: 'services', element: document.getElementById('services-section')},
-                {id: 'fitimjob', element: document.getElementById('fitimjob-section')},
-                {id: 'certification', element: document.getElementById('certification-section')},
-                {id: 'resources', element: document.getElementById('resources-section')}
-            ];
-
-            const newVisibleSections = new Set(visibleSections);
-
-            sections.forEach(({id, element}) => {
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    const isVisible = rect.top <= window.innerHeight * 0.7 && rect.bottom >= 0;
-
-                    if (isVisible && !visibleSections.has(id)) {
-                        newVisibleSections.add(id);
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        setVisibleSections(prev => new Set([...prev, sectionId]));
                     }
-                }
-            });
+                });
+            },
+            { threshold: 0.1, rootMargin: '50px' }
+        );
 
-            if (newVisibleSections.size !== visibleSections.size) {
-                setVisibleSections(newVisibleSections);
-            }
-        };
+        const sections = document.querySelectorAll('[id$="-section"]');
+        sections.forEach(section => observer.observe(section));
 
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Check initial state
-
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [visibleSections]);
-
-    const nextProject = () => {
-        setCurrentProjectIndex((prev) => (prev + projectsPerPage) % projects.length);
-    };
-
-    const prevProject = () => {
-        setCurrentProjectIndex((prev) => (prev - projectsPerPage + projects.length) % projects.length);
-    };
+        return () => observer.disconnect();
+    }, []);
 
     return (
         <>
@@ -274,97 +210,81 @@ const Unternehmen = () => {
             <div className="min-h-screen bg-white overflow-x-hidden">
                 {/* Hero Section with Parallax */}
                 <section
+                    id="hero-section"
                     className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
                     style={{
                         backgroundImage: `linear-gradient(rgba(30, 55, 103, 0.7), rgba(30, 55, 103, 0.7)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`,
                         backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll'
                     }}
                 >
-                    <div
-                        className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/10"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/10"></div>
 
                     <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto">
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-white mb-4 sm:mb-6 animate-fade-in-up">
-                            Engineering Excellence.
-                            <span className="block font-semibold text-[#d97539] mt-1 sm:mt-2">Since 1999.</span>
-                        </h1>
-                        <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-12 max-w-3xl mx-auto animate-fade-in-up animation-delay-200">
-                            Ihr Partner für komplexe Industrieprojekte in Papier, Zellstoff, Pharma und Chemie
-                        </p>
+                        <div className="animate-fade-in-up">
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-white mb-4 sm:mb-6">
+                                Engineering Excellence.
+                                <span className="block font-semibold text-[#d97539] mt-1 sm:mt-2">Since 1999.</span>
+                            </h1>
+                            <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
+                                Ihr Partner für komplexe Industrieprojekte in Papier, Zellstoff, Pharma und Chemie
+                            </p>
 
-                        <div
-                            className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
-                            <button
-                                onClick={() => navigate('/leistungen')}
-                                className="px-6 sm:px-8 py-3 sm:py-4 bg-[#d97539] text-white rounded-full hover:bg-[#c56830] transform hover:scale-105 transition-all duration-300 font-medium text-base sm:text-lg shadow-lg hover:shadow-xl"
-                            >
-                                Unsere Expertise
-                            </button>
-                            <button
-                                onClick={() => navigate('/projektberichte')}
-                                className="px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-[#1e3767] transition-all duration-300 font-medium text-base sm:text-lg"
-                            >
-                                Projekte ansehen
-                            </button>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button
+                                    onClick={() => navigate('/leistungen')}
+                                    className="px-6 sm:px-8 py-3 sm:py-4 bg-[#d97539] text-white rounded-full hover:bg-[#c56830] transform hover:scale-105 transition-all duration-300 font-medium text-base sm:text-lg shadow-lg hover:shadow-xl"
+                                >
+                                    Unsere Expertise
+                                </button>
+                                <button
+                                    onClick={() => document.getElementById('projects-section')?.scrollIntoView({ behavior: 'smooth' })}
+                                    className="px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-[#1e3767] transition-all duration-300 font-medium text-base sm:text-lg"
+                                >
+                                    Projekte ansehen
+                                </button>
+                            </div>
                         </div>
                     </div>
 
                     {/* Scroll indicator - hidden on mobile */}
-                    <div
-                        className="hidden sm:block absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+                    <div className="hidden sm:block absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                  d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
                         </svg>
                     </div>
                 </section>
 
                 {/* Stats Section */}
-                <section id="stats-section"
-                         className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-[#1e3767] to-[#2a4a7f] relative overflow-hidden">
+                <section id="stats-section" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-[#1e3767] to-[#2a4a7f] relative overflow-hidden">
                     <div className="absolute inset-0 opacity-10">
                         <div className="absolute inset-0 bg-pattern"></div>
                     </div>
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-                            <div
-                                className={`text-center ${visibleSections.has('stats') ? 'animate-zoom-in opacity-100' : 'opacity-0'}`}>
+                            {[
+                                { number: "25+", label: "Jahre Erfahrung" },
+                                { number: "35", label: "Experten" },
+                                { number: "500+", label: "Projekte" },
+                                { number: "ISO", label: "Zertifiziert" }
+                            ].map((stat, index) => (
                                 <div
-                                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">25+
+                                    key={stat.label}
+                                    className={`text-center transition-all duration-700 ${
+                                        visibleSections.has('stats-section')
+                                            ? 'translate-y-0 opacity-100'
+                                            : 'translate-y-8 opacity-0'
+                                    }`}
+                                    style={{ transitionDelay: `${index * 200}ms` }}
+                                >
+                                    <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">
+                                        {stat.number}
+                                    </div>
+                                    <div className="text-xs sm:text-sm uppercase tracking-wider text-gray-300">
+                                        {stat.label}
+                                    </div>
                                 </div>
-                                <div className="text-xs sm:text-sm uppercase tracking-wider text-gray-300">Jahre
-                                    Erfahrung
-                                </div>
-                            </div>
-                            <div
-                                className={`text-center ${visibleSections.has('stats') ? 'animate-zoom-in opacity-100' : 'opacity-0'}`}
-                                style={{animationDelay: '200ms'}}>
-                                <div
-                                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">35
-                                </div>
-                                <div className="text-xs sm:text-sm uppercase tracking-wider text-gray-300">Experten
-                                </div>
-                            </div>
-                            <div
-                                className={`text-center ${visibleSections.has('stats') ? 'animate-zoom-in opacity-100' : 'opacity-0'}`}
-                                style={{animationDelay: '400ms'}}>
-                                <div
-                                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">500+
-                                </div>
-                                <div className="text-xs sm:text-sm uppercase tracking-wider text-gray-300">Projekte
-                                </div>
-                            </div>
-                            <div
-                                className={`text-center ${visibleSections.has('stats') ? 'animate-zoom-in opacity-100' : 'opacity-0'}`}
-                                style={{animationDelay: '600ms'}}>
-                                <div
-                                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">ISO
-                                </div>
-                                <div
-                                    className="text-xs sm:text-sm uppercase tracking-wider text-gray-300">Zertifiziert
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </section>
@@ -373,13 +293,10 @@ const Unternehmen = () => {
                 <section id="about-section" className="py-16 sm:py-20 lg:py-24 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
                         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                            <div
-                                className={`animate-fade-in-right ${visibleSections.has('about') ? 'opacity-100' : 'opacity-0'}`}>
+                            <div className={`animate-fade-in-right ${visibleSections.has('about-section') ? 'opacity-100' : 'opacity-0'}`}>
                                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6">
                                     Kompetenz trifft{' '}
-                                    <span className="text-[#1e3767] font-semibold">
-                                    Innovation
-                                </span>
+                                    <span className="text-[#1e3767] font-semibold">Innovation</span>
                                 </h2>
                                 <div className="w-20 h-1 bg-[#d97539] mb-6 sm:mb-8"></div>
                                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-4 sm:mb-6">
@@ -397,16 +314,14 @@ const Unternehmen = () => {
                                     <div className="flex items-start space-x-3">
                                         <div className="w-2 h-2 bg-[#d97539] rounded-full mt-2"></div>
                                         <div>
-                                            <h4 className="font-semibold text-gray-900 text-sm sm:text-base">International
-                                                tätig</h4>
+                                            <h4 className="font-semibold text-gray-900 text-sm sm:text-base">International tätig</h4>
                                             <p className="text-xs sm:text-sm text-gray-600">Projekte weltweit</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start space-x-3">
                                         <div className="w-2 h-2 bg-[#d97539] rounded-full mt-2"></div>
                                         <div>
-                                            <h4 className="font-semibold text-gray-900 text-sm sm:text-base">ISO
-                                                9001:2015</h4>
+                                            <h4 className="font-semibold text-gray-900 text-sm sm:text-base">ISO 9001:2015</h4>
                                             <p className="text-xs sm:text-sm text-gray-600">Zertifizierte Qualität</p>
                                         </div>
                                     </div>
@@ -414,10 +329,8 @@ const Unternehmen = () => {
                             </div>
 
                             {/* Image - Hidden on mobile as requested */}
-                            <div
-                                className={`hidden lg:block relative animate-fade-in-left ${visibleSections.has('about') ? 'opacity-100' : 'opacity-0'}`}>
-                                <div
-                                    className="absolute -inset-4 bg-gradient-to-r from-[#1e3767] to-[#d97539] rounded-lg opacity-10 blur-lg"></div>
+                            <div className={`hidden lg:block relative animate-fade-in-left ${visibleSections.has('about-section') ? 'opacity-100' : 'opacity-0'}`}>
+                                <div className="absolute -inset-4 bg-gradient-to-r from-[#1e3767] to-[#d97539] rounded-lg opacity-10 blur-lg"></div>
                                 <img
                                     src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                                     alt="PROMAX Office"
@@ -428,7 +341,7 @@ const Unternehmen = () => {
                     </div>
                 </section>
 
-                {/* Projects Carousel Section */}
+                {/* Projects Showcase Section */}
                 <section id="projects-section" className="py-12 sm:py-16 lg:py-24 bg-gray-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
                         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
@@ -440,109 +353,46 @@ const Unternehmen = () => {
                             </p>
                         </div>
 
-                        <div className="relative">
-                            {/* Navigation Buttons - Mobile optimiert */}
-                            <button
-                                className="absolute left-1 sm:left-2 lg:left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-[#1e3767] hover:bg-[#1e3767] hover:text-white touch-manipulation"
-                                onClick={prevProject}
-                                aria-label="Vorheriges Projekt"
-                            >
-                                <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor"
-                                     viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                          d="M15 19l-7-7 7-7"/>
-                                </svg>
-                            </button>
-
-                            <button
-                                className="absolute right-1 sm:right-2 lg:right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-[#1e3767] hover:bg-[#1e3767] hover:text-white touch-manipulation"
-                                onClick={nextProject}
-                                aria-label="Nächstes Projekt"
-                            >
-                                <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor"
-                                     viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                          d="M9 5l7 7-7 7"/>
-                                </svg>
-                            </button>
-
-                            {/* Projects Grid - Vollständig responsive */}
-                            <div className="px-10 sm:px-12 lg:px-16">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                                    {projects.slice(currentProjectIndex, currentProjectIndex + projectsPerPage).map((project, index) => (
-                                        <div
-                                            key={project.id}
-                                            className={`group cursor-pointer transform hover:-translate-y-2 transition-all duration-300 touch-manipulation ${
-                                                visibleSections.has('projects') ? 'animate-fade-in-up opacity-100' : 'opacity-0'
-                                            }`}
-                                            style={{animationDelay: `${index * 100}ms`}}
-                                            onClick={() => navigate(`/projektberichte?project=${project.id}`)}
-                                        >
-                                            <div className="relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                                                {/* Projekt Bild */}
-                                                <div className="relative h-36 sm:h-40 lg:h-48 overflow-hidden">
-                                                    <img
-                                                        src={project.image}
-                                                        alt={project.title}
-                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                                        loading="lazy"
-                                                    />
-                                                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                                        <span className="px-2 sm:px-3 py-1 bg-[#d97539] text-white text-xs sm:text-sm rounded-full font-medium">
-                                            {project.category}
-                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                {/* Projekt Inhalt */}
-                                                <div className="p-4 sm:p-5 lg:p-6">
-                                                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 group-hover:text-[#1e3767] transition-colors leading-tight">
-                                                        {project.title}
-                                                    </h3>
-                                                    <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2 leading-relaxed">
-                                                        {project.excerpt}
-                                                    </p>
-                                                    <div className="flex items-center text-[#1e3767] font-medium text-sm sm:text-base">
-                                                        <span>Mehr erfahren</span>
-                                                        <svg
-                                                            className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"
-                                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round"
-                                                                  strokeWidth={2} d="M9 5l7 7-7 7"/>
-                                                        </svg>
-                                                    </div>
-                                                </div>
+                        <div className="grid lg:grid-cols-3 gap-8">
+                            {projects.map((project, index) => (
+                                <div
+                                    key={project.id}
+                                    className={`group cursor-pointer transition-all duration-700 ${
+                                        visibleSections.has('projects-section')
+                                            ? 'translate-y-0 opacity-100'
+                                            : 'translate-y-8 opacity-0'
+                                    }`}
+                                    style={{ transitionDelay: `${index * 150}ms` }}
+                                    onClick={() => navigate(`/projektberichte?project=${project.id}`)}
+                                >
+                                    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col">
+                                        <div className="relative overflow-hidden">
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                                            />
+                                            <div className="absolute top-4 left-4">
                                             </div>
                                         </div>
-                                    ))}
+
+                                        <div className="p-6 flex flex-col flex-grow">
+                                            <div className="text-sm text-[#1e3767] font-medium mb-2">{project.category}</div>
+                                            <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-[#1e3767] transition-colors leading-tight min-h-[3.5rem] flex items-start">
+                                                <span className="line-clamp-2">{project.title}</span>
+                                            </h3>
+                                            <p className="text-gray-600 mb-6 leading-relaxed flex-grow">
+                                                <span className="line-clamp-3">{project.excerpt}</span>
+                                            </p>
+
+                                            <div className="flex items-center text-[#1e3767] font-medium mt-auto">
+                                                <span>Projekt ansehen</span>
+                                                <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            {/* Pagination Dots für Mobile */}
-                            <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
-                                {Array.from({length: Math.ceil(projects.length / projectsPerPage)}).map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setCurrentProjectIndex(index * projectsPerPage)}
-                                        className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                                            Math.floor(currentProjectIndex / projectsPerPage) === index
-                                                ? 'bg-[#1e3767] w-6 sm:w-8'
-                                                : 'bg-gray-300 hover:bg-gray-400'
-                                        }`}
-                                        aria-label={`Zu Seite ${index + 1} gehen`}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Alle Projekte Button */}
-                        <div className="text-center mt-8 sm:mt-10 lg:mt-12">
-                            <button
-                                onClick={() => navigate('/Projektberichte')}
-                                className="px-6 sm:px-8 py-3 bg-[#1e3767] text-white rounded-full hover:bg-[#2a4a7f] transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl text-sm sm:text-base touch-manipulation"
-                            >
-                                Alle Projekte ansehen
-                            </button>
+                            ))}
                         </div>
                     </div>
                 </section>
@@ -553,9 +403,7 @@ const Unternehmen = () => {
                         <div className="text-center mb-12 sm:mb-16">
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
                                 Ihre{' '}
-                                <span className="text-[#1e3767] font-semibold">
-                                Ansprechpartner
-                            </span>
+                                <span className="text-[#1e3767] font-semibold">Ansprechpartner</span>
                             </h2>
                             <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
                                 Erfahrene Experten für Ihre Projekte
@@ -567,13 +415,12 @@ const Unternehmen = () => {
                                 <div
                                     key={member.name}
                                     className={`bg-white rounded-lg p-6 sm:p-8 border border-transparent hover:border-[#1e3767] hover:shadow-2xl transition-all duration-300 ${
-                                        visibleSections.has('team') ? 'animate-fade-in-up opacity-100' : 'opacity-0'
+                                        visibleSections.has('team-section') ? 'animate-fade-in-up opacity-100' : 'opacity-0'
                                     }`}
                                     style={{animationDelay: `${index * 200}ms`}}
                                 >
                                     <div className="text-center">
-                                        <div
-                                            className="w-32 h-40 sm:w-48 sm:h-60 mx-auto mb-4 sm:mb-6 rounded-lg overflow-hidden bg-gray-100">
+                                        <div className="w-32 h-40 sm:w-48 sm:h-60 mx-auto mb-4 sm:mb-6 rounded-lg overflow-hidden bg-gray-100">
                                             <img
                                                 src={member.image}
                                                 alt={member.name}
@@ -590,10 +437,8 @@ const Unternehmen = () => {
                                                 href={`mailto:${member.email}`}
                                                 className="text-gray-400 hover:text-[#1e3767] transition-colors"
                                             >
-                                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor"
-                                                     viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                                                 </svg>
                                             </a>
                                             {member.linkedin && (
@@ -601,10 +446,8 @@ const Unternehmen = () => {
                                                     href={member.linkedin}
                                                     className="text-gray-400 hover:text-[#1e3767] transition-colors"
                                                 >
-                                                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor"
-                                                         viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                                                     </svg>
                                                 </a>
                                             )}
@@ -622,9 +465,7 @@ const Unternehmen = () => {
                         <div className="text-center mb-12 sm:mb-16">
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
                                 Unsere{' '}
-                                <span className="text-[#1e3767] font-semibold">
-                                Leistungen
-                            </span>
+                                <span className="text-[#1e3767] font-semibold">Leistungen</span>
                             </h2>
                             <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
                                 Ganzheitliche Lösungen für Ihre Industrieprojekte
@@ -633,92 +474,69 @@ const Unternehmen = () => {
 
                         <div className="grid sm:grid-cols-2 gap-8 sm:gap-12 max-w-4xl mx-auto">
                             <div className="text-center group">
-                                <div
-                                    className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-gradient-to-br from-[#1e3767] to-[#2a4a7f] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor"
-                                         viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-gradient-to-br from-[#1e3767] to-[#2a4a7f] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                                     </svg>
                                 </div>
-                                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Technische Planung &
-                                    Engineering</h3>
-                                <p className="text-sm sm:text-base text-gray-600">Umfassende technische Konzeption und
-                                    detaillierte Ingenieursplanung für komplexe Industrieprojekte</p>
+                                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Technische Planung & Engineering</h3>
+                                <p className="text-sm sm:text-base text-gray-600">Umfassende technische Konzeption und detaillierte Ingenieursplanung für komplexe Industrieprojekte</p>
                             </div>
 
                             <div className="text-center group">
-                                <div
-                                    className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-gradient-to-br from-[#d97539] to-[#e89050] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor"
-                                         viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                              d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-gradient-to-br from-[#d97539] to-[#e89050] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                                     </svg>
                                 </div>
-                                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Projektmanagement &
-                                    Koordination</h3>
-                                <p className="text-sm sm:text-base text-gray-600">Professionelle Projektsteuerung und
-                                    Koordination aller Beteiligten für termingerechte Umsetzung</p>
+                                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Projektmanagement & Koordination</h3>
+                                <p className="text-sm sm:text-base text-gray-600">Professionelle Projektsteuerung und Koordination aller Beteiligten für termingerechte Umsetzung</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 {/* Fit im Job Section */}
-                <section id="fitimjob" className="py-16 sm:py-20 lg:py-24 bg-white">
+                <section id="fitimjob-section" className="py-16 sm:py-20 lg:py-24 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
                         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                             {/* Image - Hidden on mobile as requested */}
-                            <div className="hidden lg:block order-2 lg:order-1">
-                                <div className="relative">
-                                    <div
-                                        className="absolute -inset-4 bg-gradient-to-r from-[#d97539] to-[#1e3767] rounded-lg opacity-10 blur-lg"></div>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                        alt="Fit im Job"
-                                        className="relative rounded-lg shadow-2xl w-full h-[400px] object-cover"
-                                    />
-                                </div>
+                            <div className="hidden lg:block relative animate-fade-in-left">
+                                <div className="absolute -inset-4 bg-gradient-to-r from-[#d97539] to-[#1e3767] rounded-lg opacity-10 blur-lg"></div>
+                                <img
+                                    src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                    alt="Fit im Job"
+                                    className="relative rounded-lg shadow-2xl w-full h-[400px] object-cover"
+                                />
                             </div>
 
-                            <div className="order-1 lg:order-2">
+                            <div className="animate-fade-in-right">
                                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6">
                                     Fit im{' '}
-                                    <span className="text-[#1e3767] font-semibold">
-                                    Job
-                                </span>
+                                    <span className="text-[#1e3767] font-semibold">Job</span>
                                 </h2>
                                 <div className="w-20 h-1 bg-[#d97539] mb-6 sm:mb-8"></div>
                                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8">
                                     Die Gesundheit und das Wohlbefinden unserer Mitarbeiter stehen bei PROMAX im
-                                    Mittelpunkt.
-                                    Durch gezielte Maßnahmen zur Gesundheitsförderung schaffen wir ein Arbeitsumfeld,
-                                    das
-                                    produktiv, gesund und motivierend ist.
+                                    Mittelpunkt. Durch gezielte Maßnahmen zur Gesundheitsförderung schaffen wir ein
+                                    Arbeitsumfeld, das produktiv, gesund und motivierend ist.
                                 </p>
 
                                 <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-                                    <div
-                                        className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                        <div
-                                            className="w-10 h-10 sm:w-12 sm:h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <div className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                                             <span className="text-xl sm:text-2xl">🍎</span>
                                         </div>
                                         <span className="text-sm sm:text-base text-gray-700 font-medium">Täglich frischer Obstteller</span>
                                     </div>
-                                    <div
-                                        className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                        <div
-                                            className="w-10 h-10 sm:w-12 sm:h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <div className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                                             <span className="text-xl sm:text-2xl">🍽️</span>
                                         </div>
                                         <span className="text-sm sm:text-base text-gray-700 font-medium">Essensbons für warme Mittagessen</span>
                                     </div>
-                                    <div
-                                        className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                        <div
-                                            className="w-10 h-10 sm:w-12 sm:h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <div className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#d97539]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                                             <span className="text-xl sm:text-2xl">💪</span>
                                         </div>
                                         <span className="text-sm sm:text-base text-gray-700 font-medium">Kostenloser Fitnessraum</span>
@@ -730,7 +548,7 @@ const Unternehmen = () => {
                                         onClick={() => navigate('/FitImJob')}
                                         className="px-6 sm:px-8 py-3 bg-[#d97539] text-white rounded-full hover:bg-[#c56830] transform hover:scale-105 transition-all duration-300 font-medium shadow-lg hover:shadow-xl text-sm sm:text-base"
                                     >
-                                        Mehr über unsere Benefits
+                                        Mehr über Fit im Job erfahren
                                     </button>
                                     <button
                                         onClick={() => navigate('/Karriere')}
@@ -751,15 +569,12 @@ const Unternehmen = () => {
                             <div>
                                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6">
                                     Zertifizierte{' '}
-                                    <span className="text-[#1e3767] font-semibold">
-                    Qualität
-                </span>
+                                    <span className="text-[#1e3767] font-semibold">Qualität</span>
                                 </h2>
                                 <div className="w-20 h-1 bg-[#d97539] mb-6 sm:mb-8"></div>
                                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8">
                                     PROMAX Project Management GesmbH ist nach ISO 9001:2015 zertifiziert und
-                                    gewährleistet
-                                    damit höchste Qualitätsstandards in allen Bereichen unserer Dienstleistungen.
+                                    gewährleistet damit höchste Qualitätsstandards in allen Bereichen unserer Dienstleistungen.
                                 </p>
 
                                 <div className="space-y-4 sm:space-y-6">
@@ -777,15 +592,9 @@ const Unternehmen = () => {
                                             description: "Regelmäßige Bewertung und Optimierung aller Geschäftsprozesse"
                                         }
                                     ].map((item, index) => (
-                                        <div key={index} className="flex space-x-3 sm:space-x-4">
-                                            <div
-                                                className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                                <svg className="w-3 h-3 sm:w-5 sm:h-5 text-[#1e3767]"
-                                                     fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fillRule="evenodd"
-                                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                          clipRule="evenodd"/>
-                                                </svg>
+                                        <div key={index} className="flex items-start space-x-3 sm:space-x-4">
+                                            <div className="flex-shrink-0 mt-1">
+                                                <CheckIcon />
                                             </div>
                                             <div>
                                                 <h4 className="text-base sm:text-lg font-medium text-gray-900 mb-1 sm:mb-2">{item.title}</h4>
@@ -797,10 +606,8 @@ const Unternehmen = () => {
                             </div>
 
                             <div className="relative">
-                                <div
-                                    className="absolute inset-0 bg-gradient-to-bl from-blue-500/5 to-orange-400/5 rounded-2xl transform rotate-2"></div>
-                                <div
-                                    className="relative bg-white rounded-2xl shadow-xl p-6 sm:p-8 space-y-4 sm:space-y-6">
+                                <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/5 to-orange-400/5 rounded-2xl transform rotate-2"></div>
+                                <div className="relative bg-white rounded-2xl shadow-xl p-6 sm:p-8 space-y-4 sm:space-y-6">
                                     <div className="flex justify-center">
                                         <img
                                             src={iso}
@@ -809,8 +616,7 @@ const Unternehmen = () => {
                                         />
                                     </div>
 
-                                    <div
-                                        className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+                                    <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
 
                                     <div className="flex justify-center">
                                         <img
@@ -836,9 +642,7 @@ const Unternehmen = () => {
                         <div className="text-center mb-12 sm:mb-16">
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
                                 Resource{' '}
-                                <span className="text-[#1e3767] font-semibold">
-                                Center
-                            </span>
+                                <span className="text-[#1e3767] font-semibold">Center</span>
                             </h2>
                             <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
                                 Wichtige Dokumente und Informationen zum Download
@@ -866,10 +670,8 @@ const Unternehmen = () => {
                                             resource.color === 'blue' ? 'text-[#1e3767]' : 'text-[#d97539]'
                                         } font-medium pt-2 text-sm sm:text-base`}>
                                             <span>Download</span>
-                                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor"
-                                                 viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                                      d="M12 4v16m8-8l-8 8-8-8"/>
+                                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8l-8 8-8-8"/>
                                             </svg>
                                         </div>
                                     </div>
@@ -880,8 +682,7 @@ const Unternehmen = () => {
                 </section>
 
                 {/* CTA Section */}
-                <section
-                    className="py-16 sm:py-20 lg:py-24 bg-gradient-to-r from-[#1e3767] to-[#2a4a7f] relative overflow-hidden">
+                <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-r from-[#1e3767] to-[#2a4a7f] relative overflow-hidden">
                     <div className="absolute inset-0 opacity-10">
                         <div className="absolute inset-0 bg-pattern"></div>
                     </div>
@@ -901,18 +702,12 @@ const Unternehmen = () => {
                             >
                                 Projekt besprechen
                             </button>
-                            <a
-                                href="tel:+43316123456"
-                                className="px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-[#1e3767] transition-all duration-300 font-medium text-base sm:text-lg inline-flex items-center justify-center"
-                            >
-                                +43 (0) 316 241 393
-                            </a>
-                        </div>
                     </div>
-                </section>
+            </div>
+        </section>
 
-                {/* Add required styles */}
-                <style>{`
+{/* Add required styles */}
+    <style>{`
                 @keyframes fade-in-up {
                     from {
                         opacity: 0;
@@ -946,17 +741,6 @@ const Unternehmen = () => {
                     }
                 }
                 
-                @keyframes zoom-in {
-                    from {
-                        opacity: 0;
-                        transform: scale(0.8);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: scale(1);
-                    }
-                }
-                
                 .animate-fade-in-up {
                     animation: fade-in-up 0.8s ease-out forwards;
                 }
@@ -967,22 +751,6 @@ const Unternehmen = () => {
                 
                 .animate-fade-in-left {
                     animation: fade-in-left 0.8s ease-out forwards;
-                }
-                
-                .animate-zoom-in {
-                    animation: zoom-in 0.6s ease-out forwards;
-                }
-                
-                .animation-delay-200 {
-                    animation-delay: 200ms;
-                }
-                
-                .animation-delay-400 {
-                    animation-delay: 400ms;
-                }
-                
-                .animation-delay-600 {
-                    animation-delay: 600ms;
                 }
                 
                 .bg-pattern {
@@ -1018,9 +786,9 @@ const Unternehmen = () => {
                     }
                 }
             `}</style>
-            </div>
-        </>
-    );
+</div>
+</>
+);
 };
 
 export default Unternehmen;
