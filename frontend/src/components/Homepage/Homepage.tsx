@@ -152,7 +152,7 @@ const Homepage = () => {
                                     </svg>
                                 </div>
                                 <h3 className="text-2xl font-bold">Ingenieurplanung</h3>
-                                <p className="text-sm mt-2 opacity-90">Für Unternehmen</p>
+                                <p className="text-sm mt-2 opacity-90"></p>
                             </div>
                         </div>
 
@@ -178,7 +178,7 @@ const Homepage = () => {
                                 </div>
                                 <h3 className="text-2xl font-bold">Operative</h3>
                                 <h3 className="text-2xl font-bold">Projektunterstützung</h3>
-                                <p className="text-sm mt-2 opacity-90">Für Bewerber</p>
+                                <p className="text-sm mt-2 opacity-90"></p>
                             </div>
                         </div>
                     </div>
