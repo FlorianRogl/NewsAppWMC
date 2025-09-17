@@ -15,13 +15,12 @@ import {HelmetProvider} from "@vuer-ai/react-helmet-async";
 import Error404 from "./components/Error404.tsx";
 import Rechtliches from "./components/Rechtliches.tsx";
 import NavbarSwitch from "./components/NavbarSwitch.tsx";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
     return (
         <HelmetProvider>
         <div>
-            <Analytics></Analytics>
             <NavbarSwitch/>
             <ScrollToTop/>
             <Routes>
@@ -40,6 +39,7 @@ function App() {
                 <Route path="*" element={<Error404/>} />
             </Routes>
             <Footer/>
+            <Analytics />
         </div>
         </HelmetProvider>
     );
