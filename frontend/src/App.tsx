@@ -14,33 +14,33 @@ import Kontakt3 from "./components/Kontakt3.tsx";
 import {HelmetProvider} from "@vuer-ai/react-helmet-async";
 import Error404 from "./components/Error404.tsx";
 import Rechtliches from "./components/Rechtliches.tsx";
-import NavbarSwitch from "./components/NavbarSwitch.tsx";
 import { Analytics } from '@vercel/analytics/react';
+import Navbar from "./components/Navbar.tsx";
 
 function App() {
     return (
         <HelmetProvider>
-        <div>
-            <NavbarSwitch/>
-            <ScrollToTop/>
-            <Routes>
-                <Route path="/" element={<Homepage/>} />
-                <Route path="/Unternehmen" element={<Unternehmen/>} />
-                <Route path="/Kontakt" element={<Kontakt/>} />
-                <Route path="/Kontakt2" element={<Kontakt2/>} />
-                <Route path="/Kontakt3" element={<Kontakt3/>} />
-                <Route path="/Branchen" element={<Branchen/>} />
-                <Route path="/Leistungen" element={<Leistungen/>} />
-                <Route path="/Projektberichte" element={<Projektberichte/>} />
-                <Route path="/Karriere" element={<Karriere/>} />
-                <Route path="/FitImJob" element={<FitImJob/>}/>
-                <Route path="/Rechtliches" element={<Rechtliches/>}/>
+                <div>
+                    <Navbar/>
+                    <ScrollToTop/>
+                    <Routes>
+                        <Route path="/" element={<Homepage/>} />
+                        <Route path="/Unternehmen" element={<Unternehmen/>} />
+                        <Route path="/Kontakt" element={<Kontakt/>} />
+                        <Route path="/Kontakt2" element={<Kontakt2/>} />
+                        <Route path="/Kontakt3" element={<Kontakt3/>} />
+                        <Route path="/Branchen" element={<Branchen/>} />
+                        <Route path="/Leistungen" element={<Leistungen/>} />
+                        <Route path="/Projektberichte" element={<Projektberichte/>} />
+                        <Route path="/Karriere" element={<Karriere/>} />
+                        <Route path="/FitImJob" element={<FitImJob/>}/>
+                        <Route path="/Rechtliches" element={<Rechtliches/>}/>
 
-                <Route path="*" element={<Error404/>} />
-            </Routes>
-            <Footer/>
-            <Analytics />
-        </div>
+                        <Route path="*" element={<Error404/>} />
+                    </Routes>
+                    <Footer/>
+                    <Analytics />
+                </div>
         </HelmetProvider>
     );
 }
