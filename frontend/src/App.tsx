@@ -3,7 +3,6 @@ import Homepage from "./components/Homepage/Homepage.tsx";
 import Unternehmen from "./components/Unternehmen.tsx";
 import Kontakt from "./components/Kontakt.tsx";
 import Footer from "./components/Footer.tsx";
-import Branchen from "./components/Branchen.tsx";
 import Leistungen from "./components/Leistungen.tsx";
 import Projektberichte from "./components/Projektberichte.tsx";
 import Karriere from "./components/Karriere.tsx";
@@ -16,6 +15,7 @@ import Error404 from "./components/Error404.tsx";
 import Rechtliches from "./components/Rechtliches.tsx";
 import NavbarSwitch from "./components/NavbarSwitch.tsx";
 import { Analytics } from '@vercel/analytics/react';
+import Technologies from "./components/Technologies.tsx";
 
 function App() {
     return (
@@ -29,7 +29,7 @@ function App() {
                 <Route path="/Kontakt" element={<Kontakt/>} />
                 <Route path="/Kontakt2" element={<Kontakt2/>} />
                 <Route path="/Kontakt3" element={<Kontakt3/>} />
-                <Route path="/Branchen" element={<Branchen/>} />
+                <Route path="/Branchen" element={<Technologies/>} />
                 <Route path="/Leistungen" element={<Leistungen/>} />
                 <Route path="/Projektberichte" element={<Projektberichte/>} />
                 <Route path="/Karriere" element={<Karriere/>} />
